@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>111</title>
+    <link href="/2025/04/29/111/"/>
+    <url>/2025/04/29/111/</url>
+    
+    <content type="html"><![CDATA[<h1 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h1><p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202503091358656.png" alt="image-20250309135834563"></p><p>命令 <code>sed &#39;s/&#123;.*&#125;/&amp; /g&#39; /proc/1/environ</code> 使用 <code>sed</code> 工具对文件 <code>/proc/1/environ</code> 进行处理。具体解释如下：</p><ol><li><strong><code>sed</code></strong>: 流编辑器，用于对文本进行基本的文本转换。</li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>HTTP原理及具体细节</title>
     <link href="/2025/04/29/HTTP%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B7%E4%BD%93%E7%BB%86%E8%8A%82/"/>
     <url>/2025/04/29/HTTP%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B7%E4%BD%93%E7%BB%86%E8%8A%82/</url>

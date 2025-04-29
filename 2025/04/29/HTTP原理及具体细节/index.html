@@ -19,12 +19,12 @@
   <meta name="author" content="sangnigege">
   <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
   
-    <meta name="description" content="HTTP（Hypertext Transfer Protocol）是一种用于在计算机网络上传输超文本数据的应用层协议。它是构成万维网的基础之一，被广泛用于万维网上的数据通信。超文本(Hypertext)是指用超链接的方法，将各种不同空间的文字信息组织在一起的网状文本。 以上解释太过官方，简单来说，在网络上传输信息有一定的规则、要遵循一定的格式， 就像收发快递要有包装、贴码等标准一样，我们在网络上传">
+    <meta name="description" content="111HTTP（Hypertext Transfer Protocol）是一种用于在计算机网络上传输超文本数据的应用层协议。它是构成万维网的基础之一，被广泛用于万维网上的数据通信。超文本(Hypertext)是指用超链接的方法，将各种不同空间的文字信息组织在一起的网状文本。 以上解释太过官方，简单来说，在网络上传输信息有一定的规则、要遵循一定的格式， 就像收发快递要有包装、贴码等标准一样，我们在网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP原理及具体细节">
 <meta property="og:url" content="http://example.com/2025/04/29/HTTP%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B7%E4%BD%93%E7%BB%86%E8%8A%82/index.html">
 <meta property="og:site_name" content="重庆森林不在重庆">
-<meta property="og:description" content="HTTP（Hypertext Transfer Protocol）是一种用于在计算机网络上传输超文本数据的应用层协议。它是构成万维网的基础之一，被广泛用于万维网上的数据通信。超文本(Hypertext)是指用超链接的方法，将各种不同空间的文字信息组织在一起的网状文本。 以上解释太过官方，简单来说，在网络上传输信息有一定的规则、要遵循一定的格式， 就像收发快递要有包装、贴码等标准一样，我们在网络上传">
+<meta property="og:description" content="111HTTP（Hypertext Transfer Protocol）是一种用于在计算机网络上传输超文本数据的应用层协议。它是构成万维网的基础之一，被广泛用于万维网上的数据通信。超文本(Hypertext)是指用超链接的方法，将各种不同空间的文字信息组织在一起的网状文本。 以上解释太过官方，简单来说，在网络上传输信息有一定的规则、要遵循一定的格式， 就像收发快递要有包装、贴码等标准一样，我们在网">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/direct/bd1bcf8750294b3a9e23c30fb24449c4.png">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/direct/49649004c2ce488f9a3bcdd65224d727.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://i-blog.csdnimg.cn/direct/ef7b90898ebc4e0db0365b29cf254e78.png">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/direct/f830b9830f234f55ba2dc413f4093196.jpeg">
 <meta property="article:published_time" content="2025-04-28T16:25:49.000Z">
-<meta property="article:modified_time" content="2025-04-29T13:34:56.717Z">
+<meta property="article:modified_time" content="2025-04-29T13:36:05.298Z">
 <meta property="article:author" content="sangnigege">
 <meta property="article:tag" content="一个做事不将就的人，阻止他的只有时间">
 <meta name="twitter:card" content="summary_large_image">
@@ -283,7 +283,7 @@
             
               <div class="markdown-body">
                 
-                <p>HTTP（Hypertext Transfer Protocol）是一种用于在计算机网络上传输超文本数据的应用层协议。它是构成万维网的基础之一，被广泛用于万维网上的数据通信。超文本(Hypertext)是指用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%B6%85%E9%93%BE%E6%8E%A5/0?fromModule=lemma_inlink" title="超链接">超链接</a>的方法，将各种不同空间的文字<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%A1%E6%81%AF%E7%BB%84%E7%BB%87/0?fromModule=lemma_inlink" title="信息组织">信息组织</a>在一起的网状文本。</p>
+                <p>111HTTP（Hypertext Transfer Protocol）是一种用于在计算机网络上传输超文本数据的应用层协议。它是构成万维网的基础之一，被广泛用于万维网上的数据通信。超文本(Hypertext)是指用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%B6%85%E9%93%BE%E6%8E%A5/0?fromModule=lemma_inlink" title="超链接">超链接</a>的方法，将各种不同空间的文字<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%A1%E6%81%AF%E7%BB%84%E7%BB%87/0?fromModule=lemma_inlink" title="信息组织">信息组织</a>在一起的网状文本。</p>
 <p><strong>以上解释太过官方，简单来说，在网络上传输信息有一定的规则、要遵循一定的格式， 就像收发快递要有包装、贴码等标准一样，我们在网络上传递的信息也有其标准，而HTTP就是网络上传输多种信息的标准（不仅仅是文本，所以叫超文本）。</strong></p>
 <p>那这个“标准“具体都有啥呢?从下图可以看出HTTP包含了请求、响应及会话三个部分，下面我们分别进行讲解。</p>
 <p><img src="https://i-blog.csdnimg.cn/direct/bd1bcf8750294b3a9e23c30fb24449c4.png" srcset="/img/loading.gif" lazyload></p>

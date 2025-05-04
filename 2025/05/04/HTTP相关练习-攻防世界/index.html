@@ -1,0 +1,900 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142716122  get-post一、WP（题目本质：考察get与post传参方法） 用 GET 给后端传参的方法是：在?后跟变量名字，不同的变量之间用&amp;隔开。例如，在 url 后添加&#x2F;？a&#x3D;1 即可发送 get 请求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP相关练习-攻防世界">
+<meta property="og:url" content="http://example.com/2025/05/04/HTTP%E7%9B%B8%E5%85%B3%E7%BB%83%E4%B9%A0-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142716122  get-post一、WP（题目本质：考察get与post传参方法） 用 GET 给后端传参的方法是：在?后跟变量名字，不同的变量之间用&amp;隔开。例如，在 url 后添加&#x2F;？a&#x3D;1 即可发送 get 请求">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021916883.png">
+<meta property="article:published_time" content="2025-05-04T09:03:00.000Z">
+<meta property="article:modified_time" content="2025-05-04T09:18:04.907Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="攻防世界">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021916883.png">
+  
+  
+  
+  <title>HTTP相关练习-攻防世界 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HTTP相关练习-攻防世界"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-04 17:03" pubdate>
+          2025年5月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">HTTP相关练习-攻防世界</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>本文是作者由CSDN博客迁移而来，原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142716122">https://blog.csdn.net/2302_81178149/article/details/142716122</a></p>
+</blockquote>
+<h2 id="get-post"><a href="#get-post" class="headerlink" title="get-post"></a>get-post</h2><h3 id="一、WP"><a href="#一、WP" class="headerlink" title="一、WP"></a>一、WP</h3><p>（题目本质：考察get与post传参方法）</p>
+<p>用 GET 给后端传参的方法是：在?后跟变量名字，不同的变量之间用&amp;隔开。例如，在 url 后添加&#x2F;？a&#x3D;1 即可发送 get 请求。</p>
+<p>利用 hackbar 进行 POST 传参：复制 get 的 url（点击load URL），选择 Post data，填入 b&#x3D;2，点击 Execute即可发送 POST 请求。</p>
+<h3 id="二、原理"><a href="#二、原理" class="headerlink" title="二、原理"></a>二、原理</h3><p>参考作者的另一篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142706863?spm=1001.2014.3001.5501" title="HTTP原理及具体细节-CSDN博客">HTTP原理及具体细节-CSDN博客</a></p>
+<h3 id="三、目的"><a href="#三、目的" class="headerlink" title="三、目的"></a>三、目的</h3><p>掌握常用http请求方式(get与post)</p>
+<h3 id="四、相关知识"><a href="#四、相关知识" class="headerlink" title="四、相关知识"></a>四、相关知识</h3><p><strong>1、HTTP的请求方式</strong></p>
+<ul>
+<li>get 方法</li>
+</ul>
+<p>发送一个请求来取得服务器上的某一资源。</p>
+<ul>
+<li>post 方法</li>
+</ul>
+<p>向 url 指定的资源提交数据或附加新的数据。</p>
+<ul>
+<li>put 方法</li>
+</ul>
+<p>put 方法跟 post 方法很像，也是向服务器提交数据，但是 put 方法指向了资源在服务器上的位置，而 post 方法没有。</p>
+<ul>
+<li>head 方法</li>
+</ul>
+<p>只请求页面的首部。</p>
+<ul>
+<li>delete 方法</li>
+</ul>
+<p>删除服务器上的某资源。</p>
+<ul>
+<li>options 方法</li>
+</ul>
+<p>options 方法用于获取当前 url 所支持的方法。如果请求成功，会有一个 allow 的头包含类似 get、post 这样的信息。</p>
+<ul>
+<li>trace 方法</li>
+</ul>
+<p>trace 方法被用于激发一个远程的，应用层的请求消息回路。</p>
+<ul>
+<li>connect 方法</li>
+</ul>
+<p>把请求连接转换到透明的 tcp&#x2F;ip 通道。</p>
+<p><strong>2、get与post的主要区别</strong></p>
+<p>注意：<strong>没有本质区别</strong>，GET和POST的底层也是TCP&#x2F;IP，也就是说，GET&#x2F;POST都是TCP链接。GET和POST能做的事情是一样一样的。</p>
+<p><strong>但在细节上有差距</strong>，</p>
+<p>GET在浏览器回退时是无害的，而POST会再次提交请求。  </p>
+<p>GET产生的URL地址可以被Bookmark，而POST不可以。  </p>
+<p>GET请求会被浏览器主动cache（缓存），而POST不会，除非手动设置。  </p>
+<p>GET请求只能进行url编码，而POST支持多种编码方式。  </p>
+<p>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。  </p>
+<p>GET请求在URL中传送的参数是有长度限制的，而POST没有。（真的吗？保留疑问）  </p>
+<p>对参数的数据类型，GET只接受ASCII字符，而POST没有限制。  </p>
+<p>GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。（其实都不安全）  </p>
+<p>GET参数通过URL传递，POST放在Request body中。</p>
+<p>（以上是所谓标准答案）</p>
+<p><strong>GET用于查询，PUT、POST、DELETE用于修改</strong>（这一条是大佬的解释）</p>
+<p><strong>get：获取资源，数据在url上显示着，大家可以看到；post：提交数据，数据在HTTP包里，需抓包查看。</strong>（实际做题的区别）</p>
+<p>两者的区别也可参考下表：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021916883.png" srcset="/img/loading.gif" lazyload></p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>GET</th>
+<th>POST</th>
+<th>对比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>后退按钮&#x2F;刷新</td>
+<td>无害</td>
+<td>数据会被重新提交（浏览器应该告知用户数据会被重新提交）。</td>
+<td>每次都重新提交这无疑会对浏览器造成压力，该问题也是作为web端性能优化的重要方向之一</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>能被缓存</td>
+<td>不能缓存</td>
+<td>缓存可以为浏览器减少请求链数，web端性能优化的重要方向之一</td>
+</tr>
+<tr>
+<td>历史</td>
+<td>参数保留在浏览器历史中。</td>
+<td>参数不会保存在浏览器历史中。</td>
+<td>相当于缓存，可减少浏览器压力</td>
+</tr>
+<tr>
+<td>对数据长度的限制</td>
+<td>是的，当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是2048个字符）。</td>
+<td>无限制。</td>
+<td>HTTP 协议没有 Body 和 URL 的长度限制，对 URL 限制的大多是浏览器和服务器的原因。<br/>服务器是因为处理长 URL 要消耗比较多的资源，为了性能和安全（防止恶意构造长 URL 来攻击）考虑，会给 URL 长度加限制</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL 的一部分。在发送密码或其他敏感信息时绝不要使用 GET！</td>
+<td>POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web 服务器日志中。</td>
+<td>从传输的角度来说，他们都是不安全的，因为 HTTP 在网络上是明文传输的，浏览器F12下什么都一目了然，或者抓个包，就能完整地获取数据报文。<br/>要想安全传输，Encode(转码)当然对于懂的人来说也不安全；比较安全的只有加密，也就是 HTTPS</td>
+</tr>
+<tr>
+<td>对数据类型的限制</td>
+<td>只允许 ASCII 字符。</td>
+<td>没有限制，也允许二进制数据。</td>
+<td>POST选择更多</td>
+</tr>
+</tbody></table>
+<p><strong>3、名词解释：URL与URI的概念及区别</strong></p>
+<p>URL: 在WWW上，每一信息资源都有统一的且在网上的地址，该地址就叫URL（Uniform Resource Locator,统一资源定位器），它是WWW的统一资源定位标志，就是指网络地址。（资源的地址）</p>
+<p>URI: 在电脑术语中，统一资源标识符（Uniform Resource Identifier，URI)是一个用于标识某一互联网资源名称的字符串。 该种标识允许用户对任何（包括本地和互联网）的资源通过特定的协议进行交互操作。URI由包括确定语法和相关协议的方案所定义。（资源的名字）</p>
+<p>Web上可用的每种资源 -HTML文档、图像、视频片段、程序等 - 由一个通用资源标识符（Uniform Resource Identifier, 简称URI）进行定位。</p>
+<p>URL和URI的区别和联系：</p>
+<p>URI是用于标识互联网上的资源的字符串序列，而URI并不关注资源的位置，而只关注它的标识符；</p>
+<p>URL提供了关于资源在互联网上位置的详细信息，而URI是一种更广义的概念，不仅涵盖了URL，还包括了用于标识资源的其他形式，如URN；</p>
+<p>URL是URI的一种特殊类型，用于定位互联网上的资源，而URI则是一种更广义的标识符，用于唯一地标识和命名资源。</p>
+<p><strong>简单来说，URL就是资源的地址，URI就是代表资源的标识符，URI是更广义的、涵盖URL的（地址也可以代表资源）。</strong></p>
+<p><strong>4、hackbar的使用</strong></p>
+<p>具体内容请看作者的另一篇文章</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714?spm=1001.2014.3001.5501" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<h2 id="view-source"><a href="#view-source" class="headerlink" title="view_source"></a>view_source</h2><h3 id="一、WP-1"><a href="#一、WP-1" class="headerlink" title="一、WP"></a>一、WP</h3><p>(题目本质：考察查看页面源代码的方式，已经限制我们从右键里面点击查看页面源代码)</p>
+<p>&lt;法1&gt;用firefox打开页面，摁下F12，打开查看器可以得到flag</p>
+<p>&lt;法2&gt;快捷键：ctrl加u</p>
+<p>&lt;法3&gt;URL前加<code>view-source:</code>（注意中间的符号不是下划线，是减号）</p>
+<p>&lt;法4&gt;bp抓包，发送给repeater，然后send，在response可以看到源代码</p>
+<h3 id="二、目的"><a href="#二、目的" class="headerlink" title="二、目的"></a>二、目的</h3><p>1、掌握查看源代码的方式</p>
+<p>2、会用浏览器开发者工具</p>
+<p>具体内容请看作者的另一篇文章</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714?spm=1001.2014.3001.5501" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<p>3、burpsuite的使用</p>
+<p>可以点击下方链接简单了解bp</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714?spm=1001.2014.3001.5501" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<h3 id="三、相关知识"><a href="#三、相关知识" class="headerlink" title="三、相关知识"></a>三、相关知识</h3><p><strong>名词解释</strong>：抓包（抓出网络数据包）</p>
+<p>抓包是利用特定的软件对网络数据包进行拦截，通过对抓获数据包的内容进行分析，可以得到有用的信息。抓包通过对网络上传输的数据进行抓取，可以对其进行分析，对于软件的Debug很大的帮助，也可以通过抓取用户发送的涉及用户名和密码的数据包来获取用户的无线密码。</p>
+<p>抓包工具更多的用于网络安全，比如查找感染病毒的计算机，获取网页的源代码，以及了解攻击者所用方法，追查攻击者的ip地址等。</p>
+<p><strong>抓包工具的特点</strong>：</p>
+<p>1、抓包对加密数据是没有效果的，需要对握手包进行解密才可以得到需要的敏感数据，用户在执行网络数据文件下载时，抓取出来的是大量垃圾数据包。</p>
+<p>2、抓包可以实时捕获并详细显示各种类型数据包，可以通过多种方式过滤数据包，还可以进行多种统计分析。</p>
+<h2 id="disabled-button"><a href="#disabled-button" class="headerlink" title="disabled-button"></a>disabled-button</h2><h3 id="一、WP-2"><a href="#一、WP-2" class="headerlink" title="一、WP"></a>一、WP</h3><p>&lt;法1&gt;</p>
+<p>F12，在查看器窗口审查元素，发现存在disabled&#x3D;””字段，将disabled&#x3D;””删除后，按钮可按，按下后得到flag</p>
+<p>&lt;法2&gt;</p>
+<p>审计from表单代码，使用hackbar，用post方式传递auth&#x3D;flag，同样可以获得flag（要看懂html）</p>
+<h3 id="二、目的-1"><a href="#二、目的-1" class="headerlink" title="二、目的"></a>二、目的</h3><p>1、初步了解前端知识</p>
+<p>2、学会使用hackbar（参考第一题）</p>
+<h3 id="三、相关知识-1"><a href="#三、相关知识-1" class="headerlink" title="三、相关知识"></a>三、相关知识</h3><p>W3C标准：网页主要由三部分构成（前端三剑客）</p>
+<p>    结构：HTML</p>
+<p>    表现：CSS</p>
+<p>    行为：JavaScript</p>
+<p>HTML：定义了页面的结构和内容，包括文本、图像、链接（重点学习）</p>
+<p>CSS：页面的样式和布局（简单了解）</p>
+<p>JS：用于添加交互性和动态功能作用（以后学XSS会重点学习）</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a><strong>Cookie</strong></h2><h3 id="一、WP-3"><a href="#一、WP-3" class="headerlink" title="一、WP"></a><strong>一、WP</strong></h3><p>（题目本质：查看cookie）</p>
+<p>&lt;法1&gt;</p>
+<p>浏览器按下F12键打开开发者工具，刷新后，在存储一栏，可看到名为look-here的cookie的值为cookie.php，访问<code>http://所给地址/cookie.php</code>，提示查看http响应包，在网络一栏，可看到访问cookie.php的数据包。点击查看数据包，在消息头内可发现flag</p>
+<p>&lt;法2&gt;</p>
+<p>第一步 使用 burp 抓包看到 cookie 信息</p>
+<p>第二步 查看cookie</p>
+<p>第三步 使用 Burp 重新抓包一下，发现 FLAG。</p>
+<h3 id="二、原理-1"><a href="#二、原理-1" class="headerlink" title="二、原理"></a><strong>二、原理</strong></h3><p>Cookie是当主机访问Web服务器时，由 Web 服务器创建的，将信息存储在用户计算机上的文件。一般网络用户习惯用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 Session 跟踪而存储在用户本地终端上的数据，而这些数据通常会经过加密处理。</p>
+<h3 id="三、目的-1"><a href="#三、目的-1" class="headerlink" title="三、目的"></a><strong>三、目的</strong></h3><p>掌握有关cookie的知识，了解cookie所在位置（会看cookie）</p>
+<h3 id="四、相关知识-1"><a href="#四、相关知识-1" class="headerlink" title="四、相关知识"></a><strong>四、相关知识</strong></h3><p><strong>cookie概念</strong></p>
+<p>Cookie，有时也用其复数形式 Cookies。类型为“小型文本文件”，是某些网站为了辨别用户身份，进行Session跟踪而储存在用户本地终端上的数据（通常经过加密），由用户客户端计算机暂时或永久保存的信息。</p>
+<p>还是HTTP工作原理里中有讲解：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142706863?spm=1001.2014.3001.5501" title="HTTP原理及具体细节-CSDN博客">HTTP原理及具体细节-CSDN博客</a></p>
+<h2 id="baby-web"><a href="#baby-web" class="headerlink" title="baby_web"></a><strong>baby_web</strong></h2><h3 id="一、WP-4"><a href="#一、WP-4" class="headerlink" title="一、WP"></a><strong>一、WP</strong></h3><p>（题目本质：查看初始页面，初始页面即访问该网站的第一个页面）</p>
+<p>&lt;法1&gt;、</p>
+<p>根据提示，在url中输入index.php,发现打开的仍然还是1.php。打开火狐浏览器的开发者模式，选择网络模块，再次请求index.php,查看返回包，可以看到location参数被设置了1.php，并且找到flag。</p>
+<p>&lt;法2&gt;、</p>
+<p>一开始进去看到这个页面是 1.php，根据题目提示“主页”，猜测应该存在 index.php，于是访问。输入之后直接跳转到了 1.php，所以用 burp suite 抓包，send to repeater，点击 go，看回复，在头部看到 flag。</p>
+<h3 id="二、原理-2"><a href="#二、原理-2" class="headerlink" title="二、原理"></a><strong>二、原理</strong></h3><p>web请求头中的location作用</p>
+<h3 id="三、目的-2"><a href="#三、目的-2" class="headerlink" title="三、目的"></a><strong>三、目的</strong></h3><p>掌握web响应包头部常见参数</p>
+<p>还是HTTP工作原理里中有讲解：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142706863?spm=1001.2014.3001.5501" title="HTTP原理及具体细节-CSDN博客">HTTP原理及具体细节-CSDN博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" class="print-no-link">#攻防世界</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>HTTP相关练习-攻防世界</div>
+      <div>http://example.com/2025/05/04/HTTP相关练习-攻防世界/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/04/Web%E5%AE%89%E5%85%A8%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" title="Web安全常用工具持续更新">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Web安全常用工具持续更新</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/04/%E5%89%8D%E7%BD%AE%E6%8A%80%E8%83%BDHTTP%E5%8D%8F%E8%AE%AE-CTFHub/" title="前置技能(HTTP协议)-CTFHub">
+                        <span class="hidden-mobile">前置技能(HTTP协议)-CTFHub</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

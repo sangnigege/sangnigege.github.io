@@ -1,0 +1,913 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142718250  在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：CTFHub。 作者的CTFHub技能树Web汇总： CTFHub技">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前置技能(HTTP协议)-CTFHub">
+<meta property="og:url" content="http://example.com/2025/05/04/%E5%89%8D%E7%BD%AE%E6%8A%80%E8%83%BDHTTP%E5%8D%8F%E8%AE%AE-CTFHub/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142718250  在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：CTFHub。 作者的CTFHub技能树Web汇总： CTFHub技">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902601.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902179.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902390.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902879.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902707.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902955.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902916.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902177.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902384.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903260.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903152.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903000.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903351.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903645.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903016.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903852.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903378.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903971.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903518.png">
+<meta property="article:published_time" content="2025-05-04T09:02:00.000Z">
+<meta property="article:modified_time" content="2025-05-04T09:15:04.897Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="CTFHub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902601.jpeg">
+  
+  
+  
+  <title>前置技能(HTTP协议)-CTFHub - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="前置技能(HTTP协议)-CTFHub"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-04 17:02" pubdate>
+          2025年5月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">前置技能(HTTP协议)-CTFHub</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文是作者由CSDN博客迁移而来，原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142718250">https://blog.csdn.net/2302_81178149/article/details/142718250</a></p>
+</blockquote>
+<p>在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：<a target="_blank" rel="noopener" href="https://www.ctfhub.com/#/index" title="CTFHub">CTFHub</a>。</p>
+<p><strong>作者的CTFHub技能树Web汇总：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142747270?spm=1001.2014.3001.5501" title="CTFHub技能树Web汇总-CSDN博客">CTFHub技能树Web汇总-CSDN博客</a></p>
+<p>注：CTFHub是动态flag，每个人每次都不一样，要自己动手哦。</p>
+<h2 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h2><h3 id="一、wp"><a href="#一、wp" class="headerlink" title="一、wp"></a>一、wp</h3><p><strong>即write up（题目解析）</strong></p>
+<p>&lt;法一&gt;、</p>
+<p>题目显示现在的HTTP方法是get，让我们使用CTF**B方法就可以获得flag，要猜到其实就是CTFHUB方法;直接抓包改请求方法，点击go，返回200ok.</p>
+<p>&lt;法二&gt;、</p>
+<p>curl的使用（注意替换url为环境的地址）：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">curl -v -X CTFHUB url/<span class="hljs-keyword">index</span>.php<br></code></pre></td></tr></table></figure>
+
+<p>得到flag。</p>
+<h3 id="二、考点"><a href="#二、考点" class="headerlink" title="二、考点"></a>二、考点</h3><p>HTTP请求方法的应用</p>
+<p>curl的使用</p>
+<h3 id="三、相关知识"><a href="#三、相关知识" class="headerlink" title="三、相关知识"></a>三、相关知识</h3><p><em>1、curl的应用</em></p>
+<p><em>具体内容请看作者另一篇文章：</em><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714?spm=1001.2014.3001.5501" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<p>（参考文献：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html" title="curl 的用法指南 - 阮一峰的网络日志">curl 的用法指南 - 阮一峰的网络日志</a>）</p>
+<p>curl是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在”标准输出”（stdout）上面。Curl不只是一个编程用的函数库，这个命令本身，就是一个无比有用的网站开发工具。  </p>
+<p>它支持多种协议，下面举例讲解如何将它用于网站开发。</p>
+<p><strong>1）查看网页源码</strong>  </p>
+<p>直接在curl命令后加上网址，就可以看到网页源码。我们以网址<a target="_blank" rel="noopener" href="http://www.sina.com为例(选择该网址,主要因为它的网页代码较短)./">www.sina.com为例（选择该网址，主要因为它的网页代码较短）。</a></p>
+<p><strong>2）显示头信息</strong>  </p>
+<p>`-i`参数可以显示http response的头信息，连同网页代码一起。</p>
+<p><strong>3）显示通信过程</strong><br>`-v`参数可以显示一次http通信的整个过程，包括端口连接和http request头信息。</p>
+<p><strong>4）发送表单信息</strong>  </p>
+<p>发送表单信息有GET和POST两种方法。GET方法相对简单，只要把数据附在网址后面就行。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">curl example.com/<span class="hljs-keyword">form</span>.cgi?<span class="hljs-keyword">data</span>=xxx<br></code></pre></td></tr></table></figure>
+
+<p>POST方法必须把数据和网址分开，curl就要用到–data参数。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">curl -X <span class="hljs-keyword">POST</span> --data <span class="hljs-string">&quot;data=xxx&quot;</span> example.com/<span class="hljs-keyword">form</span>.cgi<br></code></pre></td></tr></table></figure>
+
+<p>如果你的数据没有经过表单编码，还可以让curl为你编码，参数是<code>--data-urlencode</code>。</p>
+<p><strong>5）HTTP动词</strong>  </p>
+<p>curl默认的HTTP动词是GET，使用`-X`参数可以支持其他动词。</p>
+<p><strong>6）cookie</strong>  </p>
+<p>使用`–cookie`参数，可以让curl发送cookie。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">curl <span class="hljs-attr">--cookie</span> <span class="hljs-string">&quot;name=xxx&quot;</span> www<span class="hljs-selector-class">.example</span>.com<br></code></pre></td></tr></table></figure>
+
+<p>至于具体的cookie的值，可以从http response头信息的<code>Set-Cookie</code>字段中得到。  </p>
+<p><code>-c cookie-file</code>可以保存服务器返回的cookie到文件，<code>-b cookie-file</code>可以使用这个文件作为cookie信息，进行后续的请求。</p>
+<p><strong>7）HTTP认证</strong>  </p>
+<p>有些网域需要HTTP认证，这时curl需要用到<code>--user</code>参数。</p>
+<p><em>2、HTTP协议</em>（详细内容请看下文）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142706863?spm=1001.2014.3001.5501" title="HTTP原理及具体细节-CSDN博客">HTTP原理及具体细节-CSDN博客</a></p>
+<p>HTTP属于无状态协议，有get、post等请求方法</p>
+<p><strong>1）HTTP包组成</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902601.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>由起始行、头部、实体（协议包要传输的内容）组成。  </p>
+<p>上述图片第1行为起始行：内容是请求方法、uri、HTTP协议版本  </p>
+<p>2-8行为head头部；  </p>
+<p>头部下来空一行为实体所在，上述图片为get包，所以实体为空</p>
+<p><strong>2）HTTP回包（response）的状态响应码</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902179.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>图片上箭头所指为状态响应码所在位置；</p>
+<p>常见状态码对应的意思总结如下：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902390.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="302跳转"><a href="#302跳转" class="headerlink" title="302跳转"></a>302跳转</h2><h3 id="一、wp-1"><a href="#一、wp-1" class="headerlink" title="一、wp"></a>一、wp</h3><p>&lt;法一&gt;</p>
+<p>bp拦截，点击give me flag，重发，得到flag。（挂上 BurpSuite 之后访问 index.php ）<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902879.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法二&gt;使用curl：直接用 curl 访问 index.php 即可得到 flag  </p>
+<p>因为<strong>curl默认是不跟随重定向</strong>的，所以可以直接通过F12访问出现302的url。</p>
+<p>写法：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">curl  -v  url/<span class="hljs-keyword">index</span>.php<br></code></pre></td></tr></table></figure>
+
+<h3 id="二、考点-1"><a href="#二、考点-1" class="headerlink" title="二、考点"></a>二、考点</h3><p>HTTP状态码（见上文），302重定向</p>
+<h3 id="三、相关知识-1"><a href="#三、相关知识-1" class="headerlink" title="三、相关知识"></a>三、相关知识</h3><p><strong>1、302</strong></p>
+<p>302是HTTP协议中的一个状态码(Status Code)。可以简单的理解为该资源原本确实存在，但已经被临时改变了位置。因此说明在我们抓取的包里会出现一个新的url链接来进行跳转</p>
+<p><strong>2、302与301的区别</strong></p>
+<p>302跳转是暂时的跳转，服务器返回302代码，搜索引擎认为新的网址只是暂时的。301重定向是永久的重定向，搜索引擎在抓取新内容的同时也将旧的网址替换为重定向之后的网址。</p>
+<p><strong>3、 HTTP中的重定向和请求转发的区别</strong>  </p>
+<p>转发是服务器行为，重定向是客户端行为。为什么这样说呢，这就要看两个动作的工作流程：  </p>
+<p>1）转发过程：</p>
+<p>客户浏览器发送http请求——&gt;</p>
+<p>web服务器接受此请求——&gt;</p>
+<p>调用内部的一个方法在容器内部完成请求处理和转发动作——&gt;</p>
+<p>将目标资源发送给客户；  </p>
+<p>在这里，转发的路径必须是同一个web容器下的url，其不能转向到其他的web路径上去，中间传递的是自己的容器内的request。在客户浏览器路径栏显示的仍然是其第一次访问的路径，也就是说客户是感觉不到服务器做了转发的。转发行为是浏览器只做了一次访问请求。  </p>
+<p>2）重定向过程：</p>
+<p>客户浏览器发送http请求——&gt;</p>
+<p>web服务器接受后发送302状态码响应及对应新的location给客户浏览器——&gt;</p>
+<p>客户浏览器发现是302响应，则自动再发送一个新的http请求，请求url是新的location地址——&gt;</p>
+<p>服务器根据此请求寻找资源并发送给客户。  </p>
+<p>在这里location可以重定向到任意URL，既然是浏览器重新发出了请求，则就没有什么request传递的概念了。在客户浏览器路径栏显示的是其重定向的路径，客户可以观察到地址的变化的。重定向行为是浏览器做了至少两次的访问请求的。  </p>
+<p>重定向，其实是两次request。第一次，客户端request A,服务器响应，并response回来，告诉浏览器，你应该去B。这个时候IE可以看到地址变了，而且历史的回退按钮也亮了。重定向可以访问自己web应用以外的资源。在重定向的过程中，传输的信息会被丢失。</p>
+<p>也就是说在这个题中我们要获取第一次从服务器得到的信息，即index.php，而不是重定向后的跳转到的index.html。</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><h3 id="一、wp-2"><a href="#一、wp-2" class="headerlink" title="一、wp"></a>一、wp</h3><p>&lt;法一&gt;提示中说，只有admin身份可以获得flag，抓包，cookie信息的admin&#x3D;0（false），我们尝试将其改为1(true)，扔进repeater模块，进行改包，将cookie身份改为admin，得到flag。</p>
+<p>&lt;法二&gt;存储探查器修改</p>
+<p>打开开发者工具并选择存储，列表选择Cookie存储，修改admin值0为1，刷新浏览器网页，得到此题flag</p>
+<p>&lt;法三&gt;Web控制台修改  </p>
+<p>打开开发者工具并选择控制台，修改管理员 admin 的 Cookie 值为 1(True)，刷新浏览器网页，得到此题flag</p>
+<p>&lt;法四&gt;用curl:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">curl -v -b ‘<span class="hljs-attribute">admin</span>=1’  url<br></code></pre></td></tr></table></figure>
+
+<h3 id="二、考点-2"><a href="#二、考点-2" class="headerlink" title="二、考点"></a>二、考点</h3><p>Cookie欺骗、认证、伪造</p>
+<h3 id="三、相关知识-2"><a href="#三、相关知识-2" class="headerlink" title="三、相关知识"></a>三、相关知识</h3><p>1、cookie</p>
+<p>HTTP Cookie 又称饼干 ，是服务器发送给用户浏览器并保存在本地的一个数据，如果下一次访问浏览器向服务器发送请求时就会被传送到服务器中。经常用于浏览器网页保持登录或记录数值，例如账户密码、用户行为需求等。</p>
+<p>简单的理解：cookie是一个key-value结构的文本信息，他的作用就类似于”身份证”，我们通过浏览器向服务器发起请求，如果服务器需要记录用户的状态，他就会给该用户发送一个cookie，浏览器会把它保存下来，等下次我们要再次访问这个服务器的时候，他就会直接带着cookie过去，完成用户认证。<br>简单的例子：我们要访问一个资源，该网站让我们进行登录，当我们登录成功后，浏览器会记录下该网站颁发给用户的cookie，当用户再次访问这个网站时，浏览器会携带着cookie一起发送给服务器，服务器完成验证，我们直接进去了，不需要在登录页面再登陆一次。</p>
+<p>详解请看作者的<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142706863?spm=1001.2014.3001.5501" title="HTTP原理及具体细节-CSDN博客">HTTP原理及具体细节-CSDN博客</a></p>
+<p>2、admin（管理员）</p>
+<p>管理员跟普通用户相比具有更高的权限，在渗透测试中获取管理员权限是我们的目标之一。</p>
+<h2 id="基础认证"><a href="#基础认证" class="headerlink" title="基础认证"></a><strong>基础认证</strong></h2><h3 id="一、Wp（密码爆破题）"><a href="#一、Wp（密码爆破题）" class="headerlink" title="一、Wp（密码爆破题）"></a><strong>一、Wp（密码爆破题）</strong></h3><p>首先，打开题目所给界面。这里他给了我们一个题目附件。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902956.png" srcset="/img/loading.gif" lazyload></p>
+<p>下载后解压缩，发现是一个密码本（常用密码）。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902850.png" srcset="/img/loading.gif" lazyload></p>
+<p>点开题目链接，这里提示我们，这是你的flag，还有一个可以点击的选项。</p>
+<p>点击，然后弹出来了一个登陆界面，这里老规矩，打开burpsuite，进行抓包。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902707.png" srcset="/img/loading.gif" lazyload></p>
+<p>思路是好的，但没什么用，抓不出来有用的东西。</p>
+<p>再到登录页面看看</p>
+<p>然后进行一下测试，因为目前没有更多的思路，所以先随便输入用户名和密码，这里输的是admin和admin（要爆破就爆破有价值的账号，管理员账号是必尝试的，admin是管理员的意思，许多开发人员为了方便，就以admin为管理员账号名，这里我们是猜测的）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902955.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后进行抓包，发现了Authorization：后面有一串BASE64的编码（要注意base64的格式，以后需能准确判断出来）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902916.png" srcset="/img/loading.gif" lazyload></p>
+<p> 尝试进行解码，看看到底是啥。随便搜个base64的在线解码平台，如</p>
+<p><a target="_blank" rel="noopener" href="https://base64.us/" title="Base64 在线编码解码 | Base64 加密解密 - Base64.us">Base64 在线编码解码 | Base64 加密解密 - Base64.us</a></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902177.png" srcset="/img/loading.gif" lazyload></p>
+<p>解码这个base64后，发现是我们刚才输入的用户名和密码，用：进行了隔开，即admin:admin。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021902384.png" srcset="/img/loading.gif" lazyload></p>
+<p>Repeater后，给了提示“你知道admin吗”，这里应该模拟的是我们爆破admin账户的过程，所以我们一开始猜测的思路是对的，我们继续猜测用户名是admin，所以我们得用字典爆破出管理员账号的密码。</p>
+<p>再回到bp界面。</p>
+<p>把抓到的包发送到爆破模块intruder。选择刚才的base64字符串点击add（add选项在右边），记住，不要吧“basic”也选上了，只有admin:admin（用户名、密码所在位置）是我们需要攻击的位置。</p>
+<p>选择sniper（狙击手）。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903260.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后点击上面的payloads。(<strong>payload是翻译为效载荷，可以去搜搜常见专业术语</strong>)</p>
+<p>这里又是常规的爆破选项，导入密码本。点击payload options的Load…，选择刚刚下载并解压的密码本。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903152.png" srcset="/img/loading.gif" lazyload></p>
+<p>因为要爆破的base64字符串是“用户名:密码”，而且这里我们假定用户名是admin，所以我们在每个要尝试的密码前加前缀admin:（<strong>切记要加 :</strong> ）。我们点击payload processing（载荷处理）里的add，选择Add prefix（添加前缀）。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903000.png" srcset="/img/loading.gif" lazyload>  </p>
+<p>写上admin:</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903351.png" srcset="/img/loading.gif" lazyload></p>
+<p>添加完前缀，这还不够，大家还记得之前用户名、密码都是base64编码的吧。但密码本是正常的字符串，如果会python可以试一下重新生成密码本，把密码本编码一下。</p>
+<p>不会python也不要紧，大家同上一步再去添加。这里选择encode（编码），选择base64。然后OK。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903626.png" srcset="/img/loading.gif" lazyload></p>
+<p>搞完这个，<strong>再记得去掉payload encode（有效载荷编码），不然又爆不出来</strong></p>
+<p>然后就可以起飞了。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903645.png" srcset="/img/loading.gif" lazyload></p>
+<p>出现了出现了（没出现也有可能是超时了，作者就因为写文档超时，又花了50金币重开了，哭）。</p>
+<p>我们这里找到状态码是200的。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903016.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后复制粘贴，到数据包的base64编码位置，再send，直接OK。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903852.png" srcset="/img/loading.gif" lazyload></p>
+<p>要是想体验登录的感觉，base64解码后也可以登录</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903378.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903971.png" srcset="/img/loading.gif" lazyload></p>
+<p>登录成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021903518.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="二、考点-3"><a href="#二、考点-3" class="headerlink" title="二、考点"></a><strong>二、考点</strong></h3><ul>
+<li>HTTP 基础认证</li>
+<li>脚本编写</li>
+<li>密码爆破</li>
+</ul>
+<h3 id="三、相关知识-3"><a href="#三、相关知识-3" class="headerlink" title="三、相关知识"></a><strong>三、相关知识</strong></h3><p>1、基础认证（basic认证）：  </p>
+<p>Basic认证是一种较为简单的HTTP认证方式，客户端通过明文（Base64编码格式）传输用户名和密码到服务端进行认证，通常需要配合HTTPS来保证信息传输的安全。  </p>
+<p>当request第一次到达服务器时，服务器没有认证的信息，服务器会返回一个401 Unauthozied给客户端。认证之后将认证信息放在session，以后在session有效期内就不用再认证了。</p>
+<p>2、bp爆破的使用</p>
+<p>进一步了burp的功能，可以增加爆破字典的规则，增加前缀、后缀、编码…等</p>
+<p>作者在<strong>ctfhub技能树的密码口令里</strong>专门讲了bp的爆破，系统学习请见下文：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142725955?spm=1001.2014.3001.5501" title="密码口令-CTFHub_ctfhub技能树web弱口令-CSDN博客">密码口令-CTFHub_ctfhub技能树web弱口令-CSDN博客</a></p>
+<h2 id="响应包源代码"><a href="#响应包源代码" class="headerlink" title="响应包源代码"></a>响应包源代码</h2><h3 id="一、wp-3"><a href="#一、wp-3" class="headerlink" title="一、wp"></a>一、wp</h3><p>具体请看作者发布的<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142716122?spm=1001.2014.3001.5501" title="攻防世界的题view-source">攻防世界的题view-source</a>，解法相同。</p>
+<h3 id="二、考点-4"><a href="#二、考点-4" class="headerlink" title="二、考点"></a>二、考点</h3><p>HTTP响应包源代码查看</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTFHub/" class="print-no-link">#CTFHub</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>前置技能(HTTP协议)-CTFHub</div>
+      <div>http://example.com/2025/05/04/前置技能HTTP协议-CTFHub/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/04/HTTP%E7%9B%B8%E5%85%B3%E7%BB%83%E4%B9%A0-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" title="HTTP相关练习-攻防世界">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HTTP相关练习-攻防世界</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/04/HTTP%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B7%E4%BD%93%E7%BB%86%E8%8A%82/" title="HTTP原理及具体细节">
+                        <span class="hidden-mobile">HTTP原理及具体细节</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

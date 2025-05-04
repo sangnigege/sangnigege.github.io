@@ -19,22 +19,43 @@
   <meta name="author" content="sangnigege">
   <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
   
-    <meta name="description" content="网站介绍这是一个技术风的个人博客网站，我会在这里分享技术总结、靶场练习记录、一些CTF的wp……，也会写一些没那么技术的文章，比如我个人的思考或者奇思幻想。 欢迎大家讨论以及友链++ 为什么要维护这个个人博客？考量之一是我的文章或许可以帮到一些人。在我刚刚接触Web安全时，是靠着前辈们的技术文章才得以入门。这种分享知识的精神很是鼓舞人，于是我也想出一份微薄之力。 加上我本来就崇尚多记录，会积攒一些">
+    <meta name="description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;145423439?spm&#x3D;1001.2014.3001.5501  关于Kali linux的下载安装，很多文章都是自己创建虚拟机去安装，但这样太过繁琐，本文采用导入虚拟机的方式来实现快捷安装，步骤少、时间短，以减少在环境配置上的时间与精力消耗">
 <meta property="og:type" content="article">
-<meta property="og:title" content="About This Blog">
-<meta property="og:url" content="http://example.com/2025/04/28/About_This_Blog/index.html">
+<meta property="og:title" content="Kali linux下载与安装快捷版">
+<meta property="og:url" content="http://example.com/2025/05/04/Kalilinux%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E5%BF%AB%E6%8D%B7%E7%89%88/index.html">
 <meta property="og:site_name" content="重庆森林不在重庆">
-<meta property="og:description" content="网站介绍这是一个技术风的个人博客网站，我会在这里分享技术总结、靶场练习记录、一些CTF的wp……，也会写一些没那么技术的文章，比如我个人的思考或者奇思幻想。 欢迎大家讨论以及友链++ 为什么要维护这个个人博客？考量之一是我的文章或许可以帮到一些人。在我刚刚接触Web安全时，是靠着前辈们的技术文章才得以入门。这种分享知识的精神很是鼓舞人，于是我也想出一份微薄之力。 加上我本来就崇尚多记录，会积攒一些">
+<meta property="og:description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;145423439?spm&#x3D;1001.2014.3001.5501  关于Kali linux的下载安装，很多文章都是自己创建虚拟机去安装，但这样太过繁琐，本文采用导入虚拟机的方式来实现快捷安装，步骤少、时间短，以减少在环境配置上的时间与精力消耗">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-28T15:33:38.000Z">
-<meta property="article:modified_time" content="2025-05-04T09:09:13.528Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919229.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919671.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919284.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919510.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920758.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919749.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919013.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920103.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920914.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920760.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920589.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920303.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920132.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920496.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920139.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920683.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920120.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920981.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920463.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920511.png">
+<meta property="article:published_time" content="2025-05-04T09:13:00.000Z">
+<meta property="article:modified_time" content="2025-05-04T09:18:43.883Z">
 <meta property="article:author" content="sangnigege">
-<meta property="article:tag" content="一个做事不将就的人，阻止他的只有时间">
+<meta property="article:tag" content="环境配置">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919229.png">
   
   
   
-  <title>About This Blog - 重庆森林不在重庆</title>
+  <title>Kali linux下载与安装快捷版 - 重庆森林不在重庆</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +234,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="About This Blog"></span>
+            <span id="subtitle" data-typed-text="Kali linux下载与安装快捷版"></span>
           
         </div>
 
@@ -224,8 +245,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-28 23:33" pubdate>
-          2025年4月28日 晚上
+        <time datetime="2025-05-04 17:13" pubdate>
+          2025年5月4日 下午
         </time>
       </span>
     
@@ -236,7 +257,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          379 字
+          836 字
         
       </span>
     
@@ -247,7 +268,7 @@
         
         
         
-          4 分钟
+          7 分钟
         
       </span>
     
@@ -293,19 +314,75 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">About This Blog</h1>
+            <h1 id="seo-header">Kali linux下载与安装快捷版</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="网站介绍"><a href="#网站介绍" class="headerlink" title="网站介绍"></a>网站介绍</h1><p>这是一个技术风的个人博客网站，我会在这里分享技术总结、靶场练习记录、一些CTF的wp……，也会写一些没那么技术的文章，比如我个人的思考或者奇思幻想。</p>
-<p>欢迎大家讨论以及友链++</p>
-<h1 id="为什么要维护这个个人博客？"><a href="#为什么要维护这个个人博客？" class="headerlink" title="为什么要维护这个个人博客？"></a>为什么要维护这个个人博客？</h1><p>考量之一是我的文章或许可以帮到一些人。在我刚刚接触Web安全时，是靠着前辈们的技术文章才得以入门。这种分享知识的精神很是鼓舞人，于是我也想出一份微薄之力。</p>
-<p>加上我本来就崇尚多记录，会积攒一些技术文章，所以维护这个博客用以汇集产出。</p>
-<p>其实大约一年前我就搭了一个静态站玩，但是当时并没有维护的打算。那时的文章多偏新手向，为便于初学者查找，大都发在CSDN上。但今天编辑文章时，仅仅是改了一些格式问题，就一直审核不通过（讽刺的是一点不改，多提交几次就能过）。况且看大家都维护了个人博客，便也想做一个用来加友链（于是连夜重做）。</p>
-<p>（所以部分文章是由CSDN迁徙而来，里面的链接啥的都指向CSDN，阅读不便还请谅解）</p>
-<p>考量之二是希望通过这个博客来激发我的分享欲，不要变得死气沉沉。</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文是作者由CSDN博客迁移而来，原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145423439?spm=1001.2014.3001.5501">https://blog.csdn.net/2302_81178149/article/details/145423439?spm=1001.2014.3001.5501</a></p>
+</blockquote>
+<p>关于Kali linux的下载安装，很多文章都是自己创建虚拟机去安装，但这样太过繁琐，本文采用导入虚拟机的方式来实现快捷安装，步骤少、时间短，以减少在环境配置上的时间与精力消耗。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><p>首先我们下载镜像，选择在官网下载，</p>
+<p><a target="_blank" rel="noopener" href="https://www.kali.org/get-kali/#kali-platforms" title="Get Kali | Kali Linux">Get Kali | Kali Linux</a></p>
+<p>进入官网后有几个Kali下载的选项，</p>
+<p><strong>Install Imagine是自己创建虚拟机去安装：</strong></p>
+<p>Single or multiple boot Kali, giving you complete control over the hardware access (perfect for in-built Wi-Fi and GPU), enabling the best performance.</p>
+<p>（翻译：单启动或多启动 Kali，让您可以完全控制硬件访问（非常适合内置 Wi-Fi 和 GPU），实现最佳性能）。</p>
+<p><strong>Virtual Machines是导入虚拟机的方式来实现快捷安装：</strong></p>
+<p>VMware &amp; VirtualBox pre-built images. Allowing for a Kali install without altering the host OS with additional features such as snapshots. Vagrant images for quick spin-up also available.</p>
+<p>（翻译：VMware &amp; VirtualBox 预构建镜像。允许 Kali 安装，而无需使用快照等附加功能更改主机操作系统。还提供用于快速启动的 Vagrant 图像。）</p>
+<p>其余选项是ARM版和手机端之类的，这里我们忽视就行</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919229.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们这里点击Virtual Machines，这里作者用的虚拟化软件是VMware，所以找VMware版本的<strong>镜像包</strong>去下载。</p>
+<p>（VMware现在已经个人免费了，注册一个账户就可以免费使用，具体的下载并不繁琐，和普通阮软件的下载、安装区别不大，可以随便找一个博客参考一下）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919671.png" srcset="/img/loading.gif" lazyload></p>
+<p>静待下载，下载完自己找个位置解压缩镜像包**（要记住位置，一会要用）**</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919284.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="导入虚拟机"><a href="#导入虚拟机" class="headerlink" title="导入虚拟机"></a>导入虚拟机</h3><p>打开VMware，左上角点击文件，选择扫描虚拟机选项</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919510.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>选择我们刚才解压的路径后，点击下一步</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920758.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>点击完成，虚拟机成功导入</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919749.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>然后关闭扫描虚拟机向导</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021919013.png" srcset="/img/loading.gif" lazyload></p>
+<p>开启虚拟机</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920103.png" srcset="/img/loading.gif" lazyload></p>
+<p>静等开机**，默认账户和密码都是kali**</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920914.png" srcset="/img/loading.gif" lazyload></p>
+<p>登录成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920760.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="切换中文"><a href="#切换中文" class="headerlink" title="切换中文"></a>切换中文</h3><p>如果有需要，我们可以把Kali切换成中文的，先打开终端，右击选择Open Terminal Here</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920589.png" srcset="/img/loading.gif" lazyload></p>
+<p>复制下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> dpkg-reconfigure locales<br></code></pre></td></tr></table></figure>
 
+<p>在终端右键，粘贴</p>
+<p>注意别带什么乱七八糟的符号，如果有就删掉</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920303.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后输入密码，还是kali</p>
+<p>这里输入密码的时候不会显示，输完按Enter即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920132.png" srcset="/img/loading.gif" lazyload></p>
+<p>选择语言，使用空格键选中，首先找到en_US.UTF-8 UTF-8取消选中，再找到zh_CN.UTF-8 UTF-8选中</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920496.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920139.png" srcset="/img/loading.gif" lazyload></p>
+<p>选中zh_CN.UTF-8为默认语言</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920683.png" srcset="/img/loading.gif" lazyload></p>
+<p>输入reboot命令，重启kali</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920120.png" srcset="/img/loading.gif" lazyload></p>
+<p>重新登陆</p>
+<p>然后弹出是否把文件夹名称也更新‘</p>
+<p><strong>这里建议保留旧的名称，用中文路径后续容易出问题，注意勾选不要再次询问</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920981.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果有需要，可以给kali linux换源，下载、更新会更快一些，网上教程很多，这里就不多说</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>我们给kali更新一下（其实我们下载的已经很新了，再更新无非是锦上添花，直接使用也可）</p>
+<p>打开root</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920463.png" srcset="/img/loading.gif" lazyload></p>
+<p>输入密码：kali</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021920511.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后逐行输入下面的命令，注意别把中文字符也复制了（注意：不换源的话，需要很长时间，请谨慎执行）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-built_in">get</span> update 更新索引<br> <br>apt-<span class="hljs-built_in">get</span><span class="hljs-built_in"> upgrade </span>更新软件<br> <br>apt-<span class="hljs-built_in">get</span> dist-upgrade 升级<br> <br>apt-<span class="hljs-built_in">get</span> clean 删除缓存包<br> <br>apt-<span class="hljs-built_in">get</span> autoclean 删除未安装的deb包<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -313,6 +390,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="print-no-link">#环境配置</a>
+      
+    </div>
   
 </div>
 
@@ -322,8 +427,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>About This Blog</div>
-      <div>http://example.com/2025/04/28/About_This_Blog/</div>
+      <div>Kali linux下载与安装快捷版</div>
+      <div>http://example.com/2025/05/04/Kalilinux下载与安装快捷版/</div>
     </div>
     <div class="license-meta">
       
@@ -335,7 +440,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月28日</div>
+          <div>2025年5月4日</div>
         </div>
       
       
@@ -367,15 +472,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/04/HTTP%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B7%E4%BD%93%E7%BB%86%E8%8A%82/" title="HTTP原理及具体细节">
+                      <a href="/2025/05/04/upload-labs%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="upload-labs安装与配置">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">HTTP原理及具体细节</span>
+                        <span class="hidden-mobile">upload-labs安装与配置</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2025/05/04/SQL%E6%B3%A8%E5%85%A5-CTFHub/" title="SQL注入-CTFHub">
+                        <span class="hidden-mobile">SQL注入-CTFHub</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

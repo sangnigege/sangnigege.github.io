@@ -290,67 +290,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/07/13/Buuoj_WP1/" target="_blank">
-          buuoj WP1
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/Buuoj_WP1/" target="_blank">
-        <div>
-          [GXYCTF2019]Ping Ping Ping命令执行漏洞   过滤空格  这里我们找到RCE的过滤空格，然后不断尝试（还没尝试完就放弃了，不应该） 然后用$IFS绕过空格，发现过滤flag  然后用拼接法绕过，过程中发现$IFS影响命令执行，改为$IFS$9  这种一般带着&lt;?php，需要查看源代码 出flag  还可以内联执行 内联函数：将指定的函数体插入并取代每一处调用该函数的地
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 22:36" pubdate>
-              2025-07-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Web/" class="category-chain-item">Web</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/buuoj/">#buuoj</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2025/07/13/Flask%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" target="_blank">
           Flask安全问题
         </a>
@@ -473,6 +412,311 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2025/07/13/SSTI-Lab%E5%85%A8%E8%AF%A6%E8%A7%A3/" target="_blank">
+          SSTI-Lab全详解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/SSTI-Lab%E5%85%A8%E8%AF%A6%E8%A7%A3/" target="_blank">
+        <div>
+          前言最近做到了SSTI的题，但弄得并不是很懂，所以这里找sstilabs靶场训练一下。 sstilabs本来应该有3种类型的题目，但目前只出了flask的。如果想要更全的题型，可以去看看websitesVulnerableToSSTI（这俩靶场都可以在github上找到）。 Level 1这一关no waf，我们直接注入即可。 这里提一下SSTI常用注入模块。  我们这里用第三种， 首先我们需要写
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-13 22:36" pubdate>
+              2025-07-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/wp/">#wp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
+          SSTI学习总结
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
+        <div>
+          前言前置知识模板什么是模板？ 模板可以被认为是一段固定好格式，等着开发人员或者用户来填充信息的文件。通过这种方法，可以做到逻辑与视图分离，更容易、清楚且相对安全地编写前后端不同的逻辑。 什么是模板引擎？ 模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-13 22:36" pubdate>
+              2025-07-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">#学习总结</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" target="_blank">
+          Web安全中的哈希函数
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" target="_blank">
+        <div>
+          md5弱碰撞php中的MD5碰撞常与若比较进行结合 这种情况下，弱碰撞即可解决  弱比较： 如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。 下面代码为具体情况， 123if($_POST[&#x27;a&#x27;]!=$_POST[&#x27;b&#x27;&amp;&amp; md5($_POST[&#x27
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-13 22:36" pubdate>
+              2025-07-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">#学习总结</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/13/XML%E7%9B%B8%E5%85%B3%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" target="_blank">
+          XML相关安全问题
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/XML%E7%9B%B8%E5%85%B3%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" target="_blank">
+        <div>
+          XML基础XML相关XML的来源XML有两个先驱——SGML（标准通用标记语言）和HTML（超文本标记语言），这两个语言都是非常成功的标记语言。SGML多用于科技文献和政府办公文件中，SGML非常复杂，其复杂程度对于网络上的日常使用简直不可思议。HTML免费、简单，已经获得了广泛的支持，方便大众的使用。而XML（可扩展标记语言）它既具有SGML的强大功能和可扩展性，同时又具有HTML的简单性。 但
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-13 22:36" pubdate>
+              2025-07-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">#学习总结</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/13/vm%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
+          vm沙箱逃逸学习总结
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/vm%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
+        <div>
+          前言前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部产生一些影响，而不会影响到主机上的功能，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。 沙箱（sandbox）和 虚拟
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-13 22:36" pubdate>
+              2025-07-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">#学习总结</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/07/13/node.js%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
           node.js原型链污染学习总结
         </a>
@@ -534,15 +778,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/07/13/SSTI-Lab/" target="_blank">
-          
+        <a href="/2025/07/13/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
+          python反序列化学习总结
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/SSTI-Lab/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
         <div>
-          1234title: SSTI-Lab全详解date: 2025-07-13 22:36:00categories: Webtags: wp  前言最近做到了SSTI的题，但弄得并不是很懂，所以这里找sstilabs靶场训练一下。 sstilabs本来应该有3种类型的题目，但目前只出了flask的。如果想要更全的题型，可以去看看websitesVulnerableToSSTI（这俩靶场都可以在gi
+          前置知识前言现实需求 每种编程语言都有各自的数据类型，其中面向对象的编程语言还允许开发者自定义数据类型（如：自定义类），Python也是一样。很多时候我们会有这样的需求：  把内存中的各种数据类型的数据通过网络传送给其它机器或客户端； 把内存中的各种数据类型的数据保存到本地磁盘持久化；  数据格式 如果要将一个系统内的数据通过网络传输给其它系统或客户端，我们通常都需要先把这些数据转化为字符串或字节
         </div>
       </a>
 
@@ -550,144 +794,40 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 22:30" pubdate>
+            <time datetime="2025-07-13 22:36" pubdate>
               2025-07-13
             </time>
           </div>
         
         
-        
-      </div>
-    </article>
-  </div>
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
 
-  <div class="row mx-auto index-card">
+<span class="category-chains">
+  
+  
     
+      <span class="category-chain">
+        
+  <a href="/categories/web/" class="category-chain-item">web</a>
+  
+  
+
+      </span>
     
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/13/XML%E7%9B%B8%E5%85%B3%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" target="_blank">
-          
-        </a>
-      </h2>
+  
+</span>
 
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/XML%E7%9B%B8%E5%85%B3%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" target="_blank">
-        <div>
-          1234title: XML相关安全问题date: 2025-07-13 22:36:00categories: Webtags: 学习总结    XML基础XML相关XML的来源XML有两个先驱——SGML（标准通用标记语言）和HTML（超文本标记语言），这两个语言都是非常成功的标记语言。SGML多用于科技文献和政府办公文件中，SGML非常复杂，其复杂程度对于网络上的日常使用简直不可思议。HTM
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 22:28" pubdate>
-              2025-07-13
-            </time>
           </div>
         
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" target="_blank">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" target="_blank">
-        <div>
-          1234title: Web安全中的哈希函数date: 2025-07-13 22:36:00categories: Webtags: 学习总结  md5弱碰撞php中的MD5碰撞常与若比较进行结合 这种情况下，弱碰撞即可解决  弱比较： 如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。 下面代码为具体情况， 12
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 22:27" pubdate>
-              2025-07-13
-            </time>
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">#学习总结</a>
+            
           </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/13/vm%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/vm%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
-        <div>
-          1234title: vm沙箱逃逸学习总结date: 2025-07-13 22:36:00categories: Webtags: 学习总结  前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 22:27" pubdate>
-              2025-07-13
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" target="_blank">
-        <div>
-          1234title: SSTI学习总结date: 2025-07-13 22:36:00categories: Webtags: 学习总结  前置知识模板什么是模板？ 模板可以被认为是一段固定好格式，等着开发人员或者用户来填充信息的文件。通过这种方法，可以做到逻辑与视图分离，更容易、清楚且相对安全地编写前后端不同的逻辑。 什么是模板引擎？ 模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-13 22:27" pubdate>
-              2025-07-13
-            </time>
-          </div>
-        
-        
         
       </div>
     </article>

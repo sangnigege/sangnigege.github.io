@@ -19,24 +19,26 @@
   <meta name="author" content="sangnigege">
   <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
   
-    <meta name="description" content="1234title: SSTI学习总结date: 2025-07-13 22:36:00categories: Webtags: 学习总结  前置知识模板什么是模板？ 模板可以被认为是一段固定好格式，等着开发人员或者用户来填充信息的文件。通过这种方法，可以做到逻辑与视图分离，更容易、清楚且相对安全地编写前后端不同的逻辑。 什么是模板引擎？ 模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界">
+    <meta name="description" content="前言前置知识模板什么是模板？ 模板可以被认为是一段固定好格式，等着开发人员或者用户来填充信息的文件。通过这种方法，可以做到逻辑与视图分离，更容易、清楚且相对安全地编写前后端不同的逻辑。 什么是模板引擎？ 模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重庆森林不在重庆">
+<meta property="og:title" content="SSTI学习总结">
 <meta property="og:url" content="http://example.com/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="重庆森林不在重庆">
-<meta property="og:description" content="1234title: SSTI学习总结date: 2025-07-13 22:36:00categories: Webtags: 学习总结  前置知识模板什么是模板？ 模板可以被认为是一段固定好格式，等着开发人员或者用户来填充信息的文件。通过这种方法，可以做到逻辑与视图分离，更容易、清楚且相对安全地编写前后端不同的逻辑。 什么是模板引擎？ 模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界">
+<meta property="og:description" content="前言前置知识模板什么是模板？ 模板可以被认为是一段固定好格式，等着开发人员或者用户来填充信息的文件。通过这种方法，可以做到逻辑与视图分离，更容易、清楚且相对安全地编写前后端不同的逻辑。 什么是模板引擎？ 模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="e:\Program Files\Typora\typora_user_images\image-20250712222947629.png">
-<meta property="article:published_time" content="2025-07-13T14:27:46.175Z">
-<meta property="article:modified_time" content="2025-07-13T15:23:35.752Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140013557.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140014647.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140014797.png">
+<meta property="article:published_time" content="2025-07-13T14:36:00.000Z">
+<meta property="article:modified_time" content="2025-07-13T16:14:41.117Z">
 <meta property="article:author" content="sangnigege">
-<meta property="article:tag" content="一个做事不将就的人，阻止他的只有时间">
+<meta property="article:tag" content="学习总结">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="e:\Program Files\Typora\typora_user_images\image-20250712222947629.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140013557.png">
   
   
   
-  <title>重庆森林不在重庆</title>
+  <title>SSTI学习总结 - 重庆森林不在重庆</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -227,7 +229,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="SSTI学习总结"></span>
           
         </div>
 
@@ -238,7 +240,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-13 22:27" pubdate>
+        <time datetime="2025-07-13 22:36" pubdate>
           2025年7月13日 晚上
         </time>
       </span>
@@ -307,14 +309,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">SSTI学习总结</h1>
             
             
               <div class="markdown-body">
                 
-                <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">title: SSTI学习总结<br>date: 2025<span class="hljs-string">-07</span><span class="hljs-string">-13</span> 22:36:00<br>categories: Web<br><span class="hljs-keyword">tags:</span> 学习总结<br></code></pre></td></tr></table></figure>
-
-<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p><strong>什么是模板？</strong></p>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p><strong>什么是模板？</strong></p>
 <p>模板可以被认为是一段固定好格式，等着开发人员或者用户来填充信息的文件。通过这种方法，可以做到逻辑与视图分离，更容易、清楚且相对安全地编写前后端不同的逻辑。</p>
 <p><strong>什么是模板引擎？</strong></p>
 <p>模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序，然后只需要获取用户的数据，然后放到渲染函数里，然后生成模板+用户数据的前端html页面，然后反馈给浏览器，呈现在用户面前。</p>
@@ -362,7 +362,7 @@
 
 <p><strong>漏洞判断</strong></p>
 <p>Jinja2只是模板引擎之一，我们可以基于以下方法判断SSTI类型</p>
-<p>![image-20250712215857446](E:\Program Files\Typora\typora_user_images\image-20250712215857446.png)</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140013557.png" srcset="/img/loading.gif" lazyload alt="image-20250712215857446"></p>
 <table>
 <thead>
 <tr>
@@ -402,7 +402,7 @@
 <li><strong>父类（基类、超类）</strong>：被继承的类，object 是父子关系的顶端，所有数据类型最终的父类都是 object</li>
 <li><strong>子类（派生类）</strong>：继承父类的类，注意：子类可以调用父类下的其他子类</li>
 </ul>
-<p>![image-20250712223554313](E:\Program Files\Typora\typora_user_images\image-20250712223554313.png)</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140014647.png" srcset="/img/loading.gif" lazyload alt="image-20250712223554313"></p>
 <ul>
 <li><strong>object</strong>：所有类最终都继承自 object，是 Python 类体系的顶端。</li>
 <li><strong>classA</strong>：object 的子类。</li>
@@ -426,7 +426,7 @@
 </ul>
 <h2 id="常用注入模块"><a href="#常用注入模块" class="headerlink" title="常用注入模块"></a>常用注入模块</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs stylus">os._AddedDllDirectory<br>os._wrap_close<br>_frozen_importlib._DummyModuleLock<br>_frozen_importlib._ModuleLockManager<br>_frozen_importlib<span class="hljs-selector-class">.ModuleSpec</span><br>_frozen_importlib_external<span class="hljs-selector-class">.FileLoader</span><br>_frozen_importlib_external._NamespacePath<br>_frozen_importlib_external<span class="hljs-selector-class">.ModuleSpecLoader</span><br>_frozen_importlib_external<span class="hljs-selector-class">.FileFinder</span><br>zipimport<span class="hljs-selector-class">.zipimporter</span><br>zipimport._zipimportResourceReader<br>_sitebuiltins<span class="hljs-selector-class">.Quitter</span><br>_sitebuiltins._Printer<br>warnings<span class="hljs-selector-class">.WarningMessage</span><br>warnings<span class="hljs-selector-class">.catch_warnings</span><br>weakref<span class="hljs-selector-class">.finalize</span><br>pickle._Framer<br>pickle._Unframer<br>pickle._Pickler<br>pickle._Unpickler<br>jinja2<span class="hljs-selector-class">.bccache</span><span class="hljs-selector-class">.Bucket</span><br>jinja2<span class="hljs-selector-class">.runtime</span><span class="hljs-selector-class">.TemplateReference</span><br>jinja2<span class="hljs-selector-class">.runtime</span><span class="hljs-selector-class">.Context</span><br>jinja2<span class="hljs-selector-class">.runtime</span><span class="hljs-selector-class">.BlockReference</span><br>jinja2<span class="hljs-selector-class">.runtime</span><span class="hljs-selector-class">.LoopContext</span><br>jinja2<span class="hljs-selector-class">.runtime</span><span class="hljs-selector-class">.Macro</span><br>jinja2<span class="hljs-selector-class">.runtime</span><span class="hljs-selector-class">.Undefined</span><br>jinja2<span class="hljs-selector-class">.environment</span><span class="hljs-selector-class">.Environment</span><br>jinja2<span class="hljs-selector-class">.environment</span><span class="hljs-selector-class">.TemplateExpression</span><br>jinja2<span class="hljs-selector-class">.environment</span><span class="hljs-selector-class">.TemplateStream</span><br>dis<span class="hljs-selector-class">.Bytecode</span> <br></code></pre></td></tr></table></figure>
 
-<img src="E:\Program Files\Typora\typora_user_images\image-20250712222947629.png" srcset="/img/loading.gif" lazyload alt="image-20250712222947629" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140014797.png" srcset="/img/loading.gif" lazyload alt="image-20250712222947629" style="zoom:50%;" />
 
 <p>上面是常用的模块，下面我们进一步讲一下如何利用：</p>
 <ol>
@@ -509,6 +509,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="print-no-link">#学习总结</a>
+      
+    </div>
   
 </div>
 
@@ -518,7 +546,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
+      <div>SSTI学习总结</div>
       <div>http://example.com/2025/07/13/SSTI学习总结/</div>
     </div>
     <div class="license-meta">
@@ -563,9 +591,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/13/vm%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="">
+                      <a href="/2025/07/13/SSTI-Lab%E5%85%A8%E8%AF%A6%E8%A7%A3/" title="SSTI-Lab全详解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">SSTI-Lab全详解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -573,8 +601,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/13/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" title="Web安全中的哈希函数">
+                        <span class="hidden-mobile">Web安全中的哈希函数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

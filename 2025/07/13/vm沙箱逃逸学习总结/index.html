@@ -19,12 +19,12 @@
   <meta name="author" content="sangnigege">
   <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
   
-    <meta name="description" content="1234title: vm沙箱逃逸学习总结date: 2025-07-13 22:36:00categories: Webtags: 学习总结  前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部">
+    <meta name="description" content="前言前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部产生一些影响，而不会影响到主机上的功能，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。 沙箱（sandbox）和 虚拟">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重庆森林不在重庆">
+<meta property="og:title" content="vm沙箱逃逸学习总结">
 <meta property="og:url" content="http://example.com/2025/07/13/vm%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="重庆森林不在重庆">
-<meta property="og:description" content="1234title: vm沙箱逃逸学习总结date: 2025-07-13 22:36:00categories: Webtags: 学习总结  前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部">
+<meta property="og:description" content="前言前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部产生一些影响，而不会影响到主机上的功能，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。 沙箱（sandbox）和 虚拟">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248275.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248127.png">
@@ -39,16 +39,16 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248177.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132249391.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132249954.png">
-<meta property="article:published_time" content="2025-07-13T14:27:51.716Z">
-<meta property="article:modified_time" content="2025-07-13T14:49:13.336Z">
+<meta property="article:published_time" content="2025-07-13T14:36:00.000Z">
+<meta property="article:modified_time" content="2025-07-13T15:48:08.364Z">
 <meta property="article:author" content="sangnigege">
-<meta property="article:tag" content="一个做事不将就的人，阻止他的只有时间">
+<meta property="article:tag" content="学习总结">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248275.png">
   
   
   
-  <title>重庆森林不在重庆</title>
+  <title>vm沙箱逃逸学习总结 - 重庆森林不在重庆</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -239,7 +239,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="vm沙箱逃逸学习总结"></span>
           
         </div>
 
@@ -250,7 +250,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-13 22:27" pubdate>
+        <time datetime="2025-07-13 22:36" pubdate>
           2025年7月13日 晚上
         </time>
       </span>
@@ -319,14 +319,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">vm沙箱逃逸学习总结</h1>
             
             
               <div class="markdown-body">
                 
-                <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">title: vm沙箱逃逸学习总结<br>date: 2025<span class="hljs-string">-07</span><span class="hljs-string">-13</span> 22:36:00<br>categories: Web<br><span class="hljs-keyword">tags:</span> 学习总结<br></code></pre></td></tr></table></figure>
-
-<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="沙箱与沙箱逃逸"><a href="#沙箱与沙箱逃逸" class="headerlink" title="沙箱与沙箱逃逸"></a>沙箱与沙箱逃逸</h2><p><strong>什么是沙箱（sandbox）？</strong></p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="沙箱与沙箱逃逸"><a href="#沙箱与沙箱逃逸" class="headerlink" title="沙箱与沙箱逃逸"></a>沙箱与沙箱逃逸</h2><p><strong>什么是沙箱（sandbox）？</strong></p>
 <p>当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部产生一些影响，而不会影响到主机上的功能，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。</p>
 <p><strong>沙箱（sandbox）和 虚拟机（VM）和 容器（Docker）之间的区别：</strong></p>
 <p>sandbox和VM使用的都是虚拟化技术，但二者间使用的目的不一样。沙箱用来隔离有害程序，而虚拟机则实现了我们在一台电脑上使用多个操作系统的功能。Docker属于sandbox的一种，通过创造一个有边界的运行环境将程序放在里面，使程序被边界困住，从而使程序与程序，程序与主机之间相互隔离开。在实际防护时，使用Docker和sandbox嵌套的方式更多一点，安全性也更高。</p>
@@ -597,6 +595,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="print-no-link">#学习总结</a>
+      
+    </div>
   
 </div>
 
@@ -606,7 +632,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
+      <div>vm沙箱逃逸学习总结</div>
       <div>http://example.com/2025/07/13/vm沙箱逃逸学习总结/</div>
     </div>
     <div class="license-meta">
@@ -651,9 +677,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" title="">
+                      <a href="/2025/07/13/XML%E7%9B%B8%E5%85%B3%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" title="XML相关安全问题">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">XML相关安全问题</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -661,8 +687,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2025/07/13/node.js%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="node.js原型链污染学习总结">
+                        <span class="hidden-mobile">node.js原型链污染学习总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

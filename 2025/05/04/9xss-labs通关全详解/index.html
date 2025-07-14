@@ -1,0 +1,1058 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142746914?spm&#x3D;1001.2014.3001.5501  我们下面进行下一个漏洞——XSS的学习，XSS是常见漏洞之一，是Web安全入门必学漏洞。为探讨清楚XSS的诸多细节，我们特以经典的xss-labs进行从入门到进阶的专项训练。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss-labs通关全详解">
+<meta property="og:url" content="http://example.com/2025/05/04/9xss-labs%E9%80%9A%E5%85%B3%E5%85%A8%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142746914?spm&#x3D;1001.2014.3001.5501  我们下面进行下一个漏洞——XSS的学习，XSS是常见漏洞之一，是Web安全入门必学漏洞。为探讨清楚XSS的诸多细节，我们特以经典的xss-labs进行从入门到进阶的专项训练。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048340.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048059.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048904.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048729.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048540.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048821.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048559.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048248.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049664.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049277.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049951.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049595.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049852.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049464.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049625.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049066.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049035.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049345.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049254.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049915.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049524.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049729.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049223.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049087.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049214.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049052.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049004.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049501.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049267.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049170.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050836.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049612.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049167.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050976.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050153.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050618.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/89bc463711d44654a34a32510a942ff2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050029.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050411.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050579.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050935.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050374.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050983.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050114.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050879.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050671.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050474.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050974.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050776.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050142.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050887.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050267.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051621.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051526.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051676.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051591.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051342.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051245.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051989.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051979.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051950.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051054.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051209.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051752.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051017.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051958.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051073.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051623.png">
+<meta property="article:published_time" content="2025-05-04T09:09:00.000Z">
+<meta property="article:modified_time" content="2025-07-13T14:50:46.066Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048340.png">
+  
+  
+  
+  <title>xss-labs通关全详解 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="xss-labs通关全详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-04 17:09" pubdate>
+          2025年5月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">xss-labs通关全详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文是作者由CSDN博客迁移而来，原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142746914?spm=1001.2014.3001.5501">https://blog.csdn.net/2302_81178149/article/details/142746914?spm=1001.2014.3001.5501</a></p>
+</blockquote>
+<p>我们下面进行下一个漏洞——XSS的学习，XSS是常见漏洞之一，是Web安全入门必学漏洞。为探讨清楚XSS的诸多细节，我们特以经典的xss-labs进行从入门到进阶的专项训练。</p>
+<p>在做题过程中，作者把用到的知识进行了全面、详细、系统的总结，所以为了方便学习，查阅完全适配此文的总结是必不可少的**（怎么可以光训练不去学习、总结呢）**。</p>
+<p>作者的总结：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142746504" title="XSS学习总结-CSDN博客">XSS学习总结-CSDN博客</a></p>
+<h2 id="靶场介绍及搭建"><a href="#靶场介绍及搭建" class="headerlink" title="靶场介绍及搭建"></a>靶场介绍及搭建</h2><p><strong>XSS-labs：一款以练习测试XSS思路和命令的闯关游戏，主要是以反射型XSS漏洞为主。每关弹出弹窗即视为闯关成功。</strong></p>
+<p>靶场搭建参考下文：</p>
+<p>[<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51577576/article/details/121862461"> 靶场环境篇 ] XSS-labs 靶场环境搭建(特别详细)_xss靶场搭建-CSDN博客</a></p>
+<p>当然，也有一些在线xss-labs平台，不想搭建也可以去找一个用</p>
+<h2 id="Level1"><a href="#Level1" class="headerlink" title="Level1"></a>Level1</h2><p>欢迎用户test？payload的长度为4？</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048340.png" srcset="/img/loading.gif" lazyload alt="Image 9"></p>
+<p>发现URL上的GET型传参，name估计就是payload攻击的点，test长度正好为4，第一关目的应该是先test一下</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048059.png" srcset="/img/loading.gif" lazyload alt="Image 10"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048904.png" srcset="/img/loading.gif" lazyload alt="Image 11"></p>
+<p>构造payload</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">?name=<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>alert()<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048729.png" srcset="/img/loading.gif" lazyload alt="Image 12"></p>
+<h2 id="Level2"><a href="#Level2" class="headerlink" title="Level2"></a>Level2</h2><p>这次是一个搜索框</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048007.png" srcset="/img/loading.gif" lazyload alt="Image 13"></p>
+<p>直接构造payload试试</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048540.png" srcset="/img/loading.gif" lazyload alt="Image 14"></p>
+<p>不行，看看源代码，发现<code>value=“&lt;script&gt;alert()&lt;/script&gt;”</code>，需要闭合掉引号，重新构造payload</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048821.png" srcset="/img/loading.gif" lazyload alt="Image 15"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot;/&gt;&lt;script&gt;alert()&lt;/script&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048559.png" srcset="/img/loading.gif" lazyload alt="Image 16"></p>
+<h2 id="Level3"><a href="#Level3" class="headerlink" title="Level3"></a>Level3</h2><p>直接看页面源代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022048248.png" srcset="/img/loading.gif" lazyload alt="Image 17"></p>
+<p>试试闭合单引号</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27;/&gt;&lt;script&gt;alert()&lt;/script&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现不好使</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049664.png" srcset="/img/loading.gif" lazyload alt="Image 18"></p>
+<p>看页面源代码，果然符号被实体化了，但是htmlspecialchars函数只针对&lt;&gt;（即大于小于号）进行html实体化，我们还可以利用其他方法进行xss注入</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049277.png" srcset="/img/loading.gif" lazyload alt="Image 19"></p>
+<p>这里我们利用<strong>onfocus事件绕过</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&#x27; onfocus=javascript:alert() ‘</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049951.png" srcset="/img/loading.gif" lazyload alt="Image 20"></p>
+<h2 id="Level4"><a href="#Level4" class="headerlink" title="Level4"></a>Level4</h2><p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049595.png" srcset="/img/loading.gif" lazyload alt="Image 21"></p>
+<p>看看前端代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049852.png" srcset="/img/loading.gif" lazyload alt="Image 22"></p>
+<p>试试能不能闭合掉”&#x2F;&gt;</p>
+<p>不好使</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049464.png" srcset="/img/loading.gif" lazyload alt="Image 23"></p>
+<p>用focus</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot; onfocus=javascript:alert() &quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049625.png" srcset="/img/loading.gif" lazyload alt="Image 24"></p>
+<h2 id="Level5"><a href="#Level5" class="headerlink" title="Level5"></a>Level5</h2><p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049066.png" srcset="/img/loading.gif" lazyload alt="Image 25"></p>
+<p>试了试</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">”/&gt;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>alert()<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>&lt;”<br></code></pre></td></tr></table></figure>
+
+<p>不好使，看看php，过滤了js的标签还有onfocus事件，虽然str_replace不区分大小写，但是有小写字母转化函数，所以就不能用大小写法来绕过过滤了，只能新找一个方法进行xss注入</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049035.png" srcset="/img/loading.gif" lazyload alt="Image 26"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049345.png" srcset="/img/loading.gif" lazyload alt="Image 27"></p>
+<p>这里我们用<strong>a href标签法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot;/&gt;&lt;a href=javascript:alert()&gt;a-alert&lt;/a&gt;&lt;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>点击我们写的a-alert</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049254.png" srcset="/img/loading.gif" lazyload alt="Image 28"></p>
+<h2 id="Level6"><a href="#Level6" class="headerlink" title="Level6"></a>Level6</h2><p>简单尝试之前的payload发现不好使</p>
+<p>这关过滤掉了on,src,href,data，但是没有添加小写转化函数 ，导致能用大写绕过</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049915.png" srcset="/img/loading.gif" lazyload alt="Image 29"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot;/&gt;&lt;ScRipt&gt;alert()&lt;/ScriPt&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049524.png" srcset="/img/loading.gif" lazyload alt="Image 30"></p>
+<h2 id="Level7"><a href="#Level7" class="headerlink" title="Level7"></a>Level7</h2><p>不难发现，这里面进行了小写转化，将检测出来的on，script，href给删掉了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049729.png" srcset="/img/loading.gif" lazyload alt="Image 31"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049032.png" srcset="/img/loading.gif" lazyload alt="Image 32"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049223.png" srcset="/img/loading.gif" lazyload alt="Image 33"></p>
+<p>但是没有关系，我们可以利用双拼写来绕过。</p>
+<p>比如on，我们可以写成oonn，当中间on被删掉的时候，就变成了on；比如script，可以写成scscriptipt，当script被删掉的时候，就变成了script</p>
+<p>甚至可以在外面一层进行大小写绕过，比如下面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot;/&gt;&lt;SCRscriptIPT&gt;alert()&lt;/SCRscriptIPT&gt;&lt;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Level8"><a href="#Level8" class="headerlink" title="Level8"></a>Level8</h2><p>试了试老方法，不太行</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049087.png" srcset="/img/loading.gif" lazyload alt="Image 34"></p>
+<p>可以发现，input标签添加了html实体转化函数还把双引号也给实体化了， 添加了小写转化函数，还有过滤掉了src、data、onfocus、href、script、”（双引号），难搞哦，看一下这关的源码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049214.png" srcset="/img/loading.gif" lazyload alt="Image 35"></p>
+<p>但是我们能利用href的隐藏属性自动Unicode解码，我们可以插入一段js伪协议</p>
+<p>在线Unicode编码：<a target="_blank" rel="noopener" href="https://www.matools.com/code-convert-unicode" title="在线Unicode编码解码 - 码工具">在线Unicode编码解码 - 码工具</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&amp;#<span class="hljs-number">106</span>;&amp;#<span class="hljs-number">97</span>;&amp;#<span class="hljs-number">118</span>;&amp;#<span class="hljs-number">97</span>;&amp;#<span class="hljs-number">115</span>;&amp;#<span class="hljs-number">99</span>;&amp;#<span class="hljs-number">114</span>;&amp;#<span class="hljs-number">105</span>;&amp;#<span class="hljs-number">112</span>;&amp;#<span class="hljs-number">116</span>;&amp;#<span class="hljs-number">58</span>;&amp;#<span class="hljs-number">97</span>;&amp;#<span class="hljs-number">108</span>;&amp;#<span class="hljs-number">101</span>;&amp;#<span class="hljs-number">114</span>;&amp;#<span class="hljs-number">116</span>;&amp;#<span class="hljs-number">40</span>;&amp;#<span class="hljs-number">41</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049052.png" srcset="/img/loading.gif" lazyload alt="Image 36"></p>
+<p>复制后添加友情链接，然后点击友情链接</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049004.png" srcset="/img/loading.gif" lazyload alt="Image 37"></p>
+<h2 id="Level9"><a href="#Level9" class="headerlink" title="Level9"></a>Level9</h2><p>试试上一关的方法</p>
+<p>竟然没插入成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049501.png" srcset="/img/loading.gif" lazyload alt="Image 38"></p>
+<p>这里呢，当false&#x3D;&#x3D;&#x3D;false的时候(就是传入的值没有http:&#x2F;&#x2F;)就会执行if</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049267.png" srcset="/img/loading.gif" lazyload alt="Image 39"></p>
+<p>为了防止false&#x3D;&#x3D;&#x3D;false，我们需要向传入的值里面添加http:&#x2F;&#x2F;，而且要用注释符注释掉，否则会执行不了、无法弹窗，让函数strpos返回一个数字，构造payload</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&amp;#<span class="hljs-number">106</span>;&amp;#<span class="hljs-number">97</span>;&amp;#<span class="hljs-number">118</span>;&amp;#<span class="hljs-number">97</span>;&amp;#<span class="hljs-number">115</span>;&amp;#<span class="hljs-number">99</span>;&amp;#<span class="hljs-number">114</span>;&amp;#<span class="hljs-number">105</span>;&amp;#<span class="hljs-number">112</span>;&amp;#<span class="hljs-number">116</span>;&amp;#<span class="hljs-number">58</span>;&amp;#<span class="hljs-number">97</span>;&amp;#<span class="hljs-number">108</span>;&amp;#<span class="hljs-number">101</span>;&amp;#<span class="hljs-number">114</span>;&amp;#<span class="hljs-number">116</span>;&amp;#<span class="hljs-number">40</span>;&amp;#<span class="hljs-number">41</span>;<span class="hljs-comment">/* http:// */</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049170.png" srcset="/img/loading.gif" lazyload alt="Image 40"></p>
+<h2 id="Level10"><a href="#Level10" class="headerlink" title="Level10"></a>Level10</h2><p>简单试了试之前的方法，没有效果</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050836.png" srcset="/img/loading.gif" lazyload alt="Image 41"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049612.png" srcset="/img/loading.gif" lazyload alt="Image 42"></p>
+<p>看源码，原来还有其他隐藏的参数传递，下次就一个个测，这里是get传参t_sort，并过滤掉了&lt;&gt;号，不能闭合插入标签</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022049167.png" srcset="/img/loading.gif" lazyload alt="Image 43"></p>
+<p>所以我们用onfocus事件，因为这里输入框被隐藏了，需要添加type&#x3D;”text”，构造payload</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">?t_sort=<span class="hljs-string">&quot; onfocus=javascript:alert() type=&quot;</span>text<br></code></pre></td></tr></table></figure>
+
+<p>（点击空边框即可下一关）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050976.png" srcset="/img/loading.gif" lazyload alt="Image 44"></p>
+<p>看一下前端代码，完美闭合</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050153.png" srcset="/img/loading.gif" lazyload alt="Image 45"></p>
+<h2 id="Level11"><a href="#Level11" class="headerlink" title="Level11"></a>Level11</h2><p><code>&lt;input&gt;</code>标签有四个值，都做了隐藏处理，</p>
+<p>不难看出，第四个名为t_ref的<code>&lt;input&gt;</code>标签是http头referer的参数</p>
+<p>（HTTP Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。这里可以看到咱们刚刚是从level10.php来的）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050618.png" srcset="/img/loading.gif" lazyload alt="Image 46"></p>
+<p>咱们在referer上试试，用bp抓包一下，试一下测试代码</p>
+<p>Referer:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot; sRc DaTa OnFocus &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt; &amp;#106;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://i-blog.csdnimg.cn/direct/89bc463711d44654a34a32510a942ff2.png" srcset="/img/loading.gif" lazyload alt="Image 47"></p>
+<p>放包，发现过滤了&lt;&gt;</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050029.png" srcset="/img/loading.gif" lazyload alt="Image 48"></p>
+<p>那就用上一题的payload</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot; onfocus=javascript:alert() type=&quot;</span>text<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050411.png" srcset="/img/loading.gif" lazyload alt="Image 49"></p>
+<p>点击空边框</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050579.png" srcset="/img/loading.gif" lazyload alt="Image 50"></p>
+<h2 id="Level12"><a href="#Level12" class="headerlink" title="Level12"></a>Level12</h2><p>看一下前端代码，</p>
+<p>t-ua肯定是User-Agent头了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050935.png" srcset="/img/loading.gif" lazyload alt="Image 51"></p>
+<p>再用burpsuite抓包一下，将User-Agent头修改为我们的测试代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot; sRc DaTa OnFocus &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt; &amp;#106;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050374.png" srcset="/img/loading.gif" lazyload alt="Image 52"></p>
+<p>还是过滤&lt;&gt;</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050983.png" srcset="/img/loading.gif" lazyload alt="Image 53"></p>
+<p>直接套用上题的payload</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot; onfocus=javascript:alert() type=&quot;</span>text<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050114.png" srcset="/img/loading.gif" lazyload alt="Image 54"></p>
+<h2 id="Level13"><a href="#Level13" class="headerlink" title="Level13"></a>Level13</h2><p>t_cook应该是cookie</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050879.png" srcset="/img/loading.gif" lazyload alt="Image 55"></p>
+<p>看看cookie，确实如此</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050007.png" srcset="/img/loading.gif" lazyload alt="Image 56"></p>
+<p>还是试试测试代码，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot; sRc DaTa OnFocus &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt; &amp;#106;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现过滤了&lt;&gt;</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050671.png" srcset="/img/loading.gif" lazyload alt="Image 57"></p>
+<p>直接套用上题的payload</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot; onfocus=javascript:alert() type=&quot;</span>text<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050474.png" srcset="/img/loading.gif" lazyload alt="Image 58"></p>
+<h2 id="Level14"><a href="#Level14" class="headerlink" title="Level14"></a>Level14</h2><p>这一关我们似乎访问不了，一直加载不出来</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050974.png" srcset="/img/loading.gif" lazyload alt="Image 59"></p>
+<p>查看源码通过iframe标签引入了一个<a target="_blank" rel="noopener" href="http://exofvoewer.org/">http://exofvoewer.org</a></p>
+<p>这题本来是利用转跳到的网站，在那网站去上传一个属性里面含有xss代码的图片，以达到弹窗的效果。可以参考下面这篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/1206?accounttraceid=74ab404d-2a01-4a1c-8b87-36ad367dbe11&time__1311=eqGhqfxmxAxRhEDlrmq0=fd4Gq0K5tIh5dx#toc-12" title="【巨人肩膀上的矮子】XSS挑战之旅---游戏通关攻略（更新至18关） - 先知社区">【巨人肩膀上的矮子】XSS挑战之旅—游戏通关攻略（更新至18关） - 先知社区</a></p>
+<p>这篇文章里面的wooyun也已经闭站了，大家有兴趣可以去搜搜这个wooyun（乌云网），看完感觉有些感慨。</p>
+<p>这关主要涉及的漏洞是exif xss漏洞。exif是<strong>可交换图像文件</strong>格式（英语：Exchangeable image file format，官方简称Exif），是专门为数码相机的照片设定的，可以记录<strong>数码照片的属性信息和拍摄数据</strong>。</p>
+<p>我们可以在网上随便下载一个带有exif的图片，然后按下面步骤制作图片xss。当然可能大家想做的图片可能没有exif，这里作者制作了一个脚本，可以给没有exif的图片加上exif</p>
+<p>（需要下载两个Python包：</p>
+<ol>
+<li><strong>Pillow</strong>：这是一个用于图像处理的库，支持打开、操作和保存多种格式的图像。</li>
+<li><strong>piexif</strong>：用于处理EXIF数据的库，能方便地读取、修改和保存EXIF信息。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pip install Pillow piexif<br></code></pre></td></tr></table></figure>
+
+<p>）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> piexif<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br><span class="hljs-comment"># 加载 JPG 图片</span><br>image_path = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Please enter your image path:\n&quot;</span>)<br>img = Image.<span class="hljs-built_in">open</span>(image_path)<br><br><span class="hljs-comment"># 创建新的 EXIF 数据</span><br>exif_dict = &#123;<br>    piexif.ImageIFD.ImageDescription: <span class="hljs-string">&quot;新标题&quot;</span>,<br>    piexif.ImageIFD.Make: <span class="hljs-string">&quot;相机品牌&quot;</span>,<br>    piexif.ImageIFD.Model: <span class="hljs-string">&quot;相机型号&quot;</span>,<br>    piexif.ImageIFD.Software: <span class="hljs-string">&quot;编辑软件&quot;</span>,<br>    piexif.ImageIFD.Artist: <span class="hljs-string">&quot;作者名&quot;</span>,<br>    piexif.ImageIFD.Copyright: <span class="hljs-string">&quot;版权所有信息&quot;</span>,<br>    piexif.ImageIFD.DateTime: <span class="hljs-string">&quot;2024:10:01 12:00:00&quot;</span>,<br>&#125;<br><br><span class="hljs-comment"># 将字典转换为二进制 EXIF 数据</span><br>exif_bytes = piexif.dump(exif_dict)<br><br><span class="hljs-comment"># 保存带有 EXIF 数据的图片</span><br>img.save(<span class="hljs-string">&quot;output_image.jpg&quot;</span>, exif=exif_bytes)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;EXIF 信息已成功添加！&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>我们右键图片选择属性，点击详细信息就可以看到exif的相关属性。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050776.jpeg" srcset="/img/loading.gif" lazyload alt="Image 60"></p>
+<p>我们可以在这些属性里面添加XSS代码，然后上传图片实现弹窗。</p>
+<p>由于目标URL无法访问我们也无法上传图片。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050142.jpeg" srcset="/img/loading.gif" lazyload alt="Image 61"></p>
+<p>因为iframe是内嵌对象，所以可以通过内嵌对象中的内容，通过XSS获取到相关信息。</p>
+<h2 id="Level15"><a href="#Level15" class="headerlink" title="Level15"></a>Level15</h2><p>可以看到这儿有个陌生的东西ng-include。</p>
+<p>使用了ng-include这个表达式的意思是当HTML代码过于复杂时，可以将部分代码打包成独立文件，在使用ng-include来引用这个独立的HTML文件。</p>
+<p><strong>ng-include</strong> 指令用于包含外部的 HTML 文件，包含的内容将作为指定元素的子节点，ng-include 属性的值可以是一个表达式，返回一个文件名，默认情况下，包含的文件需要包含在同一个域名下。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050887.png" srcset="/img/loading.gif" lazyload alt="Image 62"></p>
+<p>我们先试试看ng-include，看看包涵第一关是怎样的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?src=<span class="hljs-string">&#x27;level1.php&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现两关合二为一了（如下）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022050267.png" srcset="/img/loading.gif" lazyload alt="Image 63"></p>
+<p>先测试一下过滤了啥</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?src=<span class="hljs-string">&quot; &#x27; sRc DaTa OnFocus &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt; &amp;#106;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现这里进行了实体转义，所以在本关进行xss有些困难，好在并没有删除&lt;&gt;等符号，实体转义后在别的关卡还是好使的。</p>
+<p>所以可以随便包涵之前的一关并对其传参，以达到弹窗的效果</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051621.png" srcset="/img/loading.gif" lazyload alt="Image 64"></p>
+<p>注意，这里不能包涵那些直接弹窗的东西如<script>，比如?src=&#39;level1.php?name=<script>alert()</script>‘，但是可以包涵那些标签的东西比如<a>、<input>、<img>、<p>标签等等，这些标签是能需要我们手动点击弹窗的，构造正确的payload：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?src=<span class="hljs-string">&#x27;level1.php?name=&lt;img src=XXX onmouseover=alert()&gt;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051526.png" srcset="/img/loading.gif" lazyload alt="Image 65"></p>
+<h2 id="Level16"><a href="#Level16" class="headerlink" title="Level16"></a>Level16</h2><p>test插入到了center标签中，所以这里就不用闭合了，老规矩，先测试一波关键字</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051676.png" srcset="/img/loading.gif" lazyload alt="Image 66"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?keyword=<span class="hljs-string">&quot; &#x27; sRc DaTa OnFocus OnmOuseOver OnMouseDoWn P&lt;/&gt; &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt; &amp;#106;</span><br></code></pre></td></tr></table></figure>
+
+<p>对比发现，这里先是将字母小写化了，再把script和&#x2F;替换成空格，最后将空格给实体化</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051591.png" srcset="/img/loading.gif" lazyload alt="Image 67"></p>
+<p>空格可以用回车来代替绕过，回车的url编码是%0a，再配合上不用&#x2F;的<code>&lt;img&gt;、&lt;details&gt;、&lt;svg&gt;</code>等标签</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?keyword=&lt;svg%0Aonload=alert()&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051342.png" srcset="/img/loading.gif" lazyload alt="Image 68"></p>
+<h2 id="Level17"><a href="#Level17" class="headerlink" title="Level17"></a>Level17</h2><p>没发现什么有用的，传了两个参数</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051245.png" srcset="/img/loading.gif" lazyload alt="Image 69"></p>
+<p>先测测关键字吧</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?arg01=<span class="hljs-string">&quot; &#x27; sRc DaTa OnFocus OnmOuseOver OnMouseDoWn P &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt;; &amp;arg02=&quot;</span> <span class="hljs-string">&#x27; sRc DaTa OnFocus OnmOuseOver OnMouseDoWn P &lt;sCriPt&gt; &lt;a hReF=javascript:alert()&gt;;</span><br></code></pre></td></tr></table></figure>
+
+<p>对比发现，虽然加了该死的html转义，但是这里不需要闭合符号，传入的参数都出现在了embed标签上，打开后缀名为swf的文件（FLASH插件的文件，现在很多浏览器都不支持FLASH插件了）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051989.png" srcset="/img/loading.gif" lazyload alt="Image 70"></p>
+<p>我们来看看embed标签是啥</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051979.png" srcset="/img/loading.gif" lazyload alt="Image 71"></p>
+<p>embed标签可以理解为定义了一个区域，可以放图片、视频、音频等内容，但是呢相对于他们，embed标签打开不了文件的时候就会没有显示的区域在，他们就能有块错误的区域</p>
+<p>再看一下onfocus和onclick事件，这两事件是等价的，都是一触即发</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051950.png" srcset="/img/loading.gif" lazyload alt="Image 72"></p>
+<p>支持的标签范围还广，也就是支持embed标签 ，这里呢我们可以尝试插入该标签</p>
+<p>再看一下onmouse系列的事件</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051054.png" srcset="/img/loading.gif" lazyload alt="Image 73"></p>
+<p>跟onfocus事件支持的标签一样 。</p>
+<p>所以，这题的解法很简单，首先得用一个支持flash插件的浏览器打开本关（打开后会有个图片出来的，不支持flash插件浏览器就没有）。</p>
+<p>Flash我们都用过的，记得那时候和小伙伴一起玩的火柴人、冰火人、疯狂小人战斗、还有最经典的拳皇等等等等，那时候浏览器无需下载flash就可以直接运行。</p>
+<p>但是随着HTML5、WebGL 以及 WebAssembly的成熟，不断暴露出的安全问题，Flash还是走向了终结。微软宣布在2024年初停止对Adobe Flash Playe的支持，win10的下一次更新也将自动删除Flash。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051209.jpeg" srcset="/img/loading.gif" lazyload alt="Image 74"></p>
+<p>具体怎么在浏览器中打开flash我在firefox中尝试失败了，但在edge中尝试成功了，参考下面博客，经尝试，两种方法都可以。</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv34413161/" title="如何不安装Flash玩4399小游戏等Flash游戏、视频方法 - 哔哩哔哩">如何不安装Flash玩4399小游戏等Flash游戏、视频方法 - 哔哩哔哩</a></p>
+<p>下面我们对比一下是否支持flash的区别，</p>
+<p>不支持：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051752.png" srcset="/img/loading.gif" lazyload alt="Image 75"></p>
+<p>支持：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051017.png" srcset="/img/loading.gif" lazyload alt="Image 76"></p>
+<p>可以发现支持的就有个embed标签的区域在，不支持的就不加载</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?arg01=a&amp;arg02= onmouseover=alert(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051958.png" srcset="/img/loading.gif" lazyload alt="Image 77"></p>
+<p>然后移动鼠标到embed标签区域</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051073.png" srcset="/img/loading.gif" lazyload alt="Image 78"></p>
+<h2 id="Level18"><a href="#Level18" class="headerlink" title="Level18"></a>Level18</h2><p>直接构造payload</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">?arg02= onmouseover=alert()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022051623.png" srcset="/img/loading.gif" lazyload alt="Image 79"></p>
+<h2 id="Level19、20"><a href="#Level19、20" class="headerlink" title="Level19、20"></a>Level19、20</h2><p>这两关关是flash xss，涉及到反编译，暂时过掉（以后有可能会更新），有兴趣的小伙伴们可以自己去深入学习。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/l2872253606/article/details/125638898" title="xss-labs靶场实战全通关详细过程（xss靶场详解）-CSDN博客">xss-labs靶场实战全通关详细过程（xss靶场详解）-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/1206?accounttraceid=74ab404d-2a01-4a1c-8b87-36ad367dbe11&time__1311=eqGhqfxmxAxRhEDlrmq0=fd4Gq0K5tIh5dx&u_atoken=3ca1e0916ab10e74793a953c4d6a6c49&u_asig=1a0c399d17277940100928588e003d#toc-0" title="【巨人肩膀上的矮子】XSS挑战之旅---游戏通关攻略（更新至18关） - 先知社区">【巨人肩膀上的矮子】XSS挑战之旅—游戏通关攻略（更新至18关） - 先知社区</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/wp/" class="print-no-link">#wp</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>xss-labs通关全详解</div>
+      <div>http://example.com/2025/05/04/9xss-labs通关全详解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/04/10XSS%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="XSS学习总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">XSS学习总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/04/8SQL%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="SQL注入学习总结">
+                        <span class="hidden-mobile">SQL注入学习总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

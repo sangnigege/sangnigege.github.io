@@ -1,0 +1,1211 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142724244  在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：CTFHub。  作者的CTFHub技能树汇总： CTFHub技能树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信息泄露-CTFHub">
+<meta property="og:url" content="http://example.com/2025/05/04/6%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-CTFHub/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;142724244  在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：CTFHub。  作者的CTFHub技能树汇总： CTFHub技能树">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912983.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912070.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912336.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912321.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912877.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912287.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912970.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912097.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912220.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912542.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912875.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912678.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912952.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912016.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912568.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912271.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912337.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913764.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913771.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913139.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913651.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913344.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913445.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913948.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913038.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913648.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913034.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913571.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913409.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913455.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913733.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914066.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914163.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914509.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914030.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914944.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914505.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914227.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914675.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914445.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914817.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914011.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914920.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914520.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914037.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914812.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915885.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915892.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915195.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915379.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915542.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915232.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915325.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915418.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915480.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915623.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915682.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915644.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915789.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915997.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915363.png">
+<meta property="article:published_time" content="2025-05-04T09:06:00.000Z">
+<meta property="article:modified_time" content="2025-05-04T09:17:43.426Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="CTFHub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912983.png">
+  
+  
+  
+  <title>信息泄露-CTFHub - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="信息泄露-CTFHub"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-04 17:06" pubdate>
+          2025年5月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">信息泄露-CTFHub</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文是作者由CSDN博客迁移而来，原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142724244">https://blog.csdn.net/2302_81178149/article/details/142724244</a></p>
+</blockquote>
+<p>在众多的CTF平台当中，CTFHub对于初学者来说，是入门平台的不二之选。CTFHub通过自己独特的技能树模块，可以帮助初学者来快速入门。具体请看官方介绍：<a target="_blank" rel="noopener" href="https://www.ctfhub.com/#/index" title="CTFHub">CTFHub</a>。</p>
+<p> <strong>作者的CTFHub技能树汇总：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142747270?spm=1001.2014.3001.5501" title="CTFHub技能树Web汇总-CSDN博客">CTFHub技能树Web汇总-CSDN博客</a></p>
+<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p>一、wp</p>
+<p>挨个对里面的目录进行寻找，但是flag每次出现的位置都随机，多找找就可以发现，最终可以在某个目录中找到flag</p>
+<p>二、题目考点</p>
+<p>由于配置错误导致网站的目录可被遍历，一般该类漏洞可以为后续利用提供一些信息上的帮助</p>
+<h2 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h2><p>一、wp</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912983.png" srcset="/img/loading.gif" lazyload></p>
+<p>点击查看</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912070.png" srcset="/img/loading.gif" lazyload></p>
+<p>用Ctrl+F查找flag必有的ctfhub{，找到flag。</p>
+<p>（作者发现这里面有两个位置有flag，不过是一模一样的）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912336.png" srcset="/img/loading.gif" lazyload></p>
+<p>二、题目考点</p>
+<p>phpinfo() 是php中查看相关信息的函数，当在页面中执行phpinfo()函数时，php会将自身的所有信息全部打印出来。在phpinfo中会泄露很多服务端的一些信息。</p>
+<p>例如安装的一些模块、网站绝对路径、服务器自身的操作系统、使用的组件版本等等，在phpinfo中获得的这些信息会为下一步的渗透&#x2F;做题提供一些帮助</p>
+<h2 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h2><h3 id="网站源码"><a href="#网站源码" class="headerlink" title="网站源码"></a>网站源码</h3><p>一、wp</p>
+<p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p>
+<p>题目应该就是让我们找备份的“源代码”（实际过程中我们找的是源代码，但这里应该是flag），这个源代码可能备份在下面提示中</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912321.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>顾名思义，备份文件备份的都是文件，所以遍历一下上面的文件名及后缀。</p>
+<p>在这里给出四种扫描方法：</p>
+<p>1、御剑</p>
+<p>御剑有点坑，将超时延长，并且只扫DIR(目录;显示文件列表)，还得多扫几次才行。</p>
+<p>所以御剑最好还是得自定义目录（把题目给的添加上去）。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912877.png" srcset="/img/loading.gif" lazyload></p>
+<p>2、dirsearch</p>
+<p>暴力扫就可以，除了慢没啥缺点。</p>
+<p>查看返回值，大部分都是503，返回200的表示可以访问</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912287.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>3、burpsuite</p>
+<p>相对而言比较复杂，但是比较贴近题目，充分利用了题目的提示</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912970.png" srcset="/img/loading.gif" lazyload></p>
+<p>抓包，发送到Intruder,</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912097.png" srcset="/img/loading.gif" lazyload></p>
+<p>在GET&#x2F;后面（即网站地址处）添加两个负载，一个文件名，一个扩展名，用cluster bomb,</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912220.png" srcset="/img/loading.gif" lazyload></p>
+<p>爆破文件名，这里需要添加一个后缀：.（点）</p>
+<p>（也可以在payload2备份文件格式的前面加前缀 . ）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912542.png" srcset="/img/loading.gif" lazyload></p>
+<p>爆破扩展名, 注意两者都不用payload encoding</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912875.png" srcset="/img/loading.gif" lazyload></p>
+<p>开始攻击，出货</p>
+<p>注：载荷尽量自己写，作者直接复制题目提示的，发现不合规范，不出flag</p>
+<p>4、最后一种方法，如果不怕麻烦，也可以自己一个个试（人工扫描）</p>
+<p>二、题目考点</p>
+<p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。这里有诸多目录，要求从中找出有效文件</p>
+<p>三、相关知识</p>
+<p>1、御剑的使用</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714?spm=1001.2014.3001.5501" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<p>2、dirsearch的使用</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714?spm=1001.2014.3001.5501" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<p>3、备份文件的访问</p>
+<p>不要忽视对网站备份文件的搜查，里面可能会有有用的信息</p>
+<h3 id="bak文件"><a href="#bak文件" class="headerlink" title="bak文件"></a>bak文件</h3><p>一、wp</p>
+<p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912678.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法1&gt;、</p>
+<p>一进去就说flag在index.php中，在当前网址加上&#x2F;index.php，没反应，考虑到是bak文件，输入&#x2F;index.php.bak（要把题目提示结合起来考虑），下载了一个文件，用记事本打开，出flag</p>
+<p>&lt;法2&gt;、</p>
+<p>也可以用curl打开index.php.bak，殊途同归</p>
+<p>&lt;法3&gt;、</p>
+<p>用dirsearch也可以直接扫出来，这样是最简单的方法，扫出来在加到url上，也可以下载</p>
+<p>二、题目考点</p>
+<p>1、进一步考察web目录下的备份文件，这一题与网站源码一题一样，都是将源码备份，放在web目录下，不过这次是bak文件。</p>
+<p>2、bak文件泄露：有些时候网站管理员可能为了方便，会在修改某个文件的时候先复制一份，将其命名为xxx.bak。而大部分Web Server对bak文件并不做任何处理，导致可以直接下载，从而获取到网站某个文件的源代码</p>
+<p>三、相关知识</p>
+<p>1、 bak 是一个 备份文件 ，是一个文件格式的扩展名。这类文件一般在.bak前面加上应该有原来的扩展名比如windows.dll.bak，或是windows_dll.bak，有的则是由原文件的后缀名和bak混合而成。</p>
+<p>很多软件都会创建一个备份文件，当软件不小心因为删除或者机器意外关闭时，可以通过软件当时创建的备份文件继续编辑，为软件使用者减少了较大工作和损失。</p>
+<p>2、附加知识点：文件恢复打开</p>
+<p>一般来讲 ，.bak文件作为备份文件，可以通过直接重命名，把bak替换成原文件的格式就可以恢复此文件并且正常打开了。</p>
+<p>举个简单例子：在autocad文件移动的时候有时会产生.bak文件，比如现在有一个asdfjk.dwg文件的备份文件asdfjk.bak ，想要把备份文件恢复成正式文件 只需要对该备份文件重命名把bak替换为dwg就可以打开了 。</p>
+<p>同样，如果是word文件的备份文件只要把bak换成doc就可以了。（其实可以改成任何文件格式）。但是，加密过的.bak文件是无法通过修改重命名来打开的，就是打开了也是乱码。</p>
+<h3 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h3><p>一、wp</p>
+<p>当开发人员在线上环境中使用 vim 编辑器，在使用过程中会留下 vim 编辑器缓存，当vim异常退出时，缓存会一直留在服务器上，引起网站源码泄露。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912952.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法1&gt;、</p>
+<p>直接在url上加上&#x2F;index.php，毫无反应，再加上vim，也不好使。</p>
+<p>在这里要知道vim异常退出时，会产生swp文件，但是输入&#x2F;index.php.swp也不行，然后需要知道swp是隐藏文件，最前面要加点<code>.</code>，应该输入<code>/.index.php.swp</code>，成功下载文件，记事本打开，得到flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912016.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法2&gt;、</p>
+<p>利用curl访问（道理同上）即可直接看到flag，因为vim使用的缓存存储为一种固定格式的二进制文件。而我们一般编辑的时明问可见字符，在vim的缓存中这些可见字符会原样保留</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912568.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法3&gt;、</p>
+<p>这是最贴近题目的，之前的查看方式都会有乱码。</p>
+<p>先用wget下载<code>.index.php.swp</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912271.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里有两种打开方式</p>
+<p>1）直接用vim打开下载的文件<code>vim -r .index.php.swp</code>，回车</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021912337.png" srcset="/img/loading.gif" lazyload></p>
+<p>出flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913764.png" srcset="/img/loading.gif" lazyload></p>
+<p>2）先恢复再打开，输入 vim index.php 去打开index.php，发现交换文件，按r恢复</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913771.png" srcset="/img/loading.gif" lazyload></p>
+<p>出flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913139.png" srcset="/img/loading.gif" lazyload></p>
+<p>二、题目考点</p>
+<p>1、Vim异常退出后产生的文件</p>
+<p>2、隐藏文件的访问</p>
+<p>3、linux中vim的应用</p>
+<p>      参考文献：</p>
+<p>      <a target="_blank" rel="noopener" href="https://blog.csdn.net/blood_Z/article/details/125064927" title="      vim命令大全-CSDN博客">vim命令大全-CSDN博客</a></p>
+<p>三、相关知识</p>
+<p>1、swp文件</p>
+<p>1）vim中的swp是swap（交换分区）的简写，在编辑文件时产生，它是隐藏文件。这个文件是一个临时交换文件，用来备份缓冲区中的内容。类似于Windows的虚拟内存，就是当内存不足的时候,把一部分硬盘空间虚拟成内存使用,从而解决内存容量不足的情况。如果文件正常退出，则此文件自动删除。如果并没有对文件进行修改，而只是读取文件，是不会产生swp文件的。</p>
+<p>2）在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容。以 index.php 为例：第一次产生的交换文件名为 .index.php.swp；</p>
+<p>再次意外退出后，将会产生名为 .index.php.swo 的交换文件；</p>
+<p>第三次产生的交换文件则为 .index.php.swn；</p>
+<p>2、隐藏文件的访问</p>
+<p> .swp是隐藏文件，因此最前面有<code>.</code>，即 <code>.index.php.swp</code>，(注意是index前面的点)。</p>
+<p> 3、vim编辑器的使用</p>
+<p><code>vim -r</code> 可以查看当前目录下所有的swp文件。</p>
+<p><code>vim -r filename</code>可以恢复文件，这样上次意外退出没有保存的修改，就会覆盖文件。</p>
+<h3 id="DS-Store"><a href="#DS-Store" class="headerlink" title=".DS_Store"></a>.DS_Store</h3><p>一、wp</p>
+<p>.DS_Store 是 Mac OS 保存文件夹的自定义属性的隐藏文件。通过.DS_Store可以知道这个目录里面所有文件的清单。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913651.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法1&gt;、尝试访问<code>url/.DS_Store</code>（用dirsearch可以直接扫出来），下载文件，记事本打开，看到 flag here!，但有好多空格，我们用记事本的编辑功能，然后点击替换，将空格替换成空，就是把所有的空格清除，得到下面的内容。</p>
+<p>注：.txt后面一串字符，其中notuestr是注释的意思，这串字符的意思是“注释 flag 在这！”</p>
+<p>所以我们只复制到.txt，尝试粘贴到url中访问，获得flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913344.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法2&gt;、Curl也可以</p>
+<p>没有空格，不需要去替换</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913445.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法3&gt;、使用Linux系统打开文件</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913850.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后在url中访问</p>
+<p>&lt;法4&gt;、工具Python-dsstore</p>
+<p>使用Python-dsstore工具查看该文件</p>
+<p>访问<code>url/.DS_Store</code>，把下载下来的文件复制到Python-dsstore文件夹中，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913948.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后在Python-dsstore文件夹处打开cmd，输入以下命令</p>
+<p><code>python main.py 无标题.DS\_Store</code></p>
+<p>注：这里“无标题.DS_Store”是作者下载的文件的名字，大家如果改名了或者名字不相同，应该用自己下载的文件的名字</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913038.png" srcset="/img/loading.gif" lazyload></p>
+<p>二、题目考点</p>
+<p>DS_Store 文件利用。</p>
+<p>题目描述：DS_Store 是 Mac OS 保存文件夹的自定义属性的隐藏文件。通过.DS_Store可以知道这个目录里面所有文件的清单。</p>
+<p>三、相关知识</p>
+<p>1、工具Python-dsstore的应用</p>
+<p>具体内容请看作者的另一篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<p>2、linux常用指令</p>
+<p>这里只讲cat及类似命令</p>
+<p>cat 命令：用于查看文本文件的内容，后接要查看的文件名，通常可用管道与 more 和 less 一起使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> file1 从第一个字节开始正向查看文件的内容<br> <br><span class="hljs-built_in">cat</span> -n file1 标示文件的行数<br> <br><span class="hljs-built_in">cat</span> xxx.txt awk ‘NR%2==1’<br> <br><span class="hljs-built_in">tac</span> file1 从最后一行开始反向查看一个文件的内容<br> <br>more file1 查看一个长文件的内容<br> <br>less file1 类似 more 命令，但允许方向操作<br> <br><span class="hljs-built_in">head</span> -n 2 file1 查看一个文件的前两行<br> <br><span class="hljs-built_in">tail</span> -f /log/msg 实时查看添加到⽂件中的内容<br> <br><span class="hljs-built_in">tail</span> -n 2 file1 查看一个文件的最后两行<br> <br><span class="hljs-built_in">tail</span> -n +1000 file1 从1000行开始显示，显示1000行以后的<br> <br><span class="hljs-built_in">cat</span> filename | <span class="hljs-built_in">head</span> -n 3000 | <span class="hljs-built_in">tail</span> -n +1000 显示1000行到3000行<br> <br><span class="hljs-built_in">cat</span> filename | <span class="hljs-built_in">tail</span> -n +3000 | <span class="hljs-built_in">head</span> -n 1000 从第3000行开始，显示1000(即显示3000~3999行)<br> <br>grep ss hello.txt 在⽂件hello.txt中查找关键词 ss<br> <br>grep ^s hello.txt 在⽂件hello.txt中查找以 s 开头的内容<br> <br>grep [0-9] hello.txt 选择hello.txt⽂件中所有包含数字的⾏<br> <br>sed <span class="hljs-string">&#x27;s/ss/mm/g&#x27;</span> hello.txt 将hello.txt⽂件中的 ss 替换成 mm<br> <br>sed <span class="hljs-string">&#x27;/^$/d&#x27;</span> hello.txt 从hello.txt⽂件中删除所有空⽩⾏<br> <br>sed <span class="hljs-string">&#x27;/ *#/d; /^$/d&#x27;</span> hello.txt 从hello.txt⽂件中删除所有注释和空⽩⾏<br> <br>sed -e <span class="hljs-string">&#x27;1d&#x27;</span> hello.txt 从⽂件hello.txt 中排除第⼀⾏<br> <br>sed -n <span class="hljs-string">&#x27;/s1/p&#x27;</span> hello.txt 查看只包含关键词<span class="hljs-string">&quot;s1&quot;</span>的⾏<br> <br>sed -e <span class="hljs-string">&#x27;s/ *$//&#x27;</span> hello.txt 删除每⼀⾏最后的空⽩字符<br> <br>sed -e <span class="hljs-string">&#x27;s/s1//g&#x27;</span> hello.txt 从⽂档中只删除词汇s1并保留剩余全部<br> <br>sed -n <span class="hljs-string">&#x27;1,5p;5q&#x27;</span> hello.txt 查看从第⼀⾏到第5⾏内容<br> <br>sed -n <span class="hljs-string">&#x27;5p;5q&#x27;</span> hello.txt 查看第5⾏<br> <br><span class="hljs-built_in">paste</span> file1 file2 合并两个⽂件或两栏的内容<br> <br><span class="hljs-built_in">paste</span> -d <span class="hljs-string">&#x27;+&#x27;</span> file1 file2 合并两个⽂件或两栏的内容，中间⽤<span class="hljs-string">&quot;+&quot;</span>区分<br> <br><span class="hljs-built_in">sort</span> file1 file2 排序两个⽂件的内容<br> <br><span class="hljs-built_in">sort</span> file1 file2 <span class="hljs-built_in">uniq</span><br> <br><span class="hljs-built_in">sort</span> file1 file2 <span class="hljs-built_in">uniq</span> -u<br> <br><span class="hljs-built_in">sort</span> file1 file2 <span class="hljs-built_in">uniq</span> -d<br> <br><span class="hljs-built_in">comm</span> -1 file1 file2 ⽐较两个⽂件的内容(去除’file1’所含内容)<br> <br><span class="hljs-built_in">comm</span> -2 file1 file2 ⽐较两个⽂件的内容(去除’file2’所含内容)<br> <br><span class="hljs-built_in">comm</span> -3 file1 file2 ⽐较两个⽂件的内容(去除两⽂件共有部分)<br></code></pre></td></tr></table></figure>
+
+<p>3、.DS_Store 是什么文件</p>
+<p>.DS_Store(英文全称 Desktop Services Store)是一种由苹果公司的Mac OS X操作系统所创造的隐藏文件，目的在于存贮目录的自定义属性，例如文件们的图标位置或者是背景色的选择。</p>
+<p>相当于 Windows 下的 desktop.ini。</p>
+<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><h3 id="Log"><a href="#Log" class="headerlink" title="Log"></a><strong>Log</strong></h3><p>一、wp</p>
+<p>看题目，很明显是git泄露</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913648.png" srcset="/img/loading.gif" lazyload></p>
+<p>用dirsearch一扫，确实是git泄露</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913034.png" srcset="/img/loading.gif" lazyload></p>
+<p>使用 GitHack 工具 clone 目标源代码到本地</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913571.png" srcset="/img/loading.gif" lazyload></p>
+<p>相关文件被储存到了最后一行的地方，然后我们进入dist&#x2F;challenge-037e8b2de8d972bf.sandbox.ctfhub.com_10800中</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913409.png" srcset="/img/loading.gif" lazyload></p>
+<p>打开终端，执行 git log 查看历史记录</p>
+<p>发现add flag这次提交很可疑，</p>
+<p>&lt;法1&gt;</p>
+<p>直接与 add flag 这次提交进行比对（写前几个字符就行），  </p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">git</span> diff <span class="hljs-number">460</span>a<br></code></pre></td></tr></table></figure>
+
+<p>出flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913455.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法2&gt;</p>
+<p>直接切换到 add flag (460a) 这个版本,  </p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--hard 460a</span><br></code></pre></td></tr></table></figure>
+
+<p>这个命令可以切换为之前的版本，输入完成后最后一个文件夹下会多出一个.txt文件，打开后就有flag。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021913733.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914066.png" srcset="/img/loading.gif" lazyload></p>
+<p>二、题目考点</p>
+<p>1、git泄露</p>
+<p>2、查看历史记录 <code>git log</code></p>
+<p>3、切换版本 <code>git reset</code></p>
+<p>4、对比两次提交 （查看变更内容）<code>git diff</code></p>
+<p>三、相关知识</p>
+<p><strong>1、git教程</strong></p>
+<p>点此链接进行了解：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<p><strong>2、git log详解 （log日志）</strong></p>
+<p><code>git log</code> 可以让我们查看提交commit，接下来我们来一起探索git log提供的参数。</p>
+<p>1） <code>--oneline</code></p>
+<p>这个命令简化git log的默认的输出，仅仅输出commit hash 前7个字符串（不显示一大堆）和commit message.</p>
+<p>git log默认会输出commit hash（提交对象的哈希值）, author（提交人）, date（提交时间）, commit message（提交说明）.</p>
+<p>2） <code>--stat</code></p>
+<p><code>--stat</code>:是在git log 的基础上输出文件增删改的统计数据。</p>
+<p>3）<code>-p</code></p>
+<p><code>-p</code>:控制输出每个commit具体修改的内容，输出的形式以diff的形式给出。</p>
+<p>4 ）<code>git show</code></p>
+<p><code>git show</code>命令同<code>git log -p</code>输出类似，只不过它只显示一个commit的内容，如果不指定commit hash, 它默认输出HEAD指向commit的内容.</p>
+<p>5 ）<code>git shortlog</code></p>
+<p>这个命令用来输出汇总信息，以作者进行分类。</p>
+<p><code>git shortlog -s</code>：可以用来统计每个作者的commit数量</p>
+<p><code>git shortlog -n</code>：可以用来对统计的量进行倒序排列</p>
+<p>6 ）<code>--pretty</code></p>
+<p>我们可以用–pretty来自定义输出的信息</p>
+<p>8 ）限定log输出</p>
+<p>直接在log命令之后，加 <code>-n</code>参数即可，n表示你要输出的数量.</p>
+<p>9） 限定指定日期范围的log</p>
+<p><code>--after</code>和<code>--before</code></p>
+<p>10 ）控制是否显示merge的commit</p>
+<p><code>--merges</code>或者<code>--no-merges</code></p>
+<p>11） <code>--decoreate</code></p>
+<p>该参数用来控制log输出时，显示对应commit所属的branch和tag信息</p>
+<p><strong>3、GitHack的使用</strong></p>
+<p>具体内容点击此链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a><strong>Stash</strong></h3><p>一、wp</p>
+<p> 不用dirsearch扫也可以看出是git泄露</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914163.png" srcset="/img/loading.gif" lazyload></p>
+<p>直接用GitHack扫描，具体方式同上题</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914509.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现已经Clone success</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914030.png" srcset="/img/loading.gif" lazyload></p>
+<p>题目是stash，优先考虑git的stash命令</p>
+<p>执行<code>git stash list</code> ：查看stash了哪些存储;</p>
+<p>执行<code>git stash pop</code>：恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下,默认为第一个stash,即stash@{0}</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914944.png" srcset="/img/loading.gif" lazyload></p>
+<p>出文件了，可以直接cat，也可去打开文件</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914505.png" srcset="/img/loading.gif" lazyload></p>
+<p>出flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914227.png" srcset="/img/loading.gif" lazyload></p>
+<p>二、考点</p>
+<ul>
+<li>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</li>
+</ul>
+<p>三、相关知识</p>
+<p><strong>git stash详解（Stash 翻译为藏匿，隐藏）</strong></p>
+<p>1、<code>git stash</code>命令是干甚的</p>
+<p>它会保存当前工作进度，会把暂存区和工作区的改动保存到一个未完结变更的堆栈中；执行完这个命令后，在运行 git status 命令，就会发现当前是一个干净的工作区，没有任何改动。注：git stash 是本地的，不会上传到服务器上。</p>
+<p>简单来说， **<code>git stash</code>**这个命令可以将当前的工作状态保存到git栈，在需要的时候再恢复。</p>
+<p>2、使用场景</p>
+<p>由上点可推断出git stash的使用场景：</p>
+<p>当在一个分支的开发工作未完成，却又要切换到另外一个分支进行开发的时候，可以先将自己写好的代码，储存到 git 栈，进行另外一个分支的代码开发。这时候 git stash命令就派上用场了！</p>
+<p>3、使用</p>
+<p>1）<code>git stash</code>的相关命令</p>
+<p>&lt;1&gt;<code>git stash</code></p>
+<p>        保存当前的工作区与暂存区的状态，把当前的修改的保存到git 栈，等以后需要的时候再恢复，git stash 这个命令可以多次使用，每次使用都会新加一个stash@{num}，num是编号</p>
+<p>&lt;2&gt;<code>git stash save &#39;注释&#39;</code></p>
+<p>        作⽤等同于git stash，区别是可以加⼀些注释， 执⾏存储时，添加注释，⽅便查找，例如git stash save ‘test’</p>
+<p>&lt;3&gt;<code>git stash pop</code></p>
+<p>        默认恢复git栈中最新的一个stash@{num}，建议在git栈中只有一条的时候使用，以免混乱                   </p>
+<p>        注：该命令将堆栈中最新保存的内容删除</p>
+<p>(即恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下，默认为第一个stash，就是stash@{0}，如果要应用并删除其他stash，命令：<code>git stash pop stash@&#123;$num&#125;</code> ，比如应用并删除第二个：<code>git stash pop stash@&#123;1&#125;</code>）   </p>
+<p>&lt;4&gt;<code>git stash list</code></p>
+<p>        查看当前stash的所有内容</p>
+<p>&lt;5&gt;<code>git stash apply</code></p>
+<p>        将堆栈中的内容恢复到当前分支下。这个命令不同于 git stash pop。该命令不会将内容从对堆栈中删除，也就是该命令能够将堆栈的内容多次运用到工作目录，适合用与多个分支的场景</p>
+<p>        使用方法：<code>git stash apply stash@&#123;$num&#125;</code></p>
+<p>&lt;6&gt;<code>git stash drop</code></p>
+<p>        从堆栈中移除指定的stash</p>
+<p>        使用方法：<code>git stash drop stash@&#123;$num&#125;</code></p>
+<p>&lt;7&gt;<code>git stash clear</code></p>
+<p>        移除全部的stash</p>
+<p>&lt;8&gt;<code>git stash show</code></p>
+<p>     查看堆栈中最新保存的stash和当前⽬录的差异，显⽰做了哪些改动，默认show第一个存储</p>
+<table>
+<thead>
+<tr>
+<th>命令名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git stash</code></td>
+<td>隐藏当前的工作现场，此时，<code>git status</code>的结果是 clean</td>
+</tr>
+<tr>
+<td><code>git stash list</code></td>
+<td>查看所有隐藏，每一行的冒号前面的字符串就是标识此隐藏的id</td>
+</tr>
+<tr>
+<td><code>git stash apply</code></td>
+<td>重新显示标识为 id 的隐藏</td>
+</tr>
+<tr>
+<td><code>git stash drop</code></td>
+<td><code>git apply</code>恢复隐藏后，需要手动删除 list 列表中的记录</td>
+</tr>
+<tr>
+<td><code>git stash pop</code></td>
+<td>恢复最新的进度到工作区</td>
+</tr>
+<tr>
+<td><code>git stash pop stash@[stash_id]</code></td>
+<td>恢复指定的进度到工作区</td>
+</tr>
+</tbody></table>
+<p>2）使用流程</p>
+<p> &lt;1&gt;执行 <code>git stash</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914675.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;2&gt;查看刚才保存的工作进度 <code>git stash list</code> （一般先使用 git stash list 查看有没有已经 stash 的记录，避免和自己的混淆，到时候使用时不知道是哪条记录）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914445.png" srcset="/img/loading.gif" lazyload></p>
+<p>保存注释的长这样：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914817.png" srcset="/img/loading.gif" lazyload></p>
+<p> 可以看到 stash@{0} 是刚才保存的</p>
+<p>&lt;3&gt; 这时候在看分支已经是干净无修改的(改动都有暂存到 stash)</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914011.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;4&gt; 现在就可以正常切换到目标分支，进行相应操作（假设要操作master分支）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914920.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;5&gt; 其他分支处理完成，再切回来使用刚才的 stash, 还是先查看 暂缓列表</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914520.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;6&gt; 选择使用暂缓 <code>git stash apply n</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914037.png" srcset="/img/loading.gif" lazyload></p>
+<p>注：n 是序号，如下图红色箭头指示</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021914812.png" srcset="/img/loading.gif" lazyload></p>
+<p>这时就看到刚才保存的工作进度，已经原样恢复~大功告成！</p>
+<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p>一、wp（基本同上）</p>
+<p>用dirsearch一扫，发现git泄露（不用扫也可以）</p>
+<p>再用GitHack扫</p>
+<p>到相应的文件夹，发现直接就有txt文件，打开，出flag</p>
+<p>二、相关知识</p>
+<p>Index ：索引</p>
+<h2 id="SVN泄露"><a href="#SVN泄露" class="headerlink" title="SVN泄露"></a>SVN泄露</h2><p>一、wp</p>
+<p>根据题目，显然是SVN泄露（其实应该先用<strong>dirsearch</strong>先扫的，这才是一个较完整的流程）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915885.png" srcset="/img/loading.gif" lazyload></p>
+<p>扫描发现有 .svn&#x2F; 目录，确认是 .svn 泄露。</p>
+<p>进入dvcs-ripper所在目录，使用 dvcs-ripper 中的 <code>rip-svn.pl</code> 脚本进行 clone，将泄露的文件下载到本地目录中。（注：要先安装工具所需依赖库）</p>
+<p>&lt;法1&gt;</p>
+<p>这里由于是隐藏的，所以我们利用tree命令，用<code>tree .svn</code>的命令查看.svn中的历史。（注：使用<code>svn checkout</code>后，项目目录下会生成隐藏的.svn文件夹，Linux上用ls命令看不到，要用<code>ls -al</code>命令，所以这里也可以用<code>ls -al</code>命令，但没tree命令看的清晰）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915892.png" srcset="/img/loading.gif" lazyload></p>
+<p>网页提示说flag在服务端旧版本的源代码中，那么应该检查一下pristine文件是否存放flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915195.png" srcset="/img/loading.gif" lazyload></p>
+<p>寻找 <code>.svn/pristine/</code> 中的文件，</p>
+<p>先找bf中的，发现是源代码，再找de中的，发现flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915379.png" srcset="/img/loading.gif" lazyload></p>
+<p>&lt;法2&gt; 也可以用ctrl+H显示隐藏文件夹，出现.svn文件夹</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915542.png" srcset="/img/loading.gif" lazyload></p>
+<p>也找到pristine文件夹（tree命令可以显得更清晰点，或许可以帮到忙）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915232.png" srcset="/img/loading.gif" lazyload></p>
+<p>照常找到flag。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915325.png" srcset="/img/loading.gif" lazyload></p>
+<p>二、题目考点</p>
+<p>svn 目录结构</p>
+<p>三、相关知识</p>
+<p><strong>1、svn</strong></p>
+<p>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
+<p>简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理。</p>
+<p>集中式管理的工作流程如下图：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915418.png" srcset="/img/loading.gif" lazyload></p>
+<p>Subversion使用服务端—客户端的结构，当然服务端与客户端可以都运行在同一台服务器上。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。在这两端之间，是通过各种仓库存取层（Repository Access，简称RA）的多条通道进行访问的。这些通道中，可以通过不同的网络协议，例如HTTP、SSH等，或本地文件的方式来对仓库进行操作。</p>
+<p>相比而下，经典的git开发过程:</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915480.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>2、svn与git</strong></p>
+<p>由上两图，我们推广出SVN和Git的区别：</p>
+<p>1）SVN属于集中化的版本控制系统，有个不太精确的比喻:SVN &#x3D; 版本控制+ 备份服务器</p>
+<p>SVN使用起来有点像是档案仓库的感觉，支持并行读写文件，支持代码的版本化管理，功能包括取出、导入、更新、分支、改名、还原、合并等。</p>
+<p>Git是一个分布式版本控制系统，操作命令包括：clone，pull，push，branch ，merge ，push，rebase，Git擅长的是程序代码的版本化管理。</p>
+<p>2）GIT跟SVN一样有自己的集中式版本库或服务器。但，GIT更倾向于被使用于分布式模式，也就是每个开发人员从中心版本库&#x2F;服务器上chect out代码后会在自己的机器上克隆一个自己的版本库。可以这样说，如果你被困在一个不能连接网络的地方时，就像在飞机上，地下室，电梯里等，你仍然能够提交文件，查看历史版本记录，创建项目分支，等。对一些人来说，这好像没多大用处，但当你突然遇到没有网络的环境时，这个将解决你的大麻烦。</p>
+<p>3）GIT把内容按元数据方式存储，而SVN是按文件</p>
+<p>所有的资源控制系统都是把文件的元信息隐藏在一个类似.svn,.cvs等的文件夹里。如果你把.git目录的体积大小跟.svn比较，你会发现它们差距很大。因为,.git目录是处于你的机器上的一个克隆版的版本库，它拥有中心版本库上所有的东西，例如标签，分支，版本记录等。</p>
+<p>4）分支在SVN中一点不特别，就是版本库中的另外的一个目录。如果你想知道是否合并了一个分支，你需要手工运行像这样的命令svn propget svn:mergeinfo，来确认代码是否被合并。然而，处理GIT的分支却是相当的简单和有趣。你可以从同一个工作目录下快速的在几个分支间切换。你很容易发现未被合并的分支，你能简单而快捷的合并这些文件。</p>
+<p>5）GIT没有一个全局的版本号，而SVN有</p>
+<p>目前为止这是跟SVN相比GIT缺少的最大的一个特征。你也知道，SVN的版本号实际是任何一个相应时间的源代码快照。我认为它是从CVS进化到SVN的最大的一个突破。因为GIT和SVN从概念上就不同，我不知道GIT里是什么特征与之对应。</p>
+<p>6）GIT的内容完整性要优于SVN：</p>
+<p>GIT的内容存储使用的是SHA-1哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。</p>
+<p><strong>3、dvcs-ripper工具的使用</strong></p>
+<p>1）运行示例（适用于 SVN）：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/rip-svn.pl -v -u http:/</span><span class="hljs-regexp">/www.example.com/</span>.svn/<br></code></pre></td></tr></table></figure>
+
+<p>It will automatically do svn revert -R .</p>
+<p>它会自动执行 svn revert -R .</p>
+<p>2）注意事项</p>
+<p>使用svn checkout后，项目目录下会生成隐藏的.svn文件夹（Linux上用ls命令看不到，要用ls -al命令）。</p>
+<p>svn1.6及以前版本会在项目的每个文件夹下都生成一个.svn文件夹，里面包含了所有文件的备份，文件名为 .svn&#x2F;text-base&#x2F;文件名.svn-base</p>
+<p>svn1.7及以后版本则只在项目根目录生成一个.svn文件夹，里面的pristine文件夹里包含了整个项目的所有文件备份</p>
+<p>具体内容请点此链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+<p><strong>4、Linux常用的文件查看命令：</strong></p>
+<p>1）cat ：由第一行开始显示文件内容；</p>
+<p>2）tac：从最后一行开始显示，可以看出tac与cat字母顺序相反；</p>
+<p>3）nl：显示的时候输出行号；</p>
+<p>4）more：一页一页的显示文件内容；</p>
+<p>5）less与more类似，但它可以向前翻页；</p>
+<p>6）head：只看前几行；</p>
+<p>7）tail：只看最后几行；</p>
+<p>8）od：以二进制的方式读取文件；</p>
+<p>9）vi&#x2F;vim：文本编辑器，也可以打开文件查看内容，这个是使用最为广泛的工具</p>
+<h2 id="HG泄露"><a href="#HG泄露" class="headerlink" title="HG泄露"></a>HG泄露</h2><p>一、wp</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915623.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915682.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里提示我们用HG，还是使用<strong>dvcs-ripper</strong>，这次使用<strong>rip-hg.pl</strong>脚本进行 clone。（这里出了一个小错误，使用工具时并不是官方文档中说的rip-hg.pl，而是.&#x2F;rip-hg.pl）</p>
+<p>发现直接执行 hg status 出错，工具 clone 的时候并没有 clone 完整。<strong>不要过分迷信工具。</strong></p>
+<p>使用tree命令列出刚刚下载的.hg网站目录</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915644.png" srcset="/img/loading.gif" lazyload></p>
+<p>看到一个.txt，打开看看，发现历史版本add flag，感觉没啥用</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915789.png" srcset="/img/loading.gif" lazyload></p>
+<p>利用正则匹配找一下flag（使用正则表达式进行关键字查找，具体方法见下图），也可以在这个文件夹下一个一个找，但这样低效；还可以和上一题一样直接在文件夹里找，但也太麻烦；</p>
+<p>结合题目提示，不太好使的情况下, 试着手工解决，在浏览器里输入这个flag文件（这里就直接用curl了）；</p>
+<p>出flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915997.png" srcset="/img/loading.gif" lazyload></p>
+<p>上图太小了，又重新截了一张，下图是上图的放大版</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021915363.png" srcset="/img/loading.gif" lazyload></p>
+<p>二、题目考点</p>
+<p>.hg 文件结构</p>
+<p>Mercurial 的使用</p>
+<p>三、相关知识</p>
+<p>1、HG泄露漏洞</p>
+<p>            Mercurial 是一种轻量级分布式版本控制系统，采用 Python 语言实现，易于学习和使用，扩展性强。其是基于 GNU General Public License (GPL) 授权的开源项目。</p>
+<p>        在 Mercurial 轻量级分布式版本控制系统中，本地既可以当做版本库的服务端，也可以当做版本库的客户端。版本库与工作目录不同，版本库存放了所有版本，而工作目录只是因为特定需要存放特定版本。与 SVN 系统不同，SVN 的版本库集中在一台服务器中。这也导致很多初次使用 Mercurial 系统的工作者，因为操作失误导致出现 HG 泄露漏洞的主要原因。</p>
+<p>2、dvcs-ripper的使用</p>
+<p>具体内容请看作者的另一篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/142714714" title="Web安全常用工具 （持续更新）-CSDN博客">Web安全常用工具 （持续更新）-CSDN博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTFHub/" class="print-no-link">#CTFHub</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>信息泄露-CTFHub</div>
+      <div>http://example.com/2025/05/04/6信息泄露-CTFHub/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/04/7sqli-labs%E9%80%9A%E5%85%B3%E5%85%A8%E8%AF%A6%E8%A7%A3/" title="sqli-labs通关全详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">sqli-labs通关全详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/04/5%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-CTFHub/" title="密码口令-CTFHub">
+                        <span class="hidden-mobile">密码口令-CTFHub</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

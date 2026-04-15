@@ -19,12 +19,12 @@
   <meta name="author" content="sangnigege">
   <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
   
-    <meta name="description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链 本次打靶全程使用Kali环境  为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 新年活动选取了 ctfshow 平台上的一道入门渗透题目 题目位置： ctfshow → web 入门 → 内网渗透 → web859（有跳板机）">
+    <meta name="description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链 本次打靶全程使用Kali环境  为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 选取了 ctfshow 平台上的一道入门渗透题目作为新年活动，并提供本WP复现。 题目位置： ctfshow → web 入门 → 内网渗透 → we">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ctfshow web859_有跳板机">
 <meta property="og:url" content="http://example.com/2026/test65/index.html">
 <meta property="og:site_name" content="重庆森林不在重庆">
-<meta property="og:description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链 本次打靶全程使用Kali环境  为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 新年活动选取了 ctfshow 平台上的一道入门渗透题目 题目位置： ctfshow → web 入门 → 内网渗透 → web859（有跳板机）">
+<meta property="og:description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链 本次打靶全程使用Kali环境  为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 选取了 ctfshow 平台上的一道入门渗透题目作为新年活动，并提供本WP复现。 题目位置： ctfshow → web 入门 → 内网渗透 → we">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221183.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221363.png">
@@ -64,7 +64,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223335.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223390.png">
 <meta property="article:published_time" content="2026-04-15T15:05:00.000Z">
-<meta property="article:modified_time" content="2026-04-15T15:53:34.500Z">
+<meta property="article:modified_time" content="2026-04-15T16:11:24.531Z">
 <meta property="article:author" content="sangnigege">
 <meta property="article:tag" content="ctfshow">
 <meta name="twitter:card" content="summary_large_image">
@@ -354,7 +354,7 @@
 <p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
 <p>本次打靶全程使用Kali环境</p>
 </blockquote>
-<p>为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 新年活动选取了 ctfshow 平台上的一道入门渗透题目</p>
+<p>为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 选取了 ctfshow 平台上的一道入门渗透题目作为新年活动，并提供本WP复现。</p>
 <p>题目位置： ctfshow → web 入门 → 内网渗透 → web859（有跳板机）</p>
 <p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221183.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>ctfshow平台地址：<a target="_blank" rel="noopener" href="https://ctf.show/challenges">https://ctf.show/challenges</a></p>
@@ -422,7 +422,7 @@
 <p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221412.png" srcset="/img/loading.gif" lazyload alt="image-20260216085317738"></p>
 <h1 id="WORKGROUP-oa"><a href="#WORKGROUP-oa" class="headerlink" title="WORKGROUP\oa"></a>WORKGROUP\oa</h1><p>我们前面提到过Windows 6.1指的是 Windows 7 或 Server 2008 R2，而Windows 7 和 Server 2008 R2 是 <strong>MS17-010 (永恒之蓝)</strong> 漏洞的“重灾区”，没打补丁（KB4012212）且开启了 445 端口，基本是一打一个准。</p>
 <p>我们先打WORKGROUP\oa，尝试msf一把梭</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">search</span> ms17_010  <span class="hljs-comment">#msf搜索一下相关模块</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">search</span> ms17_010  <span class="hljs-comment"># msf搜索一下相关模块</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221657.png" srcset="/img/loading.gif" lazyload alt="image-20260216162439261"></p>
 <p>先使用扫描模块对靶机进行扫描</p>
@@ -490,7 +490,7 @@
 <p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222943.png" srcset="/img/loading.gif" lazyload alt="image-20260216173752555"></p>
 <p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222630.png" srcset="/img/loading.gif" lazyload alt="image-20260218095021931"></p>
 <p>整体流量路径如下：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">浏览器<br>   ↓（FoxyProxy 代理转发）<br><span class="hljs-keyword">BurpSuite</span><br><span class="hljs-keyword"></span>   ↓（配置的 SOCKS5 代理）<br>SSH 隧道<br>   ↓<br>跳板机（内网）<br></code></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">浏览器<br>   ↓（FoxyProxy 代理转发）<br><span class="hljs-keyword">BurpSuite</span><br><span class="hljs-keyword"></span>   ↓（配置的 SOCKS5 代理）<br>SSH 隧道<br>   ↓<br>跳板机<br>   ↓<br>内网目标<br></code></pre></td></tr></table></figure>
 
 <h3 id="sshuttle-VPN"><a href="#sshuttle-VPN" class="headerlink" title="sshuttle VPN"></a>sshuttle VPN</h3><p>sshuttle是一个透明代理服务器，功能类似于简易版 VPN。通过 SSH 转发流量，支持 DNS 隧道。</p>
 <p>在Kali里安装sshuttle</p>

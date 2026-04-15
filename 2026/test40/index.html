@@ -1,0 +1,911 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="Task1：初探AFLTask 1.1：安装 AFL我们从源码进行构建，克隆最新版本的源码。 1git clone https:&#x2F;&#x2F;github.com&#x2F;google&#x2F;AFL.git  随后进入 AFL文件夹，在文件夹下打开命令行输入： 12makesudo make install #安装到系统目录  安装完成后，AFL安装在&#x2F;usr&#x2F;local&#x2F;bin目录下，ls">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）">
+<meta property="og:url" content="http://example.com/2026/test40/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="Task1：初探AFLTask 1.1：安装 AFL我们从源码进行构建，克隆最新版本的源码。 1git clone https:&#x2F;&#x2F;github.com&#x2F;google&#x2F;AFL.git  随后进入 AFL文件夹，在文件夹下打开命令行输入： 12makesudo make install #安装到系统目录  安装完成后，AFL安装在&#x2F;usr&#x2F;local&#x2F;bin目录下，ls">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156592.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156186.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156536.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156374.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156074.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156611.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156527.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156742.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156026.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157905.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157673.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157505.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157363.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157081.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157862.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157609.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158393.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158349.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157827.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157089.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158167.png">
+<meta property="article:published_time" content="2026-04-15T10:30:57.083Z">
+<meta property="article:modified_time" content="2026-04-15T13:58:24.811Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="WP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156592.png">
+  
+  
+  
+  <title>软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL） - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:30" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Task1：初探AFL"><a href="#Task1：初探AFL" class="headerlink" title="Task1：初探AFL"></a>Task1：初探AFL</h1><h2 id="Task-1-1：安装-AFL"><a href="#Task-1-1：安装-AFL" class="headerlink" title="Task 1.1：安装 AFL"></a>Task 1.1：安装 AFL</h2><p>我们从源码进行构建，克隆最新版本的源码。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/google/AFL.git<br></code></pre></td></tr></table></figure>
+
+<p>随后进入 AFL文件夹，在文件夹下打开命令行输入：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">make</span><br>sudo <span class="hljs-built_in">make</span> install <span class="hljs-meta">#安装到系统目录</span><br></code></pre></td></tr></table></figure>
+
+<p>安装完成后，AFL安装在&#x2F;usr&#x2F;local&#x2F;bin目录下，ls查看文件判断是否安装成功</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ls <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span>afl*<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156592.png" srcset="/img/loading.gif" lazyload alt="image-20251227185000976"></p>
+<h2 id="Task1-2：初步尝试"><a href="#Task1-2：初步尝试" class="headerlink" title="Task1.2：初步尝试"></a>Task1.2：初步尝试</h2><p>首先准备一段待测试的代码test.c，此代码中模拟了4个漏洞（有些漏洞并非真实安全问题，仅用 作演示）。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156186.png" srcset="/img/loading.gif" lazyload alt="image-20251227221740055"></p>
+<p>首先，使用afl-gcc编译待测试的test.c文件</p>
+<p>实质上，afl-xxx系列命令是对编译器如gcc、g++或clang的包装，其使用的参数选项与这些编译 器相同。</p>
+<p>对于C++源代码，应使用afl-g++进行编译。 接下来，创建两个目录fuzz_in和fuzz_out，分别用于存放模糊测试的输入和输出。在fuzz_in目 录中至少需要准备一个测试用例。</p>
+<p>执行以下命令进行模糊测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">afl-gcc -g -o <span class="hljs-built_in">test</span> test.c<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;aaa&#x27;</span> &gt; ./fuzz_in/case<br>afl-fuzz -i ./fuzz_in -o ./fuzz_out ./test<br></code></pre></td></tr></table></figure>
+
+<p>fuzz_out 目录记录了模糊测试的运行结果。通过分析此目录，我们可以识别出导致程序崩溃（crash） 的具体测试用例（case）。 </p>
+<p>crashes 子目录包含了触发程序崩溃的测试用例，hangs子目录包含了导致程序超时的测试用例，而 queue 子目录存储了所有探索到的不同执行路径的测试用例。如果获得了所需的崩溃信息或长时间无法获 取新的有趣输出，应使用Ctrl-C命令退出模糊测试过程。 </p>
+<p>例如，可使用xxd命令查看触发的具体崩溃实例，分析test.c可知crashcase3是触发了第三个漏 洞，即输入长度过长导致栈溢出，程序将异常退出。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156536.png" srcset="/img/loading.gif" lazyload alt="image-20251227223020108"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156374.png" srcset="/img/loading.gif" lazyload alt="image-20251228012303027"></p>
+<p>任务：请使用 xxd查看你触发crash的cases，并判断分别对应 test.c中哪种漏洞，并解释漏洞产生 的原因。注意，你的crashcases应覆盖所有4个漏洞。</p>
+<p><strong>特定字符串触发异常 (Logic Flaw - “FAS” + Length 6)</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156074.png" srcset="/img/loading.gif" lazyload alt="image-20251228012822564"></p>
+<p><strong>现象</strong>：分析 AFL 生成的崩溃样本 id:000007，通过 xxd 命令查看其二进制内容。样本内容以十六进制 46 41 53 开头（即 ASCII 码 “FAS”），且文件总长度为 6 字节。<br><strong>成因</strong>：对应代码 test.c 第 14-20 行。函数 vuln_test 检查输入字符串：若首字符为 ‘F’ 且长度为 6，随后继续检查第二字符是否为 ‘A’、第三字符是否为 ‘S’。一旦匹配字符串 “FAS…”，程序调用 raise(SIGSEGV) 导致崩溃。</p>
+<p><strong>栈缓冲区溢出 (Stack Buffer Overflow)</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156611.png" srcset="/img/loading.gif" lazyload alt="image-20251228012850576"></p>
+<p><strong>现象</strong>：AFL 生成了大量长文件样本（例如 id:000002），其长度（如 26698 字节）远超缓冲区大小。<br><strong>成因</strong>：对应代码 test.c 第 34 行 gets(buff)。变量 buff 定义为 char buff[80]，但 gets() 函数未对输入长度进行限制。当输入长度超过 80 字节时，多余的数据覆盖了栈上的关键信息（如返回地址），导致函数返回时跳转到非法地址，引发段错误。</p>
+<p><strong>格式化字符串漏洞 (Format String Vulnerability)</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156527.png" srcset="/img/loading.gif" lazyload alt="image-20251228012953020"></p>
+<p><strong>现象</strong>：通过输入包含格式化字符（如 %s%s%s）的样本 manual_vuln4_fmt，程序在未发生栈溢出的情况下崩溃。<br><strong>成因</strong>：对应代码 test.c 第 35 行 printf(buff)。程序直接将用户输入作为 printf 的格式化字符串参数，而未提供后续参数。当输入包含 %s、%n 等格式说明符时，printf 尝试从栈中读取非法内存地址或向非法地址写入数据，导致访问违规（Access Violation）并崩溃。</p>
+<p><strong>特定条件触发异常 (Logic Flaw - ‘C’ + Length 30)</strong></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156742.png" srcset="/img/loading.gif" lazyload alt="image-20251228013045149"></p>
+<p><strong>现象</strong>：通过构造首字符为 ‘C’ 且总长度为 30 字节的输入样本 manual_vuln1_c_30，程序运行后发生段错误（Segmentation Fault）。<br><strong>成因</strong>：代码 test.c 第 10-12 行存在逻辑判断 if(str[0] &#x3D;&#x3D; ‘C’ &amp;&amp; len &#x3D;&#x3D; 30)。当输入满足此条件时，程序主动调用 raise(SIGSEGV) 触发崩溃。AFL 在测试中倾向于生成长字符串触发栈溢出，因此该精确长度路径较难命中，通过手动验证确认了漏洞存在。</p>
+<h1 id="Task2-基于AFL-测试Xpdf"><a href="#Task2-基于AFL-测试Xpdf" class="headerlink" title="Task2: 基于AFL++测试Xpdf"></a>Task2: 基于AFL++测试Xpdf</h1><p>AFL++ 是在原始AFL框架基础上演进的覆盖引导模糊测试工具，对性能和可用性进行了多项优化， 尤其在大型项目模糊测试场景下往往具有更好的执行效率。尽管如此，AFL++在整体架构、使用方式和 核心工作流程上与AFL基本保持一致。在本任务中，我们将使用AFL++对大型开源PDF处理组件Xpdf 进行模糊测试实践。</p>
+<h2 id="AFL-安装"><a href="#AFL-安装" class="headerlink" title="AFL++ 安装"></a>AFL++ 安装</h2><p>本实验采用自源码编译的方式安装最新版本的AFL++2。在此之前，需要安装若干构建依赖包</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vim">sudo apt-<span class="hljs-built_in">get</span> <span class="hljs-keyword">update</span><br>sudo apt-<span class="hljs-built_in">get</span> install automake autoconf build-essential llvm clang lldb lld meson gcc-$(gcc-dumpversion)-plugin-d<br>sudo apt-<span class="hljs-built_in">get</span> install -<span class="hljs-keyword">y</span> automake autoconf build-essential llvm clang lldb lld meson gcc-$(gcc -dumpversion)-plugin-dev libglib2.<span class="hljs-number">0</span>-dev ninja-build<br><br><span class="hljs-keyword">cd</span> $HOME<br>git clone https://github.<span class="hljs-keyword">com</span>/AFLplusplus/AFLplusplus<br><span class="hljs-keyword">cd</span> AFLplusplus<br><span class="hljs-keyword">make</span> <span class="hljs-keyword">all</span><br>sudo <span class="hljs-keyword">make</span> install<br></code></pre></td></tr></table></figure>
+
+<p>系统提示LLVM版本过旧 如果在执行AFL++相关命令时收到“LLVM版本过旧”的提示，需要安装更新版 本的LLVM&#x2F;Clang。以下示例以安装LLVM15为例：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> bash -c <span class="hljs-string">&quot;$(wget -O - https://apt.llvm.org/llvm.sh)&quot;</span> -- <span class="hljs-number">15</span><br><br><span class="hljs-attribute">sudo</span> apt install clang-<span class="hljs-number">15</span> lld-<span class="hljs-number">15</span> llvm-<span class="hljs-number">15</span>-dev<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="构建测试环境"><a href="#构建测试环境" class="headerlink" title="构建测试环境"></a>构建测试环境</h2><p>首先，为本次Xpdf模糊测试创建单独工作目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span><br><span class="hljs-built_in">mkdir</span> fuzzing_xpdf &amp;&amp; <span class="hljs-built_in">cd</span> fuzzing_xpdf<br></code></pre></td></tr></table></figure>
+
+<p>下载并解压Xpdf3.02版本源码：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">wget</span> --no-check-certificate https://dl.xpdfreader.com/old/xpdf-<span class="hljs-number">3</span>.<span class="hljs-number">02</span>.tar.gz<br><span class="hljs-attribute">tar</span> -xvzf xpdf-<span class="hljs-number">3</span>.<span class="hljs-number">02</span>.tar.gz<br></code></pre></td></tr></table></figure>
+
+<p>使用系统默认编译器对Xpdf进行常规构建与安装（用于功能验证）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> xpdf-3.02<br>./configure --prefix=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install/&quot;</span><br>make<br>make install<br></code></pre></td></tr></table></figure>
+
+<p>随后，准备若干PDF示例文件用于测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span>/fuzzing_xpdf<br><span class="hljs-built_in">mkdir</span> pdf_examples &amp;&amp; <span class="hljs-built_in">cd</span> pdf_examples<br>wget --no-check-certificate https://github.com/mozilla/pdf.js-sample-files/raw/master/helloworld.pdf<br></code></pre></td></tr></table></figure>
+
+<p>可以通过如下命令调用pdfinfo对示例文件进行解析，检查Xpdf是否安装成功并可正常工作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span>/fuzzing_xpdf<br>./install/bin/pdfinfo -box -meta ./pdf_examples/helloworld.pdf<br></code></pre></td></tr></table></figure>
+
+<p>若能看到正确的PDF元数据输出，则说明Xpdf已成功构建和安装。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152156026.png" srcset="/img/loading.gif" lazyload alt="image-20251228022354889"></p>
+<h2 id="执行模糊测试"><a href="#执行模糊测试" class="headerlink" title="执行模糊测试"></a>执行模糊测试</h2><p>在使用AFL++重新构建前，先清理已有的安装目录和编译产物：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -r <span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install<br><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span>/fuzzing_xpdf/xpdf-3.02/<br>make clean<br></code></pre></td></tr></table></figure>
+
+<p>与afl-gcc 类似，afl-clang-fast 是对 clang 的封装，通过LLVMPass对目标程序进行插桩，从 而在性能与插桩灵活性方面具备优势（原版AFL也支持LLVMMode，有兴趣可进一步自行探索）。 使用afl-clang-fast 和afl-clang-fast++ 作为编译器，对Xpdf进行重新配置与构建：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">CC</span>=<span class="hljs-variable">$HOME</span>/AFLplusplus/afl-clang-fast <span class="hljs-attribute">CXX</span>=<span class="hljs-variable">$HOME</span>/AFLplusplus/afl-clang-fast++ ./configure <span class="hljs-attribute">--prefix</span>=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install/&quot;</span><br><span class="hljs-comment"># 编译安装</span><br>make<br>make install<br></code></pre></td></tr></table></figure>
+
+<p>在编译输出中可以看到来自AFL++的插桩提示，表明目标程序已被插入覆盖率收集代码。随后，可 以使用如下命令启动模糊测试：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 创建输出目录</span><br>mkdir -p <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/fuzzing_xpdf/</span>out<br><br><span class="hljs-variable">$HOME</span><span class="hljs-regexp">/AFLplusplus/</span>afl-fuzz -i <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/fuzzing_xpdf/</span>pdf_examples<span class="hljs-regexp">/ -o $HOME/</span>fuzzing_xpdf<span class="hljs-regexp">/out/</span> -s <span class="hljs-number">123</span> -- <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/fuzzing_xpdf/i</span>nstall<span class="hljs-regexp">/bin/</span>pdftotext @@ <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/fuzzing_xpdf/</span>output<br></code></pre></td></tr></table></figure>
+
+<p>参数含义如下：</p>
+<p> •-i：指定初始输入（种子）文件目录。 </p>
+<p>•-o：指定AFL++输出目录，用于保存变异样本、崩溃用例等。 </p>
+<p>•-s：设置静态随机种子。AFL默认采用非确定性测试流程，使用固定种子（如-s 123）有助于复现 实验结果。 </p>
+<p> • @@：命令行参数占位符，AFL++会在运行时将其替换为当前输入样本的文件名。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157905.png" srcset="/img/loading.gif" lazyload alt="image-20251228221358910"></p>
+<h2 id="复现Crash"><a href="#复现Crash" class="headerlink" title="复现Crash"></a>复现Crash</h2><p>本实验中触发的崩溃对应的已知安全问题被分配为CVE-2019-13288。请阅读相关公开信息，接下来我们将使用gdb分析导致程序崩溃的具体原因。</p>
+<p>首先，需要重新编译Xpdf，引入调试信息以获得完整的符号和栈回溯信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 清理旧的编译文件</span><br><span class="hljs-built_in">rm</span> -r <span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install<br><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span>/fuzzing_xpdf/xpdf-3.02<br>make clean<br><br><span class="hljs-comment"># 2. 配置编译参数：加入 -g (调试信息) 和 -O0 (关闭优化)</span><br><span class="hljs-comment"># 这一步非常关键，不做的话 GDB 看到的都是乱码</span><br>CFLAGS=<span class="hljs-string">&quot;-g -O0&quot;</span> CXXFLAGS=<span class="hljs-string">&quot;-g -O0&quot;</span> ./configure --prefix=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install/&quot;</span><br><br><span class="hljs-comment"># 3. 重新编译并安装</span><br>make<br>make install<br></code></pre></td></tr></table></figure>
+
+<p>然后，使用gdb对触发崩溃的输入样本进行调试（将替换为实际Crash文件名）</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">gdb --args <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/fuzzing_xpdf/i</span>nstall<span class="hljs-regexp">/bin/</span>pdftotext <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/fuzzing_xpdf/</span>out<span class="hljs-regexp">/default/</span>crashes<span class="hljs-regexp">/&lt;your_filename&gt; $HOME/</span>fuzzing_xpdf/outpu<br></code></pre></td></tr></table></figure>
+
+<p>在gdb中依次执行：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">gdb</span>) run<br>(<span class="hljs-name">gdb</span>) bt<br></code></pre></td></tr></table></figure>
+
+<p>run 启动程序，崩溃发生后通过bt查看栈回溯信息，一般可以看到因段错误（SegmentationFault） 导致的异常退出。在实验报告中，请结合回溯信息说明程序崩溃的大致位置与原因。 </p>
+<p>进一步分析可以发现，在解析PDF过程中，多次调用了parser.cc中的相关函数。初步怀疑问题与 getObj 和 fetch 等函数的调用逻辑有关。为验证该假设，可以在Parser::getObj()处设置断点，并重 新运行程序：</p>
+<p>任务：请依据上述步骤，结合gdb进行Crash的复现与分析。在实验报告中给出调试过程的关键截图， 描述你的观察结果，并解释该漏洞产生的根本原因（例如错误的边界检查、异常输入未被正确处理等）。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157673.png" srcset="/img/loading.gif" lazyload alt="image-20251228231000011"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157505.png" srcset="/img/loading.gif" lazyload alt="image-20251228230951634"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157363.png" srcset="/img/loading.gif" lazyload alt="image-20251228231037349"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157081.png" srcset="/img/loading.gif" lazyload alt="image-20251228231005383"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157862.png" srcset="/img/loading.gif" lazyload alt="image-20251228231020374"></p>
+<p><strong>崩溃位置</strong>：EmbedStream::getChar() (Frame #0)，由 Gfx::opBeginImage (Frame #1) 调用。</p>
+<p><strong>成因分析</strong>：</p>
+<blockquote>
+<p>这是一个**内存访问违规（Memory Corruption &#x2F; Segmentation Fault）**漏洞。</p>
+<p>通过 GDB 调试发现，程序在处理 PDF 中的图像对象（opBeginImage）时崩溃。结合命令行输出的大量 Error: Dictionary key… 提示，说明 AFL++ 生成的畸形 PDF 文件破坏了对象的字典结构。当程序试图通过 EmbedStream::getChar 读取图像数据流时，由于结构损坏（可能是空指针引用或越界读取），访问了非法的内存地址，导致操作系统抛出 SIGSEGV 信号终止程序。这证实了 Xpdf 在解析畸形 PDF 对象时存在输入验证缺陷。</p>
+</blockquote>
+<h1 id="Task3-使用QEMU模式执行模糊测试（无程序源码）"><a href="#Task3-使用QEMU模式执行模糊测试（无程序源码）" class="headerlink" title="Task3: 使用QEMU模式执行模糊测试（无程序源码）"></a>Task3: 使用QEMU模式执行模糊测试（无程序源码）</h1><p>在Task1和Task2中，我们主要针对具有源代码的程序开展模糊测试。而在真实应用场景中，测试目 标往往仅以二进制形式提供，无法获得源码。为支持此类“黑盒”目标，AFL++提供了QEMU模式，使得在 缺乏源码的情况下仍然可以进行覆盖引导的模糊测试。启用QEMU模式非常简单，只需在原有afl-fuzz 命令行基础上增加-Q参数。</p>
+<p>QEMU模式是AFL++的高级特性之一。它基于QEMU（QuickEMUlator，官方网站：<a target="_blank" rel="noopener" href="https://www.qemu.org/%EF%BC%89%E8%BF%99%E4%B8%80%E5%85%A8%E7%B3%BB%E7%BB%9F%E6%A8%A1%E6%8B%9F%E5%99%A8%EF%BC%8C%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%A8%8B%E5%BA%8F%E8%BF%9B%E8%A1%8C%E5%8A%A8%E6%80%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%BF%BB%E8%AF%91%E4%B8%8E%E6%8F%92%E6%A1%A9%EF%BC%9A%E5%8D%B3%E7%94%B1QEMU%E9%80%90%E5%9D%97%E8%AF%BB%E5%8F%96">https://www.qemu.org/）这一全系统模拟器，在运行时对目标程序进行动态二进制翻译与插桩：即由QEMU逐块读取</a> 目标程序的机器指令，将其翻译为宿主平台等价的指令序列，并在翻译过程中自动插入额外的监控代码， 用于记录执行路径和代码覆盖情况，而无需重新编译或修改原始可执行文件。通过这种方式，即便只有二 进制文件，也能实现覆盖引导的模糊测试。</p>
+<h2 id="安装QEMU模式（在AFLplusplus目录下）"><a href="#安装QEMU模式（在AFLplusplus目录下）" class="headerlink" title="安装QEMU模式（在AFLplusplus目录下）"></a>安装QEMU模式（在AFLplusplus目录下）</h2><p>首先，在AFLplusplus源码目录中为QEMU模式安装所需依赖并构建支持模块：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt-get install libglib2.0-dev ninja-build<br><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span>/AFLplusplus/qemu_mode<br>./build_qemu_support.sh<br><span class="hljs-comment"># 这一步可能耗时较长</span><br></code></pre></td></tr></table></figure>
+
+<p>若安装过程中出现”cannot find”类错误，说明系统缺失某些必需软件包，请根据错误提示使用 sudo apt install  安装缺失依赖。</p>
+<p>完成构建后，返回上级目录并重新安装AFL++，使QEMU相关组件正确注册到系统路径中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ..<br><span class="hljs-built_in">sudo</span> make install<br></code></pre></td></tr></table></figure>
+
+<p>随后可以检查afl-qemu-trace是否已安装到&#x2F;usr&#x2F;local&#x2F;bin等路径下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ls <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span>afl*<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157609.png" srcset="/img/loading.gif" lazyload alt="image-20251228235825197"></p>
+<h2 id="使用QEMU模式执行模糊测试"><a href="#使用QEMU模式执行模糊测试" class="headerlink" title="使用QEMU模式执行模糊测试"></a>使用QEMU模式执行模糊测试</h2><p>根据任务提供的环境，我们使用已编译并安装好的exif程序4作为模糊测试目标，输入样本来自 exif-samples 文件夹中的JPEG文件。</p>
+<p>由于exif依赖特定版本的libc，需要先更新系统中的libc库。可以通过添加新的软件源来获取合 适版本的libc：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 添加源</span><br><span class="hljs-built_in">sudo</span> vi /etc/apt/sources.list<br><span class="hljs-comment"># 在末尾添加：</span><br>deb http://th.archive.ubuntu.com/ubuntu jammy main<br><span class="hljs-comment"># 保存退出 (:wq)</span><br></code></pre></td></tr></table></figure>
+
+<p>保存后，更新软件源并安装libc6：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 2. 更新并安装 libc6</span><br><span class="hljs-built_in">sudo</span> apt update<br><span class="hljs-built_in">sudo</span> apt install libc6<br></code></pre></td></tr></table></figure>
+
+<p>系统提示Meson版本过旧 如果AFL++在构建或使用过程中提示Meson版本过旧，可以通过卸载发行 版自带的旧版本并使用PyPI安装新版本来解决，示例命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt update<br><span class="hljs-built_in">sudo</span> apt install python3-pip<br><span class="hljs-built_in">sudo</span> apt remove meson<br>pip3 install meson<br></code></pre></td></tr></table></figure>
+
+<p>然后配置编译环境，使AFL++及目标程序优先使用新安装的LLVM&#x2F;Clang工具链（示例仍以LLVM 15 为例）：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">CC</span>=/usr/bin/clang-15<br><span class="hljs-built_in">export</span> <span class="hljs-attribute">CXX</span>=/usr/bin/clang++-15<br><span class="hljs-built_in">export</span> <span class="hljs-attribute">PKG_CONFIG</span>=/usr/bin/pkg-config # 指定 pkg-config 路径，供构建系统查询依赖<br><span class="hljs-built_in">export</span> <span class="hljs-attribute">AR</span>=/usr/bin/ar<br><span class="hljs-built_in">export</span> <span class="hljs-attribute">NM</span>=/usr/bin/nm<br></code></pre></td></tr></table></figure>
+
+<p>依赖准备完成后，将提供的exif程序移动到下面路径，即可使用QEMU模式启动模糊测试：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-variable">$HOME</span><span class="hljs-regexp">/AFLplusplus/</span>afl-fuzz -Q -i <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/qemu_fuzz/</span>exif-samples<span class="hljs-regexp">/jpg/</span> -o <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/qemu_fuzz/</span>out -s <span class="hljs-number">123</span> -- <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/qemu_fuzz/i</span>nstall<span class="hljs-regexp">/bin/</span>exif @@<br></code></pre></td></tr></table></figure>
+
+<p>其中，-Q表示启用QEMU模式，其他参数含义与前一任务类似。需要注意的是，QEMU模式通过动 态二进制翻译实现插桩，通常比基于源码的插桩模式更慢，因此模糊测试需要更长时间，请耐心等待。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158393.png" srcset="/img/loading.gif" lazyload alt="image-20251229194246356"></p>
+<h2 id="分析得到的Crash"><a href="#分析得到的Crash" class="headerlink" title="分析得到的Crash"></a>分析得到的Crash</h2><p>当AFL++在QEMU模式下发现崩溃样本后，可以使用GDB对相应输入进行调试，分析程序异常的根 本原因。例如：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">gdb --args <span class="hljs-variable">$TARGET_BIN</span> &lt;crash_file_path&gt;<br>gdb --args <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/qemu_fuzz/i</span>nstall<span class="hljs-regexp">/bin/</span>exif <span class="hljs-string">&quot;$HOME/qemu_fuzz/out/default/crashes/id:000000,sig:06,src:000469,time:1155795,execs:210356,op:quick,pos:665,val:+2&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>任务：请结合网上公开信息研究exif中已知的CVE-2009-3895或CVE-2012-2836漏洞。参考Task2中 的分析流程，利用afl-fuzz-Q获得崩溃样本，并通过gdb进行调试，找出至少一个漏洞的触发路径与 成因。在实验报告中详细说明该漏洞是如何产生的，以及恶意输入如何导致程序崩溃或异常行为（需配合 调试截图说明）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158349.png" srcset="/img/loading.gif" lazyload alt="image-20251229194431166"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157827.png" srcset="/img/loading.gif" lazyload alt="image-20251229194601198"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157089.png" srcset="/img/loading.gif" lazyload alt="image-20251229194605301"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158167.png" srcset="/img/loading.gif" lazyload alt="image-20251229194608189"></p>
+<p><strong>调试现象</strong>：</p>
+<blockquote>
+<p>程序运行后中止并抛出 <strong>SIGABRT</strong> 信号。<br>GDB 输出显示错误信息 <strong>realloc(): invalid next size</strong>。这表明 glibc 的内存分配器在执行 realloc 操作时，检测到当前堆块（Chunk）的元数据（如头部的大小字段）已被覆盖或损坏，从而触发了安全机制主动终止程序。</p>
+</blockquote>
+<p><strong>漏洞定位</strong>：</p>
+<blockquote>
+<p>通过 bt（栈回溯）发现，崩溃发生在 <strong>exif_entry_fix</strong> 函数（exif-entry.c:253）调用 <strong>exif_entry_realloc</strong> 的过程中。</p>
+</blockquote>
+<p><strong>成因分析 (Root Cause)</strong>：</p>
+<blockquote>
+<p>这是一个典型的<strong>堆溢出导致的堆破坏 (Heap Corruption triggered by Heap Overflow)</strong>。</p>
+<p>根据调用栈分析，libexif 在处理畸形的 EXIF 标签时，调用了 exif_entry_fix 试图修正条目大小。由于输入文件中的标签长度字段被恶意篡改（例如伪造了一个巨大的长度），导致程序在之前的数据写入操作中越界，覆盖了堆内存中相邻块的头部信息（Metadata）。<br>当程序随后调用 realloc 试图调整内存大小时，分配器检查发现堆块的 next size 字段非法（invalid next size），从而判定堆结构已损坏并终止运行。这与 <strong>CVE-2009-3895</strong>（整数溢出导致堆溢出）的特征完全一致。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="category-chain-item">软件安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/WP/" class="print-no-link">#WP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）</div>
+      <div>http://example.com/2026/test40/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test38/" title="软件安全实验 SEEDlabs 跨站请求伪造攻击实验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 跨站请求伪造攻击实验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test44/" title="羊城杯2025决赛">
+                        <span class="hidden-mobile">羊城杯2025决赛</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

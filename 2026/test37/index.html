@@ -1,0 +1,1125 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="环境设置实验所需文件已在e-learning系统中提供。 此次实验使用一个已经开发好的Web应用程序，并使用容器1来设置这个Web应用程序。实验使用两 个容器，一个用于托管Web应用程序，另一个用于托管Web应用程序的数据库。Web应用程序的容器IP 地址是 10.9.0.5，Web应用程序的URL见下：  1http:&#x2F;&#x2F;www.seed-server.com  我们需要将主机名映射到容器的IP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件安全实验 SEEDlabs SQL 注入攻击实验">
+<meta property="og:url" content="http://example.com/2026/test37/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="环境设置实验所需文件已在e-learning系统中提供。 此次实验使用一个已经开发好的Web应用程序，并使用容器1来设置这个Web应用程序。实验使用两 个容器，一个用于托管Web应用程序，另一个用于托管Web应用程序的数据库。Web应用程序的容器IP 地址是 10.9.0.5，Web应用程序的URL见下：  1http:&#x2F;&#x2F;www.seed-server.com  我们需要将主机名映射到容器的IP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153612.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153550.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153187.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153944.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153924.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153309.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153752.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153533.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154104.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154594.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154170.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154819.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154435.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154499.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154998.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154246.png">
+<meta property="article:published_time" content="2026-04-15T10:30:57.097Z">
+<meta property="article:modified_time" content="2026-04-15T13:54:19.138Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="SEEDlabs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153612.png">
+  
+  
+  
+  <title>软件安全实验 SEEDlabs SQL 注入攻击实验 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="软件安全实验 SEEDlabs SQL 注入攻击实验"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:30" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          48 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">软件安全实验 SEEDlabs SQL 注入攻击实验</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="环境设置"><a href="#环境设置" class="headerlink" title="环境设置"></a>环境设置</h2><p>实验所需文件已在e-learning系统中提供。 此次实验使用一个已经开发好的Web应用程序，并使用容器1来设置这个Web应用程序。实验使用两 个容器，一个用于托管Web应用程序，另一个用于托管Web应用程序的数据库。Web应用程序的容器IP 地址是 10.9.0.5，Web应用程序的URL见下： </p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//www.seed-server.com</span><br></code></pre></td></tr></table></figure>
+
+<p>我们需要将主机名映射到容器的IP地址。请将以下条目添加到&#x2F;etc&#x2F;hosts文件。此文件的修改需要 使用root权限（使用 sudo）。如果主机名由于某些原因已经被添加到文件中，且被映射到一个不同的IP 地址，请删除旧的条目。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">10.9</span><span class="hljs-number">.0</span><span class="hljs-number">.5</span>	<span class="hljs-string">www.seed-server.com</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="容器设置与相关命令"><a href="#容器设置与相关命令" class="headerlink" title="容器设置与相关命令"></a>容器设置与相关命令</h3><p>将实验配置文件Lab3setup.zip 上传至虚拟机，解压后进入 Labsetup 文件夹，使用其中的 docker-compose.yml 文件来构建实验环境。</p>
+<p>docker-compose.yml 文件的相关解释以及有关所有 Dockerfile的内容可查阅用户手册（<code>https: //github.com/seed-labs/seed-labs/blob/master/manuals/docker/SEEDManual-Container.md</code>）。若 为第一次使用容器构建SEED实验环境，建议阅读用户手册。</p>
+<p>下面列出了一些DockerCompose的常用命令，这些命令在SEEDUbuntu20.04VM中的.bashrc文件 中拥有别名。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-variable">$ </span>docker-composebuild <span class="hljs-comment">#Buildthecontainerimage</span><br><span class="hljs-variable">$ </span>docker-composeup <span class="hljs-comment">#Start thecontainer</span><br><span class="hljs-variable">$ </span>docker-composedown <span class="hljs-comment">#Shutdownthecontainer</span><br><span class="hljs-regexp">//</span> AliasesfortheComposecommandsabove<br><span class="hljs-variable">$ </span>dcbuild <span class="hljs-comment">#Aliasfor:docker-composebuild</span><br><span class="hljs-variable">$ </span>dcup <span class="hljs-comment">#Aliasfor:docker-composeup</span><br><span class="hljs-variable">$ </span>dcdown <span class="hljs-comment">#Aliasfor:docker-composedown</span><br></code></pre></td></tr></table></figure>
+
+<p>令所有容器在后台运行（使用-d参数，即dcup-d），要在容器上运行命令，需要使用该容器的shell。 我们首先需要使用“docker ps”命令来找出容器的ID，然后使用“dockerexec”来启动该容器的shell。命 令已在.bashrc文件中创建别名。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-symbol">$</span> dockps <span class="hljs-comment">//Aliasfor:dockerps--format&quot;&#123;&#123;.ID&#125;&#125;&#123;&#123;.Names&#125;&#125;&quot;</span><br><span class="hljs-symbol">$</span> docksh&lt;id&gt; <span class="hljs-comment">//Aliasfor:dockerexec-it&lt;id&gt;/bin/bash</span><br><br><span class="hljs-comment">// The followingexampleshowshowtogetashellinsidehostC</span><br><span class="hljs-symbol">$</span> dockps<br>b1004832e275hostA<span class="hljs-number">-10.9</span><span class="hljs-number">.0</span><span class="hljs-number">.5</span><br><span class="hljs-number">0</span>af4ea7a3e2ehostB<span class="hljs-number">-10.9</span><span class="hljs-number">.0</span><span class="hljs-number">.6</span><br><span class="hljs-number">9652715</span>c8e0ahostC<span class="hljs-number">-10.9</span><span class="hljs-number">.0</span><span class="hljs-number">.7</span><br><span class="hljs-symbol">$</span> docksh96<br>root@<span class="hljs-number">9652715</span>c8e0a:/#<br><span class="hljs-comment">// <span class="hljs-doctag">Note:</span>IfadockercommandrequiresacontainerID,youdonotneedto</span><br><span class="hljs-comment">// typetheentireIDstring.Typingthefirstfewcharacterswill</span><br><span class="hljs-comment">// besufficient, aslongas theyareuniqueamongallthecontainers.</span><br></code></pre></td></tr></table></figure>
+
+<p> Remark如遇问题，请查阅用户手册中的“常见问题”部分，以及本实验手册最后一页的附录。</p>
+<p><strong>MySQL数据库</strong>：通常情况下，容器是一次性的，一旦被删除，内部的所有数据都会丢失。本次实验中，我们 需要保存MySQL数据库中的数据，这样就不会在关闭容器时丢失数据。为此，我们将主机上的mysql_data 文件夹（位于Labsetup下，于MySQL容器运行后创建）挂载到MySQL容器内的&#x2F;var&#x2F;lib&#x2F;mysql文件 夹中。这个文件夹用于MySQL存储其数据库。这样，即使容器被删除，数据库中的数据仍被保存。如果 需要一个干净的数据库，可以用以下命令删除这个文件夹：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> sudo <span class="hljs-built_in">rm</span><span class="hljs-literal">-rfmysql_data</span><br></code></pre></td></tr></table></figure>
+
+<p>这我们先把环境起一下</p>
+<p>使用 <code>docker-compose build</code> 构建docker</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153612.png" srcset="/img/loading.gif" lazyload alt="image-20251022163443570"></p>
+<p>成功构建</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153550.png" srcset="/img/loading.gif" lazyload alt="image-20251022163703548"></p>
+<p>使用<code>docker-compose up -d</code> 后台起一下容器</p>
+<h3 id="Web应用程序"><a href="#Web应用程序" class="headerlink" title="Web应用程序"></a>Web应用程序</h3><p>我们创建了一个简单的员工管理的Web应用程序。员工可以通过这个Web应用程序查看和更新他们 在数据库中的个人信息。在这个Web应用程序中有两个角色：Administrator是一个特权角色，可以管 理每个员工的个人资料信息；Employee是一个非特权角色，可以查看或更新他&#x2F;她自己的个人资料信息。 表1为所有员工的信息。</p>
+<p>表1: Database</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Employee ID</th>
+<th>Password</th>
+<th>Salary</th>
+<th>Birthday</th>
+<th>SSN</th>
+<th>Nickname</th>
+<th>Email</th>
+<th>Address</th>
+<th>Phone#</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Admin</td>
+<td>99999</td>
+<td>seedadmin</td>
+<td>400000</td>
+<td>3&#x2F;5</td>
+<td>43254314</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Alice</td>
+<td>10000</td>
+<td>seedalice</td>
+<td>20000</td>
+<td>9&#x2F;20</td>
+<td>10211002</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Boby</td>
+<td>20000</td>
+<td>seedboby</td>
+<td>50000</td>
+<td>4&#x2F;20</td>
+<td>10213352</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ryan</td>
+<td>30000</td>
+<td>seedryan</td>
+<td>90000</td>
+<td>4&#x2F;10</td>
+<td>32193525</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Samy</td>
+<td>40000</td>
+<td>seedsamy</td>
+<td>40000</td>
+<td>1&#x2F;11</td>
+<td>32111111</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ted</td>
+<td>50000</td>
+<td>seedted</td>
+<td>110000</td>
+<td>11&#x2F;3</td>
+<td>24343244</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="说明与提示"><a href="#说明与提示" class="headerlink" title="说明与提示"></a>说明与提示</h2><p><strong>测试SQL注入字符串</strong> 通常情况下，服务器不会返回语法错误的提示，这导致很难得知SQL注入字符串 是否包含语法错误。为此，可以从php源代码复制SQL语句到MySQL控制台。假设你有以下的SQL语句， 并且注入的字符串是<code>&#39; or 1=1;#</code>。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">from</span> credential<br> <span class="hljs-keyword">WHERE</span> <span class="hljs-type">name</span>=<span class="hljs-string">&#x27;$name&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">password</span>=<span class="hljs-string">&#x27;$pwd&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>将其中 $name的值替换为所要注入的字符串并在MySQL控制台对其进行测试。由此可以在发起真正 的攻击前构建一个无语法错误的注入字符串。</p>
+<p>注释 MySQL支持两种单行注释： </p>
+<ul>
+<li><code>--</code> 双中横杠开头的，直至行尾，这一种“–”后面必须至少有一个空格隔开，可以是制表符；</li>
+<li><code>#</code> 井号符号开头直至行尾。</li>
+</ul>
+<p>URL 编码 参照以下转换表，完成Task2.2。</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+<th>符号</th>
+<th>编码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>!</td>
+<td>%21</td>
+<td>#</td>
+<td>%23</td>
+<td>$</td>
+<td>%24</td>
+<td>&amp;</td>
+<td>%26</td>
+<td>‘</td>
+<td>%27</td>
+<td>(</td>
+<td>%28</td>
+<td>)</td>
+<td>%29</td>
+<td>*</td>
+<td>%2A</td>
+<td>+</td>
+<td>%2B</td>
+<td>,</td>
+<td>%2C</td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>%2F</td>
+<td>:</td>
+<td>%3A</td>
+<td>;</td>
+<td>%3B</td>
+<td>&#x3D;</td>
+<td>%3D</td>
+<td>?</td>
+<td>%3F</td>
+<td>@</td>
+<td>%40</td>
+<td>[</td>
+<td>%5B</td>
+<td>]</td>
+<td>%5D</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>newline</td>
+<td>%0A 或 %0D 或 %0D%0A</td>
+<td>space</td>
+<td>%20</td>
+<td>“</td>
+<td>%22</td>
+<td>%</td>
+<td>%25</td>
+<td>-</td>
+<td>%2D</td>
+<td>.</td>
+<td>%2E</td>
+<td>&lt;</td>
+<td>%3C</td>
+<td>&gt;</td>
+<td>%3E</td>
+<td>\</td>
+<td>%5C</td>
+<td>^</td>
+<td>%5E</td>
+</tr>
+<tr>
+<td>_</td>
+<td>%5F</td>
+<td>&#96;</td>
+<td>%60</td>
+<td>{</td>
+<td>%7B</td>
+<td></td>
+<td></td>
+<td>%7C</td>
+<td>}</td>
+<td>%7D</td>
+<td>~</td>
+<td>%7E</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>图1：URL Encoder &amp; Decoder</p>
+<h2 id="Task-1：熟悉-SQL-语句"><a href="#Task-1：熟悉-SQL-语句" class="headerlink" title="Task 1：熟悉 SQL 语句"></a>Task 1：熟悉 SQL 语句</h2><p>Task 1 的目标是通过使用提供的数据库来熟悉SQL命令。Web应用程序所使用的数据存储在MySQL 数据库中，由MySQL容器托管。我们创建了一个名为 sqllab_users的数据库，其中包含一个名为 credential 的表。表中存储着每个员工的个人信息（例如eid、password、salary、ssn等）。本任务中， 请通过操作数据库熟悉SQL查询语句。</p>
+<p>请在MySQL容器上建立shell（相关内容请参阅用户手册），并使用 mysql客户端与数据库进行交互 （用户名为 root，口令为 dees）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker ps<br>docksh 19<br>mysql -uroot -pdees<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153187.png" srcset="/img/loading.gif" lazyload alt="image-20251022164756965"></p>
+<p>登录客户端后，可以选择创建新的数据库或者加载已有数据库。由于我们已经创建了 sqllab_users 数据库，只需使用use命令加载这个已有的数据库。想要显示 sqllab_users数据库中有哪些表，可以使 用show tables命令打印出所选数据库的所有表。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153944.png" srcset="/img/loading.gif" lazyload alt="image-20251022170223892"></p>
+<p>运行以上命令后，你需要使用一条SQL命令打印员工Alice的所有资料信息。请提供结果截图。</p>
+<p><code>SELECT * from credential;</code>打印整个表单：</p>
+<p><code>SELECT * from credential WHERE Name=&#39;Alice&#39;</code>即可打印员工Alice的所有资料：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153924.png" srcset="/img/loading.gif" lazyload alt="image-20251022170458426"></p>
+<h2 id="Task-2：基于-SELECT-语句的-SQL-注入攻击"><a href="#Task-2：基于-SELECT-语句的-SQL-注入攻击" class="headerlink" title="Task 2：基于 SELECT 语句的 SQL 注入攻击"></a>Task 2：基于 SELECT 语句的 SQL 注入攻击</h2><p>攻击者通过SQL注入技术可以执行恶意SQL语句，即恶意负载。通过恶意的SQL语句，攻击者可以 从数据库中窃取数据，甚至对数据库进行修改。我们的Web应用程序数据库含有SQL注入漏洞，模仿了 开发人员的常犯错误。</p>
+<p>在登陆网站<code>www.seed-server.com</code>中进行SQL注入攻击的练习，登录页面见图2。Web应用程序根据 用户名和口令认证用户，所以只有知道自己口令的员工才能登录。作为攻击者，请在无法得知任何员工口 令的前提下成功登录Web应用程序。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153309.png" srcset="/img/loading.gif" lazyload alt="image-20251022170726530"></p>
+<p>位于目录&#x2F;var&#x2F;www&#x2F;SQL_Injection 下的PHP代码 unsafe_home.php为进行用户认证的代码。下面 的代码片段显示了用户是如何被认证的。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">1</span> <span class="hljs-variable">$input_uname</span> = <span class="hljs-variable">$_GET</span>[ ’ username ’ ];<br><span class="hljs-number">2</span> <span class="hljs-variable">$input_pwd</span> = <span class="hljs-variable">$_GET</span>[ ’ Password ’ ];<br><span class="hljs-number">3</span> <span class="hljs-variable">$hashed_pwd</span> = <span class="hljs-title function_ invoke__">sha1</span>(<span class="hljs-variable">$input_pwd</span>);<br><span class="hljs-number">4</span> ...<br><span class="hljs-number">5</span> <span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;SELECT id, name, eid, salary, birth, ssn, address, email,</span><br><span class="hljs-string">6 nickname, Password</span><br><span class="hljs-string">7 FROM credential</span><br><span class="hljs-string">8 WHERE name= ’ <span class="hljs-subst">$input_uname</span> ’ and Password= ’ <span class="hljs-subst">$hashed_pwd</span> ’ &quot;</span>;<br><span class="hljs-number">9</span> <span class="hljs-variable">$result</span> = <span class="hljs-variable">$conn</span>-&gt; <span class="hljs-title function_ invoke__">query</span>(<span class="hljs-variable">$sql</span>);<br><span class="hljs-number">10</span><br><span class="hljs-number">11</span> <span class="hljs-comment">// The following is Pseudo Code</span><br><span class="hljs-number">12</span> <span class="hljs-keyword">if</span>(id != <span class="hljs-literal">NULL</span>) &#123;<br><span class="hljs-number">13</span> <span class="hljs-keyword">if</span>(name== ’ admin ’ ) &#123;<br><span class="hljs-number">14</span> <span class="hljs-keyword">return</span> All employees information;<br><span class="hljs-number">15</span> &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (name !=<span class="hljs-literal">NULL</span>)&#123;<br><span class="hljs-number">16</span> <span class="hljs-keyword">return</span> employee information;<br><span class="hljs-number">17</span> &#125;<br><span class="hljs-number">18</span> &#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-number">19</span> Authentication Fails;<br><span class="hljs-number">20</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的SQL语句从表credential中获取员工的个人信息如ID、姓名、工资、SSN等。该SQL语 句使用两个变量input_uname和hashed_pwd，其中input_uname为用户在登录页面所输入的用户名， hashed_pwd为用户所输入口令的sha1哈希值。程序检查与所提供的用户名和口令匹配的条目。匹配成 功，则用户认证成功，并获得相应的员工信息；匹配失败，则认证失败。</p>
+<p>典型SQL注入漏洞。</p>
+<h3 id="Task-2-1：基于网页的-SQL-注入攻击"><a href="#Task-2-1：基于网页的-SQL-注入攻击" class="headerlink" title="Task 2.1：基于网页的 SQL 注入攻击"></a>Task 2.1：基于网页的 SQL 注入攻击</h3><p>你的任务是以管理员的身份从登录页面登录到 Web 应用程序，这样 你就可以查看所有员工的信息。管理员的用户名是 admin，口令未知。请在用户名与口令输入框中输入 能成功完成攻击的内容。</p>
+<p>万能密码：可以构造 <code>admin&#39; OR &#39;1=1</code> 作为我们的登录用户名，这样Sql查询语句就变成了:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> id, name, eid, salary, birth, ssn, phoneNumber, address, email,nickname,Password<br>      <span class="hljs-keyword">FROM</span> credential<br>      <span class="hljs-keyword">WHERE</span> name<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-keyword">OR</span> <span class="hljs-string">&#x27;1&#x27;</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">and</span> Password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$hashed_pwd&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>使得判断恒为true</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153752.png" srcset="/img/loading.gif" lazyload alt="image-20251022171149113"></p>
+<p>也可以构造 <code>admin&#39; --+</code>（URL编码） 或<code>admin&#39; #</code>作为用户名，从而注释调后面的语句，变成一个查询语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">WHERE</span> name<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-comment">-- and Password=&#x27;$hashed_pwd&#x27;</span><br><span class="hljs-keyword">WHERE</span> name<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span> #<span class="hljs-keyword">and</span> Password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$hashed_pwd&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152153533.png" srcset="/img/loading.gif" lazyload alt="image-20251022171452409"></p>
+<h3 id="Task-2-2：基于命令行的-SQL-注入攻击"><a href="#Task-2-2：基于命令行的-SQL-注入攻击" class="headerlink" title="Task 2.2：基于命令行的 SQL 注入攻击"></a>Task 2.2：基于命令行的 SQL 注入攻击</h3><p>在不使用网页的情况下完成 Task 2.1 的目标。你可以使用命令行 工具，如 curl，它可以发送 HTTP 请求。如需在 HTTP 请求中包含多个参数，需要把 URL 和参数用一对 单引号括起来。否则，用于分隔参数的特殊字符 (如 &amp;) 会被 shell 曲解，造成命令歧义。</p>
+<p>以下给出向Web 应用程序发送带有两个参数（username和Password）的HTTPGET请求的示例。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">$ curl＇www.seed-<span class="hljs-keyword">server</span>.com/unsafe_home.php?username=alice&amp;<span class="hljs-keyword">Password</span>=<span class="hljs-number">25</span>＇<br></code></pre></td></tr></table></figure>
+
+<p>如需在用户名和口令字段中包含特殊字符，特殊字符需要进行编码，否则可能会造成命令歧义。如单 引号需要使用%27来代替，空格需要使用%20。在Task2.2中，使用curl时请正确处理HTTP编码。</p>
+<p>将 Task 2.1 的命令进行 URL 编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl www.seed-server.com/unsafe_home.php?username=admin%27%20OR%20%271=1&amp;Password=<br>curl www.seed-server.com/unsafe_home.php?username=admin%27%23&amp;Password=<br>curl www.seed-server.com/unsafe_home.php?username=admin%27%20--+&amp;Password=<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154104.png" srcset="/img/loading.gif" lazyload alt="image-20251022173110514"></p>
+<h3 id="Task-2-3：增加一条新的-SQL-语句"><a href="#Task-2-3：增加一条新的-SQL-语句" class="headerlink" title="Task 2.3：增加一条新的 SQL 语句"></a>Task 2.3：增加一条新的 SQL 语句</h3><p>在Task2.1与Task2.2中，我们只能做到从数据库中窃取信息，进 一步的攻击是通过登录页面上的相同漏洞对数据库的数据进行修改。请尝试在SQL注入攻击中使用两条 SQL语句，第二条是更新或删除语句。在SQL中，分号（;）被用来分隔两条SQL语句。请在登录页面使 用两条SQL语句进行攻击。</p>
+<p>在这种情况下，会有阻止运行两条SQL语句的反制措施。请查阅SEEDBook（<a target="_blank" rel="noopener" href="https://www.handsonsecurity.net/%EF%BC%89%E6%88%96%E4%B8%8A%E7%BD%91%E6%9F%A5%E6%98%8E%E6%AD%A4%E5%8F%8D%E5%88%B6%E6%8E%AA%E6%96%BD%EF%BC%8C%E5%B9%B6%E5%9C%A8%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%E4%B8%AD%E6%8F%8F%E8%BF%B0%E4%BD%A0%E7%9A%84%E5%8F%91%E7%8E%B0%E3%80%82">https://www.handsonsecurity.net/）或上网查明此反制措施，并在实验报告中描述你的发现。</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">admin<span class="hljs-string">&#x27;; DELETE FROM credential WHERE name=&#x27;</span>admin<span class="hljs-string">&#x27;;#</span><br></code></pre></td></tr></table></figure>
+
+<p>尝试执行第二条 SQL 语句 <code>DELETE FROM credential WHERE name=&#39;admin&#39;;</code> 删除 admin 表项，但是注入失败：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154594.png" srcset="/img/loading.gif" lazyload alt="image-20251022174807226"></p>
+<p>现代Web开发中，为了防止SQL注入带来的更大危害（如执行多条SQL语句），很多数据库驱动默认<strong>不允许一条查询里有多个SQL语句</strong>。比如：</p>
+<ul>
+<li><strong>MySQL的默认设置</strong>（比如PHP的mysqli、Python的pymysql、Java的JDBC等）通常会关闭multi-statement（多语句）执行，除非显式开启。</li>
+<li>这样做的目的是防止攻击者通过注入分号（;）来拼接多条SQL语句，从而实现如删除表、删除数据等更危险的操作。</li>
+</ul>
+<p>这种<strong>防止多语句执行的机制</strong>，通常称为**“禁止多语句执行”<strong>（Disabling Multiple Statements）或</strong>“单条语句执行模式”**（Single Statement Mode）。</p>
+<ul>
+<li>在MySQL中，如果未显式设置<code>CLIENT_MULTI_STATEMENTS</code>参数，默认是不允许多条语句的。</li>
+<li>这样，SQL注入攻击者即使通过分号拼接语句，也无法让数据库执行第二条语句。</li>
+</ul>
+<h2 id="Task-3：基于-UPDATE-语句的-SQL-注入攻击"><a href="#Task-3：基于-UPDATE-语句的-SQL-注入攻击" class="headerlink" title="Task 3：基于 UPDATE 语句的 SQL 注入攻击"></a>Task 3：基于 UPDATE 语句的 SQL 注入攻击</h2><p>如果SQL注入使用的是UPDATE语句，攻击者将利用SQL注入漏洞修改数据库，危害更加严重。在 我们的Web应用程序中，有一个编辑个人资料的页面（图3），允许员工更新他们的个人信息，包括昵称、 电子邮件、地址、电话号码和口令。员工登录后可进入此页面。</p>
+<p>当员工通过编辑页面更新他们的信息时，下面的SQLUPDATE语句将被执行。在unsafe_edit_backend .php 文件中实现的PHP代码用于更新员工的个人信息。此文件位于目录&#x2F;var&#x2F;www&#x2F;SQLInjection中。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$hashed_pwd</span> = <span class="hljs-title function_ invoke__">sha1</span>(<span class="hljs-variable">$input_pwd</span>);<br><span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;UPDATE credential SET</span><br><span class="hljs-string">nickname=&#x27;<span class="hljs-subst">$input_nickname</span>&#x27;,</span><br><span class="hljs-string">email=&#x27;<span class="hljs-subst">$input_email</span>&#x27;,</span><br><span class="hljs-string">address=&#x27;<span class="hljs-subst">$input_address</span>&#x27;,</span><br><span class="hljs-string">Password=&#x27;<span class="hljs-subst">$hashed_pwd</span>&#x27;,</span><br><span class="hljs-string">PhoneNumber=&#x27;<span class="hljs-subst">$input_phonenumber</span>&#x27;</span><br><span class="hljs-string">WHERE ID=<span class="hljs-subst">$id</span>;&quot;</span>;<br><span class="hljs-variable">$conn</span>-&gt;<span class="hljs-title function_ invoke__">query</span>(<span class="hljs-variable">$sql</span>);<br></code></pre></td></tr></table></figure>
+
+<p>代码是通过执行一个sql语句进行表单的更新：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> credential <span class="hljs-keyword">SET</span> nickname<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$input_nickname&#x27;</span>,email<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$input_email&#x27;</span>,address<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$input_address&#x27;</span>,Password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$hashed_pwd&#x27;</span>,PhoneNumber<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$input_phonenumber&#x27;</span> <span class="hljs-keyword">where</span> ID<span class="hljs-operator">=</span>$id;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Task-3-1：修改自己的工资"><a href="#Task-3-1：修改自己的工资" class="headerlink" title="Task 3.1：修改自己的工资"></a>Task 3.1：修改自己的工资</h3><p>编辑页面中只能修改员工的昵称、电子邮件、地址、电话号码和口令，而不 能用于修改工资。假设你（Alice）由于老板Boby今年未给你加薪而感到不满。你想利用存在于编辑页面 的SQL注入漏洞来增加自己的工资（数值改为[你的学号后6位]）。请展示并解释你是如何实现这一目标 的。已知列 salary用于存储工资数额。</p>
+<p> <code>Phone Number</code> 是update的最后一项，可以在 <code>Phone Number</code> 这里注入.</p>
+<p>填入 <code>&#39;,salary=460052 WHERE name=&#39;Alice&#39; #</code> ，相当于执行了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> credential <span class="hljs-keyword">SET</span> nickname<span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>,email<span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>,address<span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>,Password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$hashed_pwd&#x27;</span>,PhoneNumber<span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>,salary<span class="hljs-operator">=</span><span class="hljs-number">460052</span> <span class="hljs-keyword">where</span> name<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Alice&#x27;</span> #<span class="hljs-string">&#x27; where ID=$id; </span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154170.png" srcset="/img/loading.gif" lazyload alt="image-20251022185818407"></p>
+<p>这会把 Alice 的 Salary 表项改成460052：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154819.png" srcset="/img/loading.gif" lazyload alt="image-20251022185834193"></p>
+<h3 id="Task-3-2：修改他人的工资"><a href="#Task-3-2：修改他人的工资" class="headerlink" title="Task 3.2：修改他人的工资"></a>Task 3.2：修改他人的工资</h3><p>在提高自己的工资数额后，你决定惩罚你的老板Boby，将他的工资减少（数 值改为[100+你的学号后3位]）。请展示并解释你是如何实现这一目标的。</p>
+<p>在 <code>PhoneNumber</code> 项填入 <code>&#39;,salary=152 WHERE name=&#39;Boby&#39; #</code>，相当于执行了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> credential <span class="hljs-keyword">SET</span> nickname<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$input_nickname&#x27;</span>,email<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$input_email&#x27;</span>,address<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$input_address&#x27;</span>,Password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;$hashed_pwd&#x27;</span>,PhoneNumber<span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>,salary<span class="hljs-operator">=</span><span class="hljs-number">152</span> <span class="hljs-keyword">WHERE</span> name<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Boby&#x27;</span> #<span class="hljs-string">&#x27; where ID=$id;</span><br></code></pre></td></tr></table></figure>
+
+<p>这会将 Boby 的工资表项更新成 152</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154435.png" srcset="/img/loading.gif" lazyload alt="image-20251022190007200"></p>
+<h3 id="Task-3-3：修改他人的口令"><a href="#Task-3-3：修改他人的口令" class="headerlink" title="Task 3.3：修改他人的口令"></a>Task 3.3：修改他人的口令</h3><p>修改完Boby的工资后，你仍心有不甘，所以你想修改Boby的口令（口令改 为“2025”），这样你就可以登录他的账户，做进一步的破坏。请展示并解释你是如何实现这一目标的。你需 要证明你可以用新的口令成功登录Boby的账户。需要注意，数据库存储的并非明文形式的口令，而是口 令的哈希值。请在 unsafe_edit_backend.php中查看口令的存储方式，程序使用SHA1哈希函数来生成 口令的哈希值。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154499.png" srcset="/img/loading.gif" lazyload alt="image-20251022190240472"></p>
+<p>在 <code>PhoneNumber</code> 项填入 <code>&#39;,Password=&#39;004be89dd9e070ecb080b9b759e5be29ec24881b&#39; WHERE name=&#39;Boby&#39; #</code>，这会修改 Boby 的数据库中的 Password 值</p>
+<p>现在我们再尝试使用密码 2025 登录，发现登录成功：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154998.png" srcset="/img/loading.gif" lazyload alt="image-20251022190401896"></p>
+<h2 id="Task-4：对策：语句预处理"><a href="#Task-4：对策：语句预处理" class="headerlink" title="Task 4：对策：语句预处理"></a>Task 4：对策：语句预处理</h2><p>SQL 注入漏洞的问题所在是没有把代码和数据分开。当构建一个SQL语句时，程序(如PHP程序)知 道哪部分是数据，哪部分是代码。但当SQL语句发送到数据库时，代码和数据的边界消失，SQL解释器可 能得到与开发者设置的原始边界不同的边界。为了解决这个问题，必须确保服务器端代码和数据库处理 得到的边界一致。最安全的解决方法是使用语句预处理。</p>
+<p>为了理解语句预处理是如何防止SQL注入攻击的，我们需要了解SQL服务器执行查询时的流程。执 行SQL查询的整体工作流程见图4。查询语句在编译步骤中，首先经过解析和规范化阶段，此阶段根据语 法和语义检查查询语句。下一阶段为编译阶段，关键词（如SELECT、FROM、UPDATE等）被转换为机器 可理解的形式。查询语句在此阶段基本完成翻译。在查询优化阶段，服务器从执行查询语句的不同方案中 选择最佳优化方案。选定的方案被存储在缓存中，在下一个查询语句进入时，服务器首先检查缓存中的内 容，如此语句已存在于缓存中，则跳过解析、编译和查询优化阶段。执行步骤将实际执行编译后的查询。</p>
+<p>预处理语句的生成在编译步骤之后执行步骤之前。预处理语句通过编译步骤，变为一个带有表示数据 的空占位符的预编译查询语句。为此需要提供数据才能运行此预编译查询语句。所提供的数据将被直接 插入到预编译的查询语句中并发送到执行引擎，而不会经过编译步骤。因此，即使数据中含有SQL代码， 由于不经过编译步骤，这些代码将被简单地视为数据的一部分，不会被赋予任何特殊的含义。这就是语句 预处理如何防止SQL注入攻击的。</p>
+<p>下面将给出如何在PHP中编写语句预处理机制的示例。代码中使用SELECT语句，展示了如何使用语 句预处理机制来重写有SQL注入漏洞的代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;SELECT name, local, gender</span><br><span class="hljs-string"> FROM USER_TABLE</span><br><span class="hljs-string"> WHERE id = <span class="hljs-variable">$id</span> AND password =&#x27;<span class="hljs-variable">$pwd</span>&#x27; &quot;</span>;<br> <span class="hljs-variable">$result</span> = <span class="hljs-variable">$conn</span>-&gt;query(<span class="hljs-variable">$sql</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码容易受到SQL注入攻击，可被重写如下。</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs autoit">$stmt = $conn-&gt;prepare(<span class="hljs-string">&quot;SELECT name, local, gender</span><br><span class="hljs-string"> FROM USER_TABLE</span><br><span class="hljs-string"> WHERE id = ? and password = ? &quot;</span>)<span class="hljs-comment">;</span><br> // Bind parameters <span class="hljs-keyword">to</span> the query<br> $stmt-&gt;bind_param(<span class="hljs-string">&quot;is&quot;</span>, $id, $pwd)<span class="hljs-comment">;</span><br> $stmt-&gt;<span class="hljs-built_in">execute</span>()<span class="hljs-comment">;</span><br> $stmt-&gt;bind_result($bind_name, $bind_local, $bind_gender)<span class="hljs-comment">;</span><br> $stmt-&gt;fetch()<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用语句预处理机制，我们将向数据库发送SQL语句的过程分为两个步骤。第一步为准备步骤，发送 代码部分，即没有实际数据的SQL语句。上面的代码片段中，实际数据被问号（?）代替。第二步，使用 bind_param() 将数据发送到数据库。数据库将在此步骤中发送的所有内容仅视为数据而非代码。它将数 据填入预处理的语句中的相应占位符。在 bind_param()方法中，第一个参数“is”表示各参数的类型：“i” 表示 $id中的数据为整数类型，“s”表示 $pwd中的数据为字符串类型。</p>
+<p>Task 请使用语句预处理机制来修复SQL注入漏洞。为了简单起见，我们在文件夹 defense内创建了一 个简化程序，你需要对这个文件夹中的文件进行修改。访问下面给出的URL，你会看到一个类似于Web 应用程序登录页面的网页，在网页中提供正确的用户名和口令即可查询员工的信息。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">URL: http:<span class="hljs-regexp">//</span>www.seed-server.com<span class="hljs-regexp">/defense/</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个页面中输入的数据将被发送到服务器程序 getinfo.php,它调用程序 unsafe.php。程序 unsafe.php 中的SQL查询代码含有SQL注入漏洞。请使用语句预处理机制修改 unsafe.php中的SQL查 询，修复SQL注入漏洞。在文件夹 Labsetup中，unsafe.php程序位于 image_www&#x2F;Code&#x2F;defense。请 修改该程序，并重建重启容器以生效。</p>
+<p>你也可以在容器运行时修改该文件。在容器中，unsafe.php程序位于&#x2F;var&#x2F;www&#x2F;SQL_Injection&#x2F; defense 里面。注意，为了保持docker镜像的小巧，容器内只有一个非常简单的文本编辑器 nano，它足 以进行简单的编辑。但如果你不喜欢 nano，你随时可以使用“apt install”在容器内安装你喜欢的命令 行编辑器。如果喜欢 vim，你可以这样做：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># apt install-y vim</span><br></code></pre></td></tr></table></figure>
+
+<p>编辑器会随着容器关闭和删除而丢失。如果你想让它成为永久性的，请把安装命令添加到 image_www 文件夹中的 Dockerfile中。</p>
+<p>修改 <code>www</code> 容器中的 <code>/var/www/SQL_Injection/defense/</code> 文件夹下的 <code>unsafe.php</code> 文件，修改后的文件如下所示：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// Function to create a sql connection.</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDB</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-variable">$dbhost</span>=<span class="hljs-string">&quot;10.9.0.6&quot;</span>;<br>  <span class="hljs-variable">$dbuser</span>=<span class="hljs-string">&quot;seed&quot;</span>;<br>  <span class="hljs-variable">$dbpass</span>=<span class="hljs-string">&quot;dees&quot;</span>;<br>  <span class="hljs-variable">$dbname</span>=<span class="hljs-string">&quot;sqllab_users&quot;</span>;<br><br>  <span class="hljs-comment">// Create a DB connection</span><br>  <span class="hljs-variable">$conn</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">mysqli</span>(<span class="hljs-variable">$dbhost</span>, <span class="hljs-variable">$dbuser</span>, <span class="hljs-variable">$dbpass</span>, <span class="hljs-variable">$dbname</span>);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable">$conn</span>-&gt;connect_error) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Connection failed: &quot;</span> . <span class="hljs-variable">$conn</span>-&gt;connect_error . <span class="hljs-string">&quot;\n&quot;</span>);<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable">$conn</span>;<br>&#125;<br><br><span class="hljs-variable">$input_uname</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;username&#x27;</span>];<br><span class="hljs-variable">$input_pwd</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;Password&#x27;</span>];<br><span class="hljs-variable">$hashed_pwd</span> = <span class="hljs-title function_ invoke__">sha1</span>(<span class="hljs-variable">$input_pwd</span>);<br><br><span class="hljs-comment">// create a connection</span><br><span class="hljs-variable">$conn</span> = <span class="hljs-title function_ invoke__">getDB</span>();<br><br><span class="hljs-comment">// Use prepared statements to prevent SQL injection</span><br><span class="hljs-variable">$safesql</span> = <span class="hljs-variable">$conn</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT id, name, eid, salary, ssn FROM credential WHERE name = ? AND Password = ?&quot;</span>);<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$safesql</span>) &#123;<br>  <span class="hljs-comment">// Bind parameters (s - string, i - int, d - double, b - blob)</span><br>  <span class="hljs-variable">$safesql</span>-&gt;<span class="hljs-title function_ invoke__">bind_param</span>(<span class="hljs-string">&quot;ss&quot;</span>, <span class="hljs-variable">$input_uname</span>, <span class="hljs-variable">$hashed_pwd</span>);<br>  <br>  <span class="hljs-comment">// Execute the statement</span><br>  <span class="hljs-variable">$safesql</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();<br>  <br>  <span class="hljs-comment">// Get the result</span><br>  <span class="hljs-variable">$result</span> = <span class="hljs-variable">$safesql</span>-&gt;<span class="hljs-title function_ invoke__">get_result</span>();<br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable">$result</span>-&gt;num_rows &gt; <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-comment">// only take the first row</span><br>    <span class="hljs-variable">$firstrow</span> = <span class="hljs-variable">$result</span>-&gt;<span class="hljs-title function_ invoke__">fetch_assoc</span>();<br>    <span class="hljs-variable">$id</span>     = <span class="hljs-variable">$firstrow</span>[<span class="hljs-string">&quot;id&quot;</span>];<br>    <span class="hljs-variable">$name</span>   = <span class="hljs-variable">$firstrow</span>[<span class="hljs-string">&quot;name&quot;</span>];<br>    <span class="hljs-variable">$eid</span>    = <span class="hljs-variable">$firstrow</span>[<span class="hljs-string">&quot;eid&quot;</span>];<br>    <span class="hljs-variable">$salary</span> = <span class="hljs-variable">$firstrow</span>[<span class="hljs-string">&quot;salary&quot;</span>];<br>    <span class="hljs-variable">$ssn</span>    = <span class="hljs-variable">$firstrow</span>[<span class="hljs-string">&quot;ssn&quot;</span>];<br>  &#125;<br>  <br>  <span class="hljs-comment">// Close the statement</span><br>  <span class="hljs-variable">$safesql</span>-&gt;<span class="hljs-title function_ invoke__">close</span>();<br>&#125;<br><br><span class="hljs-comment">// close the sql connection</span><br><span class="hljs-variable">$conn</span>-&gt;<span class="hljs-title function_ invoke__">close</span>();<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>使用准备好的语句（Prepared Statements）</strong>：通过 <code>$conn-&gt;prepare()</code> 函数创建查询，并使用 <code>?</code> 占位符来防止直接插入用户输入内容。</p>
+<p><strong>绑定参数</strong>：使用 <code>$safesql-&gt;bind_param()</code> 函数，将用户输入的参数绑定到准备好的语句中。这种做法确保了SQL查询不会直接拼接用户输入，从而避免SQL注入风险。其中 <code>&quot;ss&quot;</code> 表示 <code>$input_uname</code> 和 <code>$hashed_pwd</code> 都是字符串类型。</p>
+<p>访问 <a target="_blank" rel="noopener" href="http://www.seed-server.com/defense">http://www.seed-server.com/defense</a> 再使用 <code>Alice&#39; #</code> 对 USERNAME 进行 SQL 注入测试：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154246.png" srcset="/img/loading.gif" lazyload alt="image-20251022191626394"></p>
+<p>发现已经无法查询到 Alice 的信息了。</p>
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><h3 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h3><p>假设数据库只存储 password和 eid两列的SHA256值。使用下面SQL语句与数据库交互，其中 $passwd 和 $eid变量的值由用户提供。这个程序是否存在SQL注入问题？如果没有，请解释原因；如果 有，请给出构造范例。（10分）</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">$sql = &quot;<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> employee <br><span class="hljs-keyword">WHERE</span> eid=<span class="hljs-string">&#x27;SHA2($eid, 256)&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">password</span>=<span class="hljs-string">&#x27;SHA2($passwd, 256)&#x27;</span><span class="hljs-string">&quot;;</span><br></code></pre></td></tr></table></figure>
+
+<p>有，SQL注入是代码与数据的混合导致的，像这种方法无法防御，只需闭合即可</p>
+<p>比如$eid变量为<code>admin,256)&#39;#</code></p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-meta"><span class="hljs-keyword">$sql</span> = &quot;SELECT * FROM employee </span><br>WHERE eid=<span class="hljs-string">&#x27;SHA2(admin,256)&#x27;</span>#<br>, <span class="hljs-number">256</span>)<span class="hljs-string">&#x27; and password=&#x27;</span>SHA2(<span class="hljs-symbol">$</span>passwd, <span class="hljs-number">256</span>)<span class="hljs-string">&#x27;&quot;;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样会导致SQL结构被破坏，实现注入。可以以admin身份登录</p>
+<h3 id="Q2"><a href="#Q2" class="headerlink" title="Q2"></a>Q2</h3><p>本质目的：<strong>两者都旨在防止“拼接字符串”导致的代码注入漏洞。</strong></p>
+<ul>
+<li>在 C 程序中，system() 直接将字符串作为 shell 命令执行，如果用户输入被直接拼接进这个字符串，就可能被恶意利用，造成命令注入。</li>
+<li>在 SQL 语句中，如果直接把用户输入拼接进 SQL 字符串，也会造成 SQL 注入漏洞。</li>
+</ul>
+<p>原理对比</p>
+<ul>
+<li><strong>system()</strong>：将整个命令行字符串传递给 shell，由 shell 解析并执行。拼接输入就容易让用户插入额外命令（如 <code>; rm -rf /</code>）；<strong>execve()</strong>：不经过 shell，而是将命令和参数分别以数组方式传递。即使参数中有恶意内容，也不会被当成新命令或特殊符号处理，杜绝了注入的可能。</li>
+<li><strong>SQL拼接</strong>：直接拼接用户输入到 SQL 语句中，用户可以插入恶意 SQL 片段；<strong>预处理&#x2F;参数化查询</strong>：SQL 语句结构和数据分离，用户输入作为参数绑定，即使输入包含特殊字符，也只会被当作数据处理，不能改变 SQL 结构。</li>
+</ul>
+<p>相似性总结</p>
+<ul>
+<li>原理相同：都通过“结构和数据分离”来防止注入。<ul>
+<li>execve() 把命令和参数分开传递，不让参数内容影响命令结构。</li>
+<li>SQL 预处理语句把 SQL 结构和数据参数分开，防止参数内容干扰 SQL 结构。</li>
+</ul>
+</li>
+<li>效果相同：都能有效防止因拼接用户输入导致的注入攻击。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="category-chain-item">软件安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SEEDlabs/" class="print-no-link">#SEEDlabs</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>软件安全实验 SEEDlabs SQL 注入攻击实验</div>
+      <div>http://example.com/2026/test37/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test36/" title="软件安全实验 SEEDlabs 缓冲区溢出漏洞实验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 缓冲区溢出漏洞实验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test35/" title="软件安全实验 SEEDlabs 环境变量与Set-UID 实验">
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 环境变量与Set-UID 实验</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

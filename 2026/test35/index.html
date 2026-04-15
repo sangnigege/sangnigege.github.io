@@ -1,0 +1,1042 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="Task 1：配置环境变量本任务中，我们学习设置和删除环境变量的指令。我们用Bash来完成。用户使用的默认的shell设置 在文件&#x2F;etc&#x2F;passwd中（每一项的最后一个字段）。你可以用 chsh命令来修改shell程序（本实验无需修 改） 使用 printenv或者 env指令来打印环境变量。    如果你对某个特定的环境变量感兴趣，比如 PWD， 你可以用指令“print">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件安全实验 SEEDlabs 环境变量与Set-UID 实验">
+<meta property="og:url" content="http://example.com/2026/test35/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="Task 1：配置环境变量本任务中，我们学习设置和删除环境变量的指令。我们用Bash来完成。用户使用的默认的shell设置 在文件&#x2F;etc&#x2F;passwd中（每一项的最后一个字段）。你可以用 chsh命令来修改shell程序（本实验无需修 改） 使用 printenv或者 env指令来打印环境变量。    如果你对某个特定的环境变量感兴趣，比如 PWD， 你可以用指令“print">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150049.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150107.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150545.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150829.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150304.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150721.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150949.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151808.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150458.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150695.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150386.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150354.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150761.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150493.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150501.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150869.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150278.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150908.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150182.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150415.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150193.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150416.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150319.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151737.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151658.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151184.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151093.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151496.png">
+<meta property="article:published_time" content="2026-04-15T10:30:57.094Z">
+<meta property="article:modified_time" content="2026-04-15T13:51:27.719Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="SEEDlabs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150049.png">
+  
+  
+  
+  <title>软件安全实验 SEEDlabs 环境变量与Set-UID 实验 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="软件安全实验 SEEDlabs 环境变量与Set-UID 实验"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:30" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          51 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">软件安全实验 SEEDlabs 环境变量与Set-UID 实验</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Task-1：配置环境变量"><a href="#Task-1：配置环境变量" class="headerlink" title="Task 1：配置环境变量"></a>Task 1：配置环境变量</h2><p>本任务中，我们学习设置和删除环境变量的指令。我们用Bash来完成。用户使用的默认的shell设置 在文件&#x2F;etc&#x2F;passwd中（每一项的最后一个字段）。你可以用 chsh命令来修改shell程序（本实验无需修 改）</p>
+<p>使用 printenv或者 env指令来打印环境变量。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150049.png" srcset="/img/loading.gif" lazyload alt="image-20251007210348172"> </p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150107.png" srcset="/img/loading.gif" lazyload alt="image-20251007210424627"></p>
+<p>如果你对某个特定的环境变量感兴趣，比如 PWD， 你可以用指令“printenv PWD”或者“env | grep PWD”。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150545.png" srcset="/img/loading.gif" lazyload alt="image-20251007210550572"></p>
+<p>使用 export和 unset来设置或者取消环境变量。注意:这两个指令不是单独的程序；它们是两个 Bash 的内部指令（即，你不能在Bash外调用它们噢）</p>
+<ul>
+<li>使用<code>export</code>设置环境变量，使用<code>unset</code>取消环境变量：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150829.png" srcset="/img/loading.gif" lazyload alt="image-20251007211331430"></p>
+<h2 id="Task-2：从父进程向子进程传递环境变量"><a href="#Task-2：从父进程向子进程传递环境变量" class="headerlink" title="Task 2：从父进程向子进程传递环境变量"></a>Task 2：从父进程向子进程传递环境变量</h2><p>本任务中，我们研究子进程是如何继承父进程的环境变量的。Unix操作系统中，fork()系统调用会 复制发起调用的进程，创建一个新进程。新进程称作子进程，被复制的进程称作父进程。然而，有些东西 是没有被子进程继承的（在命令行中输入指令 man fork，可以查看 fork()的指南）。在本任务中，我们 想要知道子进程是否继承了父进程的环境变量。</p>
+<p>第1步 编译并运行以下程序，描述你的观察。在文件夹 LabSetup中，执行<code>gcc myprintenv.c</code>命令编 译，这将生成一个名为a.out的二进制文件。然后使用<code>a.out &gt; file</code>命令，运行并将输出保存到一个文件中。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150304.png" srcset="/img/loading.gif" lazyload alt="image-20251007212852868"></p>
+<p>第2步现在注释掉子进程中的printenv()语句，并取消注释父进程中的printenv()语句 。再次编译<code>gcc myprintenv.c -o b.out</code>并运行代码，描述你的观察结果。将输出保存在另一个文件中<code>b.out &gt; o2.txt</code>。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150721.png" srcset="/img/loading.gif" lazyload alt="image-20251007212024597"></p>
+<p>第3步使用<code>diff</code>命令比较这两个文件的差异。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150949.png" srcset="/img/loading.gif" lazyload alt="image-20251007212917420"></p>
+<p> <strong>结论</strong>：</p>
+<p>父进程和子进程继承了完全相同的环境变量，除了记录程序名的 <code>_</code>。fork出来的子进程会继承父进程的环境变量。程序名的环境变量 <code>_</code> 反映了执行的二进制文件名。</p>
+<h2 id="Task-3：环境变量和execve"><a href="#Task-3：环境变量和execve" class="headerlink" title="Task 3：环境变量和execve()"></a>Task 3：环境变量和<code>execve()</code></h2><p>本任务中，我们研究通过execve()运行一个新程序，环境变量是如何受影响的。函数execve()调用系统调用来加载新命令并执行它；这个函数永远不会返回。没有创建新进程；相反，调用进程的代码段、数据段、bss段和栈被加载的程序覆盖。本质上，execve()在调用进程中运行了新程序。我们对环境 变量发生了什么感兴趣；它们会被新程序自动继承吗？</p>
+<p>第1步编译并运行以下程序，描述你的观察。这个程序简单地执行了一个名为“&#x2F;usr&#x2F;bin&#x2F;env”的程序， 它的作用是打印出当前进程的环境变量。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150850.png" srcset="/img/loading.gif" lazyload alt="image-20251008170455575"></p>
+<p>发现输出为空。</p>
+<p>第2步将第行中execve()的调用更改为以下内容，即修改<code>execve(&quot;/usr/bin/env&quot;, argv, NULL);</code>为<code>execve(&quot;/usr/bin/env&quot;,argv,environ);</code>；描述你的观察。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151808.png" srcset="/img/loading.gif" lazyload alt="image-20251008170358557"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150458.png" srcset="/img/loading.gif" lazyload alt="image-20251008170519038"></p>
+<p>发现打印出了当前进程的环境变量。</p>
+<p>第3步请就新程序如何获取其环境变量得出你的结论：</p>
+<p><code>execve()</code>函数的原型是：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">execve</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *pathname, <span class="hljs-type">char</span> *<span class="hljs-type">const</span> argv[], <span class="hljs-type">char</span> *<span class="hljs-type">const</span> envp[])</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>pathname</code></strong>: 要执行的程序的路径。</li>
+<li><strong><code>argv</code></strong>: 参数数组，以 <code>NULL</code> 结尾，包含传递给程序的命令行参数。</li>
+<li><strong><code>envp</code></strong>: 环境变量数组，也以 <code>NULL</code> 结尾。</li>
+</ul>
+<p><strong>新程序通过<code>execve()</code>函数的第三个参数传递的<code>environ</code>变量来获取环境变量。</strong></p>
+<blockquote>
+<p>使用 execve() 启动新程序时，新程序的环境变量是否存在，完全由第三个参数 envp 决定。如果传 NULL，则没有环境变量；如果传 environ，则继承父进程的所有环境变量。</p>
+</blockquote>
+<h2 id="Task-4：环境变量和system"><a href="#Task-4：环境变量和system" class="headerlink" title="Task 4：环境变量和system()"></a>Task 4：环境变量和<code>system()</code></h2><p>本任务中，我们研究通过system()运行一个新程序，环境变量是如何受影响的。system()也是用来 执行一个命令的，但是和execve()直接执行一个命令不同，system()实际上执行“&#x2F;bin&#x2F;sh-ccommand”， 即它先执行&#x2F;bin&#x2F;sh，然后让shell执行这个command。</p>
+<p>如果你查阅system()函数的实现，你会发现它使用execl()来执行&#x2F;bin&#x2F;sh；execl()调用execve()， 并将环境变量数组传递给它。因此，使用system()时，调用进程的环境变量会传递给新程序&#x2F;bin&#x2F;sh。 请编译并运行以下程序来验证这一点。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    system(<span class="hljs-string">&quot;/usr/bin/env&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150695.png" srcset="/img/loading.gif" lazyload alt="image-20251008171025518"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150386.png" srcset="/img/loading.gif" lazyload alt="image-20251008171110213"></p>
+<p>我们使用<code>man system</code>查看函数的手册：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150354.png" srcset="/img/loading.gif" lazyload alt="image-20251008171209578"></p>
+<p>可以看到<code>system()</code>函数是通过创建一个子进程，执行<code>execl(&quot;/bin/sh&quot;, &quot;sh&quot;, &quot;-c&quot;, command, (char *) NULL);</code>，调用进程的环境变量会传递给新程序<code>/bin/sh</code>。</p>
+<blockquote>
+<p>注意，<code>execl</code> 里的 <code>(char *) NULL</code> 只是参数列表的结束，并不会影响环境变量的传递。环境变量默认总是会自动传递给新程序，除非你用 <code>execve</code> 并且显式把 envp 设为 NULL。</p>
+<p>如果你要控制新程序的环境变量，应该用 <code>execve</code> 或 <code>execle</code>。</p>
+</blockquote>
+<h2 id="Task-5：环境变量和Set-UID程序"><a href="#Task-5：环境变量和Set-UID程序" class="headerlink" title="Task 5：环境变量和Set-UID程序"></a>Task 5：环境变量和<code>Set-UID</code>程序</h2><p>Set-UID 是Unix 系统中重要的安全机制。当 Set-UID程序执行时，它将获得程序拥有者的权限。如 果程序所有者是root，所有执行该程序的用户都将以root权限执行该程序。Set-UID使得我们可以做许多 有趣的事情，但是在执行 Set-UID程序时，会提高执行者的权限，这是有风险的。尽管 Set-UID的行为 是由他们的程序逻辑所决定的，而不是用户决定的，用户却可以通过环境变量来修改 Set-UID的行为。 为了理解 Set-UID程序是如何被影响的，我们首先弄清楚 Set-UID程序的环境变量是否由用户程序继承 而来</p>
+<p>第1步 编写以下程序，打印当前进程的所有环境变量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-type">char</span> **environ;<br><span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (environ[i] != <span class="hljs-literal">NULL</span>)<br>    &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, environ[i]);<br>        i++;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>第2步 编译上述程序得到foo，将其所有者更改为root，并使其成为一个 Set-UID程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">// Asssume the program’s name is foo<br>$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chown</span> root foo<br>$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> 4755 foo<br></code></pre></td></tr></table></figure>
+
+<p>查看一下<code>foo</code>的权限，发现所有者更改为了root。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150761.png" srcset="/img/loading.gif" lazyload alt="image-20251008172544326"></p>
+<p>第3步 在你的shell（你需要确保你在普通用户帐户中，而不是root帐户中）中，使用export命令设置 以下环境变量（它们可能已经存在）：</p>
+<ul>
+<li>PATH</li>
+<li>LD_LIBRARY_PATH</li>
+<li>ANY_NAME（这个环境变量是你自己定义的，随便取一个名字即可）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150493.png" srcset="/img/loading.gif" lazyload alt="image-20251008173213165"></p>
+<p>这些环境变量是在普通用户的shell进程中设置的。现在，在你的shell中运行第2步中的Set-UID程 序。在shell中键入程序名后，shell会fork一个子进程，并使用子进程来运行该程序。请检查你在shell进 程（父进程）中设置的所有环境变量是否都进入了Set-UID子进程。描述你的观察。如果你有惊奇的发 现，请描述它们。</p>
+<p>然后运行<code>foo</code>并查看这些环境变量的值</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150501.png" srcset="/img/loading.gif" lazyload alt="image-20251008173417359"></p>
+<p>发现只有在父进程中设置的<code>PATH</code>和<code>MY_NAME</code>的环境变量进入子进程，而<code>LD_LIBRARY_PATH</code>这个环境变量没有进入子进程。</p>
+<p>原因：<code>LD_LIBRARY_PATH</code>这个环境变量设置的是动态链接器的地址，由于<strong>动态链接器的保护机制</strong>，虽然在一个root权限的程序下创建子进程并继承父进程的环境变量，但由于我们是在<strong>普通用户</strong>下修改的<code>LD_LIBRARY_PATH</code>这个环境变量，所以是无法在子进程中生效的，而<code>PATH</code>和<code>MY_NAME</code>则没有这种保护机制，因此可以被成功设置。</p>
+<h2 id="Task-6：PATH环境变量和Set-UID程序"><a href="#Task-6：PATH环境变量和Set-UID程序" class="headerlink" title="Task 6：PATH环境变量和Set-UID程序"></a>Task 6：<code>PATH</code>环境变量和<code>Set-UID</code>程序</h2><p>由于调用了shell程序，在Set-UID程序中调用system()是非常危险的。这是因为shell程序的实际 行为会受到环境变量的影响，例如PATH环境变量；这些环境变量由用户提供，可能是恶意的。通过更改这些变量，恶意用户可以控制Set-UID程序的行为。在Bash中，你可以通过以下方式更改PATH环境变 量（本示例将目录 &#x2F;home&#x2F;seed添加到PATH环境变量的开头）：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">$ <span class="hljs-built_in">export</span> <span class="hljs-attribute">PATH</span>=/home/seed:$PATH<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150869.png" srcset="/img/loading.gif" lazyload alt="image-20251008174702568"></p>
+<p><strong>Note</strong>： system(cmd) 函数首先执行 &#x2F;bin&#x2F;sh 程序，然后要求这个shell 程序运行cmd命令。在Ubuntu 20.04（以及之前的几个版本）中，&#x2F;bin&#x2F;sh实际上是指向&#x2F;bin&#x2F;dash的符号链接。这个shell程序有一个 对策，可以防止自己在Set-UID进程中被执行。基本上，如果dash检测到它是在Set-UID进程中执行的， 它会立即将有效用户ID更改为进程的真实用户ID，从而基本上放弃特权。由于我们的受害程序是一个 Set-UID 程序，因此&#x2F;bin&#x2F;dash中的对策可以阻止我们的攻击。</p>
+<p>为了了解我们的攻击如何在没有这种对策的情况下进行，我们将&#x2F;bin&#x2F;sh链接到另一个没有这种对 策的shell。我们在Ubuntu20.04VM中安装了一个名为zsh的shell程序。我们使用以下命令将&#x2F;bin&#x2F;sh 链接到&#x2F;bin&#x2F;zsh：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">ln</span> -sf /bin/zsh /bin/sh<br></code></pre></td></tr></table></figure>
+
+<p>下面的Set-UID程序应该执行&#x2F;bin&#x2F;ls命令；但是，程序员只使用ls命令的相对路径，而不是绝对 路径：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    system(<span class="hljs-string">&quot;ls&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>请编译上述程序，将其所有者更改为root，并使其成为 Set-UID程序。你能让这个Set-UID程序运行你 自己的恶意代码，而不是&#x2F;bin&#x2F;ls吗？如果可以，你的恶意代码是否以root权限运行？描述并解释你的 观察。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150278.png" srcset="/img/loading.gif" lazyload alt="image-20251008174556832"></p>
+<p>可以看出，编译出来的<code>LS</code>文件确实执行了<code>system(&quot;ls&quot;)</code>的操作，更改后的文件所有者确实变成了<code>root</code></p>
+<p>我们在<code>/home/seed</code>下编写我们的恶意代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-type">char</span> **environ;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 获取执行恶意代码的进程的euid</span><br>    <span class="hljs-type">uid_t</span> euid = geteuid();<br>    <br>    <span class="hljs-comment">// 获取一个 shell</span><br>    <span class="hljs-type">char</span> *argv[] = &#123;<span class="hljs-string">&quot;/bin/sh&quot;</span>, <span class="hljs-literal">NULL</span>&#125;;<br>    execve(<span class="hljs-string">&quot;/bin/sh&quot;</span>, argv, environ);<br><br>    <span class="hljs-comment">// 如果 execve 失败</span><br>    perror(<span class="hljs-string">&quot;execve&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后编译并命名成<code>ls</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc matrix.c -o <span class="hljs-built_in">ls</span><br></code></pre></td></tr></table></figure>
+
+<p>然后再执行我们的<code>myls</code>文件：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150908.png" srcset="/img/loading.gif" lazyload alt="image-20251008175616862"></p>
+<p>发现可以使用<code>Set-UID</code>程序运行我们的恶意代码，而且恶意代码是以root权限运行的。</p>
+<h2 id="Task-7：LD-PRELOAD环境变量和Set-UID程序"><a href="#Task-7：LD-PRELOAD环境变量和Set-UID程序" class="headerlink" title="Task 7：LD_PRELOAD环境变量和Set-UID程序"></a>Task 7：<code>LD_PRELOAD</code>环境变量和<code>Set-UID</code>程序</h2><p>在这个任务中，我们研究Set-UID程序如何处理某些环境变量，包括LD_PRELOAD、LD_LIBRARY_PATH 和其他LD_*如何影响动态加载器&#x2F;链接器的行为。动态加载器&#x2F;链接器是操作系统(OS)的一部分，它加载 （从持久性存储到RAM）并链接可执行文件在运行时所需的共享库。</p>
+<p>在Linux 中，ld.so或ld-linux.so是动态加载器&#x2F;链接器（用于不同类型的二进制文件）。在影响其 行为的环境变量中，本实验关注LD_LIBRARY_PATH和LD_PRELOAD。在Linux中，LD_LIBRARY_PATH是一 组以冒号分隔的目录，应首先在其中搜索库，然后是标准目录集。LD_PRELOAD指定了要在所有其他库之 前加载的附加的用户指定的共享库的列表。在这个任务中，我们将只研究LD_PRELOAD。</p>
+<p><strong>第1步</strong> 首先，我们将看到这些环境变量在运行普通程序时如何影响动态加载器&#x2F;链接器的行为。请按照 以下步骤操作：</p>
+<ol>
+<li>让我们构建一个动态链接库。创建以下程序，并将其命名为mylib.c。它基本上覆盖了libc中的 sleep() 函数：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-type">void</span> <span class="hljs-title function_">sleep</span><span class="hljs-params">(<span class="hljs-type">int</span> s)</span><br>&#123;<br>    <span class="hljs-comment">/* If this is invoked by a privileged program ,</span><br><span class="hljs-comment">    you can do damages here! */</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;I am not sleeping!\n&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>编译以上程序用下述指令（注意-lc中的是l）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -fPIC -g -c mylib.c<br>gcc -shared -o libmylib.so.1.0.1 mylib.o -lc<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>设置<code>LD_PRELOAD</code>环境变量的值</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> LD_PRELOAD=./libmylib.so.1.0.1<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>最后编译下面的程序myprog，和上面的动态链接库libmylib.so.1.0.1在同一目录下：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* myprog.c */</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    sleep(<span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>第2步</strong> 完成上述操作后，请在以下条件下运行myprog，观察会发生什么。</p>
+<ul>
+<li>使 myprog 为一个普通程序，以普通用户身份执行它。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150182.png" srcset="/img/loading.gif" lazyload alt="image-20251008180924203"></p>
+<p>发现执行的是我们编写的<code>sleep</code>函数。</p>
+<ul>
+<li>使 myprog 为一个 Set-UID 特权程序，以普通用户身份执行它。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150415.png" srcset="/img/loading.gif" lazyload alt="image-20251008180945383"></p>
+<p>发现等待了一秒后，没有输出，说明执行的是libc中的<code>sleep()</code>函数。</p>
+<ul>
+<li>使 myprog 为一个 Set-UID 特权程序，在 root 下重新设置 LD_PRELOAD 环境变量，并执行它。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150193.png" srcset="/img/loading.gif" lazyload alt="image-20251008181004558"></p>
+<p>发现执行的是我们编写的<code>sleep</code>函数。</p>
+<ul>
+<li>使myprog为一个 Set-UIDuser1程序（user1是程序的所有者，即另一个用户账户），在不同的用户 账户下重新加LD_PRELOAD环境变量，并执行它。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150416.png" srcset="/img/loading.gif" lazyload alt="image-20251008181705198"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152150319.png" srcset="/img/loading.gif" lazyload alt="image-20251008181713896"></p>
+<p>发现等待了一秒后，没有输出，说明执行的是libc中的<code>sleep()</code>函数。</p>
+<p><strong>第3步</strong> 虽然你运行的是同一个程序，你也应该能够在上述场景中观察到不同的行为。你需要找出导致差 异的原因。是环境变量在这里发挥了作用。请设计一个实验来找出主要原因，并解释为什么第二步中的行 为不同。（提示：子进程可能不会继承LD_*环境变量）</p>
+<p>设计一个实验来找出导致这些差异的原因，并解释为什么第二步的行为不同。</p>
+<p>设计实验：</p>
+<blockquote>
+<p>本实验旨在探究 Linux 系统中 Set-UID 程序执行时环境变量（尤其是 LD_PRELOAD）是否继承父进程，及其与进程 uid&#x2F;euid 的关系。</p>
+</blockquote>
+<p>改进<code>myprog.c</code>为<code>myprog2.c</code>（打印这个程序运行时的进程的<code>uid</code>、<code>euid</code>以及<code>LD_PRELOAD</code>环境变量的值）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-keyword">extern</span> <span class="hljs-type">char</span> **environ;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    sleep(<span class="hljs-number">1</span>);<br>    <span class="hljs-type">uid_t</span> uid = getuid();<br>    <span class="hljs-type">uid_t</span> euid = geteuid();<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;uid=%d (%s)\n&quot;</span>, uid, getenv(<span class="hljs-string">&quot;USER&quot;</span>));<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;euid=%d\n&quot;</span>, euid);<br>    <span class="hljs-type">char</span> *preload = getenv(<span class="hljs-string">&quot;LD_PRELOAD&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;LD_PRELOAD: %s\n&quot;</span>, preload ? preload : <span class="hljs-string">&quot;(null)&quot;</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;PID=%d\n&quot;</span>, getpid());<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>自动化运行上面四个场景，这里直接写一个shell脚本<code>myprog.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><br>set -e<br><br>echo &quot;===== 清理环境变量 =====&quot;<br>unset LD_PRELOAD<br><br>echo &quot;===== 编译自定义库 =====&quot;<br>gcc -fPIC -g -c mylib.c<br>gcc -shared -o libmylib.so.1.0.1 mylib.o -lc<br><br>echo &quot;===== 编译主程序 =====&quot;<br>gcc myprog2.c -o myprog<br><br>echo &quot;===== 当前用户信息 =====&quot;<br>id<br><br>echo &quot;===== 场景1：普通程序，seed用户 =====&quot;<br>sudo chown seed myprog<br>sudo chmod 755 myprog<br>export LD_PRELOAD=./libmylib.so.1.0.1<br>echo &quot;[环境变量]&quot; ; env | grep LD_PRELOAD<br>id<br>./myprog<br>unset LD_PRELOAD<br><br>echo &quot;===== 场景2：Set-UID root程序，seed用户 =====&quot;<br>sudo chown root myprog<br>sudo chmod 4755 myprog<br>export LD_PRELOAD=./libmylib.so.1.0.1<br>echo &quot;[环境变量]&quot; ; env | grep LD_PRELOAD<br>id<br>./myprog<br>unset LD_PRELOAD<br><br>echo &quot;===== 场景3：Set-UID root程序，root用户 =====&quot;<br>sudo su &lt;&lt;EOF<br>export LD_PRELOAD=./libmylib.so.1.0.1<br>echo &quot;[环境变量]&quot; ; env | grep LD_PRELOAD<br>id<br>./myprog<br>EOF<br><br>echo &quot;===== 场景4：Set-UID user1程序，seed用户 =====&quot;<br>sudo chown user1 myprog<br>sudo chmod 4755 myprog<br>export LD_PRELOAD=./libmylib.so.1.0.1<br>echo &quot;[环境变量]&quot; ; env | grep LD_PRELOAD<br>id<br>./myprog<br>unset LD_PRELOAD<br></code></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151737.png" srcset="/img/loading.gif" lazyload alt="image-20251008183659763"></p>
+<p>运行结果分析总结</p>
+<p>场景1：普通程序，seed用户</p>
+<ul>
+<li><strong>uid&#x2F;euid</strong>：都是 seed</li>
+<li><strong>LD_PRELOAD</strong>：被子进程完整继承并生效</li>
+<li><strong>sleep函数</strong>：被你的自定义库劫持（输出 “I am not sleeping!”）</li>
+</ul>
+<p>场景2：Set-UID root程序，seed用户</p>
+<ul>
+<li><strong>uid</strong>：seed</li>
+<li><strong>euid</strong>：root（权限提升）</li>
+<li><strong>LD_PRELOAD</strong>：在程序运行时被清除（显示为 <code>(null)</code>）</li>
+<li><strong>sleep函数</strong>：没有被劫持，执行的是 libc 的原版 sleep</li>
+</ul>
+<p>场景3：Set-UID root程序，root用户</p>
+<ul>
+<li><strong>uid&#x2F;euid</strong>：都是 root</li>
+<li><strong>LD_PRELOAD</strong>：继承并生效</li>
+<li><strong>sleep函数</strong>：被你的自定义库劫持（输出 “I am not sleeping!”）</li>
+</ul>
+<p>场景4：Set-UID user1程序，seed用户</p>
+<ul>
+<li><strong>uid</strong>：seed</li>
+<li><strong>euid</strong>：user1（权限提升）</li>
+<li><strong>LD_PRELOAD</strong>：被清除（显示为 <code>(null)</code>）</li>
+<li><strong>sleep函数</strong>：没有被劫持，执行的是 libc 的原版 sleep</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>程序类型</th>
+<th>执行用户</th>
+<th>uid</th>
+<th>euid</th>
+<th>LD_PRELOAD环境变量</th>
+<th>执行的sleep函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>普通程序</td>
+<td>seed</td>
+<td>seed</td>
+<td>seed</td>
+<td>继承父进程</td>
+<td>我们编写的</td>
+</tr>
+<tr>
+<td>Set-UID程序</td>
+<td>seed</td>
+<td>seed</td>
+<td>root</td>
+<td>没有继承父进程</td>
+<td>libc的</td>
+</tr>
+<tr>
+<td>Set-UID程序</td>
+<td>root</td>
+<td>root</td>
+<td>root</td>
+<td>继承父进程</td>
+<td>我们编写的</td>
+</tr>
+<tr>
+<td>Set-UID user1程序</td>
+<td>seed</td>
+<td>seed</td>
+<td>user1</td>
+<td>没有继承父进程</td>
+<td>libc的</td>
+</tr>
+</tbody></table>
+<p>结论：</p>
+<blockquote>
+<p>通过以上脚本自动化测试，充分验证了 Set-UID 程序下环境变量 LD_PRELOAD 的继承情况。</p>
+<p>当程序的 uid 与 euid 不一致时（即发生权限提升），操作系统会自动清除 LD_PRELOAD  等危险环境变量，防止通过动态库劫持进行提权攻击。只有当 uid 和 euid 一致时，环境变量才会被完整继承，LD_PRELOAD  才有效，sleep 函数才能被劫持。</p>
+<p>也就是：</p>
+<p><strong>只有当 uid 和 euid 一致时（无权限提升），环境变量 LD_PRELOAD 才会被继承和生效。</strong></p>
+<p><strong>当程序以 Set-UID 方式运行并发生权限提升（uid ≠ euid），系统会自动清除 LD_PRELOAD（和其它危险变量），防止动态库劫持造成提权漏洞。</strong></p>
+<p><strong>root 用户运行 Set-UID 程序时，因没有权限提升，LD_PRELOAD 依然有效，sleep 可被劫持。</strong></p>
+</blockquote>
+<h2 id="Task-8：使用-system-与-execve-调用外部程序的对比"><a href="#Task-8：使用-system-与-execve-调用外部程序的对比" class="headerlink" title="Task 8：使用 system() 与 execve() 调用外部程序的对比"></a>Task 8：使用 system() 与 execve() 调用外部程序的对比</h2><p>尽管 system()和 execve()都可以被用于执行新的程序，但是 system()在高特权态下更加危险， 比如 Set-UID程序。在前面的任务里，我们看到了 PATH环境变量是如何影响 system()的行为的，因为 该变量会影响shell的工作。execve()则没有这个问题，因为它不调用shell。除了环境变量，调用shell 还有另外危险的结果。</p>
+<p>Bob 为一家审计机构工作，他需要调查一家公司是否有涉嫌欺诈。为了调查的目的，Bob需要能够读 取该公司Unix系统中的所有文件；另一方面，为了保护系统的完整性，Bob不能修改任何文件。为了实现 这一目标，系统超级用户Vince写了一个特殊的设置Set-UIDroot程序（见下文），然后授权了Bob该程序 的执行权限。该程序需要Bob在命令行中键入文件名，然后运行&#x2F;bin&#x2F;cat显示了指定的文件。由于程序在root权限下运行，它可以显示Bob指定的任何文件。然而，由于程序没有写操作，所以Vince非常确定 Bob不能使用这个特殊的程序来修改任何文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span><br>&#123;<br><span class="hljs-type">char</span> *v[<span class="hljs-number">3</span>];<br><span class="hljs-type">char</span> *command;<br><br><span class="hljs-keyword">if</span>(argc &lt; <span class="hljs-number">2</span>) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Please type a file name.\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br>v[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;/bin/cat&quot;</span>; v[<span class="hljs-number">1</span>] = argv[<span class="hljs-number">1</span>]; v[<span class="hljs-number">2</span>] = <span class="hljs-literal">NULL</span>;<br><br>command = <span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">strlen</span>(v[<span class="hljs-number">0</span>]) + <span class="hljs-built_in">strlen</span>(v[<span class="hljs-number">1</span>]) + <span class="hljs-number">2</span>);<br><span class="hljs-built_in">sprintf</span>(command , <span class="hljs-string">&quot;%s %s&quot;</span>, v[<span class="hljs-number">0</span>], v[<span class="hljs-number">1</span>]);<br><br>system(command);<br><span class="hljs-comment">// execve(v[0], v, NULL);</span><br><br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span> ;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>第一步</strong>编译上述程序，使其成为root所有的Set-UID程序。该程序将使用system()来调用该命令。如果你是Bob，你能损害系统的完整性吗？例如，你可以删除对你没有写权限的文件吗？</p>
+<p>使其成为root所有的 Set-UID 程序，然后创建一个seed没有写权限的文件；发现<code>catcall</code>有命令注入漏洞，可以调用<code>system()</code>执行其他系统命令； 使用命令<code>catcall &quot;test.txt;rm test.txt&quot;</code>成功将没有写权限的<code>test.txt</code>删除。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151658.png" srcset="/img/loading.gif" lazyload alt="image-20251008191320178"></p>
+<p><strong>第二步</strong>注释掉system(command)语句，取消注释execve()语句；程序将使用execve()来调用命令。 编译程序，并使其成为root拥有的Set-UID程序。你在第一步中的攻击仍然有效吗？请描述并解释你的 观察结果。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151184.png" srcset="/img/loading.gif" lazyload alt="image-20251008191617485"></p>
+<p>创建一个seed没有写权限的文件，再使用命令<code>catcall &quot;test.txt;rm test.txt&quot;</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151093.png" srcset="/img/loading.gif" lazyload alt="image-20251008192540177"></p>
+<p> 发现无法删除<code>test.txt</code>，攻击失效。</p>
+<p><strong>system() 的行为与风险</strong></p>
+<ul>
+<li><code>system(command)</code> 实际上会启动一个新的 shell（如 <code>/bin/sh</code> 或 <code>/bin/bash</code>），让 shell 来解释和执行你的命令字符串。shell 会对命令字符串做解析，比如支持分号、管道、重定向等。</li>
+<li>当你执行：</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">catcall</span> <span class="hljs-string">&quot;test.txt;rm test.txt&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>system(command)</code> 最终执行的内容是：</p>
+<ul>
+<li><pre><code class="hljs">/bin/cat test.txt;rm test.txt
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br>  shell 会把分号当作<span class="hljs-strong">**命令分隔符**</span>，先执行 <span class="hljs-code">`/bin/cat test.txt`</span>，再执行 <span class="hljs-code">`rm test.txt`</span>。<br><br><span class="hljs-bullet">-</span> <span class="hljs-strong">**因为这个程序是 Set-UID root（以 root 权限运行），所有这些命令都拥有 root 权限**</span>。即使你没有删除权限，<span class="hljs-code">`rm`</span> 也能删除只读文件。这就是所谓的<span class="hljs-strong">**命令注入漏洞**</span>：攻击者可以通过构造特殊的参数，执行原本不允许的命令，危害系统安全。<br><br><span class="hljs-strong">**execve() 的行为与安全性**</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-code">`execve()`</span> 是直接调用操作系统内核，启动一个新的程序（如 <span class="hljs-code">`/bin/cat`</span>），并把参数数组传给它。没有 shell 参与——<span class="hljs-strong">**不会做任何解析或解释**</span>，只会把参数原样传递。<br><span class="hljs-bullet">-</span> 例如：<br><br></code></pre></td></tr></table></figure>
+execve(&quot;/bin/cat&quot;, &#123;&quot;/bin/cat&quot;, &quot;test.txt;rm test.txt&quot;, NULL&#125;, NULL);
+</code></pre>
+</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><br>`/bin/cat` 只会把 `<span class="hljs-string">&quot;test.txt;rm test.txt&quot;</span>` 当作**一个文件名**去尝试读取（不会执行其中分号后的命令）。<br><br>由于没有 shell 解析，**命令注入攻击失效**。你传递任何分号、管道等特殊字符，都不会被解释为命令，只是普通的参数字符串。<br><br>## Task <span class="hljs-number">9</span>：权限泄漏<br><br>为了遵循最小权限原则，Set-<span class="hljs-built_in">UID</span>程序如果不再需要这种权限，它会永久地放弃root权限。此外，有 时程序需要将其控制权交给用户，在这种情况下，root权限必须被撤销。setuid()系统调用可以用来撤 销权限。根据手册，setuid()设置调用进程的有效用户ID。如果调用者的有效<span class="hljs-built_in">UID</span>是root，真实的<span class="hljs-built_in">UID</span> 和保存的set-user-<span class="hljs-type">id</span>也被设置。因此，如果一个有效<span class="hljs-built_in">UID</span>为<span class="hljs-number">0</span>的Set-<span class="hljs-built_in">UID</span>程序调用setuid(n)，则该进 程将成为正常进程，其所有的<span class="hljs-built_in">UID</span>都设置为n。<br><br>当撤销权限的时候，最常见的错误就是权限泄露。该进程可能在它仍然享有特权时已经获得了一些特 权功能。当特权降级时，如果程序没有清理这些功能，则它们仍然可以由非特权进程访问。换句话说，虽 然进程的有效用户ID变为非特权，但是该进程仍具有特权，因为它具有特权能力。<br><br>编译以下程序，将其所有者更改为root，并使其成为Set-<span class="hljs-built_in">UID</span>程序。以普通用户身份运行程序。你 能利用这个程序中的权限泄漏漏洞吗？目标是以普通用户身份写入/etc/zzz文件。<br><br>```c<br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fcntl.h&gt;</span></span><br><br><span class="hljs-type">void</span> main()<br>&#123;<br>  <span class="hljs-type">int</span> fd;<br>  <span class="hljs-type">char</span> *v[<span class="hljs-number">2</span>];<br><br>  <span class="hljs-comment">/* Assume that /etc/zzz is an important system file,</span><br><span class="hljs-comment">   * and it is owned by root with permission 0644.</span><br><span class="hljs-comment">   * Before running this program, you should create</span><br><span class="hljs-comment">   * the file /etc/zzz first. */</span><br>  fd = open(<span class="hljs-string">&quot;/etc/zzz&quot;</span>, O_RDWR | O_APPEND);        <br>  <span class="hljs-keyword">if</span> (fd == <span class="hljs-number">-1</span>) &#123;<br>     printf(<span class="hljs-string">&quot;Cannot open /etc/zzz\n&quot;</span>);<br>     exit(<span class="hljs-number">0</span>);<br>  &#125;<br><br>  <span class="hljs-comment">// Print out the file descriptor value</span><br>  printf(<span class="hljs-string">&quot;fd is %d\n&quot;</span>, fd);<br><br>  <span class="hljs-comment">// Permanently disable the privilege by making the</span><br>  <span class="hljs-comment">// effective uid the same as the real uid</span><br>  setuid(getuid());                                <br><br>  <span class="hljs-comment">// Execute /bin/sh</span><br>  v[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;/bin/sh&quot;</span>; v[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br>  execve(v[<span class="hljs-number">0</span>], v, <span class="hljs-number">0</span>);                             <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>文件描述符</strong>（File Descriptor，简称 fd）是操作系统中用于管理和操作文件或其他输入&#x2F;输出资源（如网络连接、管道等）的一个重要概念。当打开一个文件时，操作系统会返回一个文件描述符，后续的读写操作都通过这个描述符进行。</p>
+</blockquote>
+<p>我们在<code>/etc</code>下创建文件<code>zzz</code>，并运行<code>cap_leak</code></p>
+<p>此时输出了<code>zzz</code>文件的文件描述符fd（File Descriptor），并且执行了<code>setuid(getuid())</code>操作，将进程的uid改为了当前用户的，也就是将uid设为seed，然后调用<code>execve()</code>函数执行了<code>bin/sh</code>开启了一个shell。</p>
+<p>虽然这个进程的有效用户ID是 seed ，但是该进程仍然拥有特权，我们可以以普通用户的身份将恶意代码写入<code>/etc/zzz</code>文件中，这个过程需要利用文件描述符fd。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152151496.png" srcset="/img/loading.gif" lazyload alt="image-20251008195315713"></p>
+<p>可以发现成功写入了文件。</p>
+<p><strong>原理</strong>：</p>
+<p>虽然程序用 <code>setuid(getuid())</code> 把自己的权限降到了普通用户（seed），但在降权之前已经用 root 权限打开了 <code>/etc/zzz</code> 这个文件，并拿到了一个“文件钥匙”（文件描述符）。<br> 后面程序通过 <code>execve()</code> 启动了一个新的 shell，这个“文件钥匙”也被带进了新的 shell。<br> 结果就是，虽然新 shell 已经不是 root 权限，但它还能用这把“文件钥匙”往原本只有 root 能写的 <code>/etc/zzz</code> 文件里写东西，相当于钻了系统权限的空子，实现了“权限泄露”。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="category-chain-item">软件安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SEEDlabs/" class="print-no-link">#SEEDlabs</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>软件安全实验 SEEDlabs 环境变量与Set-UID 实验</div>
+      <div>http://example.com/2026/test35/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test37/" title="软件安全实验 SEEDlabs SQL 注入攻击实验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs SQL 注入攻击实验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test38/" title="软件安全实验 SEEDlabs 跨站请求伪造攻击实验">
+                        <span class="hidden-mobile">软件安全实验 SEEDlabs 跨站请求伪造攻击实验</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

